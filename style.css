@@ -1,0 +1,2764 @@
+/*
+Theme Name: PLH_theme
+Theme URI: https://example.com
+Author: Lucas Michaud
+Author URI: https://example.com
+Description: Custom Theme for Puglia Luxury Homes
+Version: 1.0.0
+Text Domain: thinktech
+*/
+
+/*
+div { outline: 1px solid red; }
+section { outline: 1px solid blue; }
+article { outline: 1px solid green; }
+header, footer { outline: 1px solid purple; }
+ul { outline: 1px solid orange}
+*/
+
+
+
+
+/* GUIDLINES FOR THE WEBSITE
+
+Mobile breakpoint: 775px
+
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face{
+  font-family: 'Vogue';
+  src: url('/wp-content/themes/PLH_theme/assets/fonts/vogue/vogue-regular.woff2') format('woff2'),
+       url('/wp-content/themes/PLH_theme/assets/fonts/vogue/vogue-regular.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Didot';
+  src: url('assests/fonts/GFS_Didot/GFSDidot-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('assets/fonts/Raleway/Raleway-VariableFont_wght.ttf') format('truetype');
+  font-style: normal;
+}
+
+h1 { font-family: 'Didot'; }
+
+section p {
+    font-family: Arial, Helvetica, sans-serif; font-size: 0.7rem; letter-spacing: 0.06rem; opacity: 0.9; text-transform: uppercase;
+}
+
+section {
+    
+    
+    padding: 0 5vw;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1600px;
+  
+    
+}
+
+article {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.p-title {
+  font-size: 14px;
+}
+
+@media (max-width: 650px) {
+  .p-title {
+    font-size: 10px;
+  }
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1120;
+    flex-direction: column;
+    
+
+}
+
+h2 {
+  font-size: 40px;
+  font-weight: 300;
+  font-family: 'Raleway';
+  text-transform: uppercase;
+}
+
+@media (max-width: 650px) {
+  h2 {font-size: 25px;}
+}
+
+@media (max-width: 542px) {
+  h3 {
+    font-size: 12px;
+  }
+
+}
+
+.website-title {
+    color: white;
+}
+
+.homepage {
+    font-family: Arial, sans-serif;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    
+
+}
+
+.top-header {
+    width: 100%;
+    display: flex;
+    background-color: transparent;
+    border-top: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+    top: 0;
+    z-index: 1005;
+    height: 70px;
+    
+}
+
+.top-header.scrolled {
+    background-color: #83A7AE;
+    backdrop-filter: blur(8px);
+}
+
+.bottom-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #FFFFFF;
+    height: 70px;
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.9s opacity 0.9s ease;
+    transform: translateY(0);
+    will-change: transform, opacity;
+}
+
+.bottom-header.hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    
+}
+
+.main-nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  position: relative;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  padding-bottom: 5px;
+}
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #9ed6ea; /* turquoise blue */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+  transform: scaleX(1);
+}
+
+
+
+/* ---------- Mega-panel (right sliding "dropdown column") + backdrop ---------- */
+/* override the old dropdown behavior */
+.main-nav ul ul {
+  position: fixed;
+  top: var(--header-height);
+  right: -420px;
+  width: 420px;
+  height: calc(100vh - var(--header-height));
+  background: #ffffff;
+  color: #111;
+  border-left: 1px solid rgba(0,0,0,0.06);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.12);
+  margin: 0;
+  padding: 28px 20px;
+  list-style: none;
+  overflow-y: auto;
+  z-index: 1110;           /* above the backdrop (1100) and header (1000) */
+  transition: right 320ms cubic-bezier(.2,.9,.2,1), opacity 240ms ease;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* show panel when the parent menu item is open (JS will add .mega-open on the li) */
+.main-nav li.mega-open > ul,
+.main-nav ul ul.is-open {
+  right: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Panel inner list styling */
+.main-nav ul ul li {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav ul ul a {
+  display: block;
+  padding: 12px 8px;
+  color: #111;
+  text-decoration: none;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  text-transform: none;
+}
+
+.main-nav ul ul a:hover,
+.main-nav ul ul a:focus {
+  background: #f6fbfc;
+}
+
+/* Optional: headings inside the panel (if you output headings) */
+.main-nav ul ul .menu-section-title {
+  font-weight: 600;
+  margin: 8px 0 12px;
+  color: #0b3a39;
+}
+
+/* If sub-menu includes nested lists, make them normal flow inside the column */
+.main-nav ul ul ul {
+  position: static;
+  box-shadow: none;
+  border: none;
+  padding-left: 12px;
+}
+
+/* Backdrop that blurs + dims the rest of the page */
+.mega-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1100;                 /* above most page content */
+  opacity: 0;
+  visibility: hidden;
+  
+  pointer-events: none;
+}
+
+.mega-backdrop.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* small responsive tweak: make panel full width on small screens (desktop behavior preserved) */
+@media (max-width: 1000px) {
+  .main-nav ul ul {
+    position: fixed;
+    right: 0;
+    left: 0;
+    width: 100%;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    padding: 20px;
+    border-left: none;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
+  }
+}
+
+/* ensure original mobile .mobile-menu remains functional (no interference) */
+@media (max-width: 720px) {
+  .main-nav ul ul { display: none !important; } /* keep desktop panels from showing on the small breakpoint */
+}
+
+
+.panel-contact {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5px;
+  margin-top: 18px;
+}
+
+
+
+/* Pin the extra contact block to the bottom of the right sliding panel */
+.main-nav ul ul {
+  /* ensure panel is a column so absolute positioning is relative to it */
+  display: block; /* keep block display, panel already fixed */
+  padding-bottom: calc(28px + 140px); /* leave room for the pinned block (panel padding + block height) */
+  box-sizing: border-box;
+}
+
+/* The appended extra block (100% of panel width, inset by panel padding) */
+.main-nav ul ul .mega-panel-extra {
+  position: absolute;
+  left: 0;                 /* match panel horizontal padding */
+                 /* match panel horizontal padding */
+  bottom: 70px;               /* distance from panel bottom */
+  width: 100%;   /* full width inside panel padding */
+  background: #f5f5f5;        /* gray background */
+  padding: 16px;
+  
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  z-index: 1010;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+/* Inner contact card adjustments */
+.main-nav ul ul .backdrop-extra .panel-contact,
+.main-nav ul ul .mega-panel-extra .panel-contact {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panel-contact h4 {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0b3a39;
+  
+}
+
+.panel-contact p {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* Small screens: keep it full width and inset from edges */
+@media (max-width: 1000px) {
+  .main-nav ul ul .backdrop-extra,
+  .main-nav ul ul .mega-panel-extra {
+    left: 0;
+    right: 12px;
+    bottom: 50px;
+    width: 100%;
+  }
+}
+
+/* If you want the contact block to remain visible while the panel scrolls,
+   use sticky instead (uncomment to enable) */
+/*
+.main-nav ul ul .backdrop-extra,
+.main-nav ul ul .mega-panel-extra {
+  position: sticky;
+  bottom: 20px;
+  margin-top: auto;
+}
+*/
+
+
+
+/* ...existing code... */
+
+.top-header-left {
+    width: 100%;
+}
+
+.top-header-center {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.top-header-center h3 {
+  padding: 0; 
+  margin: 0;
+}
+
+.top-header-right {
+    width: 100%;
+}
+
+.mobile-header-menu {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;            /* or absolute depending on design */
+  top: 60px;                  /* adjust to fit your header height */
+  right: 0;
+  left: 0;
+  background: white;
+  z-index: 200;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  transition: transform 0.22s ease, opacity 0.2s ease;
+  transform-origin: top;
+  /* hidden state styling */
+  opacity: 0;
+  transform: scaleY(0.98);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Visible state */
+.mobile-menu.is-open {
+  display: block;
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* Toggle button */
+.mobile-menu-toggle {
+  background: none;
+  border: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Example menu list */
+.mobile-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.mobile-menu__list a {
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1.2;
+  padding: 10px 0;
+  text-decoration: none;
+  color: #111;
+  font-family: 'Raleway';
+
+}
+
+.mobile-menu__list li {
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+
+@media (max-width: 720px) {
+  .bottom-header {
+    display: none;
+  }
+  .top-header-left {
+      display: none;
+    }
+  .top-header-center {
+    justify-content: flex-start;
+    padding: 0 5vw;
+  }
+
+  .mobile-header-menu {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 5vw;
+  }
+
+  .mobile-header-menu i {
+    color: white;
+  }
+
+  .mobile-menu-toggle {
+    background: none;
+    border: 0;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .mobile-menu { display: none; position: static; opacity: 1; transform: none; }
+  .mobile-menu.is-open { display: block; }
+}
+
+/* Header section end */
+
+/* Footer section start */
+
+.site-footer { box-sizing: border-box; width: 100%; background-color: #f5f5f5; }
+.footer-inner { display: flex; width: 100%; padding: 48px 10vw; align-items: stretch; box-sizing: border-box;}
+.footer-col { display: flex; flex-direction: column; min-width: 0;}
+.col-left, .col-right { width: 30%;}
+
+.col-middle { width: 40%; border-left: 1px solid rgb(188, 188, 188); border-right: 1px solid  rgb(188, 188, 188); align-items: center;}
+
+.col-middle img { width: 30%;}
+.col-middle p { font-family: Arial, Helvetica, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: 0.8rem; opacity: 0.9;}
+.col-right { align-items: flex-end; justify-content: center;}
+.col-right p { font-family: Arial, Helvetica, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: 0.8rem; opacity: 0.9;}
+
+
+.footer-vertical-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;                          /* space between items */
+}
+
+.footer-vertical-menu li { line-height: 1; }
+
+.footer-vertical-menu a {
+  color: #000000;
+  text-decoration: none;
+  text-transform: uppercase;           /* match your site nav style */
+  letter-spacing: .06em;
+  font-size: 0.8rem;
+  opacity: .9;
+  display: inline-block;
+  padding: 6px 0;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* left accent on hover/active */
+.footer-vertical-menu a::before {
+  content: "";
+  position: absolute;
+  left: -12px;                         /* pull line slightly left of text */
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 2px;
+  height: 100%;
+  background: #9ed6ea;                 /* your turquoise */
+  transition: transform .25s ease;
+  transform-origin: center;
+}
+
+.footer-vertical-menu a:hover,
+.footer-vertical-menu .current-menu-item > a,
+.footer-vertical-menu .current-page-ancestor > a {
+  opacity: 1;
+}
+
+.footer-vertical-menu a:hover::before,
+.footer-vertical-menu .current-menu-item > a::before,
+.footer-vertical-menu .current-page-ancestor > a::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.bottom-footer-wrapper {
+  display: flex;
+  padding: 0 10vw;
+
+}
+
+.bottom-footer {
+  display: flex;
+  width: 100%;
+  border-top: 1px solid rgb(188, 188, 188);
+  justify-content: space-between;
+  padding-top: 20px;
+  
+  
+}
+
+.bottom-footer-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 10px; 
+  padding: 0;
+  margin: 0;
+  
+}
+
+.bottom-footer-menu a {
+  color: #000000;
+  text-decoration: none;           
+  letter-spacing: .06em;
+  font-size: 0.8rem;
+  opacity: .9;
+  display: inline-block;
+  padding: 6px 0;
+  position: relative;
+  font-family: 'Raleway';
+}
+
+.bottom-footer-left, .bottom-footer-right {
+  display: flex;
+}
+
+.bottom-footer-left {
+  align-items: flex-start;
+}
+
+.bottom-footer-right {
+  align-items: flex-end;
+}
+
+.bottom-footer-right p {
+  color: #000000;
+  text-decoration: none;           
+  letter-spacing: .06em;
+  font-size: 0.8rem;
+  opacity: .8;
+  display: inline-block;
+  padding: 6px 0;
+  position: relative;
+  font-family: 'Raleway';
+  padding: 0; 
+  margin: 0;
+}
+
+.mobile-footer-inner {
+  display: none;
+}
+
+.footer-icons {
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.social-list {
+  display: flex;
+  gap: 10px;
+}
+.social-list a {
+  text-decoration: none;
+  color: black;
+  font-family: 'Raleway';
+}
+
+.col-right a { text-decoration: none; font-family: 'Raleway'; font-weight: 300; color: black; font-size: 14px;}
+
+/* mobile collapse (already in your footer responsive) */
+@media (max-width: 900px) {
+  .footer-vertical-menu a { font-size: 1rem; }
+}
+
+@media (max-width: 775px) {
+  .footer-inner {
+    display: none;
+    flex-direction: column;
+  }
+
+  .mobile-footer-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
+  }
+  .col-middle {
+    width: 100%;
+  }
+  .col-middle {
+    border-left: none;
+    border-right: none;
+  }
+  .mobile-footer-menu {
+    display: flex;
+    width: 100%;
+    padding: 10vw;
+  }
+
+  .col-left, .col-right {
+    width: 50%;
+  }
+  .footer-vertical-menu a {
+    font-size: 10px;
+  }
+
+  .col-right a {
+    font-size: 10px;
+  }
+  .bottom-footer-menu {
+    flex-direction: column;
+  }
+  .bottom-footer-menu a {
+    font-size: 10px;
+  }
+}
+
+
+/* Small hero section start */
+
+.small-hero {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 35vw;
+  max-width: 100%;
+}
+
+.small-hero video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.small-hero-title {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 5vw;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.small-hero-title h2 {
+  font-family: 'Raleway';
+  font-size: 60px;
+  font-weight: 300;
+  color: white;
+  text-transform: capitalize;
+  margin: 0;
+  padding: 0;
+}
+
+/* Small hero section end */
+
+/* Large Hero section Start */ 
+
+.large-hero {
+  display: flex;
+  width: 100%;
+  position: relative;
+  height: 100vh;
+  max-width: 100%;
+  
+}
+
+.large-hero img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+.large-hero-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  flex-direction: column;
+  
+  position: absolute;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.large-hero-content h2 {
+  font-family: 'Raleway';
+  font-size: 60px;
+  font-weight: 300;
+  color: white;
+  text-transform: capitalize;
+  margin: 0 5vw;
+  padding: 0;
+  
+
+
+}
+
+.large-hero-content a {
+  text-decoration: none;
+  color: white;
+  border: 1px solid white;
+  text-transform: uppercase;
+  font-family: 'Raleway';
+  font-weight: 300;
+  font-size: 20px;
+  padding: 10px;
+  margin: 0 5vw;
+  margin-bottom: 50px;
+
+}
+
+
+/* Large hero section end */
+
+
+
+
+/* Footer section end */
+
+
+.hero-section {
+    width: 100%;
+    height: 100vh;
+    background-color: aliceblue;
+    position: relative;
+    max-width: 100%;
+    
+}
+
+
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding-top: 0;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
+
+.hero-content h1 {
+    font-size: 50px;
+}
+
+@media (max-width: 550px) {
+  .hero-content {
+    padding-top: 0;
+    justify-content: center;
+    height: 100%;
+  }
+  .hero-section {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.section-one {
+  background-color: #eef5f7; /* light background */
+  padding: 60px 5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.section-row {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  
+  align-items: center;
+  gap: 20px;
+}
+
+.section-left {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.line-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.line {
+  width: 50px;
+  height: 1px;
+  background-color: #6c9ba3;
+}
+
+.section-link {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #6c9ba3;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 0;
+  color: #111;
+}
+
+.section-right {
+  display: flex;
+  justify-content: flex-end;
+  width: 30%;
+}
+
+.cta-button {
+  display: flex;
+  align-items: center;
+  background-color: #6c9ba3;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  padding: 0;
+  height: 48px;
+  border: 2px solid #6c9ba3;
+}
+
+.cta-button span {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.arrow-box {
+  background-color: white;
+  color: black;
+  width: 48px;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.villa-grid {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.villa-card {
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    max-width: 600px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 20px;
+    margin-right: 0.1px;
+}
+
+.villa-description {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 10px;
+    align-items: flex-start;
+}
+
+.villa-description h1 {
+    font-size: 28px;
+    margin: 3;
+}
+
+.villa-description p {
+    font-size: 13px;
+    margin: 0;
+}
+
+.kpis {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.kpis p {
+    font-size: 16px;
+    
+}
+
+
+
+.villa-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+ 
+  border-radius: 20px 20px 0 0;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+
+
+.experience-row {
+    display: flex;
+    width: 100%;
+}
+
+.experience-left {
+    display: flex;
+    width: 50%;
+    align-items: flex-start;
+    flex-direction: column;
+    text-align: left;
+}
+
+.experience-right {
+    display: flex;
+    width: 50%;
+
+}
+
+
+.card-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.carousel-track-wrapper {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+  width: fit-content;
+}
+
+.carousel-card {
+  flex: 0 0 calc(100% / 3);
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  margin: 0 10px;
+  border-radius: 12px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+.boat-row {
+    display: flex;
+    width: 100%;
+    position: relative;
+    padding: 20px 30px;
+
+}
+
+.boat-left {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.boat-right {
+    display: flex;
+    width: 50%;
+    background-color: white;
+    flex-direction: column;
+    padding: 20px 10px;
+}
+
+.our-collection, .villa-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 40px 0;
+}
+
+.our-collection h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.our-collection p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  margin-bottom: 40px;
+  font-weight: 200;
+}
+
+@media (max-width: 650px) {
+  .our-collection p, .villa-section p {
+    font-size: 10px;
+  }
+  .sea-collection a {
+    font-size: 8px;
+  }
+}
+
+.sea-collection {
+  width: 100%;
+  height: 45vw;
+  position: relative;
+  z-index: 0;
+  max-height: 750px;
+}
+
+
+
+.sea-collection-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.collection-wrapper {
+  display: flex;
+  width: 100%;
+  height: 35vw;
+  max-height: 600px;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.city-collection {
+  display: flex;
+  width: 40%;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+.land-collection {
+  display: flex;
+  width: 60%;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+.sea-overlay {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 35%;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+  
+  
+  
+}
+
+.city-overlay {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80%;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+  
+}
+
+.land-overlay {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+  
+}
+
+.sea-overlay h1, 
+.city-overlay h1,
+.land-overlay h1 {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 40px;
+
+}
+
+.sea-overlay p,
+.city-overlay p,
+.land-overlay p {
+  color: white;
+  font-size: 8px;
+  text-align: left;
+  margin-left: 40px;
+}
+
+.sea-overlay a,
+.city-overlay a,
+.land-overlay a {
+  color: white;
+  font-size: 17px;
+  font-weight: 400;
+  text-decoration: underline;
+  margin-bottom: 40px;
+  margin-left: 40px;
+  
+}
+
+/* base overlay layer for all three blocks */
+.sea-collection::after,
+.city-collection::after,
+.land-collection::after {
+  content: "";
+  position: absolute;
+  inset: 0;           /* cover entire image */
+  z-index: 1;         /* below text, above image */
+  pointer-events: none;
+}
+
+/* SEA: black radial from bottom-left */
+.sea-collection::after {
+  background: radial-gradient(
+    circle at 0% 100%,              /* bottom-left */
+    rgba(0,0,0,.65) 0%,
+    rgba(0,0,0,.35) 30%,
+    rgba(0,0,0,0) 60%
+  );
+}
+
+/* CITY: black linear from bottom */
+.city-collection::after {
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.75) 0%,
+    rgba(0,0,0,.45) 35%,
+    rgba(0,0,0,0) 65%
+  );
+}
+
+/* LAND: black radial from bottom-right (you said radial for the last) */
+.land-collection::after {
+  background: radial-gradient(
+    circle at 0% 100%,            /* bottom-right */
+    rgba(0,0,0,.65) 0%,
+    rgba(0,0,0,.35) 30%,
+    rgba(0,0,0,0) 60%
+  );
+}
+
+/* ensure text sits above the overlay layer */
+.sea-overlay,
+.city-overlay,
+.land-overlay {
+  z-index: 2;          /* already position:absolute; keep it above ::after */
+}
+
+
+
+
+/* 1) Ensure the containers clip the scaling overlay */
+.sea-collection, .city-collection, .land-collection {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2) Animate the overlay (::after) */
+.sea-collection::after,
+.city-collection::after,
+.land-collection::after {
+  transform: scale(1);
+  transition: transform .35s ease, opacity .35s ease;
+  opacity: 1; /* tweak if you want stronger on hover */
+}
+
+/* Grow from bottom-left (SEA, radial) */
+.sea-collection:hover::after {
+  transform-origin: 0% 100%;
+  transform: scale(1.15);
+}
+
+/* Grow upward (CITY, linear) */
+.city-collection:hover::after {
+  transform-origin: 50% 100%;
+  transform: scaleY(1.35);
+}
+
+/* Grow from bottom-right (LAND, radial) */
+.land-collection:hover::after {
+  transform-origin: 100% 100%;
+  transform: scale(1.15);
+}
+
+/* 3) (Nice touch) Subtle image zoom on hover */
+.sea-collection img,
+.city-collection img,
+.land-collection img {
+  transition: transform .6s ease;
+}
+
+.sea-collection:hover img,
+.city-collection:hover img,
+.land-collection:hover img {
+  transform: scale(1.05);
+}
+
+/* 4) (Optional) Lift text a bit on hover */
+.sea-overlay, .city-overlay, .land-overlay {
+  z-index: 2;
+  transition: transform .35s ease;
+}
+
+.sea-collection:hover .sea-overlay,
+.city-collection:hover .city-overlay,
+.land-collection:hover .land-overlay {
+  transform: translateY(-6px);
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sea-collection::after,
+  .city-collection::after,
+  .land-collection::after,
+  .sea-collection img,
+  .city-collection img,
+  .land-collection img,
+  .sea-overlay, .city-overlay, .land-overlay {
+    transition: none;
+  }
+}
+
+
+
+
+
+@media (max-width: 1000px) {
+
+  .collection-wrapper {
+    display: flex;
+    width: 100%;
+    height: auto;
+    gap: 2px;
+    margin-top: 2px;
+    flex-direction: column;
+  }
+
+  .city-collection {
+    display: flex;
+    width: 100%;
+    height: 50vw;
+    position: relative;
+    z-index: 0;
+  }
+
+  .land-collection {
+    display: flex;
+    width: 100%;
+    height: 50vw;
+    position: relative;
+    z-index: 0;
+  }
+
+  .land-overlay {
+    width: 80%;
+  }
+
+  .city-overlay {
+    width: 80%;
+  }
+
+  .sea-overlay {
+    width: 80%;
+  }
+  
+}
+
+@media (max-width: 500px) {
+  .sea-collection {
+    height: 300px;
+  }
+
+  .collection-wrapper {
+    height: 700px;
+  }
+
+  .city-collection {
+    height: 500px;
+  }
+
+  .land-collection {
+    height: 500px;
+  }
+}
+
+.villa-section h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.villa-section p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 650px) {
+  .villa-section p {
+    font-size: 10px;
+  }
+}
+
+
+
+
+
+.image-container {
+  display: flex;
+  width: 100%;
+  height: 60%;
+  padding:0;
+}
+
+.info-container {
+  display: flex;
+  width: 100%;
+  height: 40%;
+}
+
+.villa-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 28px);
+    margin-top: 0;
+}
+
+@media (max-width: 1000px) { .villa-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 640px)  { .villa-grid { grid-template-columns: 1fr; } }
+
+.villa-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background:  #fff;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+    border-radius: 0;
+    border: 0.5px solid rgb(210, 210, 210)
+}
+
+.villa-card:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.1); }
+
+.villa-card__media { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+.villa-card__img { width: 100%; height: 100%; object-fit: cover; display:block; }
+
+.villa-card__collection {
+  position: absolute; left: 12px; top: 12px;
+  background: rgba(0,0,0,.65); color:#fff; font-size:.8rem;
+  padding: 6px 10px; border-radius: 5px;
+
+}
+
+.villa-card__body { padding: 14px 16px 16px; }
+.villa-card__title { margin: 0 0 1px; font-size: 1.125rem; line-height: 1.2; font-family: 'Didot'; color: black; text-transform: uppercase;}
+.villa-card__meta  { color:#555; font-size:.95rem; }
+.villa-card__price { margin-top: 10px; font-weight: 600; color:#111; }
+.villa-card__location { margin-top: 0; text-transform: capitalize;}
+.villa-card__price {font-family: 'Raleway'; font-weight: 400;}
+
+
+
+/* Discover section Start */
+
+.central-title {margin-top: 50px;}
+.central-title h2 { color: black; text-align: center;  font-family: 'Raleway'; font-weight: 300;}
+.central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 15vw; text-align: center; margin-bottom: 30px;}
+
+@media (max-width: 1244px) {
+  .central-title {display: flex; flex-direction: column;}
+}
+
+.discover { padding: 20px 5vw; width: 100%; height: 40vw; display: flex; gap: 15px; max-height: 650px;}
+.discover-container { display: flex; width: 25%; height: 90%; position: relative;}
+.discover-container img { width: 100%; height: 100%; object-fit: cover; position: relative;}
+
+.up { align-self: flex-end;}
+.down { align-self: flex-start;}
+.discover-absolute { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: linear-gradient(to top, rgba(0,0,0,.4) 0%,
+    rgba(0,0,0,.3) 20%,
+    rgba(0,0,0,.2) 40%,
+    rgba(0,0,0,.1) 60%,
+    rgba(0,0,0,0)   70%); opacity: 0; transition: opacity .35s ease; text-decoration: none; justify-content: flex-end; display: flex; flex-direction: column;}
+.discover-absolute:hover { opacity: 1; }
+
+.discover-absolute h3 { font-family: "Raleway"; font-weight: 400; color: white; font-size: 18px; margin: 0 15px;}
+.discover-absolute p { font-family: "Raleway"; font-weight: 300; color: white; font-size: 12px;margin: 0 15px 60px 15px;}
+
+.discover-container-mobile { display: flex; width: 100%; height: 100%; position: relative; }
+.discover-container-mobile img { width: 100%; height: 100%; object-fit: cover; position: relative;}
+.discover-absolute-mobile { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: linear-gradient(to top, rgba(0,0,0,.4) 0%,
+    rgba(0,0,0,.3) 20%,
+    rgba(0,0,0,.2) 40%,
+    rgba(0,0,0,.1) 60%,
+    rgba(0,0,0,0)   70%); opacity: 1; text-decoration: none; justify-content: flex-end; display: flex; flex-direction: column;}
+
+
+.discover-absolute-mobile h3 { font-family: "Raleway"; font-weight: 400; color: white; font-size: 18px; margin: 0 15px;}
+.discover-absolute-mobile p { font-family: "Raleway"; font-weight: 300; color: white; font-size: 12px;margin: 0 15px 60px 15px;}
+
+/* Slider container */
+.discover-mobile{ position: relative; margin-bottom: 30px;}
+
+/* Horizontal track with scroll-snap */
+.discover-track{
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar (optional) */
+.discover-track::-webkit-scrollbar{ display: none; }
+.discover-track{ scrollbar-width: none; }
+
+/* Each slide = full viewport width “page” */
+.discover-container-mobile{
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  aspect-ratio: 3 / 4;                 /* nice tall card; adjust as you like */
+  min-height: 60vh;
+  max-height: 500px;                     /* safety for browsers w/o aspect-ratio */
+}
+
+.discover-container-mobile img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* Your existing overlay */
+.discover-absolute-mobile{
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  text-decoration: none; color: #fff;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.4) 0%,
+    rgba(0,0,0,.3) 20%,
+    rgba(0,0,0,.2) 40%,
+    rgba(0,0,0,.1) 60%,
+    rgba(0,0,0,0)  70%
+  );
+}
+
+/* Titles as you had */
+.discover-absolute-mobile h3{ font-family:"Raleway"; font-weight:400; font-size:18px; margin:0 15px; }
+.discover-absolute-mobile p { font-family:"Raleway"; font-weight:300; font-size:12px; margin:0 15px 60px 15px; }
+
+/* Dots */
+.discover-dots{
+  position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 3;
+}
+.discover-dots .dot{
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.6); border: 0; cursor: pointer;
+}
+.discover-dots .dot.active{ background: #fff; }
+
+.discover-arrow {
+  position: absolute; top:50%; transform: translateY(-50%); z-index: 5;
+  width: 40px; height: 40px; border: 0.5px solid gray; border-radius: 100%;
+  background: rgba(0,0,0,.45); background-color: #fff; color: black; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.35),
+    0 2px 6px  rgba(0,0,0,.25);
+
+}
+
+.discover-arrow.prev{ left: calc(10vw - 20px); }
+.discover-arrow.next{ right: calc(10vw - 20px); }
+
+
+@media (max-width: 1244px) {
+  .discover { display: none;}
+}
+@media (min-width: 1244px) {
+  .discover-mobile { display: none;}
+}
+
+
+
+/* Discover Section END */
+
+/* Why Us Section START */
+
+.why-us { margin-top: 60px;}
+.why-us-container { display: flex; width: 100%; height: 35vw; position: relative;}
+.why-us-container img { position: relative; width: 100%; height: 100%; object-fit: cover;}
+.why-us-absolute { display: flex; justify-content: flex-start; position: absolute; top:0; left: 0; width: 100%; height: 100%; z-index:1; background: linear-gradient(
+    to right,
+    rgb(39, 39, 39) 0%,
+    rgba(39,39,39,.9) 50%,   /* solid half */
+    rgba(39,39,39,0.3) 75%,   /* end of fade (adjust 65% for longer/shorter fade) */
+    rgba(39,39,39,0) 100%
+  );}
+
+.why-us-text { display: flex; flex-direction: column; width: 30%; justify-content: center; padding: 0 50px;}
+.why-us-text h2 { color: white; font-size: 24px;}
+.why-us-text p { color: white; font-size: 12px;}
+.border-button { display: inline-flex; flex: 0 0 auto; align-self: flex-start; width: auto; border: 2px solid white; color: white; font-family: 'Raleway'; font-weight: 300; text-transform: uppercase; font-size: 16px; padding: 10px; text-decoration: none;}
+
+@media (max-width: 720px) {
+  .why-us { display: none;}
+}
+
+
+
+/* Management Section Start */
+
+.management { display: flex; width: 100%; height: 500px; padding: 0; max-width: 100%;}
+
+.management {
+  display: flex;                
+  height: clamp(320px, 45vw, 560px);
+}
+
+.management-div {
+  position: relative;
+  flex: 1 1 0%;             
+  min-width: 0;           
+  overflow: hidden;
+  transition: flex-grow .35s ease, transform .35s ease;
+}
+
+
+.management-div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform .6s ease, filter .35s ease;
+}
+
+
+.management:hover .management-div {
+  flex-grow: .8;
+  filter: brightness(.9);
+}
+
+
+.management:hover .management-div:hover {
+  flex-grow: 2.4;           
+  filter: none;
+}
+.management-div:hover img {
+  transform: scale(1.05);
+}
+
+
+.management-div:focus-within,
+.management-div:focus {
+  outline: none;
+}
+.management:hover .management-div:focus-within {
+  flex-grow: 2.4;
+}
+
+.management-title { position: absolute; width: 100%; height: 100%; top: 0; left: 0; bottom: 0; display: flex; align-items: flex-end; padding: 0 10px;}
+.management-title h3 { font-family: 'Raleway'; font-weight: 200; color: white; font-size: 24px;}
+
+
+@media (max-width: 900px) {
+  .management { flex-direction: column; height: 100%; gap: 0;}
+  .management-div { height: 55vw; }       /* or a fixed px height */
+}
+@media (prefers-reduced-motion: reduce) {
+  .management-div,
+  .management-div img { transition: none; }
+}
+
+
+
+/*Collection Page start */
+
+.collection-page-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.collection-page-title h1 { color: black; font-size: 50px; font-family: 'Raleway'; font-weight: 400;}
+.collection-page-selections { display: flex; gap: 15px; margin-bottom: 40px;}
+.single-collection { display: flex; height: 600px; width: 1/3; align-items: center; flex-direction: column;}
+.single-collection img { width: 100%; object-fit: cover; height: 100%;}
+.single-collection p { font-family: 'Didot'; font-weight: 400; font-size: 18px; margin: 0; padding: 0; color:#000000; margin-top: 20px;}
+.single-collection a { text-decoration: none; font-family: 'Raleway'; font-weight: 300; color:#000000; opacity: 0.6; font-size: 13px;}
+.single-collection a:hover { text-decoration: underline;}
+
+@media (max-width: 1244px) {
+  .collection-page-selections {
+    display: none;
+  }
+}
+
+.collection-villa-button-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+
+}
+
+.all-villa-button {
+  display: inline-block;
+  background-color: #0e3b39; /* dark green shade */
+  color: #fff;
+  font-weight: 400; /* bold text */
+  font-family: 'Raleway';
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 6px; /* rounded corners */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  align-self: center;
+}
+
+.all-villa-button:hover {
+  background-color: #000000; /* slightly lighter green on hover */
+  transform: translateY(-2px); /* small lift on hover */
+}
+
+.ski-fever {
+  background-color: #f5f5f5;
+  display: flex;
+
+}
+.ski-fever-column {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 100px 0 100px 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ski-fever-column img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ski-fever-column h1 {
+  font-size: 40px;
+  margin: 0;
+}
+
+.ski-fever-column p {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 850px) {
+  .ski-fever {
+    flex-direction: column;
+  }
+  .ski-fever-column {
+    padding: 20px 0;
+    width: 100%;
+  }
+}
+
+.exceptional-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.exceptional-section h1 {
+  font-size: 55px;
+  padding: 0 15vw;
+  text-align: center;
+  margin: 0;
+  line-height: 4rem;
+  margin-top: 75px;
+}
+
+.exceptional-section p {
+  text-align: center;
+  padding: 0 10vw;
+  margin: 40px 0;
+  
+
+  
+}
+
+.exceptional-section img {
+  width: 100%;
+  height: 40vw;
+  object-fit: cover;
+  margin-bottom: 75px;
+}
+
+@media (max-width: 860px) {
+  .exceptional-section h1 {
+    font-size: 35px;
+    line-height: 2rem;
+  }
+}
+
+/* Single Collection Page Start */
+
+.breadcrumbs {
+  margin: 20px 0;
+}
+
+.collection-description {
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.concierge-section {
+  margin-top: 30px;
+}
+
+.collection-description-wrapper {
+  
+  display: flex;
+  background-color: #f5f5f5;
+  width: 100%;
+
+
+}
+
+.collection-description-column__left {
+  display: flex;
+  width: 60%;
+
+  height: 40vw;
+}
+
+.collection-description-column__right {
+  display: flex;
+  width: 40%;
+  height: 40vw;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.collection-description-column__left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.collection-description-column__right h2 {
+  margin: 5vw 5vw 40px 5vw;
+  padding: 0;
+  font-size: 25px;
+}
+
+.collection-description-column__right p {
+  font-family: 'Raleway';
+  font-size: 14px;
+  color:#000000;
+  opacity: 0.7;
+  margin: 5vw 5vw 40px 5vw;
+  padding: 0;
+  text-transform: initial;
+
+}
+
+.collection-description-column__right a {
+  font-family: 'Raleway';
+  font-size: 15px;
+  color:#000000;
+  margin: 0 5vw 5vw 5vw;
+  padding: 0;
+  text-transform: uppercase;
+  text-decoration: underline;
+  font-weight: 500;
+
+}
+/* Single Collection Page End */
+
+/* Villa slider section Start */
+
+.villa-slider { position: relative; overflow: visible;}
+.main-content { position: relative; overflow: visible; margin-bottom: 20px;}
+
+.swiper {
+  --swiper-navigation-color: #f5f5f5;
+  --swiper-navigation-size: 22px;
+  --swiper-pagination-color: #f5f5f5;
+  overflow: visible;
+  
+}
+
+
+.villa-arrow {
+  position: absolute; top:50%; z-index: 5;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  width: 40px;
+  height: 40px;
+  
+  
+  
+}
+
+.villa-arrow img {
+  border-radius: 999px;
+  background-color: #fff;
+  width: 20px;
+  
+  height: 20px;
+  padding: 10px;
+  overflow: visible;
+  z-index: 6;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.35),
+    0 2px 6px  rgba(0,0,0,.25);
+  border: 0.5px solid gray;
+  cursor: pointer;
+  
+
+}
+
+.villa-arrow.prev{ left: calc(5vw - 25px); }
+.villa-arrow.next{ right: calc(5vw - 15px); }
+.villa-arrow.prev img { transform: rotate(180deg); }
+
+/* Villa slider section End */
+
+/* Villa Page Start */
+
+.villa-page {
+  position: relative;
+}
+
+.villa-page-menu {
+  display: flex;
+  border-bottom: 0.5px solid #cdcdcd;
+  position: sticky;
+  top: var(--header-height);
+  padding: 10px 5vw;
+  z-index: 1001;
+  background-color: #fff;
+  margin: 0;
+  
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+  
+}
+
+.villa-page-menu-container {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  
+}
+.villa-page-menu-container-1 {
+  display: flex;
+  width: 70%;
+}
+
+.villa-page-menu-container-2 {
+  display: flex;
+  width: 30%;
+}
+
+@media (max-width: 775px) {
+  .villa-page-menu-container-1 {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+  }
+  .villa-page-menu-container-1::-webkit-scrollbar {
+    display: none;
+  }
+
+  .villa-page-menu-container-2 {
+    display: none;
+  }
+}
+
+
+
+.villa-page-menu ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  max-width: 1600px;
+  align-items: flex-start;
+  
+}
+
+.villa-content {
+  display: flex;
+  
+  
+  
+}
+
+.villa-page-menu a {
+  text-decoration: none;
+  font-family: 'Raleway';
+  color: black;
+  text-transform: uppercase;
+  font-size: 14px;
+  
+}
+
+@media (max-width: 775px) {
+  .villa-page-menu a {
+    font-size: 12px;
+  }
+}
+
+
+
+.villa-content-left, .villa-content-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.villa-content-left {
+  width: 70%;
+  
+  padding: 5vw 5vw 5vw 0;
+}
+
+
+
+.villa-content-right {
+  width: 30%;
+}
+
+@media (max-width: 1000px) {
+  .villa-content-right {
+    display: none;
+  }
+  .villa-content-left {
+    width: 100%;
+  }
+}
+
+:root {
+  --header-height: 70px;   /* change to your fixed header height */
+  --sticky-gap: 80px;      /* breathing space below header */
+}
+
+.booking-box {
+  border: 0.5px solid #000;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 40px 0;
+  position: sticky;
+  top: calc(var(--header-height) + var(--adminbar, 0px) + var(--sticky-gap));
+}
+
+.villa-kpis { display: flex; width: 100%; justify-content: space-between; align-items: center; flex-direction: row;}
+.single-kpi { display: flex; flex-direction: column; justify-content: space-between; align-items: center;}
+.single-kpi img { width: 24px; height: auto; }
+.single-kpi p { text-transform: capitalize;}
+.villa-divider { width: 100%; border-top: 0.75px solid #dedede;}
+.rameaux p {margin-top: 16px;}
+
+@media (max-width: 775px) {
+  .villa-kpis {
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 20px;
+  }
+  .villa-kpis::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.text-container p {
+    max-height: 8em; /* Limits the visible text */
+    overflow: hidden;
+    position: relative;
+    color: #333;
+    transition: max-height 0.5s ease;
+    text-transform: none;
+    margin: 0;
+}
+
+.text-container p:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3em;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+}
+
+#readMoreBtn {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 0.6em;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+#readMoreBtn span {
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+#readMoreBtn.active span {
+    transform: rotate(180deg); /* Rotate the arrow when expanded */
+}
+
+.expanded p {
+    max-height: none;
+}
+
+.expanded p:after {
+    display: none; /* Hide the gradient overlay when expanded */
+}
+
+.villa-divider.margined {
+  margin: 40px 0;
+}
+
+
+.must-have-title {
+  margin: 0;
+  font-size: 28px;
+}
+
+.must-have-list {
+  display: flex;
+  flex-direction: row;
+  gap: 150px;
+}
+
+@media (max-width: 775px) {
+  .must-have-list {
+    gap: 20px;
+    align-items: space-between;
+  }
+}
+
+
+.must-have-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.acc { border-top:1px solid #eee; margin: 0; padding: 0; margin-top: 50px;}
+.acc-item { border-bottom:1px solid #eee; }
+.acc-trigger {
+  font-family: 'Raleway'; font-size: 14px; width:100%; text-align:left; padding:1rem 0; font-weight:400; cursor:pointer; background:none; border:0; scroll-margin-top: 150px;
+}
+.acc-trigger::after { content:"＋"; float:right; }
+.acc-trigger[aria-expanded="true"]::after { content:"–"; }
+.acc-panel { padding:.5rem 0 1rem; }
+.acc-panel[hidden] { display:none; }
+
+.bedroom-text {
+  text-transform: none;
+}
+
+.villa-features {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 20px;
+}
+.villa-features.left, .villa-features.right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+
+.villa-features-category {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.villa-features.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 0;
+  align-items: center;
+}
+
+.villa-features.row h3 {
+  margin: 0;
+  padding: 0;
+  color: #90b0b7;
+  font-weight: 300;
+  font-family: 'Raleway';
+}
+
+.villa-features.row p {
+  margin: 0;
+  padding: 0;
+  margin-right: 5px;
+  text-transform: none;
+  font-family: 'Raleway';
+
+}
+
+.villa-features.row i {
+  margin: 0;
+  padding: 0;
+  
+  
+}
+
+.optional-text {
+  text-transform: italic;
+}
+
+.villa-features.row2 {
+  display: flex;
+  flex-direction: row;
+  
+  margin: 10px 0;
+  padding: 0;
+  align-items: center;
+}
+
+.villa-features.row2 h3 {
+  margin: 0;
+  padding: 0;
+  color: #90b0b7;
+  font-weight: 300;
+  font-family: 'Raleway';
+}
+
+.villa-features.row2 p {
+  margin: 0;
+  padding: 0;
+  margin-right: 5px;
+  text-transform: none;
+  font-family: 'Raleway';
+
+}
+
+.villa-features.row2 i {
+  margin: 0;
+  padding: 0;
+  color: #90b0b7;
+  
+}
+
+@media (max-width: 600px) {
+  .villa-features {
+    flex-direction: column;
+    gap: 20;
+  }
+  .villa-features.left, .villa-features.right {
+    width: 100%;
+  }
+}
+
+.check-in-out {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 50px;
+}
+
+.check-in, .check-out {
+  display: flex;;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  
+}
+.check-in-des {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.check-in-des h4 {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+.check-in-des p {
+  margin: 0;
+  padding: 0;
+}
+
+.villa-features.right h4 {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+.send-enquiry {
+  display: none;
+}
+
+.minimum-stay {
+  font-weight: 300;
+}
+
+@media (max-width: 1000px) {
+  .send-enquiry.show {
+    display: flex;
+    
+  }
+  .send-enquiry {
+    
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
+    padding: 0 5vw;
+    align-items: center;
+    font-family: 'Raleway';
+    
+
+  }
+  .send-enquiry a {
+    background-color: #000;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  
+}
+/* Villa Page End */
+
+
+.villa-map-wrap { width: 100%; margin-top: 20px;}
+.villa-map {
+  width: 100%;
+  height: 320px;    
+  overflow: hidden;
+  border: 1px solid #e7ebef;
+  z-index: 0;
+}
+
+.villa-location {
+  padding: 0;
+  margin: 0;
+  margin-top: 40px;
+}
+
+.leaflet-tile-pane img {
+  filter: grayscale(1) contrast(1.05) brightness(1.02);
+}
+
+.villa-gallery-header {
+  display: flex;
+  width: 100%;
+  padding: 20px 5vw;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.villa-gallery-header a {
+  text-decoration: none;
+  font-family: 'Raleway';
+  color: #000;
+}
+
+
+/* Service Card Start */
+
+.service-process {
+  background-color: #f5f5f5;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.service-process-div {
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5vw 0;
+  max-width: 1600px;
+
+}
+
+@media (min-width: 1600px) {
+  .service-process {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.service-process h4 {
+  font-family: 'Raleway';
+  font-weight: 500;
+  padding-right: 40px;
+  font-size: 12px;
+
+
+}
+
+.service-process h3 {
+  font-family: 'Raleway';
+  font-weight: 500;
+  
+  font-size: 15px;
+
+
+}
+
+.service-process p {
+  padding-right: 40px;
+  text-transform: none;
+  margin-top: 5px;
+}
+
+.process-number p {
+  padding-right: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.service-process-row {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-process-columns {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 20%;
+
+}
+.process-header {
+  display: flex;
+  width: 100%;
+  gap: 15px;
+}
+.process-number {
+  display: flex;
+  border-radius: 100px;
+  background-color: #000;
+  color: white;
+  font-family: 'Raleway';
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  
+  height: 10px;
+  width: 10px;
+}
+.process-line {
+  display: flex;
+  width: 100%;
+  border-top: 1px solid #000;
+  height: 1px;
+  margin-top: 10px;
+}
+
+.service-process-columns h4 {
+  font-family: 'Raleway';
+  text-transform: uppercase;
+  font-weight: 400;
+
+}
+
+.mobile-service-process {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .service-process {
+    display: none;
+  }
+  .mobile-service-process {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #f5f5f5;
+  }
+  .service-process-div {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    gap: 30px;
+
+  }
+  .service-process-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .service-process-row1 {
+    display: flex;
+    flex-direction: column;
+    width: 20px;
+  }
+  .process-header {
+    flex-direction: column;
+    width: 10%;
+  }
+  .process-line {
+    border-top: none;
+    border-left: 1px solid #000;
+    height: 50px;
+    margin-left: 10px;
+    margin-top: 0;
+  }
+  .service-process-columns {
+    height: 100px;
+    width:  100%;
+    
+  }
+  .mobile-service-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .service-process-columns h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  }
+  .service-process-columns p {
+    font-size: 11px;
+    text-transform: none;
+  }
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.service-row {
+  display: flex;
+  width: 100%;
+  gap: 40px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  width: 1/3;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 30px;
+
+}
+.service-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.service-card h3 {
+  font-family: 'Raleway';
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+@media (max-width: 1024px) {
+  .service-grid {grid-template-columns: repeat(2, 1fr);}
+}
+
+@media (max-width: 760px) {
+  .service-grid {grid-template-columns: repeat(1, 1fr);}
+}
+
+.offered-services { align-items: center; justify-content: center;}
+.services-title h2 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.services-title p {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.service-wrapper {
+  background-color: #f5f5f5;
+  display: flex;
+  width: 100%;
+  max-height: 600px;
+  margin: 100px 0;
+}
+.service-image {
+  display: flex;
+  width: 65%;
+}
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.service-content {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  padding: 20px;
+}
+
+.service-content h4 {
+  font-family: 'Raleway';
+  font-size: 200;
+  font-size: 18px;
+}
+
+.service-content p {
+  text-transform: none;
+  font-family: 'Raleway';
+}
+
+.service-wrapper.mirrored {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 800px) {
+  .service-wrapper {
+    flex-direction: column;
+    max-height: 100%;
+  }
+  .service-wrapper.mirrored {
+    flex-direction: column;
+  }
+  .service-image, .service-content {
+    width: 100%;
+  }
+}

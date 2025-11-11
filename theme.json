@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "color": { "palette": [ { "name": "Primary", "slug": "primary", "color": "#0ea5e9" } ] },
+    "spacing": { "units": [ "px", "rem", "em", "%" ] },
+    "typography": { "fontSizes": [ { "slug": "base", "size": "16px" } ] }
+  },
+  "styles": {
+    "typography": { "fontSize": "16px", "lineHeight": "1.6" }
+  }
+}
