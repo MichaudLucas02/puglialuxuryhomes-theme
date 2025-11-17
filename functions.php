@@ -12,9 +12,100 @@ add_action('after_setup_theme', function () {
     'mobile'  => __('Mobile Menu', 'thinktech'),
     'primary_fr' => __('Primary Menu FR', 'thinktech'),
   ]);
+
+  // Register a custom block pattern category for PLH patterns
+  if ( function_exists('register_block_pattern_category') ) {
+    register_block_pattern_category('plh', [
+      'label' => __('PLH', 'plh')
+    ]);
+  }
 });
 
 // Assets
+
+// Register Custom Post Type: Blog
+add_action('init', function() {
+  $labels = [
+    'name' => _x('Blog Posts', 'Post Type General Name', 'plh'),
+    'singular_name' => _x('Blog Post', 'Post Type Singular Name', 'plh'),
+    'menu_name' => __('Blog', 'plh'),
+    'name_admin_bar' => __('Blog Post', 'plh'),
+    'add_new' => __('Add New', 'plh'),
+    'add_new_item' => __('Add New Blog Post', 'plh'),
+    'edit_item' => __('Edit Blog Post', 'plh'),
+    'new_item' => __('New Blog Post', 'plh'),
+    'view_item' => __('View Blog Post', 'plh'),
+    'search_items' => __('Search Blog Posts', 'plh'),
+    'not_found' => __('No blog posts found', 'plh'),
+    'not_found_in_trash' => __('No blog posts found in Trash', 'plh'),
+  ];
+  $args = [
+    'label' => __('Blog', 'plh'),
+    'labels' => $labels,
+    'public' => true,
+    'has_archive' => true,
+    'rewrite' => ['slug' => 'blog', 'with_front' => false],
+    'show_in_rest' => true,
+    'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'comments'],
+    'taxonomies' => ['category', 'post_tag'],
+    'menu_icon' => 'dashicons-edit',
+  ];
+  register_post_type('blog', $args);
+});
+
+// Flush rewrite rules on theme switch so the /blog archive works immediately
+add_action('after_switch_theme', function() {
+  flush_rewrite_rules();
+});
+
+  // -----------------------
+  // SEO Meta (Title + Description) for Blog CPT
+  // -----------------------
+  add_action('add_meta_boxes', function() {
+    add_meta_box(
+      'plh_blog_seo',
+      __('SEO Settings', 'plh'),
+      function($post){
+        $custom_title = get_post_meta($post->ID, '_plh_seo_title', true);
+        $meta_desc    = get_post_meta($post->ID, '_plh_meta_description', true);
+        wp_nonce_field('plh_seo_meta_nonce', 'plh_seo_meta_nonce_field');
+        echo '<p><label style="display:block;font-weight:600;margin-bottom:4px">'.__('Custom SEO Title (optional)', 'plh').'</label>';
+        echo '<input type="text" name="plh_seo_title" value="'.esc_attr($custom_title).'" style="width:100%;max-width:760px" placeholder="'.esc_attr__('Villas de luxe à louer dans les Pouilles en 2026 | Puglia Luxury Homes','plh').'" />';
+        echo '<small>'.__('Max ~70 characters. Leave empty to use post title.', 'plh').'</small></p>';
+        echo '<p style="margin-top:16px"><label style="display:block;font-weight:600;margin-bottom:4px">'.__('Meta Description', 'plh').'</label>';
+        echo '<textarea name="plh_meta_description" rows="3" style="width:100%;max-width:760px" placeholder="'.esc_attr__('Découvrez la sélection 2026 des plus belles villas à louer dans les Pouilles : charme, vue mer, conciergerie et expérience sur mesure.','plh').'">'.esc_textarea($meta_desc).'</textarea>';
+        echo '<small>'.__('Max ~155 characters. Appears in search results.', 'plh').'</small></p>';
+      },
+      'blog',
+      'normal',
+      'default'
+    );
+  });
+
+  add_action('save_post_blog', function($post_id){
+    if( !isset($_POST['plh_seo_meta_nonce_field']) || !wp_verify_nonce($_POST['plh_seo_meta_nonce_field'], 'plh_seo_meta_nonce') ) return; 
+    if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return; 
+    if( !current_user_can('edit_post', $post_id) ) return;
+    $title = isset($_POST['plh_seo_title']) ? sanitize_text_field($_POST['plh_seo_title']) : '';
+    $desc  = isset($_POST['plh_meta_description']) ? sanitize_textarea_field($_POST['plh_meta_description']) : '';
+    update_post_meta($post_id, '_plh_seo_title', $title);
+    update_post_meta($post_id, '_plh_meta_description', $desc);
+  });
+
+  // Output SEO values in <head>
+  add_action('wp_head', function(){
+    if( is_singular('blog') ) {
+      global $post; 
+      $custom = get_post_meta($post->ID, '_plh_seo_title', true);
+      $desc   = get_post_meta($post->ID, '_plh_meta_description', true);
+      if($custom){
+        echo '<title>'.esc_html($custom)."</title>\n"; // Overrides default title-tag for this CPT if provided
+      }
+      if($desc){
+        echo '<meta name="description" content="'.esc_attr($desc).'" />\n';
+      }
+    }
+  });
 
 add_action('wp_enqueue_scripts', function () {
   $dir = get_stylesheet_directory();
@@ -499,7 +590,7 @@ add_action('acf/init', function () {
 
   acf_add_local_field_group([
     'key'      => 'group_features_parent',
-    'title'    => 'Features',
+    'title'    => '8',
     'fields'   => $fields,
     'location' => [[[
       'param'    => 'post_type',
@@ -604,7 +695,15 @@ function plh_render_features_4x4($post_id, $rows_per = 10) {
   }
 
   if ($left === '' && $right === '') return;
-  echo '<div class="villa-features"><div class="villa-features left">'.$left.'</div><div class="villa-features right">'.$right.'</div></div>';
+  
+  // Icon legend
+  $legend = '<div class="villa-features-legend">'
+          .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>Included</span></div>'
+          .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>Not included</span></div>'
+          .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>Optional (extra charge)</span></div>'
+          . '</div>';
+  
+  echo '<div class="villa-features"><div class="villa-features left">'.$left.'</div><div class="villa-features right">'.$right.$legend.'</div></div>';
 }
 
 
@@ -815,6 +914,13 @@ function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
 
   if ($included_rows === '' && $excluded_rows === '') return;
 
+  // Icon legend
+  $legend = '<div class="villa-features-legend">'
+          .   '<div class="legend-item"><i class="fa-regular fa-circle-check"></i><span>Included</span></div>'
+          .   '<div class="legend-item"><i class="fa-regular fa-circle-minus"></i><span>Optional (extra charge)</span></div>'
+          .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>Not included</span></div>'
+          . '</div>';
+
   echo '<div class="villa-features">';
     echo '<div class="villa-features left"><div class="villa-features-category">';
       echo '<h3>'.esc_html($inc_title).'</h3>';
@@ -824,6 +930,7 @@ function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
     echo '<div class="villa-features right"><div class="villa-features-category">';
       echo '<h3>'.esc_html($exc_title).'</h3>';
       echo $excluded_rows;
+      echo $legend;
     echo '</div></div>';
   echo '</div>';
 }
@@ -1218,3 +1325,146 @@ add_action('acf/init', function () {
     ],
   ]);
 });
+
+
+// Google Reviews ACF Fields for Villas
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $fields = [];
+
+  // Create 6 review groups (adjust number as needed)
+  for ($i = 1; $i <= 6; $i++) {
+    $fields[] = [
+      'key'       => "field_review_tab_$i",
+      'label'     => "Review $i",
+      'type'      => 'tab',
+      'placement' => 'top',
+    ];
+
+    $fields[] = [
+      'key'    => "field_google_review_$i",
+      'label'  => "Review $i Details",
+      'name'   => "google_review_$i",
+      'type'   => 'group',
+      'layout' => 'block',
+      'sub_fields' => [
+        [
+          'key'     => "field_reviewer_name_$i",
+          'label'   => 'Reviewer Name',
+          'name'    => 'reviewer_name',
+          'type'    => 'text',
+          'wrapper' => ['width' => 50],
+        ],
+        [
+          'key'           => "field_reviewer_photo_$i",
+          'label'         => 'Reviewer Photo (optional)',
+          'name'          => 'reviewer_photo',
+          'type'          => 'image',
+          'return_format' => 'id',
+          'preview_size'  => 'thumbnail',
+          'wrapper'       => ['width' => 50],
+        ],
+        [
+          'key'     => "field_rating_$i",
+          'label'   => 'Rating (1-5 stars)',
+          'name'    => 'rating',
+          'type'    => 'number',
+          'min'     => 1,
+          'max'     => 5,
+          'default_value' => 5,
+          'wrapper' => ['width' => 50],
+        ],
+        [
+          'key'     => "field_review_date_$i",
+          'label'   => 'Review Date',
+          'name'    => 'review_date',
+          'type'    => 'text',
+          'placeholder' => 'e.g., November 2025',
+          'wrapper' => ['width' => 50],
+        ],
+        [
+          'key'     => "field_review_text_$i",
+          'label'   => 'Review Text',
+          'name'    => 'review_text',
+          'type'    => 'textarea',
+          'rows'    => 4,
+          'new_lines' => 'wpautop',
+        ],
+      ],
+    ];
+  }
+
+  acf_add_local_field_group([
+    'key'      => 'group_google_reviews',
+    'title'    => 'Google Reviews',
+    'fields'   => $fields,
+    'location' => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'villa',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+/**
+ * Handle booking request form submissions.
+ */
+function plh_handle_booking_request() {
+  $redirect = wp_get_referer() ?: home_url();
+
+  // Honeypot: if filled, pretend success but drop.
+  if ( ! empty($_POST['plh_website']) ) {
+    wp_safe_redirect( add_query_arg('booking_status','success',$redirect) );
+    exit;
+  }
+
+  if ( ! isset($_POST['plh_booking_nonce']) || ! wp_verify_nonce($_POST['plh_booking_nonce'],'plh_booking_request') ) {
+    wp_safe_redirect( add_query_arg('booking_error', urlencode('Security check failed.'), $redirect) );
+    exit;
+  }
+
+  $villa_id   = isset($_POST['villa_id']) ? (int) $_POST['villa_id'] : 0;
+  $name       = isset($_POST['plh_name']) ? sanitize_text_field($_POST['plh_name']) : '';
+  $email      = isset($_POST['plh_email']) ? sanitize_email($_POST['plh_email']) : '';
+  $date_in    = isset($_POST['plh_date_in']) ? sanitize_text_field($_POST['plh_date_in']) : '';
+  $date_out   = isset($_POST['plh_date_out']) ? sanitize_text_field($_POST['plh_date_out']) : '';
+  $message    = isset($_POST['plh_message']) ? wp_kses_post($_POST['plh_message']) : '';
+
+  // Basic validation
+  if ( $name === '' || $email === '' || ! is_email($email) || $date_in === '' || $date_out === '' ) {
+    wp_safe_redirect( add_query_arg('booking_error', urlencode('Please fill all required fields.'), $redirect) );
+    exit;
+  }
+
+  $villa_title = $villa_id ? get_the_title($villa_id) : 'Unknown Villa';
+
+  $recipient = 'reservation@puglialuxuryhomes.com'; // change to desired email
+  $subject   = sprintf('Booking enquiry: %s (%s → %s)', $villa_title, $date_in, $date_out);
+  $headers   = [ 'Content-Type: text/html; charset=UTF-8', 'Reply-To: '. $name .' <'. $email .'>' ];
+
+  $body  = '<h2>New Booking Enquiry</h2>';
+  $body .= '<p><strong>Villa:</strong> '.esc_html($villa_title).' (ID '.$villa_id.')</p>';
+  $body .= '<p><strong>Name:</strong> '.esc_html($name).'</p>';
+  $body .= '<p><strong>Email:</strong> '.esc_html($email).'</p>';
+  $body .= '<p><strong>Arrival:</strong> '.esc_html($date_in).'</p>';
+  $body .= '<p><strong>Departure:</strong> '.esc_html($date_out).'</p>';
+  if ($message) {
+    $body .= '<p><strong>Message:</strong><br>'.wpautop($message).'</p>';
+  }
+  $body .= '<hr><p>Sent from '.esc_url( home_url() ).'</p>';
+
+  $sent = wp_mail($recipient, $subject, $body, $headers);
+
+  if ($sent) {
+    wp_safe_redirect( add_query_arg('booking_status','success',$redirect) );
+  } else {
+    wp_safe_redirect( add_query_arg('booking_error', urlencode('Could not send email. Please try again.'), $redirect) );
+  }
+  exit;
+}
+
+add_action('admin_post_plh_booking_request','plh_handle_booking_request');
+add_action('admin_post_nopriv_plh_booking_request','plh_handle_booking_request');

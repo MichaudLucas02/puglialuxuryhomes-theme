@@ -19,6 +19,7 @@ ul { outline: 1px solid orange}
 
 
 
+
 /* GUIDLINES FOR THE WEBSITE
 
 Mobile breakpoint: 775px
@@ -92,7 +93,7 @@ article {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1120;
+    z-index: 1019;
     flex-direction: column;
     
 
@@ -161,6 +162,7 @@ h2 {
     transition: transform 0.9s opacity 0.9s ease;
     transform: translateY(0);
     will-change: transform, opacity;
+    z-index: 1019;
 }
 
 .bottom-header.hidden {
@@ -829,9 +831,16 @@ h2 {
   font-weight: 300;
   font-size: 20px;
   padding: 10px;
-  margin: 0 5vw;
+  
   margin-bottom: 50px;
 
+}
+
+.large-hero-buttons {
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0 5vw;  
 }
 
 
@@ -2036,7 +2045,7 @@ h2 {
   position: sticky;
   top: var(--header-height);
   padding: 10px 5vw;
-  z-index: 1001;
+  z-index: 1020;
   background-color: #fff;
   margin: 0;
   
@@ -2106,6 +2115,8 @@ h2 {
   color: black;
   text-transform: uppercase;
   font-size: 14px;
+  position: relative;
+  padding-bottom: 6px;
   
 }
 
@@ -2113,6 +2124,33 @@ h2 {
   .villa-page-menu a {
     font-size: 12px;
   }
+}
+
+/* Active underline for in-page menu (1px, brand color) */
+.villa-page-menu a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;               /* requested thickness */
+  background-color: #9ed6ea; /* brand accent used in header/footer */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+
+.villa-page-menu a.is-active::after {
+  transform: scaleX(1);
+}
+
+#experiences {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 
@@ -2132,6 +2170,59 @@ h2 {
 
 .villa-content-right {
   width: 30%;
+}
+
+.villa-content-right h3 {
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-size: 20px;
+  margin: 0 0 20px 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.villa-content-right p {
+  font-family: 'Raleway';
+  font-weight: 300;
+  font-size: 14px;
+  margin: 0 0 15px 0;
+  padding: 0;
+  text-transform: none;
+}
+
+.book-cta {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 30px;
+ 
+}
+
+.book-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  background-color: #6c9ba3;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Raleway';
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.book-box:hover {
+  background-color: #5a8790;
+  transform: translateY(-1px);
+}
+
+.book-box i {
+  font-size: 12px;
 }
 
 @media (max-width: 1000px) {
@@ -2157,6 +2248,27 @@ h2 {
   position: sticky;
   top: calc(var(--header-height) + var(--adminbar, 0px) + var(--sticky-gap));
 }
+
+/* Booking form styles */
+.villa-booking-form { display:flex; flex-direction:column; gap:14px; margin-top:10px; }
+.villa-booking-form .form-row { display:flex; flex-direction:column; gap:6px; }
+.villa-booking-form .form-row.two { flex-direction:row; gap:14px; }
+.villa-booking-form .form-row.two > div { flex:1; display:flex; flex-direction:column; gap:6px; }
+.villa-booking-form label { font-size:12px; letter-spacing:.05em; text-transform:uppercase; font-family:'Raleway'; opacity:.85; }
+.villa-booking-form input[type="text"],
+.villa-booking-form input[type="email"],
+.villa-booking-form input[type="date"],
+.villa-booking-form textarea { padding:10px 12px; border:1px solid #ccc; font-family:'Raleway'; font-size:14px; background:#fff; }
+.villa-booking-form textarea { resize:vertical; }
+.villa-booking-form input:focus,
+.villa-booking-form textarea:focus { outline:2px solid #9ed6ea; border-color:#9ed6ea; }
+.booking-submit { background:#6c9ba3; color:#fff; border:none; padding:12px 18px; font-family:'Raleway'; font-size:14px; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; transition:background .25s ease, transform .25s ease; }
+.booking-submit:hover { background:#557e85; transform:translateY(-2px); }
+.booking-disclaimer { font-size:10px; opacity:.65; margin:4px 0 0; text-transform:none; letter-spacing:.02em; }
+.booking-alert { padding:12px 14px; margin-bottom:14px; border:1px solid; font-size:13px; font-family:'Raleway'; }
+.booking-alert.success { background:#f0fbf6; border-color:#3cae7a; color:#176444; }
+.booking-alert.error { background:#fff5f5; border-color:#d64e4e; color:#8e1e1e; }
+@media (max-width:1000px){ .villa-booking-form .form-row.two { flex-direction:column; } }
 
 .villa-kpis { display: flex; width: 100%; justify-content: space-between; align-items: center; flex-direction: row;}
 .single-kpi { display: flex; flex-direction: column; justify-content: space-between; align-items: center;}
@@ -2277,6 +2389,15 @@ h2 {
   flex-direction: row;
   gap: 20px;
 }
+
+.villa-features h3 {
+  margin: 0;
+  padding: 0;
+  color: #90b0b7;
+  font-weight: 300;
+  font-family: 'Raleway';
+}
+
 .villa-features.left, .villa-features.right {
   display: flex;
   flex-direction: column;
@@ -2300,6 +2421,7 @@ h2 {
   margin: 10px 0;
   padding: 0;
   align-items: center;
+  padding-right: 20%;
 }
 
 .villa-features.row h3 {
@@ -2361,6 +2483,45 @@ h2 {
   padding: 0;
   color: #90b0b7;
   
+}
+
+.villa-features-category h3 {
+  margin: 0;
+  padding: 0;
+  color: #90b0b7;
+  font-weight: 300;
+  font-family: 'Raleway';
+  margin-bottom: 10px;
+}
+
+/* Icon legend at bottom of features */
+.villa-features-legend {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #dedede;
+}
+
+.villa-features-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #555;
+  font-family: 'Raleway';
+}
+
+.villa-features-legend .legend-item i {
+  font-size: 1.1rem;
+  color: #90b0b7;
+  min-width: 18px;
+}
+
+.villa-features-legend .legend-item span {
+  text-transform: none;
+  opacity: 0.9;
 }
 
 @media (max-width: 600px) {
@@ -2760,5 +2921,261 @@ h2 {
   }
   .service-image, .service-content {
     width: 100%;
+  }
+}
+
+
+/* Blog Page Start */
+
+.blog-navigation {
+  border-bottom: 0.5px solid #F5f5f5;
+  padding: 35px 5vw;
+}
+
+.blog-breadcrumbs a, .blog-breadcrumbs span {
+  color: #000000;
+  font-size: 12px;
+  font-family: 'Raleway';
+}
+
+.single-blog-content h2 {
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-size: 32px;
+}
+
+.single-blog-content p {
+  font-family: 'Raleway';
+  font-weight: 300;
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.6;
+  text-transform: none;
+}
+
+.single-blog-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+.table-content {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+}
+
+.single-blog-content-wrapper {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  padding-right: 5vw;
+  padding-left: 5vw;  
+
+}
+
+
+
+/* Google Review Start */
+
+/* Google Reviews Section */
+.google-reviews-section {
+  display: flex;
+  padding: 60px 5vw;
+  background-color: #f5f5f5;
+  margin-top: 40px;
+  max-width: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.google-reviews-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  flex-direction: column;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.reviews-header h2 {
+  margin: 0;
+  font-family: 'Raleway';
+  font-weight: 300;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+.google-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.google-badge i {
+  font-size: 20px;
+  color: #4285f4;
+}
+
+.google-badge span {
+  font-family: 'Raleway';
+  font-weight: 400;
+  font-size: 14px;
+  color: #333;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.review-card {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.reviewer-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reviewer-photo,
+.reviewer-photo-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.reviewer-photo-placeholder {
+  background-color: #90b0b7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.reviewer-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reviewer-name {
+  margin: 0;
+  font-family: 'Raleway';
+  font-weight: 500;
+  font-size: 16px;
+  color: #111;
+}
+
+.review-date {
+  margin: 0;
+  font-family: 'Raleway';
+  font-size: 12px;
+  color: #666;
+  text-transform: none;
+  opacity: 0.8;
+}
+
+.review-rating {
+  display: flex;
+  gap: 2px;
+}
+
+.review-rating i {
+  font-size: 16px;
+  color: #fbbf24;
+}
+
+.review-rating i.empty {
+  color: #d1d5db;
+}
+
+.review-body p {
+  margin: 0;
+  font-family: 'Raleway';
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  text-transform: none;
+  opacity: 0.9;
+}
+
+.reviews-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.view-all-reviews {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  background-color: #6c9ba3;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Raleway';
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.view-all-reviews:hover {
+  background-color: #5a8790;
+  transform: translateY(-1px);
+}
+
+.view-all-reviews i {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .reviews-header h2 {
+    font-size: 28px;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .google-reviews-section {
+    padding: 40px 5vw;
   }
 }

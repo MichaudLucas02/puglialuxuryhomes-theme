@@ -24,10 +24,10 @@ $read_more      = get_field('read_more_paragraph');
             <div class="villa-page-menu-container">
                 <div class="villa-page-menu-container-1">
                     <ul>
-                        <li><a href="">Must have</a></li>
-                        <li><a href="">Description</a></li>
-                        <li><a href="">Experiences</a></li>
-                        <li><a href="">Avis</a></li>
+                        <li><a href="#must-have">Must have</a></li>
+                        <li><a href="#description">Description</a></li>
+                        <li><a href="#experiences">Experiences</a></li>
+                        <li><a href="#avis">Reviews</a></li>
                         <li><a href="<?php echo esc_url( plh_villa_gallery_link(get_the_ID()) ); ?>">Photo</a></li>
                     </ul>
                 </div>
@@ -67,7 +67,7 @@ $read_more      = get_field('read_more_paragraph');
                 <div class="villa-divider margined"></div>
                 
                 <h2 class="must-have-title">Must Have</h2>
-                <div class="must-have">
+                <div id="must-have" class="must-have">
                     <div class="must-have-list">
                         <?php 
                         $must_have_1 = get_field('must_have_1');
@@ -104,7 +104,7 @@ $read_more      = get_field('read_more_paragraph');
                         </div>
                         <?php endif; ?>
                     </div>
-                    <section class="acc" data-accordion data-single>
+                    <section id="description" class="acc" data-accordion data-single>
                         <div class="acc-item">
                             <button class="acc-trigger" aria-expanded="false" aria-controls="acc1" id="acc1-btn">
                             Bedrooms
@@ -157,22 +157,9 @@ $read_more      = get_field('read_more_paragraph');
                                                 <i class="fa-regular fa-calendar"></i>
                                                 <div class="check-in-des">
                                                     <h4>Check out</h4>
-                                                    <p>10am</p>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="villa-features row2">
-                                            <i class="fa-regular fa-circle-check" style="color: #90b0b7;"></i>
-                                            <p>Child friendly</p>
-
-                                        </div>
-                                        <div class="villa-features row2">
-                                            <i class="fa-regular fa-circle-xmark" style="color: #90b0b7;"></i>
-                                            <p>Not suitable for people with reduced mobility</p>
                                             
                                         </div>
-                                        <h4 class="minimum-stay">Minimum stay</h4>
+                                        <h3 class="minimum-stay">Minimum stay</h3>
                                         <div class="check-in">
                                             <i class="fa-solid fa-snowflake"></i>
                                             <div class="check-in-des">
@@ -192,12 +179,12 @@ $read_more      = get_field('read_more_paragraph');
 
                                     </div>
                                     <div class="villa-features right">
-                                        <h4>Booking Confirmation</h4>
+                                        <h3>Booking Confirmation</h3>
                                         <p>A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.<br>
                                         The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).<br>
                                         A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.
                                         </p>
-                                        <h4>Cancellation Policy</h4>
+                                        <h3>Cancellation Policy</h3>
                                         <p>Deposits and payments are non-refundable</p>
 
 
@@ -239,24 +226,72 @@ $read_more      = get_field('read_more_paragraph');
             </div>
             <div class="villa-content-right">
                 <div class="booking-box">
-                    <?php the_title(); ?>
-                    <p>Some random content about the villa I dont know about</p>
-                    <h2>Add dates to view exact prices</h2>
-                    <p>Want to check if your dates are available?
-        Send us a quick enquiry - no strings attached.</p>
-                    <button>Send Enquiry</button>
+                    <h3><?php the_title(); ?></h3>
+                    <p>Book now to secure your dates in this exceptional villa.</p>
+                    <div class="book-cta">
+                        <a href="https://www.google.com/search?q=puglia+luxury+homes" target="_blank" rel="noopener" class="book-box">
+                            Book your stay
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <p>Submit your request and our team will get back to you shortly, no strings attached.</p>
+                    <?php
+                    // Show booking status messages
+                    if ( isset($_GET['booking_status']) && $_GET['booking_status'] === 'success' ) {
+                        echo '<div class="booking-alert success">Your enquiry has been sent. We will contact you shortly.</div>';
+                    } elseif ( isset($_GET['booking_error']) ) {
+                        echo '<div class="booking-alert error">'.esc_html($_GET['booking_error']).'</div>';
+                    }
+                    ?>
+                    <form class="villa-booking-form" method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
+                        <?php wp_nonce_field('plh_booking_request','plh_booking_nonce'); ?>
+                        <input type="hidden" name="action" value="plh_booking_request">
+                        <input type="hidden" name="villa_id" value="<?php echo esc_attr(get_the_ID()); ?>">
+                        <div class="form-row">
+                            <label for="plh_name">Name *</label>
+                            <input type="text" id="plh_name" name="plh_name" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="plh_email">Email *</label>
+                            <input type="email" id="plh_email" name="plh_email" required>
+                        </div>
+                        <div class="form-row two">
+                            <div>
+                                <label for="plh_date_in">Arrival *</label>
+                                <input type="date" id="plh_date_in" name="plh_date_in" required>
+                            </div>
+                            <div>
+                                <label for="plh_date_out">Departure *</label>
+                                <input type="date" id="plh_date_out" name="plh_date_out" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="plh_message">Comment / Requirements</label>
+                            <textarea id="plh_message" name="plh_message" rows="4" placeholder="Tell us about your plans"></textarea>
+                        </div>
+                        <!-- Honeypot field -->
+                        <div style="display:none;">
+                            <label for="plh_website">Website</label>
+                            <input type="text" id="plh_website" name="plh_website" autocomplete="off">
+                        </div>
+                        <button type="submit" class="booking-submit">Send Request</button>
+                        <p class="booking-disclaimer">By submitting you agree to be contacted regarding this enquiry.</p>
+                    </form>
 
                 </div>
             </div>
         </section>
-        <section class="central-title">
-            <h2>Take a glance <br>at the region</h2>
-            <p>As a short-term rental management specialists in Salento, we assist our property owners with the management
-                of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
-                from the outset to completion.</p>
-        </section>
-        <?php get_template_part('partials/discover-section'); ?>
-        <?php get_template_part('partials/discover-slider'); ?>
+        <div id="experiences">
+            <section class="central-title">
+                <h2>Take a glance <br>at the region</h2>
+                <p>As a short-term rental management specialists in Salento, we assist our property owners with the management
+                    of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
+                    from the outset to completion.</p>
+            </section>
+            <?php get_template_part('partials/discover-section'); ?>
+            <?php get_template_part('partials/discover-slider'); ?>
+        </div>
+        <?php get_template_part('partials/google-reviews', null, ['post_id' => get_the_ID()]); ?>
     </article>
     <div class="send-enquiry">
         <p>From EUR 12,200 per week</p>
@@ -336,6 +371,92 @@ document.addEventListener('click', (e) => {
                 enquiryBar.classList.remove('show');
             }
         });
+</script>
+
+
+<script>
+// Scrollspy underline for villa-page-menu
+document.addEventListener('DOMContentLoaded', function() {
+    const menu = document.querySelector('.villa-page-menu');
+    if (!menu) return;
+
+    const links = Array.from(menu.querySelectorAll('a[href^="#"]'));
+    if (!links.length) return;
+
+    const pairs = links.map(link => {
+        const id = decodeURIComponent(link.getAttribute('href') || '').slice(1);
+        const section = id ? document.getElementById(id) : null;
+        return section ? { link, section } : null;
+    }).filter(Boolean);
+
+    // Smooth scroll with offset for in-page links
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href') || '';
+            if (!href.startsWith('#')) return; // skip external links
+            const id = href.slice(1);
+            const target = document.getElementById(id);
+            if (!target) return;
+            e.preventDefault();
+
+            const rootStyles = getComputedStyle(document.documentElement);
+            const headerH = parseInt(rootStyles.getPropertyValue('--header-height')) || 70;
+            const menuH = menu.offsetHeight || 0;
+            const offset = headerH + menuH + 8; // breathing space
+            const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        });
+    });
+
+    if (!pairs.length) return;
+
+    let currentActive = null;
+    const rootStyles = getComputedStyle(document.documentElement);
+    const headerH = parseInt(rootStyles.getPropertyValue('--header-height')) || 70;
+    const menuH = (menu && menu.offsetHeight) || 0;
+    const topOffset = headerH + menuH + 10;
+
+    const observer = new IntersectionObserver((entries) => {
+        // Sort by intersection ratio to favor the most visible
+        const visible = entries
+            .filter(en => en.isIntersecting)
+            .sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (!visible.length) return;
+
+        const topMost = visible[0].target;
+        const match = pairs.find(p => p.section === topMost);
+        if (!match) return;
+
+        if (currentActive && currentActive !== match.link) {
+            currentActive.classList.remove('is-active');
+        }
+        match.link.classList.add('is-active');
+        currentActive = match.link;
+    }, {
+        root: null,
+        rootMargin: `-${topOffset}px 0px -60% 0px`,
+        threshold: [0.1, 0.25, 0.5, 0.75, 1]
+    });
+
+    pairs.forEach(({ section }) => observer.observe(section));
+
+    // Set initial state on load (in case the page loads mid-way)
+    const setInitial = () => {
+        let best = null;
+        let bestDist = Infinity;
+        pairs.forEach(({ section, link }) => {
+            const rect = section.getBoundingClientRect();
+            const dist = Math.abs(rect.top - topOffset);
+            if (dist < bestDist) { bestDist = dist; best = link; }
+        });
+        if (best) {
+            best.classList.add('is-active');
+            currentActive = best;
+        }
+    };
+    setInitial();
+});
 </script>
 
 
