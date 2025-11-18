@@ -226,7 +226,7 @@ h2 {
   padding: 28px 20px;
   list-style: none;
   overflow-y: auto;
-  z-index: 1110;           /* above the backdrop (1100) and header (1000) */
+  z-index: 1300;           /* above the backdrop (1100) and header (1000) */
   transition: right 320ms cubic-bezier(.2,.9,.2,1), opacity 240ms ease;
   opacity: 0;
   visibility: hidden;
@@ -286,10 +286,10 @@ h2 {
   background: rgba(0,0,0,0.18);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  z-index: 1100;                 /* above most page content */
+  /* z-index lowered so header + slide-out panel (z-index > 900) sit above the blur */
+  z-index: 900;                  /* below header (1019) and submenu (1110) */
   opacity: 0;
   visibility: hidden;
-  
   pointer-events: none;
 }
 

@@ -15,7 +15,12 @@ $args = [
 ];
 $blog_query = new WP_Query($args);
 ?>
-<div class="blog-listing">
+<?php get_template_part('partials/large-hero'); ?>
+<div class="homepage">
+    <section class="blog-navigation">
+        
+    </section>
+</div>
     <h1>Blog</h1>
     <?php if ( $blog_query->have_posts() ) : ?>
         <div class="posts">

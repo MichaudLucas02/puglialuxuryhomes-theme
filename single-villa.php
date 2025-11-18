@@ -24,11 +24,11 @@ $read_more      = get_field('read_more_paragraph');
             <div class="villa-page-menu-container">
                 <div class="villa-page-menu-container-1">
                     <ul>
-                        <li><a href="#must-have">Must have</a></li>
-                        <li><a href="#description">Description</a></li>
-                        <li><a href="#experiences">Experiences</a></li>
-                        <li><a href="#avis">Reviews</a></li>
-                        <li><a href="<?php echo esc_url( plh_villa_gallery_link(get_the_ID()) ); ?>">Photo</a></li>
+                        <li><a href="#must-have"><?php echo esc_html( plh_t('Must Have') ); ?></a></li>
+                        <li><a href="#description"><?php echo esc_html( plh_t('Description') ); ?></a></li>
+                        <li><a href="#experiences"><?php echo esc_html( plh_t('Experiences') ); ?></a></li>
+                        <li><a href="#avis"><?php echo esc_html( plh_t('Reviews') ); ?></a></li>
+                        <li><a href="<?php echo esc_url( plh_villa_gallery_link(get_the_ID()) ); ?>"><?php echo esc_html( plh_t('Photo') ); ?></a></li>
                     </ul>
                 </div>
                 <div class="villa-page-menu-container-2"></div>
@@ -38,23 +38,23 @@ $read_more      = get_field('read_more_paragraph');
             <div class="villa-content-left">
                 <div class="villa-kpis">
                     <div class="single-kpi">
-                        <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/Bedrooms.png">
-                        <p><?php echo esc_html($bedrooms); ?> Bedrooms</p>
+                        <img src="/wp-content/uploads/2025/09/Bedrooms.png">
+                        <p><?php echo esc_html($bedrooms); ?> <?php echo esc_html( plh_t('Bedrooms') ); ?></p>
                     </div>
                     <div class="single-kpi">
-                        <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/SDB.png">
-                        <p><?php echo esc_html($bathrooms); ?> bathrooms</p>
+                        <img src="/wp-content/uploads/2025/09/SDB.png">
+                        <p><?php echo esc_html($bathrooms); ?> <?php echo esc_html( plh_t('bathrooms') ); ?></p>
                     </div>
                     <div class="single-kpi">
-                        <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/bagage.png">
-                        <p><?php echo esc_html($guests); ?> guests</p>
+                        <img src="/wp-content/uploads/2025/09/bagage.png">
+                        <p><?php echo esc_html($guests); ?> <?php echo esc_html( plh_t('guests') ); ?></p>
                     </div>
                     <div class="single-kpi">
-                        <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/m2.png">
-                        <p><?php echo esc_html($sqm); ?> sqm</p>
+                        <img src="/wp-content/uploads/2025/09/m2.png">
+                        <p><?php echo esc_html($sqm); ?> <?php echo esc_html( plh_t('sqm') ); ?></p>
                     </div>
                     <div class="single-kpi rameaux">
-                        <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/Rameaux.png">
+                        <img src="/wp-content/uploads/2025/09/Rameaux.png">
                         <p><?php echo esc_html($rameaux); ?></p>
                     </div>
                 </div>
@@ -62,11 +62,11 @@ $read_more      = get_field('read_more_paragraph');
                 <p><?php echo wp_kses_post($intro_paragrph); ?></p>
                 <div class="text-container">
                     <p><?php echo wp_kses_post($read_more); ?></p>
-                    <button id="readMoreBtn">Read more <span>&#9660;</span></button>
+                    <button id="readMoreBtn"><?php echo esc_html( plh_t('Read more') ); ?> <span>&#9660;</span></button>
                 </div>
                 <div class="villa-divider margined"></div>
                 
-                <h2 class="must-have-title">Must Have</h2>
+                <h2 class="must-have-title"><?php echo esc_html( plh_t('Must Have') ); ?></h2>
                 <div id="must-have" class="must-have">
                     <div class="must-have-list">
                         <?php 
@@ -107,7 +107,7 @@ $read_more      = get_field('read_more_paragraph');
                     <section id="description" class="acc" data-accordion data-single>
                         <div class="acc-item">
                             <button class="acc-trigger" aria-expanded="false" aria-controls="acc1" id="acc1-btn">
-                            Bedrooms
+                            <?php echo esc_html( plh_t('Bedrooms') ); ?>
                             </button>
                             <div id="acc1" class="acc-panel" role="region" aria-labelledby="acc1-btn" hidden>
                             <p class="bedroom-text">Bedroom 1: Flexible bed (180/90 x 200cm), private bathroom. <br>
@@ -119,7 +119,7 @@ $read_more      = get_field('read_more_paragraph');
 
                         <div class="acc-item">
                             <button class="acc-trigger" aria-expanded="false" aria-controls="acc2" id="acc2-btn">
-                            Features and Amenities
+                            <?php echo esc_html( plh_t('Features and Amenities') ); ?>
                             </button>
                             <div id="acc2" class="acc-panel" role="region" aria-labelledby="acc2-btn" hidden>
                                 <?php get_template_part('partials/features-amenities', null, [
@@ -130,7 +130,7 @@ $read_more      = get_field('read_more_paragraph');
                         </div>
                         <div class="acc-item">
                             <button class="acc-trigger" aria-expanded="false" aria-controls="acc3" id="acc3-btn">
-                            What's Included
+                            <?php echo esc_html( plh_t("What's Included") ); ?>
                             </button>
                             <div id="acc3" class="acc-panel" role="region" aria-labelledby="acc3-btn" hidden>
                                 <?php plh_render_included_excluded_rows2(get_the_ID(), 12); ?>
@@ -139,7 +139,7 @@ $read_more      = get_field('read_more_paragraph');
                         </div>
                         <div class="acc-item">
                             <button class="acc-trigger" aria-expanded="false" aria-controls="acc4" id="acc4-btn">
-                            Additional Informations
+                            <?php echo esc_html( plh_t('Additional Informations') ); ?>
                             </button>
                             <div id="acc4" class="acc-panel" role="region" aria-labelledby="acc4-btn" hidden>
                                 <div class="villa-features">
@@ -148,44 +148,44 @@ $read_more      = get_field('read_more_paragraph');
                                             <div class="check-in">
                                                 <i class="fa-regular fa-calendar"></i>
                                                 <div class="check-in-des">
-                                                    <h4>Check in</h4>
-                                                    <p>4pm - 10pm</p>
+                                                    <h4><?php echo esc_html( plh_t('Check in') ); ?></h4>
+                                                    <p><?php echo esc_html( plh_t('4pm - 10pm') ); ?></p>
 
                                                 </div>
                                             </div>
                                             <div class="check-out">
                                                 <i class="fa-regular fa-calendar"></i>
                                                 <div class="check-in-des">
-                                                    <h4>Check out</h4>
+                                                    <h4><?php echo esc_html( plh_t('Check out') ); ?></h4>
                                             
                                         </div>
-                                        <h3 class="minimum-stay">Minimum stay</h3>
+                                        <h3 class="minimum-stay"><?php echo esc_html( plh_t('Minimum stay') ); ?></h3>
                                         <div class="check-in">
                                             <i class="fa-solid fa-snowflake"></i>
                                             <div class="check-in-des">
-                                                <h4>Low season: 4 nights</h4>
-                                                <p>April, May, September, October</p>
+                                                <h4><?php echo esc_html( plh_t('Low season: 4 nights') ); ?></h4>
+                                                <p><?php echo esc_html( plh_t('April, May, September, October') ); ?></p>
 
                                             </div>
                                         </div>
                                         <div class="check-in">
                                             <i class="fa-solid fa-sun"></i>
                                             <div class="check-in-des">
-                                                <h4>High season: 5 nights</h4>
-                                                <p>June, July, August</p>
+                                                <h4><?php echo esc_html( plh_t('High season: 5 nights') ); ?></h4>
+                                                <p><?php echo esc_html( plh_t('June, July, August') ); ?></p>
 
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="villa-features right">
-                                        <h3>Booking Confirmation</h3>
-                                        <p>A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.<br>
-                                        The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).<br>
-                                        A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.
+                                        <h3><?php echo esc_html( plh_t('Booking Confirmation') ); ?></h3>
+                                        <p><?php echo esc_html( plh_t('A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.') ); ?><br>
+                                        <?php echo esc_html( plh_t('The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).') ); ?><br>
+                                        <?php echo esc_html( plh_t('A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.') ); ?>
                                         </p>
-                                        <h3>Cancellation Policy</h3>
-                                        <p>Deposits and payments are non-refundable</p>
+                                        <h3><?php echo esc_html( plh_t('Cancellation Policy') ); ?></h3>
+                                        <p><?php echo esc_html( plh_t('Deposits and payments are non-refundable') ); ?></p>
 
 
                                     </div>
@@ -197,7 +197,7 @@ $read_more      = get_field('read_more_paragraph');
 
                 </div>
                 <section class="villa-location">
-                    <h2 class="must-have-title">Location</h2>
+                    <h2 class="must-have-title"><?php echo esc_html( plh_t('Location') ); ?></h2>
                     <?php
                         $pid     = get_the_ID();
                         $lat     = trim((string) get_field('villa_lat', $pid));
@@ -215,7 +215,7 @@ $read_more      = get_field('read_more_paragraph');
                         <noscript>
                             <p><a target="_blank" rel="noopener" href="<?php
                             echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($addr ?: ($lat . ',' . $lng)));
-                            ?>">Open in Google Maps</a></p>
+                                ?>"><?php echo esc_html( plh_t('Open in Google Maps') ); ?></a></p>
                         </noscript>
                     </div>
                 </section>
@@ -227,18 +227,18 @@ $read_more      = get_field('read_more_paragraph');
             <div class="villa-content-right">
                 <div class="booking-box">
                     <h3><?php the_title(); ?></h3>
-                    <p>Book now to secure your dates in this exceptional villa.</p>
+                    <p><?php echo esc_html( plh_t('Book now to secure your dates in this exceptional villa.') ); ?></p>
                     <div class="book-cta">
                         <a href="https://www.google.com/search?q=puglia+luxury+homes" target="_blank" rel="noopener" class="book-box">
-                            Book your stay
+                            <?php echo esc_html( plh_t('Book your stay') ); ?>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
-                    <p>Submit your request and our team will get back to you shortly, no strings attached.</p>
+                    <p><?php echo esc_html( plh_t('Submit your request and our team will get back to you shortly, no strings attached.') ); ?></p>
                     <?php
                     // Show booking status messages
                     if ( isset($_GET['booking_status']) && $_GET['booking_status'] === 'success' ) {
-                        echo '<div class="booking-alert success">Your enquiry has been sent. We will contact you shortly.</div>';
+                        echo '<div class="booking-alert success">'.esc_html__('Your enquiry has been sent. We will contact you shortly.', 'thinktech').'</div>';
                     } elseif ( isset($_GET['booking_error']) ) {
                         echo '<div class="booking-alert error">'.esc_html($_GET['booking_error']).'</div>';
                     }
@@ -248,34 +248,34 @@ $read_more      = get_field('read_more_paragraph');
                         <input type="hidden" name="action" value="plh_booking_request">
                         <input type="hidden" name="villa_id" value="<?php echo esc_attr(get_the_ID()); ?>">
                         <div class="form-row">
-                            <label for="plh_name">Name *</label>
+                            <label for="plh_name"><?php echo esc_html( plh_t('Name') ); ?> *</label>
                             <input type="text" id="plh_name" name="plh_name" required>
                         </div>
                         <div class="form-row">
-                            <label for="plh_email">Email *</label>
+                            <label for="plh_email"><?php echo esc_html( plh_t('Email') ); ?> *</label>
                             <input type="email" id="plh_email" name="plh_email" required>
                         </div>
                         <div class="form-row two">
                             <div>
-                                <label for="plh_date_in">Arrival *</label>
+                                <label for="plh_date_in"><?php echo esc_html( plh_t('Arrival') ); ?> *</label>
                                 <input type="date" id="plh_date_in" name="plh_date_in" required>
                             </div>
                             <div>
-                                <label for="plh_date_out">Departure *</label>
+                                <label for="plh_date_out"><?php echo esc_html( plh_t('Departure') ); ?> *</label>
                                 <input type="date" id="plh_date_out" name="plh_date_out" required>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label for="plh_message">Comment / Requirements</label>
-                            <textarea id="plh_message" name="plh_message" rows="4" placeholder="Tell us about your plans"></textarea>
+                            <label for="plh_message"><?php echo esc_html( plh_t('Comment / Requirements') ); ?></label>
+                            <textarea id="plh_message" name="plh_message" rows="4" placeholder="<?php echo esc_attr( plh_t('Tell us about your plans') ); ?>"></textarea>
                         </div>
                         <!-- Honeypot field -->
                         <div style="display:none;">
-                            <label for="plh_website">Website</label>
+                            <label for="plh_website"><?php echo esc_html( plh_t('Website') ); ?></label>
                             <input type="text" id="plh_website" name="plh_website" autocomplete="off">
                         </div>
-                        <button type="submit" class="booking-submit">Send Request</button>
-                        <p class="booking-disclaimer">By submitting you agree to be contacted regarding this enquiry.</p>
+                        <button type="submit" class="booking-submit"><?php echo esc_html( plh_t('Send Request') ); ?></button>
+                        <p class="booking-disclaimer"><?php echo esc_html( plh_t('By submitting you agree to be contacted regarding this enquiry.') ); ?></p>
                     </form>
 
                 </div>
@@ -283,10 +283,8 @@ $read_more      = get_field('read_more_paragraph');
         </section>
         <div id="experiences">
             <section class="central-title">
-                <h2>Take a glance <br>at the region</h2>
-                <p>As a short-term rental management specialists in Salento, we assist our property owners with the management
-                    of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
-                    from the outset to completion.</p>
+                <h2><?php echo esc_html( plh_t('Take a glance') ); ?> <br><?php echo esc_html( plh_t('at the region') ); ?></h2>
+                <p><?php echo esc_html( plh_t('As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.') ); ?></p>
             </section>
             <?php get_template_part('partials/discover-section'); ?>
             <?php get_template_part('partials/discover-slider'); ?>
@@ -294,8 +292,8 @@ $read_more      = get_field('read_more_paragraph');
         <?php get_template_part('partials/google-reviews', null, ['post_id' => get_the_ID()]); ?>
     </article>
     <div class="send-enquiry">
-        <p>From EUR 12,200 per week</p>
-        <a href="">Send Enquiry</a>
+    <p><?php echo esc_html( plh_t('From EUR 12,200 per week') ); ?></p>
+    <a href=""><?php echo esc_html( plh_t('Send Enquiry') ); ?></a>
 
     </div>
 </div>
@@ -314,8 +312,8 @@ $read_more      = get_field('read_more_paragraph');
             readMoreBtn.classList.toggle("active");
             
             readMoreBtn.innerHTML = isExpanded
-                ? 'Read less <span>&#9650;</span>'
-                : 'Read more <span>&#9660;</span>';
+                ? '<?php echo esc_html( plh_t("Read less") ); ?> <span>&#9650;</span>'
+                : '<?php echo esc_html( plh_t("Read more") ); ?> <span>&#9660;</span>';
             
             // Scroll to a position slightly above the top of the text container when collapsing
             if (!isExpanded) {

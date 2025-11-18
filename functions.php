@@ -16,12 +16,17 @@ add_action('after_setup_theme', function () {
   // Register a custom block pattern category for PLH patterns
   if ( function_exists('register_block_pattern_category') ) {
     register_block_pattern_category('plh', [
-      'label' => __('PLH', 'plh')
+      'label' => __('PLH', 'thinktech')
     ]);
+    
   }
+  load_theme_textdomain('thinktech', get_template_directory() . '/languages');
 });
 
 // Assets
+
+
+
 
 // Register Custom Post Type: Blog
 add_action('init', function() {
@@ -698,10 +703,10 @@ function plh_render_features_4x4($post_id, $rows_per = 10) {
   
   // Icon legend
   $legend = '<div class="villa-features-legend">'
-          .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>Included</span></div>'
-          .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>Not included</span></div>'
-          .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>Optional (extra charge)</span></div>'
-          . '</div>';
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
+    . '</div>';
   
   echo '<div class="villa-features"><div class="villa-features left">'.$left.'</div><div class="villa-features right">'.$right.$legend.'</div></div>';
 }
@@ -916,10 +921,10 @@ function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
 
   // Icon legend
   $legend = '<div class="villa-features-legend">'
-          .   '<div class="legend-item"><i class="fa-regular fa-circle-check"></i><span>Included</span></div>'
-          .   '<div class="legend-item"><i class="fa-regular fa-circle-minus"></i><span>Optional (extra charge)</span></div>'
-          .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>Not included</span></div>'
-          . '</div>';
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
+    . '</div>';
 
   echo '<div class="villa-features">';
     echo '<div class="villa-features left"><div class="villa-features-category">';
@@ -1468,3 +1473,43 @@ function plh_handle_booking_request() {
 
 add_action('admin_post_plh_booking_request','plh_handle_booking_request');
 add_action('admin_post_nopriv_plh_booking_request','plh_handle_booking_request');
+
+/**
+ * Polylang string registration (Option 2 strategy)
+ * Registers UI strings so they appear in Polylang's String Translation without relying solely on file scanning.
+ */
+function plh_register_ui_strings() {
+  if ( ! function_exists('pll_register_string') ) return;
+  $group = 'Villa UI';
+  $strings = [
+    'Must Have', 'Description', 'Experiences', 'Reviews', 'Photo', 'Location',
+    'Bedrooms', 'bathrooms', 'guests', 'sqm',
+    'Read more', 'Read less',
+    'Book now to secure your dates in this exceptional villa.',
+    'Book your stay',
+    'Submit your request and our team will get back to you shortly, no strings attached.',
+    'Your enquiry has been sent. We will contact you shortly.',
+    'Name', 'Email', 'Arrival', 'Departure', 'Comment / Requirements', 'Tell us about your plans', 'Website', 'Send Request', 'By submitting you agree to be contacted regarding this enquiry.',
+    'From EUR 12,200 per week', 'Send Enquiry',
+    "What's Included", 'Features and Amenities', 'Additional Informations',
+    'Check in', '4pm - 10pm', 'Check out', 'Minimum stay', 'Low season: 4 nights', 'April, May, September, October', 'High season: 5 nights', 'June, July, August', 'Booking Confirmation', 'A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.', 'The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).', 'A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.', 'Cancellation Policy', 'Deposits and payments are non-refundable',
+    'Open in Google Maps',
+    'Take a glance', 'at the region',
+    'Included', 'Not included', 'Optional (extra charge)'
+  ];
+  foreach ( $strings as $s ) {
+    pll_register_string( 'plh_ui_' . sanitize_title( $s ), $s, $group );
+  }
+}
+add_action('init', 'plh_register_ui_strings');
+
+/**
+ * Helper for translating UI strings via Polylang first, fallback to theme domain.
+ */
+function plh_t( $text, $context = '' ) {
+  if ( function_exists('pll__') ) {
+    $translated = pll__($text);
+    if ( is_string($translated) && $translated !== '' ) return $translated;
+  }
+  return $context ? _x( $text, $context, 'thinktech' ) : __( $text, 'thinktech' );
+}
