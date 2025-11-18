@@ -75,11 +75,7 @@ get_header();
                 </div>
             </nav>
             
-            <?php if ( comments_open() || get_comments_number() ) : ?>
-                <div class="comments-wrapper">
-                <?php comments_template(); ?>
-                </div>
-            <?php endif; ?>
+            
             </footer>
         </div>
       </section>
