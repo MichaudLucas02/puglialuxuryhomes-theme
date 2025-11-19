@@ -151,6 +151,7 @@
     </section>
 
     <?php get_template_part('partials/discover-slider'); ?>
+    <!--
     
     <section class="why-us">
         <div class="why-us-container">
@@ -172,6 +173,7 @@
 
         </div>
     </section>
+    -->
 
     <section class="central-title">
         <h2>PROPERTY MANAGEMENT</h2>

@@ -595,7 +595,7 @@ add_action('acf/init', function () {
 
   acf_add_local_field_group([
     'key'      => 'group_features_parent',
-    'title'    => '8',
+    'title'    => 'Features/Amenities',
     'fields'   => $fields,
     'location' => [[[
       'param'    => 'post_type',
@@ -974,6 +974,277 @@ add_action('acf/init', function () {
     'location' => [[[
       'param' => 'post_type', 'operator' => '==', 'value' => 'villa',
     ]]],
+  ]);
+
+  // Bedroom Descriptions ACF Group
+  $bedroom_fields = [];
+  for ($i = 1; $i <= 8; $i++) {
+    $bedroom_fields[] = [
+      'key'   => "field_bedroom_{$i}_description",
+      'label' => "Bedroom {$i}",
+      'name'  => "bedroom_{$i}_description",
+      'type'  => 'text',
+      'placeholder' => 'e.g., Flexible bed (180/90 x 200cm), private bathroom.',
+      'wrapper' => ['width' => 100],
+    ];
+  }
+
+  acf_add_local_field_group([
+    'key'      => 'group_villa_bedrooms',
+    'title'    => 'Villa Bedrooms',
+    'fields'   => $bedroom_fields,
+    'location' => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'villa',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+
+  // Booking Form Text ACF Group
+  acf_add_local_field_group([
+    'key'      => 'group_booking_form_text',
+    'title'    => 'Booking Form Text',
+    'fields'   => [
+      [
+        'key'   => 'field_booking_intro',
+        'label' => 'Intro Text',
+        'name'  => 'booking_intro',
+        'type'  => 'text',
+        'default_value' => 'Book now to secure your dates in this exceptional villa.',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_booking_button_text',
+        'label' => 'Button Text',
+        'name'  => 'booking_button_text',
+        'type'  => 'text',
+        'default_value' => 'Book your stay',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_booking_button_url',
+        'label' => 'Button URL',
+        'name'  => 'booking_button_url',
+        'type'  => 'url',
+        'default_value' => 'https://www.google.com/search?q=puglia+luxury+homes',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_booking_subtext',
+        'label' => 'Subtext',
+        'name'  => 'booking_subtext',
+        'type'  => 'text',
+        'default_value' => 'Submit your request and our team will get back to you shortly, no strings attached.',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_booking_label_name',
+        'label' => 'Label: Name',
+        'name'  => 'booking_label_name',
+        'type'  => 'text',
+        'default_value' => 'Name',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_booking_label_email',
+        'label' => 'Label: Email',
+        'name'  => 'booking_label_email',
+        'type'  => 'text',
+        'default_value' => 'Email',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_booking_label_arrival',
+        'label' => 'Label: Arrival',
+        'name'  => 'booking_label_arrival',
+        'type'  => 'text',
+        'default_value' => 'Arrival',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_booking_label_departure',
+        'label' => 'Label: Departure',
+        'name'  => 'booking_label_departure',
+        'type'  => 'text',
+        'default_value' => 'Departure',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_booking_label_comment',
+        'label' => 'Label: Comment',
+        'name'  => 'booking_label_comment',
+        'type'  => 'text',
+        'default_value' => 'Comment / Requirements',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_booking_placeholder_comment',
+        'label' => 'Placeholder: Comment',
+        'name'  => 'booking_placeholder_comment',
+        'type'  => 'text',
+        'default_value' => 'Tell us about your plans',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_booking_submit_text',
+        'label' => 'Submit Button Text',
+        'name'  => 'booking_submit_text',
+        'type'  => 'text',
+        'default_value' => 'Send Request',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_booking_disclaimer',
+        'label' => 'Disclaimer Text',
+        'name'  => 'booking_disclaimer',
+        'type'  => 'text',
+        'default_value' => 'By submitting you agree to be contacted regarding this enquiry.',
+        'wrapper' => ['width' => 100],
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'villa',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+
+  // Mobile Booking Banner ACF Group
+  acf_add_local_field_group([
+    'key'      => 'group_mobile_banner',
+    'title'    => 'Mobile Booking Banner',
+    'fields'   => [
+      [
+        'key'   => 'field_mobile_price_text',
+        'label' => 'Price Text',
+        'name'  => 'mobile_price_text',
+        'type'  => 'text',
+        'default_value' => 'From EUR 12,200 per week',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_mobile_banner_button_text',
+        'label' => 'Button Text',
+        'name'  => 'mobile_banner_button_text',
+        'type'  => 'text',
+        'default_value' => 'Send Enquiry',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_mobile_banner_button_url',
+        'label' => 'Button URL',
+        'name'  => 'mobile_banner_button_url',
+        'type'  => 'url',
+        'default_value' => '#',
+        'wrapper' => ['width' => 50],
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'villa',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+
+  // Additional Informations ACF Group
+  acf_add_local_field_group([
+    'key'      => 'group_additional_info',
+    'title'    => 'Additional Informations',
+    'fields'   => [
+      [
+        'key'   => 'field_check_in_time',
+        'label' => 'Check-in Time',
+        'name'  => 'check_in_time',
+        'type'  => 'text',
+        'default_value' => '4pm - 10pm',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_check_out_time',
+        'label' => 'Check-out Time',
+        'name'  => 'check_out_time',
+        'type'  => 'text',
+        'default_value' => '10am',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_low_season_nights',
+        'label' => 'Low Season Minimum Nights',
+        'name'  => 'low_season_nights',
+        'type'  => 'text',
+        'default_value' => '4 nights',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_low_season_months',
+        'label' => 'Low Season Months',
+        'name'  => 'low_season_months',
+        'type'  => 'text',
+        'default_value' => 'April, May, September, October',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_high_season_nights',
+        'label' => 'High Season Minimum Nights',
+        'name'  => 'high_season_nights',
+        'type'  => 'text',
+        'default_value' => '5 nights',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_high_season_months',
+        'label' => 'High Season Months',
+        'name'  => 'high_season_months',
+        'type'  => 'text',
+        'default_value' => 'June, July, August',
+        'wrapper' => ['width' => 50],
+      ],
+      [
+        'key'   => 'field_booking_policy_1',
+        'label' => 'Booking Policy - Deposit',
+        'name'  => 'booking_policy_1',
+        'type'  => 'text',
+        'default_value' => 'A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_booking_policy_2',
+        'label' => 'Booking Policy - Balance',
+        'name'  => 'booking_policy_2',
+        'type'  => 'text',
+        'default_value' => 'The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_booking_policy_3',
+        'label' => 'Booking Policy - Security Deposit',
+        'name'  => 'booking_policy_3',
+        'type'  => 'text',
+        'default_value' => 'A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.',
+        'wrapper' => ['width' => 100],
+      ],
+      [
+        'key'   => 'field_cancellation_policy',
+        'label' => 'Cancellation Policy',
+        'name'  => 'cancellation_policy',
+        'type'  => 'text',
+        'default_value' => 'Deposits and payments are non-refundable',
+        'wrapper' => ['width' => 100],
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'villa',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
   ]);
 });
 
@@ -1512,4 +1783,35 @@ function plh_t( $text, $context = '' ) {
     if ( is_string($translated) && $translated !== '' ) return $translated;
   }
   return $context ? _x( $text, $context, 'thinktech' ) : __( $text, 'thinktech' );
+}
+
+/**
+ * Render bedroom descriptions from ACF fields (supports up to 8 bedrooms).
+ * Outputs formatted bedroom rows with bed type and bathroom info.
+ */
+function plh_render_bedroom_descriptions($post_id, $max_bedrooms = 8) {
+  $output = '';
+  
+  for ($i = 1; $i <= $max_bedrooms; $i++) {
+    $bedroom_desc = get_field("bedroom_{$i}_description", $post_id);
+    $bedroom_desc = is_string($bedroom_desc) ? trim($bedroom_desc) : '';
+    
+    if ($bedroom_desc === '') continue;
+    
+    $output .= esc_html($bedroom_desc);
+    if ($i < $max_bedrooms) {
+      $output .= '<br>';
+    }
+  }
+  
+  return $output;
+}
+
+/**
+ * Get booking form text from ACF with fallback to default.
+ */
+function plh_booking_text($field_name, $default = '') {
+  $value = get_field($field_name);
+  $value = is_string($value) ? trim($value) : '';
+  return $value !== '' ? $value : $default;
 }

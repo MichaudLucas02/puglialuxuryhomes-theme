@@ -110,10 +110,7 @@ $read_more      = get_field('read_more_paragraph');
                             <?php echo esc_html( plh_t('Bedrooms') ); ?>
                             </button>
                             <div id="acc1" class="acc-panel" role="region" aria-labelledby="acc1-btn" hidden>
-                            <p class="bedroom-text">Bedroom 1: Flexible bed (180/90 x 200cm), private bathroom. <br>
-                            Bedroom 2: Flexible bed (180/90 x 200cm), private bathroom. <br>
-                            Bedroom 3: Flexible bed (180/90 x 200cm), private bathroom. <br>
-                            Bedroom 4: Flexible bed (180/90 x 200cm), private bathroom.</p>
+                            <p class="bedroom-text"><?php echo plh_render_bedroom_descriptions(get_the_ID(), 8); ?></p>
                             </div>
                         </div>
 
@@ -149,7 +146,7 @@ $read_more      = get_field('read_more_paragraph');
                                                 <i class="fa-regular fa-calendar"></i>
                                                 <div class="check-in-des">
                                                     <h4><?php echo esc_html( plh_t('Check in') ); ?></h4>
-                                                    <p><?php echo esc_html( plh_t('4pm - 10pm') ); ?></p>
+                                                    <p><?php echo esc_html( plh_booking_text('check_in_time', '4pm - 10pm') ); ?></p>
 
                                                 </div>
                                             </div>
@@ -157,22 +154,25 @@ $read_more      = get_field('read_more_paragraph');
                                                 <i class="fa-regular fa-calendar"></i>
                                                 <div class="check-in-des">
                                                     <h4><?php echo esc_html( plh_t('Check out') ); ?></h4>
-                                            
+                                                    <p><?php echo esc_html( plh_booking_text('check_out_time', '10am') ); ?></p>
+
+                                                </div>
+                                            </div>
                                         </div>
                                         <h3 class="minimum-stay"><?php echo esc_html( plh_t('Minimum stay') ); ?></h3>
                                         <div class="check-in">
                                             <i class="fa-solid fa-snowflake"></i>
                                             <div class="check-in-des">
-                                                <h4><?php echo esc_html( plh_t('Low season: 4 nights') ); ?></h4>
-                                                <p><?php echo esc_html( plh_t('April, May, September, October') ); ?></p>
+                                                <h4><?php echo esc_html( plh_t('Low season:') ); ?> <?php echo esc_html( plh_booking_text('low_season_nights', '4 nights') ); ?></h4>
+                                                <p><?php echo esc_html( plh_booking_text('low_season_months', 'April, May, September, October') ); ?></p>
 
                                             </div>
                                         </div>
                                         <div class="check-in">
                                             <i class="fa-solid fa-sun"></i>
                                             <div class="check-in-des">
-                                                <h4><?php echo esc_html( plh_t('High season: 5 nights') ); ?></h4>
-                                                <p><?php echo esc_html( plh_t('June, July, August') ); ?></p>
+                                                <h4><?php echo esc_html( plh_t('High season:') ); ?> <?php echo esc_html( plh_booking_text('high_season_nights', '5 nights') ); ?></h4>
+                                                <p><?php echo esc_html( plh_booking_text('high_season_months', 'June, July, August') ); ?></p>
 
                                             </div>
                                         </div>
@@ -180,12 +180,12 @@ $read_more      = get_field('read_more_paragraph');
                                     </div>
                                     <div class="villa-features right">
                                         <h3><?php echo esc_html( plh_t('Booking Confirmation') ); ?></h3>
-                                        <p><?php echo esc_html( plh_t('A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.') ); ?><br>
-                                        <?php echo esc_html( plh_t('The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).') ); ?><br>
-                                        <?php echo esc_html( plh_t('A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.') ); ?>
+                                        <p><?php echo esc_html( plh_booking_text('booking_policy_1', 'A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.') ); ?><br>
+                                        <?php echo esc_html( plh_booking_text('booking_policy_2', 'The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).') ); ?><br>
+                                        <?php echo esc_html( plh_booking_text('booking_policy_3', 'A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.') ); ?>
                                         </p>
                                         <h3><?php echo esc_html( plh_t('Cancellation Policy') ); ?></h3>
-                                        <p><?php echo esc_html( plh_t('Deposits and payments are non-refundable') ); ?></p>
+                                        <p><?php echo esc_html( plh_booking_text('cancellation_policy', 'Deposits and payments are non-refundable') ); ?></p>
 
 
                                     </div>
@@ -219,6 +219,62 @@ $read_more      = get_field('read_more_paragraph');
                         </noscript>
                     </div>
                 </section>
+                
+                    <div class="booking-box mobile">
+                        <h3><?php the_title(); ?></h3>
+                        <p><?php echo esc_html( plh_booking_text('booking_intro', 'Book now to secure your dates in this exceptional villa.') ); ?></p>
+                        <div class="book-cta">
+                            <a href="<?php echo esc_url( plh_booking_text('booking_button_url', 'https://www.google.com/search?q=puglia+luxury+homes') ); ?>" target="_blank" rel="noopener" class="book-box">
+                                <?php echo esc_html( plh_booking_text('booking_button_text', 'Book your stay') ); ?>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <p><?php echo esc_html( plh_booking_text('booking_subtext', 'Submit your request and our team will get back to you shortly, no strings attached.') ); ?></p>
+                        <?php
+                        // Show booking status messages
+                        if ( isset($_GET['booking_status']) && $_GET['booking_status'] === 'success' ) {
+                            echo '<div class="booking-alert success">'.esc_html__('Your enquiry has been sent. We will contact you shortly.', 'thinktech').'</div>';
+                        } elseif ( isset($_GET['booking_error']) ) {
+                            echo '<div class="booking-alert error">'.esc_html($_GET['booking_error']).'</div>';
+                        }
+                        ?>
+                        <form class="villa-booking-form" method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
+                            <?php wp_nonce_field('plh_booking_request','plh_booking_nonce'); ?>
+                            <input type="hidden" name="action" value="plh_booking_request">
+                            <input type="hidden" name="villa_id" value="<?php echo esc_attr(get_the_ID()); ?>">
+                            <div class="form-row">
+                                <label for="plh_name"><?php echo esc_html( plh_booking_text('booking_label_name', 'Name') ); ?> *</label>
+                                <input type="text" id="plh_name" name="plh_name" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="plh_email"><?php echo esc_html( plh_booking_text('booking_label_email', 'Email') ); ?> *</label>
+                                <input type="email" id="plh_email" name="plh_email" required>
+                            </div>
+                            <div class="form-row two">
+                                <div>
+                                    <label for="plh_date_in"><?php echo esc_html( plh_booking_text('booking_label_arrival', 'Arrival') ); ?> *</label>
+                                    <input type="date" id="plh_date_in" name="plh_date_in" required>
+                                </div>
+                                <div>
+                                    <label for="plh_date_out"><?php echo esc_html( plh_booking_text('booking_label_departure', 'Departure') ); ?> *</label>
+                                    <input type="date" id="plh_date_out" name="plh_date_out" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="plh_message"><?php echo esc_html( plh_booking_text('booking_label_comment', 'Comment / Requirements') ); ?></label>
+                                <textarea id="plh_message" name="plh_message" rows="4" placeholder="<?php echo esc_attr( plh_booking_text('booking_placeholder_comment', 'Tell us about your plans') ); ?>"></textarea>
+                            </div>
+                            <!-- Honeypot field -->
+                            <div style="display:none;">
+                                <label for="plh_website"><?php echo esc_html( plh_t('Website') ); ?></label>
+                                <input type="text" id="plh_website" name="plh_website" autocomplete="off">
+                            </div>
+                            <button type="submit" class="booking-submit"><?php echo esc_html( plh_booking_text('booking_submit_text', 'Send Request') ); ?></button>
+                            <p class="booking-disclaimer"><?php echo esc_html( plh_booking_text('booking_disclaimer', 'By submitting you agree to be contacted regarding this enquiry.') ); ?></p>
+                        </form>
+
+                    </div>
+                
 
 
 
@@ -227,14 +283,14 @@ $read_more      = get_field('read_more_paragraph');
             <div class="villa-content-right">
                 <div class="booking-box">
                     <h3><?php the_title(); ?></h3>
-                    <p><?php echo esc_html( plh_t('Book now to secure your dates in this exceptional villa.') ); ?></p>
+                    <p><?php echo esc_html( plh_booking_text('booking_intro', 'Book now to secure your dates in this exceptional villa.') ); ?></p>
                     <div class="book-cta">
-                        <a href="https://www.google.com/search?q=puglia+luxury+homes" target="_blank" rel="noopener" class="book-box">
-                            <?php echo esc_html( plh_t('Book your stay') ); ?>
+                        <a href="<?php echo esc_url( plh_booking_text('booking_button_url', 'https://www.google.com/search?q=puglia+luxury+homes') ); ?>" target="_blank" rel="noopener" class="book-box">
+                            <?php echo esc_html( plh_booking_text('booking_button_text', 'Book your stay') ); ?>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
-                    <p><?php echo esc_html( plh_t('Submit your request and our team will get back to you shortly, no strings attached.') ); ?></p>
+                    <p><?php echo esc_html( plh_booking_text('booking_subtext', 'Submit your request and our team will get back to you shortly, no strings attached.') ); ?></p>
                     <?php
                     // Show booking status messages
                     if ( isset($_GET['booking_status']) && $_GET['booking_status'] === 'success' ) {
@@ -248,34 +304,34 @@ $read_more      = get_field('read_more_paragraph');
                         <input type="hidden" name="action" value="plh_booking_request">
                         <input type="hidden" name="villa_id" value="<?php echo esc_attr(get_the_ID()); ?>">
                         <div class="form-row">
-                            <label for="plh_name"><?php echo esc_html( plh_t('Name') ); ?> *</label>
+                            <label for="plh_name"><?php echo esc_html( plh_booking_text('booking_label_name', 'Name') ); ?> *</label>
                             <input type="text" id="plh_name" name="plh_name" required>
                         </div>
                         <div class="form-row">
-                            <label for="plh_email"><?php echo esc_html( plh_t('Email') ); ?> *</label>
+                            <label for="plh_email"><?php echo esc_html( plh_booking_text('booking_label_email', 'Email') ); ?> *</label>
                             <input type="email" id="plh_email" name="plh_email" required>
                         </div>
                         <div class="form-row two">
                             <div>
-                                <label for="plh_date_in"><?php echo esc_html( plh_t('Arrival') ); ?> *</label>
+                                <label for="plh_date_in"><?php echo esc_html( plh_booking_text('booking_label_arrival', 'Arrival') ); ?> *</label>
                                 <input type="date" id="plh_date_in" name="plh_date_in" required>
                             </div>
                             <div>
-                                <label for="plh_date_out"><?php echo esc_html( plh_t('Departure') ); ?> *</label>
+                                <label for="plh_date_out"><?php echo esc_html( plh_booking_text('booking_label_departure', 'Departure') ); ?> *</label>
                                 <input type="date" id="plh_date_out" name="plh_date_out" required>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label for="plh_message"><?php echo esc_html( plh_t('Comment / Requirements') ); ?></label>
-                            <textarea id="plh_message" name="plh_message" rows="4" placeholder="<?php echo esc_attr( plh_t('Tell us about your plans') ); ?>"></textarea>
+                            <label for="plh_message"><?php echo esc_html( plh_booking_text('booking_label_comment', 'Comment / Requirements') ); ?></label>
+                            <textarea id="plh_message" name="plh_message" rows="4" placeholder="<?php echo esc_attr( plh_booking_text('booking_placeholder_comment', 'Tell us about your plans') ); ?>"></textarea>
                         </div>
                         <!-- Honeypot field -->
                         <div style="display:none;">
                             <label for="plh_website"><?php echo esc_html( plh_t('Website') ); ?></label>
                             <input type="text" id="plh_website" name="plh_website" autocomplete="off">
                         </div>
-                        <button type="submit" class="booking-submit"><?php echo esc_html( plh_t('Send Request') ); ?></button>
-                        <p class="booking-disclaimer"><?php echo esc_html( plh_t('By submitting you agree to be contacted regarding this enquiry.') ); ?></p>
+                        <button type="submit" class="booking-submit"><?php echo esc_html( plh_booking_text('booking_submit_text', 'Send Request') ); ?></button>
+                        <p class="booking-disclaimer"><?php echo esc_html( plh_booking_text('booking_disclaimer', 'By submitting you agree to be contacted regarding this enquiry.') ); ?></p>
                     </form>
 
                 </div>
@@ -292,8 +348,8 @@ $read_more      = get_field('read_more_paragraph');
         <?php get_template_part('partials/google-reviews', null, ['post_id' => get_the_ID()]); ?>
     </article>
     <div class="send-enquiry">
-    <p><?php echo esc_html( plh_t('From EUR 12,200 per week') ); ?></p>
-    <a href=""><?php echo esc_html( plh_t('Send Enquiry') ); ?></a>
+    <p><?php echo esc_html( plh_booking_text('mobile_price_text', 'From EUR 12,200 per week') ); ?></p>
+    <a href="<?php echo esc_url( plh_booking_text('mobile_banner_button_url', '#') ); ?>"><?php echo esc_html( plh_booking_text('mobile_banner_button_text', 'Send Enquiry') ); ?></a>
 
     </div>
 </div>
