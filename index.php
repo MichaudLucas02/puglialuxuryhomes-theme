@@ -111,11 +111,13 @@
         
         <!-- <div class="vs-dots" data-vs-dots></div> -->
     </section>
-    <section class="central-title grey">
-        <h2>Take a glance <br>at the region</h2>
-        <p class="p-title">As a short-term rental management specialists in Salento, we assist our property owners with the management
-            of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
-            from the outset to completion.</p>
+    <section class="central-title-section grey">
+        <div class="central-title grey">
+            <h2>Take a glance <br>at the region</h2>
+            <p class="p-title">As a short-term rental management specialists in Salento, we assist our property owners with the management
+                of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
+                from the outset to completion.</p>
+        </div>
     </section>
     <?php get_template_part('partials/discover-section', null, ['bg_color' => '#F5F5F5']); ?>
 

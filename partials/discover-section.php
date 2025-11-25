@@ -2,7 +2,8 @@
 // Get background color from args, default to transparent
 $bg_color = $args['bg_color'] ?? 'transparent';
 ?>
-<section class="discover" style="background-color: <?php echo esc_attr($bg_color); ?>;">
+<section class="discover-section" style="background-color: <?php echo esc_attr($bg_color); ?>;">
+    <div class="discover">
         <div class="discover-container up">
             <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/Detail-3-scaled-1.webp">
             <a href="" class='discover-absolute'>
@@ -31,6 +32,6 @@ $bg_color = $args['bg_color'] ?? 'transparent';
                 <p>Explore activity</p>
             </a>
         </div>
+    </div>
 
-
-    </section>
+</section>

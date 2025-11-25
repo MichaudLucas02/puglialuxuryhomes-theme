@@ -1607,8 +1607,9 @@ h2 {
 
 
 /* Discover section Start */
-
-.central-title {margin-top: 50px; background-color: #FFFFFF;}
+.central-title-section {display: flex; max-width: 100%; padding:0; justify-content: center;}
+.central-title-section.grey { background-color: #F5F5F5F5;}
+.central-title {margin-top: 50px; background-color: #FFFFFF; width: 100%; max-width: 1600px;}
 .central-title.grey { background-color: #F5F5F5F5;}
 .central-title h2 { color: black; text-align: center;  font-family: 'Raleway'; font-weight: 300;}
 .central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 15vw; text-align: center; margin-bottom: 30px;}
@@ -1616,8 +1617,8 @@ h2 {
 @media (max-width: 1244px) {
   .central-title {display: flex; flex-direction: column;}
 }
-
-.discover { padding: 20px 5vw; width: 100%; height: 40vw; display: flex; gap: 15px; max-height: 650px;}
+.discover-section { display: flex;max-width: 100%; padding: 0; justify-content: center;}
+.discover { padding: 20px 5vw; width: 100%; height: 40vw; display: flex; gap: 15px; max-height: 650px; max-width: 1600px;}
 .discover-container { display: flex; width: 25%; height: 90%; position: relative;}
 .discover-container img { width: 100%; height: 100%; object-fit: cover; position: relative;}
 
