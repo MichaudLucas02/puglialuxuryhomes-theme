@@ -22,15 +22,21 @@ $read_more      = get_field('read_more_paragraph');
 
         <div class="villa-page-menu">
             <div class="villa-page-menu-container">
+                <button class="villa-menu-scroll-arrow villa-menu-scroll-left" aria-label="Scroll left">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
                 <div class="villa-page-menu-container-1">
                     <ul>
                         <li><a href="#must-have"><?php echo esc_html( plh_t('Must Have') ); ?></a></li>
                         <li><a href="#description"><?php echo esc_html( plh_t('Description') ); ?></a></li>
                         <li><a href="#experiences"><?php echo esc_html( plh_t('Experiences') ); ?></a></li>
                         <li><a href="#avis"><?php echo esc_html( plh_t('Reviews') ); ?></a></li>
-                        <li><a href="<?php echo esc_url( plh_villa_gallery_link(get_the_ID()) ); ?>"><?php echo esc_html( plh_t('Photo') ); ?></a></li>
+                        <li><a href="<?php echo esc_url( plh_villa_gallery_link(get_the_ID()) ); ?>"><?php echo esc_html( plh_t('Photos') ); ?></a></li>
                     </ul>
                 </div>
+                <button class="villa-menu-scroll-arrow villa-menu-scroll-right" aria-label="Scroll right">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
                 <div class="villa-page-menu-container-2"></div>
             </div>
         </div>
@@ -67,42 +73,44 @@ $read_more      = get_field('read_more_paragraph');
                 <div class="villa-divider margined"></div>
                 
                 <h2 class="must-have-title"><?php echo esc_html( plh_t('Must Have') ); ?></h2>
-                <div id="must-have" class="must-have">
-                    <div class="must-have-list">
-                        <?php 
-                        $must_have_1 = get_field('must_have_1');
-                        if ($must_have_1 !== ''): ?>
-                        <div class="must-have-row">
-                            <i class="fa-regular fa-circle-check" style="color: #90b0b7;"></i>
-                            <p><?php echo esc_html($must_have_1); ?></p>
+                <div class="must-have-wrapper">
+                    <div id="must-have" class="must-have">
+                        <div class="must-have-list">
+                            <?php 
+                            $must_have_1 = get_field('must_have_1');
+                            if ($must_have_1 !== ''): ?>
+                            <div class="must-have-row">
+                                <i class="fa-solid fa-circle-check" style="color: #90b0b7;"></i>
+                                <p><?php echo esc_html($must_have_1); ?></p>
+                            </div>
+                            <?php endif; ?>
+                            <?php 
+                            $must_have_2 = get_field('must_have_2');
+                            if ($must_have_2 !== ''): ?>
+                            <div class="must-have-row">
+                                <i class="fa-solid fa-circle-check" style="color: #90b0b7;"></i>
+                                <p><?php echo esc_html($must_have_2); ?></p>
+                            </div>
+                            <?php endif; ?>
                         </div>
-                        <?php endif; ?>
-                        <?php 
-                        $must_have_1 = get_field('must_have_1');
-                        if ($must_have_1 !== ''): ?>
-                        <div class="must-have-row">
-                            <i class="fa-regular fa-circle-check" style="color: #90b0b7;"></i>
-                            <p><?php echo esc_html($must_have_1); ?></p>
+                        <div class="must-have-list">
+                            <?php 
+                            $must_have_3 = get_field('must_have_3');
+                            if ($must_have_3 !== ''): ?>
+                            <div class="must-have-row">
+                                <i class="fa-solid fa-circle-check" style="color: #90b0b7;"></i>
+                                <p><?php echo esc_html($must_have_3); ?></p>
+                            </div>
+                            <?php endif; ?>
+                            <?php 
+                            $must_have_4 = get_field('must_have_4');
+                            if ($must_have_4 !== ''): ?>
+                            <div class="must-have-row">
+                                <i class="fa-solid fa-circle-check" style="color: #90b0b7;"></i>
+                                <p><?php echo esc_html($must_have_4); ?></p>
+                            </div>
+                            <?php endif; ?>
                         </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="must-have-list">
-                        <?php 
-                        $must_have_1 = get_field('must_have_1');
-                        if ($must_have_1 !== ''): ?>
-                        <div class="must-have-row">
-                            <i class="fa-regular fa-circle-check" style="color: #90b0b7;"></i>
-                            <p><?php echo esc_html($must_have_1); ?></p>
-                        </div>
-                        <?php endif; ?>
-                        <?php 
-                        $must_have_1 = get_field('must_have_1');
-                        if ($must_have_1 !== ''): ?>
-                        <div class="must-have-row">
-                            <i class="fa-regular fa-circle-check" style="color: #90b0b7;"></i>
-                            <p><?php echo esc_html($must_have_1); ?></p>
-                        </div>
-                        <?php endif; ?>
                     </div>
                     <section id="description" class="acc" data-accordion data-single>
                         <div class="acc-item">
@@ -110,7 +118,7 @@ $read_more      = get_field('read_more_paragraph');
                             <?php echo esc_html( plh_t('Bedrooms') ); ?>
                             </button>
                             <div id="acc1" class="acc-panel" role="region" aria-labelledby="acc1-btn" hidden>
-                            <p class="bedroom-text"><?php echo plh_render_bedroom_descriptions(get_the_ID(), 8); ?></p>
+                            <div class="villa-features-category"><?php echo plh_render_bedroom_descriptions(get_the_ID(), 8); ?></div>
                             </div>
                         </div>
 
@@ -143,7 +151,7 @@ $read_more      = get_field('read_more_paragraph');
                                     <div class="villa-features left">
                                         <div class="check-in-out">
                                             <div class="check-in">
-                                                <i class="fa-regular fa-calendar"></i>
+                                                <img src="/wp-content/uploads/2025/11/Check-inout.png">
                                                 <div class="check-in-des">
                                                     <h4><?php echo esc_html( plh_t('Check in') ); ?></h4>
                                                     <p><?php echo esc_html( plh_booking_text('check_in_time', '4pm - 10pm') ); ?></p>
@@ -151,7 +159,7 @@ $read_more      = get_field('read_more_paragraph');
                                                 </div>
                                             </div>
                                             <div class="check-out">
-                                                <i class="fa-regular fa-calendar"></i>
+                                                <img src="/wp-content/uploads/2025/11/Check-inout.png">
                                                 <div class="check-in-des">
                                                     <h4><?php echo esc_html( plh_t('Check out') ); ?></h4>
                                                     <p><?php echo esc_html( plh_booking_text('check_out_time', '10am') ); ?></p>
@@ -161,7 +169,7 @@ $read_more      = get_field('read_more_paragraph');
                                         </div>
                                         <h3 class="minimum-stay"><?php echo esc_html( plh_t('Minimum stay') ); ?></h3>
                                         <div class="check-in">
-                                            <i class="fa-solid fa-snowflake"></i>
+                                            <img src="/wp-content/uploads/2025/11/Basse-saison.png">
                                             <div class="check-in-des">
                                                 <h4><?php echo esc_html( plh_t('Low season:') ); ?> <?php echo esc_html( plh_booking_text('low_season_nights', '4 nights') ); ?></h4>
                                                 <p><?php echo esc_html( plh_booking_text('low_season_months', 'April, May, September, October') ); ?></p>
@@ -169,7 +177,7 @@ $read_more      = get_field('read_more_paragraph');
                                             </div>
                                         </div>
                                         <div class="check-in">
-                                            <i class="fa-solid fa-sun"></i>
+                                            <img src="/wp-content/uploads/2025/11/Haute-saison.png">
                                             <div class="check-in-des">
                                                 <h4><?php echo esc_html( plh_t('High season:') ); ?> <?php echo esc_html( plh_booking_text('high_season_nights', '5 nights') ); ?></h4>
                                                 <p><?php echo esc_html( plh_booking_text('high_season_months', 'June, July, August') ); ?></p>
@@ -180,12 +188,12 @@ $read_more      = get_field('read_more_paragraph');
                                     </div>
                                     <div class="villa-features right">
                                         <h3><?php echo esc_html( plh_t('Booking Confirmation') ); ?></h3>
-                                        <p><?php echo esc_html( plh_booking_text('booking_policy_1', 'A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.') ); ?><br>
-                                        <?php echo esc_html( plh_booking_text('booking_policy_2', 'The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).') ); ?><br>
-                                        <?php echo esc_html( plh_booking_text('booking_policy_3', 'A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.') ); ?>
-                                        </p>
+                                        <p><?php echo esc_html( plh_booking_text('booking_policy_1', 'A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.') ); ?></p>
+                                        <p><?php echo esc_html( plh_booking_text('booking_policy_2', 'The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).') ); ?></p>
+                                        <p><?php echo esc_html( plh_booking_text('booking_policy_3', 'A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.') ); ?></p>
                                         <h3><?php echo esc_html( plh_t('Cancellation Policy') ); ?></h3>
                                         <p><?php echo esc_html( plh_booking_text('cancellation_policy', 'Deposits and payments are non-refundable') ); ?></p>
+                                        <p class="cis_number"><?php echo esc_html( get_field('cis_number') ); ?></p>
 
 
                                     </div>
@@ -510,6 +518,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     setInitial();
+});
+
+// Villa menu scroll arrows functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const menuContainer = document.querySelector('.villa-page-menu-container-1');
+    const leftArrow = document.querySelector('.villa-menu-scroll-left');
+    const rightArrow = document.querySelector('.villa-menu-scroll-right');
+    
+    if (!menuContainer || !leftArrow || !rightArrow) return;
+    
+    function updateArrows() {
+        const scrollLeft = menuContainer.scrollLeft;
+        const maxScroll = menuContainer.scrollWidth - menuContainer.clientWidth;
+        
+        // Hide left arrow at start
+        if (scrollLeft <= 10) {
+            leftArrow.classList.add('hidden');
+        } else {
+            leftArrow.classList.remove('hidden');
+        }
+        
+        // Hide right arrow at end
+        if (scrollLeft >= maxScroll - 10) {
+            rightArrow.classList.add('hidden');
+        } else {
+            rightArrow.classList.remove('hidden');
+        }
+    }
+    
+    // Scroll left
+    leftArrow.addEventListener('click', function() {
+        menuContainer.scrollBy({ left: -150, behavior: 'smooth' });
+    });
+    
+    // Scroll right
+    rightArrow.addEventListener('click', function() {
+        menuContainer.scrollBy({ left: 150, behavior: 'smooth' });
+    });
+    
+    // Update arrows on scroll
+    menuContainer.addEventListener('scroll', updateArrows);
+    
+    // Initial update
+    updateArrows();
 });
 </script>
 

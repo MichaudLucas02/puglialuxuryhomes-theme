@@ -348,6 +348,24 @@ add_action('acf/init', function () {
         'preview_size'  => 'medium',
         'library'       => 'all',
       ],
+      [
+        'key'           => 'field_card_image_44',
+        'label'         => 'Card Image 4',
+        'name'          => 'card_image_44',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_card_image_55',
+        'label'         => 'Card Image 5',
+        'name'          => 'card_image_55',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ]
     ],
     'location' => [[[
       'param'    => 'post_type',
@@ -439,7 +457,7 @@ add_action('acf/init', function () {
   if (!function_exists('acf_add_local_field_group')) return;
 
   $GROUP_COUNT = 8;   // how many feature groups
-  $ROWS_PER    = 10;  // rows per group (Feature + KPI)
+  $ROWS_PER    = 15;  // rows per group (Feature + KPI) increased from 10
 
   $fields = [];
 
@@ -608,11 +626,11 @@ add_action('acf/init', function () {
 });
 
 
-function plh_render_features_4x4($post_id, $rows_per = 10) {
+function plh_render_features_4x4($post_id, $rows_per = 15) {
   $fa_map = [
     'check' => 'fa-solid fa-circle-check',
-    'x'     => 'fa-regular fa-circle-xmark',
-    'info'  => 'fa-regular fa-circle-question',
+    'x'     => 'fa-solid fa-circle-xmark',
+    'info'  => 'fa-solid fa-circle-question',
     'optional'  => 'fa-solid fa-circle-minus',
   ];
   $sanitize_hex = function ($c) {
@@ -704,7 +722,7 @@ function plh_render_features_4x4($post_id, $rows_per = 10) {
   // Icon legend
   $legend = '<div class="villa-features-legend">'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
     . '</div>';
   
@@ -874,9 +892,9 @@ add_action('acf/init', function () {
 
 function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
   $fa = [
-    'check' => 'fa-regular fa-circle-check',
-    'minus' => 'fa-regular fa-circle-minus',
-    'x'     => 'fa-regular fa-circle-xmark',
+    'check' => 'fa-solid fa-circle-check',
+    'minus' => 'fa-solid fa-circle-minus',
+    'x'     => 'fa-solid fa-circle-xmark',
   ];
   $icon_tag = function($key) use ($fa) {
     return isset($fa[$key]) ? '<i class="'.esc_attr($fa[$key]).'"></i>' : '';
@@ -921,9 +939,10 @@ function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
 
   // Icon legend
   $legend = '<div class="villa-features-legend">'
-    .   '<div class="legend-item"><i class="fa-regular fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-regular fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
+    
     . '</div>';
 
   echo '<div class="villa-features">';
@@ -976,18 +995,39 @@ add_action('acf/init', function () {
     ]]],
   ]);
 
-  // Bedroom Descriptions ACF Group
+  // Bedroom Descriptions ACF Group (Titles + Descriptions + Footer Text)
   $bedroom_fields = [];
   for ($i = 1; $i <= 8; $i++) {
+    // Title field per bedroom
+    $bedroom_fields[] = [
+      'key'   => "field_bedroom_{$i}_title",
+      'label' => "Bedroom {$i} Title",
+      'name'  => "bedroom_{$i}_title",
+      'type'  => 'text',
+      'placeholder' => "e.g., Master Suite",
+      'wrapper' => ['width' => 40],
+    ];
+    // Description field per bedroom
     $bedroom_fields[] = [
       'key'   => "field_bedroom_{$i}_description",
-      'label' => "Bedroom {$i}",
+      'label' => "Bedroom {$i} Description",
       'name'  => "bedroom_{$i}_description",
-      'type'  => 'text',
+      'type'  => 'textarea',
       'placeholder' => 'e.g., Flexible bed (180/90 x 200cm), private bathroom.',
-      'wrapper' => ['width' => 100],
+      'rows'  => 2,
+      'wrapper' => ['width' => 60],
     ];
   }
+  // Footer / additional text after listing bedrooms
+  $bedroom_fields[] = [
+    'key'   => 'field_bedrooms_footer_text',
+    'label' => 'Bedrooms Footer Text',
+    'name'  => 'bedrooms_footer_text',
+    'type'  => 'textarea',
+    'placeholder' => 'Additional notes about bedroom configurations, baby cots, etc.',
+    'rows'  => 3,
+    'wrapper' => ['width' => 100],
+  ];
 
   acf_add_local_field_group([
     'key'      => 'group_villa_bedrooms',
@@ -1237,6 +1277,13 @@ add_action('acf/init', function () {
         'default_value' => 'Deposits and payments are non-refundable',
         'wrapper' => ['width' => 100],
       ],
+      [
+        'key' => 'field_cis_number',
+        'label' => 'CIS Number',
+        'name'  => 'cis_number',
+        'type'  => 'text',
+        'wrapper' => ['width' => 100],
+      ]
     ],
     'location' => [[[
       'param'    => 'post_type',
@@ -1314,7 +1361,7 @@ function plh_villa_gallery_link($post_id = null) {
 add_action('acf/init', function () {
   if (!function_exists('acf_add_local_field_group')) return;
 
-  $SECTION_COUNT = 6; // change this to how many “blocks” you want
+  $SECTION_COUNT = 10; // change this to how many “blocks” you want
 
   $fields = [];
   for ($s = 1; $s <= $SECTION_COUNT; $s++) {
@@ -1437,7 +1484,7 @@ add_action('acf/init', function () {
   ]);
 });
 
-function plh_render_villa_gallery_sections($post_id, $sections = 6) {
+function plh_render_villa_gallery_sections($post_id, $sections = 10) {
   // helper to get <img> by ID with your classes
   $img = function($id, $classes = '', $alt = '') {
     if (!$id) return '';
@@ -1790,21 +1837,28 @@ function plh_t( $text, $context = '' ) {
  * Outputs formatted bedroom rows with bed type and bathroom info.
  */
 function plh_render_bedroom_descriptions($post_id, $max_bedrooms = 8) {
-  $output = '';
-  
+  $parts = [];
   for ($i = 1; $i <= $max_bedrooms; $i++) {
-    $bedroom_desc = get_field("bedroom_{$i}_description", $post_id);
-    $bedroom_desc = is_string($bedroom_desc) ? trim($bedroom_desc) : '';
-    
-    if ($bedroom_desc === '') continue;
-    
-    $output .= esc_html($bedroom_desc);
-    if ($i < $max_bedrooms) {
-      $output .= '<br>';
+    $title = get_field("bedroom_{$i}_title", $post_id);
+    $desc  = get_field("bedroom_{$i}_description", $post_id);
+    $title = is_string($title) ? trim($title) : '';
+    $desc  = is_string($desc) ? trim($desc) : '';
+    if ($title === '' && $desc === '') continue;
+    // Build with title as inline h3 and description inline (nl2br converts line breaks to <br>)
+    if ($title !== '' && $desc !== '') {
+      $parts[] = '<div class="bedroom-row"><h3>' . esc_html($title) . '</h3><p>' . nl2br(esc_html($desc)) . '</p></div>';
+    } elseif ($title !== '') {
+      $parts[] = '<div class="bedroom-row"><h3>' . esc_html($title) . '</h3></div>';
+    } else {
+      $parts[] = '<div class="bedroom-row"><p>' . nl2br(esc_html($desc)) . '</p></div>';
     }
   }
-  
-  return $output;
+  $footer = get_field('bedrooms_footer_text', $post_id);
+  $footer = is_string($footer) ? trim($footer) : '';
+  if ($footer !== '') {
+    $parts[] = '<p class="bedrooms-footer">' . nl2br(esc_html($footer)) . '</p>';
+  }
+  return implode('', $parts);
 }
 
 /**

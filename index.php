@@ -111,44 +111,13 @@
         
         <!-- <div class="vs-dots" data-vs-dots></div> -->
     </section>
-    <section class="central-title">
+    <section class="central-title grey">
         <h2>Take a glance <br>at the region</h2>
         <p class="p-title">As a short-term rental management specialists in Salento, we assist our property owners with the management
             of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
             from the outset to completion.</p>
     </section>
-    <section class="discover">
-        <div class="discover-container up">
-            <img src="/wp-content/uploads/2025/09/Detail-3-scaled-1.webp">
-            <a href="" class='discover-absolute'>
-                <h3>BURRATA FACTORY</h3>
-                <p>Explore activity</p>
-            </a>
-        </div>
-        <div class="discover-container down">
-            <img src="/wp-content/uploads/2025/09/8-Rooftop-20-scaled-1.webp">
-            <a href="" class='discover-absolute'>
-                <h3>BURRATA FACTORY</h3>
-                <p>Explore activity</p>
-            </a>
-        </div>
-        <div class="discover-container up">
-            <img src="http://puglialuxuryhomes.com/wp-content/uploads/2024/11/0-Lifestyle-8-scaled.webp">
-            <a href="" class='discover-absolute'>
-                <h3>BURRATA FACTORY</h3>
-                <p>Explore activity</p>
-            </a>
-        </div>
-        <div class="discover-container down">
-            <img src="http://puglialuxuryhomes.com/wp-content/uploads/2024/11/1-Vue-generale-1.webp">
-            <a href="" class='discover-absolute'>
-                <h3>BURRATA FACTORY</h3>
-                <p>Explore activity</p>
-            </a>
-        </div>
-
-
-    </section>
+    <?php get_template_part('partials/discover-section', null, ['bg_color' => '#F5F5F5']); ?>
 
     <?php get_template_part('partials/discover-slider'); ?>
     <!--

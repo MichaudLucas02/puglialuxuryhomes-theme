@@ -22,10 +22,10 @@ if (empty($reviews)) return; // Don't show section if no reviews
     <div class="google-reviews-wrapper">
         <div class="reviews-header">
             <h2>Guest Reviews</h2>
-            <div class="google-badge">
+            <a href="https://www.google.com/search?q=puglia+luxury+homes" target="_blank" rel="noopener" class="google-badge">
                 <i class="fa-brands fa-google"></i>
                 <span>Google Reviews</span>
-            </div>
+            </a>
         </div>
 
         <div class="reviews-grid">

@@ -784,7 +784,7 @@ h2 {
   position: relative;
   height: 100vh;
   max-width: 100%;
-  
+  overflow: hidden;
 }
 
 .large-hero img {
@@ -795,6 +795,23 @@ h2 {
   height: 100%;
   object-fit: cover;
   
+}
+
+.large-hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 0% 100%,
+    rgba(0,0,0,.65) 0%,
+    rgba(0,0,0,.35) 30%,
+    rgba(0,0,0,0) 60%
+  );
 }
 
 .large-hero-content {
@@ -808,14 +825,15 @@ h2 {
   position: absolute;
   align-items: flex-start;
   justify-content: flex-end;
+  z-index: 2;
 }
 
 .large-hero-content h2 {
-  font-family: 'Raleway';
-  font-size: 60px;
+  font-family: 'Didot';
+  font-size: 55px;
   font-weight: 300;
   color: white;
-  text-transform: capitalize;
+  text-transform: uppercase;
   margin: 0 5vw;
   padding: 0;
   
@@ -826,15 +844,21 @@ h2 {
 .large-hero-content a {
   text-decoration: none;
   color: white;
-  border: 1px solid white;
+  background-color: #6c9ba3;
+  border: 1px solid #6c9ba3;
   text-transform: uppercase;
   font-family: 'Raleway';
   font-weight: 300;
   font-size: 20px;
-  padding: 10px;
-  
+  padding: 10px 20px;
   margin-bottom: 50px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
+.large-hero-content a:hover {
+  background-color: #5a8790;
+  transform: translateY(-2px);
 }
 
 .large-hero-buttons {
@@ -842,6 +866,21 @@ h2 {
   gap: 20px;
   padding: 0;
   margin: 0 5vw;  
+}
+
+@media (max-width: 768px) {
+  .large-hero-content a {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .large-hero {
+    height: 90vh;
+  }
+  
+  .large-hero-content h2 {
+    font-size: 40px;
+  }
 }
 
 
@@ -1569,7 +1608,8 @@ h2 {
 
 /* Discover section Start */
 
-.central-title {margin-top: 50px; background-color: #F5f5f5;}
+.central-title {margin-top: 50px; background-color: #FFFFFF;}
+.central-title.grey { background-color: #F5F5F5F5;}
 .central-title h2 { color: black; text-align: center;  font-family: 'Raleway'; font-weight: 300;}
 .central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 15vw; text-align: center; margin-bottom: 30px;}
 
@@ -1577,7 +1617,7 @@ h2 {
   .central-title {display: flex; flex-direction: column;}
 }
 
-.discover { background-color: #F5f5f5; padding: 20px 5vw; width: 100%; height: 40vw; display: flex; gap: 15px; max-height: 650px;}
+.discover { padding: 20px 5vw; width: 100%; height: 40vw; display: flex; gap: 15px; max-height: 650px;}
 .discover-container { display: flex; width: 25%; height: 90%; position: relative;}
 .discover-container img { width: 100%; height: 100%; object-fit: cover; position: relative;}
 
@@ -2075,11 +2115,60 @@ h2 {
   width: 30%;
 }
 
+.villa-menu-scroll-arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.villa-menu-scroll-arrow:hover {
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.villa-menu-scroll-arrow i {
+  color: #333;
+  font-size: 14px;
+}
+
+.villa-menu-scroll-left {
+  left: 8px;
+}
+
+.villa-menu-scroll-right {
+  right: 8px;
+}
+
 @media (max-width: 775px) {
+  .villa-menu-scroll-arrow {
+    display: flex;
+  }
+  
+  .villa-menu-scroll-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
   .villa-page-menu-container-1 {
     overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
     width: 100%;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: none;
+    touch-action: pan-x;
   }
   .villa-page-menu-container-1::-webkit-scrollbar {
     display: none;
@@ -2283,7 +2372,7 @@ h2 {
 .villa-booking-form textarea { resize:vertical; }
 .villa-booking-form input:focus,
 .villa-booking-form textarea:focus { outline:2px solid #9ed6ea; border-color:#9ed6ea; }
-.booking-submit { background:#6c9ba3; color:#fff; border:none; padding:12px 18px; font-family:'Raleway'; font-size:14px; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; transition:background .25s ease, transform .25s ease; }
+.booking-submit { background:#6c9ba3; color:#fff; border:none; padding:12px 18px; font-family:'Raleway'; font-size:14px; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; border-radius:4px; transition:background .25s ease, transform .25s ease; }
 .booking-submit:hover { background:#557e85; transform:translateY(-2px); }
 .booking-disclaimer { font-size:10px; opacity:.65; margin:4px 0 0; text-transform:none; letter-spacing:.02em; }
 .booking-alert { padding:12px 14px; margin-bottom:14px; border:1px solid; font-size:13px; font-family:'Raleway'; }
@@ -2363,6 +2452,11 @@ h2 {
   margin: 40px 0;
 }
 
+.must-have {
+  display: flex;
+  gap: 100px;
+  margin-top: 20px;
+}
 
 .must-have-title {
   margin: 0;
@@ -2371,8 +2465,8 @@ h2 {
 
 .must-have-list {
   display: flex;
-  flex-direction: row;
-  gap: 150px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 @media (max-width: 775px) {
@@ -2388,6 +2482,7 @@ h2 {
   flex-direction: row;
   align-items: center;
   gap: 10px;
+  justify-content: flex-start;
 }
 
 .acc { border-top:1px solid #eee; margin: 0; padding: 0; margin-top: 50px;}
@@ -2402,6 +2497,35 @@ h2 {
 
 .bedroom-text {
   text-transform: none;
+}
+
+.bedroom-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.bedroom-row h3 {
+  margin: 0;
+  padding: 0;
+  color: #90b0b7;
+  font-weight: 300;
+  font-family: 'Raleway';
+  display: inline;
+  text-transform: none;
+}
+
+.bedroom-row p {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+.bedrooms-footer {
+  font-style: italic;
+  margin-top: 12px;
+  display: block;
 }
 
 .villa-features {
@@ -2467,6 +2591,13 @@ h2 {
   padding: 0;
   
   
+}
+
+.villa-features img {
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: auto;
 }
 
 .optional-text {
@@ -2589,6 +2720,16 @@ h2 {
   margin: 0;
   padding: 0;
   font-weight: 300;
+}
+
+.villa-features.right p {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  text-transform: none;
+}
+.cis_number {
+  font-style: italic;
 }
 
 .send-enquiry {
@@ -3127,6 +3268,14 @@ h2 {
   background: white;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-decoration: none;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.google-badge:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+  text-decoration: none;
 }
 
 .google-badge i {
