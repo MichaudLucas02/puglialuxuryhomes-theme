@@ -221,6 +221,18 @@ function plh_register_cpts() {
     'rewrite'      => ['slug' => 'collection'],
     'show_in_rest' => true,
   ]);
+
+  // Auto-create default collection terms if they don't exist
+  $default_collections = ['sea', 'land', 'city'];
+  foreach ($default_collections as $slug) {
+    if (!term_exists($slug, 'villa_collection')) {
+      wp_insert_term(
+        ucfirst($slug),
+        'villa_collection',
+        ['slug' => $slug]
+      );
+    }
+  }
 }
 add_action('init', 'plh_register_cpts');
 
@@ -722,7 +734,7 @@ function plh_render_features_4x4($post_id, $rows_per = 15) {
   // Icon legend
   $legend = '<div class="villa-features-legend">'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
     . '</div>';
   
@@ -940,7 +952,7 @@ function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
   // Icon legend
   $legend = '<div class="villa-features-legend">'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Not included', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
     
     . '</div>';
@@ -1014,6 +1026,16 @@ add_action('acf/init', function () {
       'name'  => "bedroom_{$i}_description",
       'type'  => 'textarea',
       'placeholder' => 'e.g., Flexible bed (180/90 x 200cm), private bathroom.',
+      'rows'  => 2,
+      'wrapper' => ['width' => 60],
+    ];
+    // Second description field (optional extra paragraph)
+    $bedroom_fields[] = [
+      'key'   => "field_bedroom_{$i}_description_2",
+      'label' => "Bedroom {$i} Description 2",
+      'name'  => "bedroom_{$i}_description_2",
+      'type'  => 'textarea',
+      'placeholder' => 'e.g., Additional notes: terrace access, TV, safe, etc.',
       'rows'  => 2,
       'wrapper' => ['width' => 60],
     ];
@@ -1793,6 +1815,138 @@ add_action('admin_post_plh_booking_request','plh_handle_booking_request');
 add_action('admin_post_nopriv_plh_booking_request','plh_handle_booking_request');
 
 /**
+ * Handle villa submission form
+ */
+function plh_handle_villa_submission() {
+  // Verify nonce
+  if (!isset($_POST['plh_villa_submission_nonce']) || !wp_verify_nonce($_POST['plh_villa_submission_nonce'], 'plh_villa_submission_nonce')) {
+    wp_redirect(add_query_arg(['villa_submission' => 'error', 'villa_error' => urlencode('Security check failed.')], wp_get_referer()));
+    exit;
+  }
+
+  // Honeypot check
+  if (!empty($_POST['villa_hp_field'])) {
+    wp_redirect(add_query_arg('villa_submission', 'error', wp_get_referer()));
+    exit;
+  }
+
+  // Sanitize all fields
+  // Contact Information
+  $owner_name = sanitize_text_field($_POST['owner_full_name'] ?? '');
+  $owner_email = sanitize_email($_POST['owner_email'] ?? '');
+  $owner_phone = sanitize_text_field($_POST['owner_phone'] ?? '');
+  $owner_country = sanitize_text_field($_POST['owner_country'] ?? '');
+
+  // Property Details
+  $property_name = sanitize_text_field($_POST['property_name'] ?? '');
+  $property_location = sanitize_text_field($_POST['property_location'] ?? '');
+  $property_type = sanitize_text_field($_POST['property_type'] ?? '');
+  $property_bedrooms = sanitize_text_field($_POST['property_bedrooms'] ?? '');
+  $property_bathrooms = sanitize_text_field($_POST['property_bathrooms'] ?? '');
+  $property_size = sanitize_text_field($_POST['property_size'] ?? '');
+  $property_features = sanitize_textarea_field($_POST['property_features'] ?? '');
+  $property_link = esc_url_raw($_POST['property_link'] ?? '');
+
+  // Management & Collaboration
+  $collaboration_type = sanitize_text_field($_POST['collaboration_type'] ?? '');
+  $other_agency = sanitize_text_field($_POST['other_agency'] ?? '');
+  $rental_experience = sanitize_text_field($_POST['rental_experience'] ?? '');
+
+  // Message
+  $property_message = sanitize_textarea_field($_POST['property_message'] ?? '');
+
+  // Consent
+  $consent = isset($_POST['consent_checkbox']) ? 'Yes' : 'No';
+
+  // Required field validation
+  $required_fields = [
+    'owner_name' => $owner_name,
+    'owner_email' => $owner_email,
+    'property_location' => $property_location,
+    'property_type' => $property_type,
+    'property_bedrooms' => $property_bedrooms,
+    'property_bathrooms' => $property_bathrooms,
+    'collaboration_type' => $collaboration_type,
+    'other_agency' => $other_agency,
+    'rental_experience' => $rental_experience,
+  ];
+
+  foreach ($required_fields as $field => $value) {
+    if (empty($value)) {
+      wp_redirect(add_query_arg(['villa_submission' => 'error', 'villa_error' => urlencode('Please fill in all required fields.')], wp_get_referer()));
+      exit;
+    }
+  }
+
+  // Email validation
+  if (!is_email($owner_email)) {
+    wp_redirect(add_query_arg(['villa_submission' => 'error', 'villa_error' => urlencode('Please provide a valid email address.')], wp_get_referer()));
+    exit;
+  }
+
+  // Consent validation
+  if ($consent !== 'Yes') {
+    wp_redirect(add_query_arg(['villa_submission' => 'error', 'villa_error' => urlencode('You must agree to be contacted.')], wp_get_referer()));
+    exit;
+  }
+
+  // Build email
+  $to = get_option('admin_email'); // or use a specific email
+  $subject = 'New Property Management Inquiry: ' . ($property_name ?: $property_location);
+  $headers = ['Content-Type: text/html; charset=UTF-8'];
+  
+  $message = '<html><body style="font-family: Arial, sans-serif; line-height: 1.6;">';
+  $message .= '<h2 style="color: #6c9ba3;">New Property Management Submission</h2>';
+  
+  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Contact Information</h3>';
+  $message .= '<p><strong>Full Name:</strong> ' . esc_html($owner_name) . '</p>';
+  $message .= '<p><strong>Email:</strong> ' . esc_html($owner_email) . '</p>';
+  $message .= '<p><strong>Phone:</strong> ' . esc_html($owner_phone ?: 'Not provided') . '</p>';
+  $message .= '<p><strong>Country of Residence:</strong> ' . esc_html($owner_country ?: 'Not provided') . '</p>';
+  
+  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Property Details</h3>';
+  $message .= '<p><strong>Property Name:</strong> ' . esc_html($property_name ?: 'Not provided') . '</p>';
+  $message .= '<p><strong>Location:</strong> ' . esc_html($property_location) . '</p>';
+  $message .= '<p><strong>Type:</strong> ' . esc_html($property_type) . '</p>';
+  $message .= '<p><strong>Bedrooms:</strong> ' . esc_html($property_bedrooms) . '</p>';
+  $message .= '<p><strong>Bathrooms:</strong> ' . esc_html($property_bathrooms) . '</p>';
+  $message .= '<p><strong>Size:</strong> ' . esc_html($property_size ? $property_size . ' m²' : 'Not provided') . '</p>';
+  if (!empty($property_features)) {
+    $message .= '<p><strong>Main Features:</strong><br>' . nl2br(esc_html($property_features)) . '</p>';
+  }
+  if (!empty($property_link)) {
+    $message .= '<p><strong>Website/Instagram:</strong> <a href="' . esc_url($property_link) . '">' . esc_html($property_link) . '</a></p>';
+  }
+  
+  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Management & Collaboration</h3>';
+  $message .= '<p><strong>Collaboration Type:</strong> ' . esc_html($collaboration_type) . '</p>';
+  $message .= '<p><strong>Working with other agency:</strong> ' . esc_html($other_agency) . '</p>';
+  $message .= '<p><strong>Rental Experience:</strong> ' . esc_html($rental_experience) . '</p>';
+  
+  if (!empty($property_message)) {
+    $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Additional Message</h3>';
+    $message .= '<p>' . nl2br(esc_html($property_message)) . '</p>';
+  }
+  
+  $message .= '<hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">';
+  $message .= '<p style="color: #888; font-size: 12px;"><em>Submitted on ' . date('F j, Y \a\t g:i a') . '</em></p>';
+  $message .= '</body></html>';
+
+  // Send email
+  $sent = wp_mail($to, $subject, $message, $headers);
+
+  if ($sent) {
+    wp_redirect(add_query_arg('villa_submission', 'success', wp_get_referer()));
+  } else {
+    wp_redirect(add_query_arg(['villa_submission' => 'error', 'villa_error' => urlencode('Failed to send submission. Please try again.')], wp_get_referer()));
+  }
+  exit;
+}
+
+add_action('admin_post_plh_villa_submission', 'plh_handle_villa_submission');
+add_action('admin_post_nopriv_plh_villa_submission', 'plh_handle_villa_submission');
+
+/**
  * Polylang string registration (Option 2 strategy)
  * Registers UI strings so they appear in Polylang's String Translation without relying solely on file scanning.
  */
@@ -1813,7 +1967,19 @@ function plh_register_ui_strings() {
     'Check in', '4pm - 10pm', 'Check out', 'Minimum stay', 'Low season: 4 nights', 'April, May, September, October', 'High season: 5 nights', 'June, July, August', 'Booking Confirmation', 'A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.', 'The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).', 'A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.', 'Cancellation Policy', 'Deposits and payments are non-refundable',
     'Open in Google Maps',
     'Take a glance', 'at the region',
-    'Included', 'Not included', 'Optional (extra charge)'
+    'Included', 'Not included', 'Optional (extra charge)',
+    'The Collections',
+    'Sea Collection',
+    'Land Collection',
+    'City Collection',
+    'Discover our exclusive coastal villas',
+    'Experience luxury in the countryside',
+    'Urban elegance meets luxury living',
+    'No villas found in this collection',
+    'See all our luxury villas',
+    'villas by the sea',
+    'villas in the countryside',
+    'villas in the city',
   ];
   foreach ( $strings as $s ) {
     pll_register_string( 'plh_ui_' . sanitize_title( $s ), $s, $group );
@@ -1841,17 +2007,23 @@ function plh_render_bedroom_descriptions($post_id, $max_bedrooms = 8) {
   for ($i = 1; $i <= $max_bedrooms; $i++) {
     $title = get_field("bedroom_{$i}_title", $post_id);
     $desc  = get_field("bedroom_{$i}_description", $post_id);
+    $desc2 = get_field("bedroom_{$i}_description_2", $post_id);
     $title = is_string($title) ? trim($title) : '';
     $desc  = is_string($desc) ? trim($desc) : '';
-    if ($title === '' && $desc === '') continue;
-    // Build with title as inline h3 and description inline (nl2br converts line breaks to <br>)
-    if ($title !== '' && $desc !== '') {
-      $parts[] = '<div class="bedroom-row"><h3>' . esc_html($title) . '</h3><p>' . nl2br(esc_html($desc)) . '</p></div>';
-    } elseif ($title !== '') {
-      $parts[] = '<div class="bedroom-row"><h3>' . esc_html($title) . '</h3></div>';
-    } else {
-      $parts[] = '<div class="bedroom-row"><p>' . nl2br(esc_html($desc)) . '</p></div>';
+    $desc2 = is_string($desc2) ? trim($desc2) : '';
+    if ($title === '' && $desc === '' && $desc2 === '') continue;
+    $row = '<div class="bedroom-row">';
+    if ($title !== '') {
+      $row .= '<h3>' . esc_html($title) . '</h3>';
     }
+    if ($desc !== '') {
+      $row .= '<p>' . nl2br(esc_html($desc)) . '</p>';
+    }
+    if ($desc2 !== '') {
+      $row .= '<p>' . nl2br(esc_html($desc2)) . '</p>';
+    }
+    $row .= '</div>';
+    $parts[] = $row;
   }
   $footer = get_field('bedrooms_footer_text', $post_id);
   $footer = is_string($footer) ? trim($footer) : '';

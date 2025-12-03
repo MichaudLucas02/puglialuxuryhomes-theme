@@ -19,12 +19,11 @@ $image_html = $args['image_id']
 ?>
 
 <a class="villa-card" href="<?php echo esc_url( $args['link'] ); ?>">
-  <div class="villa-card__media">
-    <?php echo $image_html; ?>
-    <div class="villa-card__collection"><?php echo esc_html( $args['collection'] ); ?></div>
-  </div>
-
-  <div class="villa-card__body">
+    <div class="villa-card__media">
+        <?php echo $image_html; ?>
+        <div class="villa-card__collection"><?php echo esc_html($args['collection']); ?></div>
+    </div>
+    <div class="villa-card__body">
     <h3 class="villa-card__title"><?php echo esc_html( $args['title'] ); ?></h3>
 
     <div class="villa-card__meta">

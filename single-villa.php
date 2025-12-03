@@ -204,31 +204,7 @@ $read_more      = get_field('read_more_paragraph');
 
 
                 </div>
-                <section class="villa-location">
-                    <h2 class="must-have-title"><?php echo esc_html( plh_t('Location') ); ?></h2>
-                    <?php
-                        $pid     = get_the_ID();
-                        $lat     = trim((string) get_field('villa_lat', $pid));
-                        $lng     = trim((string) get_field('villa_lng', $pid));
-                        $addr    = (string) get_field('villa_address', $pid);
-                        $map_id  = 'villa-map-' . $pid;
-                        ?>
-                        <div class="villa-map-wrap">
-                        <div id="<?php echo esc_attr($map_id); ?>"
-                            class="villa-map"
-                            data-lat="<?php echo esc_attr($lat); ?>"
-                            data-lng="<?php echo esc_attr($lng); ?>"
-                            data-popup="<?php echo esc_attr($addr ?: get_the_title()); ?>">
-                        </div>
-                        <noscript>
-                            <p><a target="_blank" rel="noopener" href="<?php
-                            echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($addr ?: ($lat . ',' . $lng)));
-                                ?>"><?php echo esc_html( plh_t('Open in Google Maps') ); ?></a></p>
-                        </noscript>
-                    </div>
-                </section>
-                
-                    <div class="booking-box mobile">
+                <div class="booking-box mobile">
                         <h3><?php the_title(); ?></h3>
                         <p><?php echo esc_html( plh_booking_text('booking_intro', 'Book now to secure your dates in this exceptional villa.') ); ?></p>
                         <div class="book-cta">
@@ -282,6 +258,31 @@ $read_more      = get_field('read_more_paragraph');
                         </form>
 
                     </div>
+                <section class="villa-location">
+                    <h2 class="must-have-title"><?php echo esc_html( plh_t('Location') ); ?></h2>
+                    <?php
+                        $pid     = get_the_ID();
+                        $lat     = trim((string) get_field('villa_lat', $pid));
+                        $lng     = trim((string) get_field('villa_lng', $pid));
+                        $addr    = (string) get_field('villa_address', $pid);
+                        $map_id  = 'villa-map-' . $pid;
+                        ?>
+                        <div class="villa-map-wrap">
+                        <div id="<?php echo esc_attr($map_id); ?>"
+                            class="villa-map"
+                            data-lat="<?php echo esc_attr($lat); ?>"
+                            data-lng="<?php echo esc_attr($lng); ?>"
+                            data-popup="<?php echo esc_attr($addr ?: get_the_title()); ?>">
+                        </div>
+                        <noscript>
+                            <p><a target="_blank" rel="noopener" href="<?php
+                            echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($addr ?: ($lat . ',' . $lng)));
+                                ?>"><?php echo esc_html( plh_t('Open in Google Maps') ); ?></a></p>
+                        </noscript>
+                    </div>
+                </section>
+                
+                    
                 
 
 
