@@ -571,6 +571,35 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<script>
+// Hide villa-page-menu when reaching footer on mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const villaMenu = document.querySelector('.villa-page-menu');
+    const footer = document.querySelector('.site-footer');
+    
+    if (!villaMenu || !footer) return;
+    
+    function handleMenuVisibility() {
+        const footerRect = footer.getBoundingClientRect();
+        const menuRect = villaMenu.getBoundingClientRect();
+        
+        // Add 100px buffer to trigger fade before footer reaches menu
+        const buffer = 200;
+        
+        if (footerRect.top <= menuRect.bottom + buffer) {
+            villaMenu.style.opacity = '0';
+            villaMenu.style.pointerEvents = 'none';
+        } else {
+            villaMenu.style.opacity = '1';
+            villaMenu.style.pointerEvents = 'auto';
+        }
+    }
+    
+    window.addEventListener('scroll', handleMenuVisibility);
+    handleMenuVisibility(); // Initial check
+});
+</script>
+
 <!-- Info Icon Modal -->
 <div id="infoModal" class="info-modal">
     <div class="info-modal-content">

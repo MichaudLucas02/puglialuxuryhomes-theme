@@ -1756,6 +1756,8 @@ h2 {
 .discover-dots .dot{
   width: 8px; height: 8px; border-radius: 50%;
   background: rgba(255,255,255,.6); border: 0; cursor: pointer;
+  flex-shrink: 0; /* Prevent compression */
+  aspect-ratio: 1 / 1; /* Force square aspect ratio */
 }
 .discover-dots .dot.active{ background: #fff; }
 
@@ -2153,6 +2155,8 @@ h2 {
   max-width: 100%;
   justify-content: center;
   
+  
+  
 }
 
 .villa-page-menu-container {
@@ -2253,9 +2257,6 @@ h2 {
 
 .villa-content {
   display: flex;
- 
-  
-  
 }
 
 @media (max-width: 1000px) {

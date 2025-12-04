@@ -1762,6 +1762,182 @@ add_action('acf/init', function () {
   ]);
 });
 
+// Register WordPress menu item for Discover Items
+add_action('admin_menu', function () {
+  add_menu_page(
+    'Discover Settings',           // Page title
+    'Discover Settings',           // Menu title
+    'manage_options',              // Capability
+    'theme_discover_settings',     // Menu slug
+    'plh_render_discover_settings',// Callback
+    'dashicons-images-alt',        // Icon
+    6                              // Position (before Tools which is at 75)
+  );
+});
+
+// Render the settings page
+function plh_render_discover_settings() {
+  // Check user capabilities
+  if (!current_user_can('manage_options')) {
+    return;
+  }
+
+  // Enqueue media uploader scripts and styles
+  wp_enqueue_media();
+
+  // Get current language from Polylang or use default
+  $current_lang = 'en';
+  $lang_display = 'English';
+  
+  // Check for lang parameter in URL first (for reliable detection during POST)
+  if (isset($_GET['lang']) && !empty($_GET['lang'])) {
+    $current_lang = sanitize_key($_GET['lang']);
+  } elseif (function_exists('pll_current_language')) {
+    $current_lang = pll_current_language() ?: 'en';
+  }
+  
+  // Get language display name
+  if (function_exists('pll_the_languages')) {
+    $languages = pll_the_languages(['echo' => 0, 'raw' => 1]);
+    if (isset($languages[$current_lang])) {
+      $lang_display = $languages[$current_lang]['name'];
+    }
+  }
+
+  // Create a language-specific option key
+  $option_key = 'discover_settings_' . $current_lang;
+
+  // Show the settings form with language-specific option key
+  echo '<div class="wrap">';
+  echo '<h1>Discover Settings</h1>';
+  
+  // Display current language indicator
+  echo '<div style="margin-bottom: 20px; padding: 15px; background: #0073aa; color: white; border-radius: 4px; font-size: 16px; font-weight: bold;">';
+  echo '📝 Currently Editing: ' . esc_html($lang_display) . ' (' . strtoupper($current_lang) . ')';
+  echo '</div>';
+  
+  // Display language switcher if using Polylang
+  if (function_exists('pll_the_languages')) {
+    $languages = pll_the_languages(['echo' => 0, 'raw' => 1]);
+    if (!empty($languages)) {
+      echo '<div style="margin-bottom: 20px; padding: 10px; background: #f1f1f1; border-radius: 4px;">';
+      echo '<strong>Switch Language:</strong> ';
+      $lang_links = [];
+      foreach ($languages as $lang_code => $lang_info) {
+        $lang_url = add_query_arg('lang', $lang_code, admin_url('admin.php?page=theme_discover_settings'));
+        $lang_links[] = '<a href="' . esc_url($lang_url) . '">' . esc_html($lang_info['name']) . '</a>';
+      }
+      echo implode(' | ', $lang_links);
+      echo '</div>';
+    }
+  }
+
+  // Save form data
+  if (isset($_POST['submit'])) {
+    if (!wp_verify_nonce($_POST['discover_nonce'], 'save_discover_settings')) {
+      wp_die('Security check failed');
+    }
+    
+    $saved_count = 0;
+    // Save all 4 items (save even if empty to allow clearing)
+    for ($i = 1; $i <= 4; $i++) {
+      $title = isset($_POST['discover_item_' . $i . '_title']) ? sanitize_text_field($_POST['discover_item_' . $i . '_title']) : '';
+      $description = isset($_POST['discover_item_' . $i . '_description']) ? sanitize_text_field($_POST['discover_item_' . $i . '_description']) : '';
+      $image = isset($_POST['discover_item_' . $i . '_image']) ? esc_url_raw($_POST['discover_item_' . $i . '_image']) : '';
+      $url = isset($_POST['discover_item_' . $i . '_url']) ? esc_url_raw($_POST['discover_item_' . $i . '_url']) : '';
+      
+      update_option($option_key . '_discover_item_' . $i . '_title', $title);
+      update_option($option_key . '_discover_item_' . $i . '_description', $description);
+      update_option($option_key . '_discover_item_' . $i . '_image', $image);
+      update_option($option_key . '_discover_item_' . $i . '_url', $url);
+      
+      if ($image) $saved_count++;
+    }
+    
+    echo '<div class="notice notice-success"><p><strong>Settings saved successfully!</strong></p></div>';
+  }
+
+  // Display form fields manually
+  echo '<form method="post" enctype="multipart/form-data">';
+  wp_nonce_field('save_discover_settings', 'discover_nonce');
+  
+  // Hidden field to pass language through POST
+  echo '<input type="hidden" name="lang" value="' . esc_attr($current_lang) . '">';
+  
+  echo '<table class="form-table">';
+  
+  for ($i = 1; $i <= 4; $i++) {
+    $title = get_option($option_key . '_discover_item_' . $i . '_title', '');
+    $description = get_option($option_key . '_discover_item_' . $i . '_description', '');
+    $image = get_option($option_key . '_discover_item_' . $i . '_image', '');
+    $url = get_option($option_key . '_discover_item_' . $i . '_url', '');
+    
+    echo '<tr>';
+    echo '<th colspan="2"><h3>Discover Item ' . $i . '</h3></th>';
+    echo '</tr>';
+    
+    // Title field
+    echo '<tr>';
+    echo '<th scope="row"><label for="discover_title_' . $i . '">Title</label></th>';
+    echo '<td>';
+    echo '<input type="text" id="discover_title_' . $i . '" name="discover_item_' . $i . '_title" value="' . esc_attr($title) . '" class="regular-text" />';
+    echo '</td>';
+    echo '</tr>';
+    
+    // Description field
+    echo '<tr>';
+    echo '<th scope="row"><label for="discover_desc_' . $i . '">Description</label></th>';
+    echo '<td>';
+    echo '<input type="text" id="discover_desc_' . $i . '" name="discover_item_' . $i . '_description" value="' . esc_attr($description) . '" class="regular-text" />';
+    echo '</td>';
+    echo '</tr>';
+    
+    // Image field
+    echo '<tr>';
+    echo '<th scope="row"><label for="discover_image_' . $i . '">Image URL</label></th>';
+    echo '<td>';
+    echo '<input type="text" id="discover_image_' . $i . '" name="discover_item_' . $i . '_image" value="' . esc_attr($image) . '" class="regular-text" />';
+    echo '<button type="button" class="button" onclick="openMediaUploader(' . $i . ')">Upload Image</button>';
+    echo '</td>';
+    echo '</tr>';
+    
+    // URL field
+    echo '<tr>';
+    echo '<th scope="row"><label for="discover_url_' . $i . '">Link URL</label></th>';
+    echo '<td>';
+    echo '<input type="url" id="discover_url_' . $i . '" name="discover_item_' . $i . '_url" value="' . esc_attr($url) . '" class="regular-text" />';
+    echo '</td>';
+    echo '</tr>';
+  }
+  
+  echo '</table>';
+  submit_button('Save Settings');
+  echo '</form>';
+  
+  // Add media uploader script
+  echo '<script>
+    function openMediaUploader(itemNum) {
+      var frame = wp.media({
+        title: "Select Image",
+        button: {
+          text: "Select"
+        },
+        multiple: false
+      });
+      
+      frame.on("select", function() {
+        var attachment = frame.state().get("selection").first().toJSON();
+        document.getElementById("discover_image_" + itemNum).value = attachment.url;
+      });
+      
+      frame.open();
+    }
+  </script>';
+  
+  echo '</div>';
+}
+
+
 /**
  * Handle booking request form submissions.
  */
