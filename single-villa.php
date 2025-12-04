@@ -61,7 +61,12 @@ $read_more      = get_field('read_more_paragraph');
                     </div>
                     <div class="single-kpi rameaux">
                         <img src="/wp-content/uploads/2025/09/Rameaux.png">
-                        <p><?php echo esc_html($rameaux); ?></p>
+                        <p>
+                            <?php echo esc_html($rameaux); ?>
+                            <span class="info-icon" data-modal-image="<?php echo esc_attr( get_field('rameaux_image') ?: '/wp-content/uploads/2025/09/Rameaux.png' ); ?>">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </span>
+                        </p>
                     </div>
                 </div>
                 <div class="villa-divider"></div>
@@ -118,7 +123,7 @@ $read_more      = get_field('read_more_paragraph');
                             <?php echo esc_html( plh_t('Bedrooms') ); ?>
                             </button>
                             <div id="acc1" class="acc-panel" role="region" aria-labelledby="acc1-btn" hidden>
-                            <div class="villa-features-category"><?php echo plh_render_bedroom_descriptions(get_the_ID(), 8); ?></div>
+                            <div class="villa-features-category"><?php echo plh_render_bedroom_descriptions(get_the_ID(), 12); ?></div>
                             </div>
                         </div>
 
@@ -565,5 +570,55 @@ document.addEventListener('DOMContentLoaded', function() {
     updateArrows();
 });
 </script>
+
+<!-- Info Icon Modal -->
+<div id="infoModal" class="info-modal">
+    <div class="info-modal-content">
+        <button class="info-modal-close">&times;</button>
+        <img id="infoModalImage" src="" alt="Information">
+    </div>
+</div>
+
+<script>
+// Info icon modal functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('infoModal');
+    const modalImage = document.getElementById('infoModalImage');
+    const closeBtn = document.querySelector('.info-modal-close');
+    const infoIcons = document.querySelectorAll('.info-icon');
+
+    if (!modal || !infoIcons.length) return;
+
+    infoIcons.forEach(icon => {
+        icon.addEventListener('click', function(e) {
+            e.preventDefault();
+            const imageUrl = this.getAttribute('data-modal-image');
+            if (imageUrl) {
+                modalImage.src = imageUrl;
+                modal.classList.add('active');
+            }
+        });
+    });
+
+    closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            modal.classList.remove('active');
+        }
+    });
+});
+</script>
+
+
 
 

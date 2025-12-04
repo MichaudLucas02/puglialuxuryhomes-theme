@@ -324,6 +324,14 @@ add_action('acf/init', function () {
         'name'  => 'rameaux_1',
         'type'  => 'text',
       ],
+      [
+        'key'           => 'field_rameaux_image_1',
+        'label'         => 'Rameaux Image',
+        'name'          => 'rameaux_image',
+        'type'          => 'image',
+        'return_format' => 'url',
+        'instructions'  => 'Image to display in the modal when clicking the info icon',
+      ],
 
       [
         'key'   => 'field_villa_collection_1',
@@ -641,7 +649,7 @@ add_action('acf/init', function () {
 function plh_render_features_4x4($post_id, $rows_per = 15) {
   $fa_map = [
     'check' => 'fa-solid fa-circle-check',
-    'x'     => 'fa-solid fa-circle-xmark',
+    'x'     => 'fa-regular fa-circle-xmark',
     'info'  => 'fa-solid fa-circle-question',
     'optional'  => 'fa-solid fa-circle-minus',
   ];
@@ -734,7 +742,7 @@ function plh_render_features_4x4($post_id, $rows_per = 15) {
   // Icon legend
   $legend = '<div class="villa-features-legend">'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
     . '</div>';
   
@@ -905,8 +913,8 @@ add_action('acf/init', function () {
 function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
   $fa = [
     'check' => 'fa-solid fa-circle-check',
-    'minus' => 'fa-solid fa-circle-minus',
-    'x'     => 'fa-solid fa-circle-xmark',
+    'minus' => 'fa-regular fa-circle-minus',
+    'x'     => 'fa-regular fa-circle-xmark',
   ];
   $icon_tag = function($key) use ($fa) {
     return isset($fa[$key]) ? '<i class="'.esc_attr($fa[$key]).'"></i>' : '';
@@ -952,7 +960,7 @@ function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
   // Icon legend
   $legend = '<div class="villa-features-legend">'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
     .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
     
     . '</div>';
@@ -1009,7 +1017,7 @@ add_action('acf/init', function () {
 
   // Bedroom Descriptions ACF Group (Titles + Descriptions + Footer Text)
   $bedroom_fields = [];
-  for ($i = 1; $i <= 8; $i++) {
+  for ($i = 1; $i <= 12; $i++) {
     // Title field per bedroom
     $bedroom_fields[] = [
       'key'   => "field_bedroom_{$i}_title",
@@ -1999,10 +2007,10 @@ function plh_t( $text, $context = '' ) {
 }
 
 /**
- * Render bedroom descriptions from ACF fields (supports up to 8 bedrooms).
+ * Render bedroom descriptions from ACF fields (supports up to 12 bedrooms).
  * Outputs formatted bedroom rows with bed type and bathroom info.
  */
-function plh_render_bedroom_descriptions($post_id, $max_bedrooms = 8) {
+function plh_render_bedroom_descriptions($post_id, $max_bedrooms = 12) {
   $parts = [];
   for ($i = 1; $i <= $max_bedrooms; $i++) {
     $title = get_field("bedroom_{$i}_title", $post_id);
