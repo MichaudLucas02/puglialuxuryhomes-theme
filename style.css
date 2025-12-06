@@ -103,7 +103,7 @@ article {
 h2 {
   font-size: 40px;
   font-weight: 300;
-  font-family: 'Raleway';
+  font-family: 'Didot';
   text-transform: uppercase;
 }
 
@@ -1655,6 +1655,18 @@ h2 {
 .villa-card__location { margin-top: 0; text-transform: capitalize;}
 .villa-card__price {font-family: 'Raleway'; font-weight: 400;}
 
+/* Villa cards grid for blog content */
+.villa-cards-row {
+  display: flex;
+  
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .villa-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
 
 
 /* Discover section Start */
@@ -3206,6 +3218,9 @@ h2 {
   color: #000;
 }
 
+.villa-gallery-header h1 {
+  text-transform: uppercase;
+}
 
 /* Service Card Start */
 
@@ -3495,7 +3510,7 @@ h2 {
 
 .service-content h4 {
   font-family: 'Raleway';
-  font-size: 200;
+  font-weight: 200;
   font-size: 18px;
 }
 
@@ -3535,6 +3550,10 @@ h2 {
   font-family: 'Raleway';
 }
 
+.single-blog-content {
+  width: 70%;
+}
+
 .single-blog-content h2 {
   font-family: 'Raleway';
   font-weight: 400;
@@ -3553,6 +3572,7 @@ h2 {
 .single-blog-wrapper {
   display: flex;
   flex-direction: row;
+ 
   gap: 40px;
   padding: 40px 5vw;
   max-width: 1400px;
@@ -3887,3 +3907,316 @@ h2 {
     color: #557e85;
   }
 }
+
+/* Blog Cards Grid */
+
+.blog-listing {
+  gap: 10px;
+}
+
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 60px 0 40px 0;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.blog-header h2 {
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.blog-category-filter select {
+  padding: 12px 40px 12px 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  background: white;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  transition: border-color 0.3s ease;
+  min-width: 200px;
+}
+
+.blog-category-filter select:hover {
+  border-color: #999;
+}
+
+.blog-category-filter select:focus {
+  outline: none;
+  border-color: #666;
+}
+
+@media (max-width: 768px) {
+  .blog-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .blog-category-filter select {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+.blog-desktop {
+  display: block;
+}
+
+.blog-mobile {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .blog-desktop {
+    display: none;
+  }
+  
+  .blog-mobile {
+    display: block;
+  }
+}
+
+.blog-cards-row {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 45px;
+}
+
+
+.blog-cards-container {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  gap: 45px;
+  
+}
+
+@media (max-width: 1024px) {
+  .blog-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-cards-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Blog index section ------------------------------ */
+
+.featured-blog-section {
+  padding: 0;
+  margin: 0;
+}
+
+.feature-blog-wrapper {
+  background-color: #f5f5f5;
+  display: flex;
+  width: 100%;
+  max-height: 500px;
+  margin: 100px 0;
+  margin-top: 0;
+  margin-bottom: 45px;
+  
+}
+.feature-blog-image {
+  display: flex;
+  width: 65%;
+}
+.feature-blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.feature-blog-content {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  padding: 20px;
+  gap: 20px;
+}
+
+.feature-blog-content h4 {
+  font-family: 'Raleway';
+  font-weight: 300;
+  font-size: 36px;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.feature-blog-content h4 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.feature-blog-content a {
+  text-decoration: none;
+  color: inherit;
+  margin:0;
+  padding:0;
+}
+
+.feature-blog-content p {
+  text-transform: none;
+  font-family: 'Raleway';
+  margin: 0;
+  padding: 0;
+}
+
+.feature-blog-wrapper.mirrored {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 800px) {
+  .feature-blog-wrapper {
+    flex-direction: column;
+    max-height: 100%;
+  }
+  .feature-blog-wrapper.mirrored {
+    flex-direction: column;
+  }
+  .feature-blog-image, .feature-blog-content {
+    width: 100%;
+  }
+}
+
+.simple-blog-card {
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5f5;
+  width: 33.33%;
+
+}
+
+.simple-blog-card__thumb {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.simple-blog-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.simple-blog-card__content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.simple-blog-card__content h4 {
+  font-family: 'Raleway';
+  font-weight: 300;
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.simple-blog-card__content p {
+  text-transform: none;
+  font-family: 'Raleway';
+  margin: 0;
+  padding: 0;
+}
+
+.simple-blog-card__content a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 800px) {
+  .blog-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+  }
+  
+  .simple-blog-card {
+    width: 100%;
+    flex-direction: column;
+    background-color: #f5f5f5;
+  }
+  
+  .simple-blog-card__thumb {
+    width: 100%;
+    height: 350px;
+  }
+  
+  .simple-blog-card__content {
+    width: 100%;
+  }
+}
+
+.wide-blog-section {
+  display: flex;
+  width: 100%;
+  height: 80vh;
+  position: relative
+}
+
+.wide-blog-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wide-blog-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 35%;
+  
+  background: #f5f5f5;
+
+  padding: 50px;
+
+}
+
+.wide-blog-section-wrapper {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 45px;
+}
+
+.wide-blog-content h4 {
+  font-family: 'Raleway';
+  font-weight: 300;
+  font-size: 36px;
+  margin: 0;
+  padding: 0;
+}
+
+.wide-blog-content p {
+  text-transform: none;
+  font-family: 'Raleway';
+  margin: 0;
+  padding: 0;
+}
+
+.wide-blog-content a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+
+
+

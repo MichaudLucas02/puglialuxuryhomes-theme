@@ -48,14 +48,25 @@ add_action('init', function() {
     'label' => __('Blog', 'plh'),
     'labels' => $labels,
     'public' => true,
-    'has_archive' => true,
-    'rewrite' => ['slug' => 'blog', 'with_front' => false],
+    'has_archive' => false,
+    'rewrite' => ['slug' => 'magazine', 'with_front' => false],
     'show_in_rest' => true,
     'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'comments'],
     'taxonomies' => ['category', 'post_tag'],
     'menu_icon' => 'dashicons-edit',
   ];
   register_post_type('blog', $args);
+});
+
+// Create default blog categories
+add_action('init', function() {
+  $default_categories = ['Travel', 'Discover', 'Restaurant'];
+  
+  foreach ($default_categories as $cat_name) {
+    if (!term_exists($cat_name, 'category')) {
+      wp_insert_term($cat_name, 'category');
+    }
+  }
 });
 
 // Flush rewrite rules on theme switch so the /blog archive works immediately
@@ -2225,3 +2236,66 @@ function plh_booking_text($field_name, $default = '') {
   $value = is_string($value) ? trim($value) : '';
   return $value !== '' ? $value : $default;
 }
+
+/**
+ * Villa Card Shortcode
+ * Usage: [villa_card id="123"] or [villa_card name="villa-slug"] or [villa_card title="Villa Name"]
+ */
+add_shortcode('villa_card', function($atts) {
+  $atts = shortcode_atts([
+    'id' => null,
+    'post_id' => null,
+    'name' => null,     // slug
+    'title' => null,    // post title
+  ], $atts, 'villa_card');
+  
+  $post_id = null;
+  
+  // Try to get post ID from 'id' or 'post_id' parameter
+  if ($atts['id'] || $atts['post_id']) {
+    $post_id = intval($atts['id'] ?: $atts['post_id']);
+  }
+  // Try to get by slug/name
+  elseif ($atts['name']) {
+    $post = get_page_by_path($atts['name'], OBJECT, 'villa');
+    if ($post) {
+      $post_id = $post->ID;
+    }
+  }
+  // Try to get by title
+  elseif ($atts['title']) {
+    $posts = get_posts([
+      'post_type' => 'villa',
+      'title' => $atts['title'],
+      'posts_per_page' => 1,
+    ]);
+    if (!empty($posts)) {
+      $post_id = $posts[0]->ID;
+    }
+  }
+  
+  if (!$post_id) {
+    return '<!-- Villa card shortcode: no valid villa found. Use id="123" or name="villa-slug" or title="Villa Name" -->';
+  }
+  
+  // Verify the post exists and is a villa
+  $post = get_post($post_id);
+  if (!$post || $post->post_type !== 'villa') {
+    return '<!-- Villa card shortcode: villa not found -->';
+  }
+  
+  // Set up globals so get_template_part can access the post
+  global $post;
+  $post = get_post($post_id);
+  setup_postdata($post);
+  
+  ob_start();
+  get_template_part('partials/villa-card', null, [
+    'post_id' => $post_id,
+  ]);
+  $output = ob_get_clean();
+  
+  wp_reset_postdata();
+  
+  return $output;
+});
