@@ -21,48 +21,62 @@
     <section class='our-collection'>
         <h2>Our Collections</h2>
         <p class="p-title">Discover our collections of exclusive villas</p>
+        
+        <?php
+        // Sea Collection
+        $sea_image = get_field('home_sea_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2025/04/6-Salotto-2-scaled.jpg';
+        $sea_title = get_field('home_sea_title') ?: 'Sea Collection';
+        $sea_desc = get_field('home_sea_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
+        $sea_link = get_field('home_sea_link') ?: '';
+        ?>
         <div class="sea-collection">
             <img 
-                src="http://puglialuxuryhomes.com/wp-content/uploads/2025/04/6-Salotto-2-scaled.jpg"
+                src="<?php echo esc_url($sea_image); ?>"
                 class='sea-collection-cover'
             ></img>
             <div class='sea-overlay'>
-                <h1>Sea Collection</h1>
-                <p>Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity
-                    with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece
-                        of award winning design and a heaven of privcy, staffed to cater to your every need. 
-                </p>
-                <a href="">EXPLORE COLLECTION</a>
+                <h1><?php echo esc_html($sea_title); ?></h1>
+                <p><?php echo esc_html($sea_desc); ?></p>
+                <a href="<?php echo esc_url($sea_link); ?>">EXPLORE COLLECTION</a>
             </div>
         </div>
     
         <div class="collection-wrapper">
+            <?php
+            // City Collection
+            $city_image = get_field('home_city_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/08/luca-dimola-bIUIhzGo8_U-unsplash-scaled.jpg';
+            $city_title = get_field('home_city_title') ?: 'City Collection';
+            $city_desc = get_field('home_city_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
+            $city_link = get_field('home_city_link') ?: '';
+            ?>
             <div class='city-collection'>
                 <img
-                    src="http://puglialuxuryhomes.com/wp-content/uploads/2024/08/luca-dimola-bIUIhzGo8_U-unsplash-scaled.jpg"
+                    src="<?php echo esc_url($city_image); ?>"
                     class='sea-collection-cover'
                 ></img>
                 <div class='city-overlay'>
-                    <h1>City Collection</h1>
-                    <p>Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity
-                        with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece
-                        of award winning design and a heaven of privcy, staffed to cater to your every need. 
-                    </p>
-                    <a href="">EXPLORE COLLECTION</a>
+                    <h1><?php echo esc_html($city_title); ?></h1>
+                    <p><?php echo esc_html($city_desc); ?></p>
+                    <a href="<?php echo esc_url($city_link); ?>">EXPLORE COLLECTION</a>
                 </div>
             </div>
+            
+            <?php
+            // Land Collection
+            $land_image = get_field('home_land_image') ?: '/wp-content/uploads/2025/08/kalina-o-5BhEr7SKhvE-unsplash-scaled.jpg';
+            $land_title = get_field('home_land_title') ?: 'Land Collection';
+            $land_desc = get_field('home_land_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
+            $land_link = get_field('home_land_link') ?: get_permalink(get_page_by_path('land-collection'));
+            ?>
             <div class='land-collection'>
                 <img 
-                    src="/wp-content/uploads/2025/08/kalina-o-5BhEr7SKhvE-unsplash-scaled.jpg"
+                    src="<?php echo esc_url($land_image); ?>"
                     class='sea-collection-cover'
                 ></img>
                 <div class='land-overlay'>
-                    <h1>Land Collection</h1>
-                    <p>Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity
-                        with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece
-                        of award winning design and a heaven of privcy, staffed to cater to your every need. 
-                    </p>
-                    <a href="<?php echo get_permalink( get_page_by_path('land-collection') ); ?>">EXPLORE COLLECTION</a>
+                    <h1><?php echo esc_html($land_title); ?></h1>
+                    <p><?php echo esc_html($land_desc); ?></p>
+                    <a href="<?php echo esc_url($land_link); ?>">EXPLORE COLLECTION</a>
                 </div>
             </div>
 

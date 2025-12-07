@@ -11,6 +11,11 @@ add_action('after_setup_theme', function () {
     'footer'  => __('Footer Menu', 'thinktech'),
     'mobile'  => __('Mobile Menu', 'thinktech'),
     'primary_fr' => __('Primary Menu FR', 'thinktech'),
+    'mobile_fr' => __('Mobile Menu FR', 'thinktech'),
+    'primary_it' => __('Primary Menu IT', 'thinktech'),
+    'mobile_it' => __('Mobile Menu IT', 'thinktech'),
+    'footer_fr'  => __('Footer Menu FR', 'thinktech'),
+    'footer_it'  => __('Footer Menu IT', 'thinktech'),
   ]);
 
   // Register a custom block pattern category for PLH patterns
@@ -72,6 +77,59 @@ add_action('init', function() {
 // Flush rewrite rules on theme switch so the /blog archive works immediately
 add_action('after_switch_theme', function() {
   flush_rewrite_rules();
+});
+
+// -----------------------
+// ACF Fields: Small Hero (available on all pages)
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_small_hero',
+    'title'  => 'Small Hero Section',
+    'fields' => [
+      [
+        'key'   => 'field_small_hero_enable',
+        'label' => 'Enable Small Hero',
+        'name'  => 'small_hero_enable',
+        'type'  => 'true_false',
+        'ui'    => 1,
+        'default_value' => 1,
+        'instructions' => 'Toggle to show/hide the small hero section on this page',
+      ],
+      [
+        'key'           => 'field_small_hero_video',
+        'label'         => 'Hero Video URL',
+        'name'          => 'small_hero_video',
+        'type'          => 'url',
+        'default_value' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/05/PLH.mp4',
+        'instructions'  => 'MP4 video URL for the hero background',
+      ],
+      [
+        'key'           => 'field_small_hero_poster',
+        'label'         => 'Hero Poster Image',
+        'name'          => 'small_hero_poster',
+        'type'          => 'url',
+        'default_value' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp',
+        'instructions'  => 'Fallback image shown before video loads',
+      ],
+      [
+        'key'   => 'field_small_hero_title',
+        'label' => 'Hero Title',
+        'name'  => 'small_hero_title',
+        'type'  => 'text',
+        'instructions'  => 'Leave blank to use page title automatically',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'page',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
 });
 
   // -----------------------
@@ -2299,3 +2357,381 @@ add_shortcode('villa_card', function($atts) {
   
   return $output;
 });
+
+// -----------------------
+// ACF Fields: Collections Page Content
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $collections = ['sea', 'land', 'city'];
+  $collection_names = [
+    'sea' => 'Sea Collection',
+    'land' => 'Land Collection',
+    'city' => 'City Collection',
+  ];
+
+  $fields = [];
+
+  foreach ($collections as $collection) {
+    $name = $collection_names[$collection] ?? ucfirst($collection);
+    
+    // Visual tab for this collection
+    $fields[] = [
+      'key'       => "field_collection_tab_$collection",
+      'label'     => $name,
+      'type'      => 'tab',
+      'placement' => 'top',
+    ];
+
+    // Collection image
+    $fields[] = [
+      'key'           => "field_collection_{$collection}_image",
+      'label'         => 'Collection Image',
+      'name'          => "collection_{$collection}_image",
+      'type'          => 'image',
+      'return_format' => 'id',
+      'preview_size'  => 'medium_large',
+      'instructions'  => 'Main image for the collection section (left side)',
+    ];
+
+    // Short description
+    $fields[] = [
+      'key'   => "field_collection_{$collection}_short_desc",
+      'label' => 'Short Description',
+      'name'  => "collection_{$collection}_short_desc",
+      'type'  => 'text',
+      'instructions' => 'One-line tagline for the collection',
+    ];
+
+    // Long description
+    $fields[] = [
+      'key'   => "field_collection_{$collection}_long_desc",
+      'label' => 'Extended Description',
+      'name'  => "collection_{$collection}_long_desc",
+      'type'  => 'textarea',
+      'rows'  => 4,
+      'new_lines' => 'wpautop',
+      'instructions' => 'Detailed narrative about the collection, location highlights, and selling points',
+    ];
+
+    // Read more link
+    $fields[] = [
+      'key'   => "field_collection_{$collection}_read_more_url",
+      'label' => 'Read More URL (optional)',
+      'name'  => "collection_{$collection}_read_more_url",
+      'type'  => 'url',
+      'instructions' => 'Link for the "Read More" button. Leave blank to hide button.',
+    ];
+  }
+
+  acf_add_local_field_group([
+    'key'    => 'group_collections_content',
+    'title'  => 'Collections Page Content',
+    'fields' => $fields,
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'collections.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
+// ACF Fields: Concierge Services Page
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_concierge_header',
+    'title'  => 'Concierge Services - Header',
+    'fields' => [
+      [
+        'key'   => 'field_concierge_title',
+        'label' => 'Section Title',
+        'name'  => 'concierge_title',
+        'type'  => 'text',
+        'default_value' => 'Get inspired',
+        'instructions' => 'Main section title',
+      ],
+      [
+        'key'   => 'field_concierge_subtitle',
+        'label' => 'Section Subtitle',
+        'name'  => 'concierge_subtitle',
+        'type'  => 'text',
+        'default_value' => 'Top experiences for your itinerary',
+        'instructions' => 'Subtitle text',
+      ],
+      [
+        'key'   => 'field_concierge_button_text',
+        'label' => 'Button Text',
+        'name'  => 'concierge_button_text',
+        'type'  => 'text',
+        'default_value' => 'Discover All Services',
+        'instructions' => 'Text for "Discover All Services" button',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'concierge-services.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+
+  // Individual service fields (4 services for free ACF)
+  acf_add_local_field_group([
+    'key'    => 'group_concierge_services',
+    'title'  => 'Concierge Services - Service Items',
+    'fields' => [
+      [
+        'key'   => 'field_service_1_label',
+        'label' => 'Service 1',
+        'name'  => 'service_1_label',
+        'type'  => 'message',
+        'message' => 'Configure the first service below',
+      ],
+      [
+        'key'           => 'field_service_1_image',
+        'label'         => 'Service 1 - Image',
+        'name'          => 'service_1_image',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'   => 'field_service_1_title',
+        'label' => 'Service 1 - Title',
+        'name'  => 'service_1_title',
+        'type'  => 'text',
+        'placeholder' => 'e.g., Supercar Grand Tour',
+      ],
+      [
+        'key'   => 'field_service_1_description',
+        'label' => 'Service 1 - Description',
+        'name'  => 'service_1_description',
+        'type'  => 'textarea',
+        'rows'  => 6,
+        'new_lines' => 'wpautop',
+      ],
+      [
+        'key'   => 'field_service_2_label',
+        'label' => 'Service 2',
+        'name'  => 'service_2_label',
+        'type'  => 'message',
+        'message' => 'Configure the second service below',
+      ],
+      [
+        'key'           => 'field_service_2_image',
+        'label'         => 'Service 2 - Image',
+        'name'          => 'service_2_image',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'   => 'field_service_2_title',
+        'label' => 'Service 2 - Title',
+        'name'  => 'service_2_title',
+        'type'  => 'text',
+        'placeholder' => 'e.g., Private Chef Experience',
+      ],
+      [
+        'key'   => 'field_service_2_description',
+        'label' => 'Service 2 - Description',
+        'name'  => 'service_2_description',
+        'type'  => 'textarea',
+        'rows'  => 6,
+        'new_lines' => 'wpautop',
+      ],
+      [
+        'key'   => 'field_service_3_label',
+        'label' => 'Service 3',
+        'name'  => 'service_3_label',
+        'type'  => 'message',
+        'message' => 'Configure the third service below',
+      ],
+      [
+        'key'           => 'field_service_3_image',
+        'label'         => 'Service 3 - Image',
+        'name'          => 'service_3_image',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'   => 'field_service_3_title',
+        'label' => 'Service 3 - Title',
+        'name'  => 'service_3_title',
+        'type'  => 'text',
+        'placeholder' => 'e.g., Yacht Adventure',
+      ],
+      [
+        'key'   => 'field_service_3_description',
+        'label' => 'Service 3 - Description',
+        'name'  => 'service_3_description',
+        'type'  => 'textarea',
+        'rows'  => 6,
+        'new_lines' => 'wpautop',
+      ],
+      [
+        'key'   => 'field_service_4_label',
+        'label' => 'Service 4',
+        'name'  => 'service_4_label',
+        'type'  => 'message',
+        'message' => 'Configure the fourth service below',
+      ],
+      [
+        'key'           => 'field_service_4_image',
+        'label'         => 'Service 4 - Image',
+        'name'          => 'service_4_image',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'   => 'field_service_4_title',
+        'label' => 'Service 4 - Title',
+        'name'  => 'service_4_title',
+        'type'  => 'text',
+        'placeholder' => 'e.g., Wine Tasting Tour',
+      ],
+      [
+        'key'   => 'field_service_4_description',
+        'label' => 'Service 4 - Description',
+        'name'  => 'service_4_description',
+        'type'  => 'textarea',
+        'rows'  => 6,
+        'new_lines' => 'wpautop',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'concierge-services.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
+// ACF Fields: Homepage Collections
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $fields = [];
+  
+  // Sea Collection
+  $fields[] = [
+    'key'   => 'field_home_sea_image',
+    'label' => 'Sea Collection - Image',
+    'name'  => 'home_sea_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the sea collection image',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_sea_title',
+    'label' => 'Sea Collection - Title',
+    'name'  => 'home_sea_title',
+    'type'  => 'text',
+    'default_value' => 'Sea Collection',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_sea_description',
+    'label' => 'Sea Collection - Description',
+    'name'  => 'home_sea_description',
+    'type'  => 'textarea',
+    'rows'  => 4,
+    'default_value' => 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_sea_link',
+    'label' => 'Sea Collection - Link',
+    'name'  => 'home_sea_link',
+    'type'  => 'url',
+    'instructions' => 'URL for "Explore Collection" button',
+  ];
+  
+  // City Collection
+  $fields[] = [
+    'key'   => 'field_home_city_image',
+    'label' => 'City Collection - Image',
+    'name'  => 'home_city_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the city collection image',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_city_title',
+    'label' => 'City Collection - Title',
+    'name'  => 'home_city_title',
+    'type'  => 'text',
+    'default_value' => 'City Collection',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_city_description',
+    'label' => 'City Collection - Description',
+    'name'  => 'home_city_description',
+    'type'  => 'textarea',
+    'rows'  => 4,
+    'default_value' => 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_city_link',
+    'label' => 'City Collection - Link',
+    'name'  => 'home_city_link',
+    'type'  => 'url',
+    'instructions' => 'URL for "Explore Collection" button',
+  ];
+  
+  // Land Collection
+  $fields[] = [
+    'key'   => 'field_home_land_image',
+    'label' => 'Land Collection - Image',
+    'name'  => 'home_land_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the land collection image',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_land_title',
+    'label' => 'Land Collection - Title',
+    'name'  => 'home_land_title',
+    'type'  => 'text',
+    'default_value' => 'Land Collection',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_land_description',
+    'label' => 'Land Collection - Description',
+    'name'  => 'home_land_description',
+    'type'  => 'textarea',
+    'rows'  => 4,
+    'default_value' => 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_land_link',
+    'label' => 'Land Collection - Link',
+    'name'  => 'home_land_link',
+    'type'  => 'url',
+    'instructions' => 'URL for "Explore Collection" button',
+  ];
+
+  acf_add_local_field_group([
+    'key'    => 'group_homepage_collections',
+    'title'  => 'Homepage Collections',
+    'fields' => $fields,
+    'location' => [[[
+      'param'    => 'page_type',
+      'operator' => '==',
+      'value'    => 'front_page',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+

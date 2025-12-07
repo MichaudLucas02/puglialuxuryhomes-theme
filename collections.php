@@ -44,13 +44,38 @@ get_header(); ?>
     <section class="collection-description">
         <div class="collection-description-wrapper">
             <div class="collection-description-column__left">
-                <img src="https://via.placeholder.com/400x300" alt="<?php echo esc_attr($data['title']); ?> placeholder">
+                <?php
+                $image_id = get_field("collection_{$slug}_image");
+                if ($image_id) {
+                    echo wp_get_attachment_image($image_id, 'medium_large', false, [
+                        'alt' => esc_attr($data['title']),
+                        'class' => 'collection-description-image',
+                    ]);
+                } else {
+                    echo '<img src="https://via.placeholder.com/400x300" alt="' . esc_attr($data['title']) . ' placeholder">';
+                }
+                ?>
             </div>
             <div class="collection-description-column__right">
                 <h2 class="collection-description-title"><?php echo esc_html($data['title']); ?></h2>
-                <p class="p-title collection-short-desc"><?php echo esc_html($data['description']); ?></p>
-                <p class="collection-long-desc">Placeholder extended description for <?php echo esc_html($data['title']); ?>. Replace this with richer narrative copy about ambiance, location highlights, and unique selling points of the collection.</p>
-                <a href="#" class="collection-description-read-more">Read more</a>
+                <p class="p-title collection-short-desc">
+                    <?php 
+                    $short_desc = get_field("collection_{$slug}_short_desc");
+                    echo esc_html($short_desc ?: $data['description']);
+                    ?>
+                </p>
+                <p class="collection-long-desc">
+                    <?php 
+                    $long_desc = get_field("collection_{$slug}_long_desc");
+                    echo wp_kses_post($long_desc ?: 'Placeholder extended description. Replace this with richer narrative copy about ambiance, location highlights, and unique selling points of the collection.');
+                    ?>
+                </p>
+                <?php 
+                $read_more_url = get_field("collection_{$slug}_read_more_url");
+                if ($read_more_url):
+                ?>
+                <a href="<?php echo esc_url($read_more_url); ?>" class="collection-description-read-more">Read more</a>
+                <?php endif; ?>
             </div>
         </div>
     </section>
