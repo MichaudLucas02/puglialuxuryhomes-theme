@@ -2,18 +2,24 @@
 
 <div class='homepage'>
     
+    <?php
+    // Hero Section
+    $hero_image = get_field('home_hero_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/7-Vue-1-scaled.webp';
+    $hero_title = get_field('home_hero_title') ?: 'A WINDOW ON THE ADRIATIC';
+    $hero_description = get_field('home_hero_description') ?: 'Here, the dry stone of Solento sinks into the intense blue of the Mediterranean. Bordered by cliffs, inlets and long white beaches, hemmed in by scrumbland and pine forests, this wild land is an obe to the art of living and the seaside indolence.';
+    ?>
+    
     <section class='hero-section'>
         <img 
-            src="http://puglialuxuryhomes.com/wp-content/uploads/2024/11/7-Vue-1-scaled.webp"
+            src="<?php echo esc_url($hero_image); ?>"
             class='hero-background'
+            alt="<?php echo esc_attr($hero_title); ?>"
         ></img>
 
 
         <div class='hero-content'>
-            <h1>A WINDOW ON THE ADRIATIC</h1>
-            <p>Here, the dry stone of Solento sinks into the intense blue of the Mediterranean. Bordered by cliffs,
-                    inlets and long white beaches, hemmed in by scrumbland and pine forests, this wild land is an obe to
-                    the art of living and the seaside indolence.</p>
+            <h1><?php echo esc_html($hero_title); ?></h1>
+            <p><?php echo esc_html($hero_description); ?></p>
             
         </div>
 
@@ -28,6 +34,7 @@
         $sea_title = get_field('home_sea_title') ?: 'Sea Collection';
         $sea_desc = get_field('home_sea_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
         $sea_link = get_field('home_sea_link') ?: '';
+        $sea_button_text = get_field('home_sea_button_text') ?: 'EXPLORE COLLECTION';
         ?>
         <div class="sea-collection">
             <img 
@@ -37,7 +44,7 @@
             <div class='sea-overlay'>
                 <h1><?php echo esc_html($sea_title); ?></h1>
                 <p><?php echo esc_html($sea_desc); ?></p>
-                <a href="<?php echo esc_url($sea_link); ?>">EXPLORE COLLECTION</a>
+                <a href="<?php echo esc_url($sea_link); ?>"><?php echo esc_html($sea_button_text); ?></a>
             </div>
         </div>
     
@@ -48,6 +55,7 @@
             $city_title = get_field('home_city_title') ?: 'City Collection';
             $city_desc = get_field('home_city_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
             $city_link = get_field('home_city_link') ?: '';
+            $city_button_text = get_field('home_city_button_text') ?: 'EXPLORE COLLECTION';
             ?>
             <div class='city-collection'>
                 <img
@@ -57,7 +65,7 @@
                 <div class='city-overlay'>
                     <h1><?php echo esc_html($city_title); ?></h1>
                     <p><?php echo esc_html($city_desc); ?></p>
-                    <a href="<?php echo esc_url($city_link); ?>">EXPLORE COLLECTION</a>
+                    <a href="<?php echo esc_url($city_link); ?>"><?php echo esc_html($city_button_text); ?></a>
                 </div>
             </div>
             
@@ -67,6 +75,7 @@
             $land_title = get_field('home_land_title') ?: 'Land Collection';
             $land_desc = get_field('home_land_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
             $land_link = get_field('home_land_link') ?: get_permalink(get_page_by_path('land-collection'));
+            $land_button_text = get_field('home_land_button_text') ?: 'EXPLORE COLLECTION';
             ?>
             <div class='land-collection'>
                 <img 
@@ -76,7 +85,7 @@
                 <div class='land-overlay'>
                     <h1><?php echo esc_html($land_title); ?></h1>
                     <p><?php echo esc_html($land_desc); ?></p>
-                    <a href="<?php echo esc_url($land_link); ?>">EXPLORE COLLECTION</a>
+                    <a href="<?php echo esc_url($land_link); ?>"><?php echo esc_html($land_button_text); ?></a>
                 </div>
             </div>
 
@@ -160,31 +169,47 @@
     </section>
     -->
 
+    <?php
+    // Property Management Section
+    $pm_title = get_field('home_pm_title') ?: 'PROPERTY MANAGEMENT';
+    $pm_description = get_field('home_pm_description') ?: 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.';
+    
+    $pm_card1_image = get_field('home_pm_card1_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/1-Vue-generale-1.webp';
+    $pm_card1_title = get_field('home_pm_card1_title') ?: 'Marketing of your property';
+    
+    $pm_card2_image = get_field('home_pm_card2_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/4.1-Diner-1.webp';
+    $pm_card2_title = get_field('home_pm_card2_title') ?: 'Annual management of your property';
+    
+    $pm_card3_image = get_field('home_pm_card3_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/2-CH-1.2-scaled.webp';
+    $pm_card3_title = get_field('home_pm_card3_title') ?: 'Rental Management';
+    
+    $pm_card4_image = get_field('home_pm_card4_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/Lifestyle-24-scaled.webp';
+    $pm_card4_title = get_field('home_pm_card4_title') ?: 'Dedicated conciergerie';
+    ?>
+    
     <section class="central-title">
-        <h2>PROPERTY MANAGEMENT</h2>
-        <p class="p-title">As a short-term rental management specialists in Salento, we assist our property owners with the management
-            of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
-            from the outset to completion.</p>
+        <h2><?php echo esc_html($pm_title); ?></h2>
+        <p class="p-title"><?php echo esc_html($pm_description); ?></p>
     </section>
     
     <section class="management">
 
         <div class="management-div">
-            <img src="http://puglialuxuryhomes.com/wp-content/uploads/2024/11/1-Vue-generale-1.webp">
-            <div class="management-title"><h3>Marketing of your property</h3></div>
+            <img src="<?php echo esc_url($pm_card1_image); ?>" alt="<?php echo esc_attr($pm_card1_title); ?>">
+            <div class="management-title"><h3><?php echo esc_html($pm_card1_title); ?></h3></div>
         </div>
         
         <div class="management-div">
-            <img src="http://puglialuxuryhomes.com/wp-content/uploads/2024/11/4.1-Diner-1.webp">
-            <div class="management-title"><h3>Annual management of your property</h3></div>
+            <img src="<?php echo esc_url($pm_card2_image); ?>" alt="<?php echo esc_attr($pm_card2_title); ?>">
+            <div class="management-title"><h3><?php echo esc_html($pm_card2_title); ?></h3></div>
         </div>
         <div class="management-div">
-            <img src="http://puglialuxuryhomes.com/wp-content/uploads/2024/11/2-CH-1.2-scaled.webp">
-            <div class="management-title"><h3>Rental Management</h3></div>
+            <img src="<?php echo esc_url($pm_card3_image); ?>" alt="<?php echo esc_attr($pm_card3_title); ?>">
+            <div class="management-title"><h3><?php echo esc_html($pm_card3_title); ?></h3></div>
         </div>
         <div class="management-div">
-            <img src="http://puglialuxuryhomes.com/wp-content/uploads/2024/11/Lifestyle-24-scaled.webp">
-            <div class="management-title"><h3>Dedicated conciergerie</h3></div>
+            <img src="<?php echo esc_url($pm_card4_image); ?>" alt="<?php echo esc_attr($pm_card4_title); ?>">
+            <div class="management-title"><h3><?php echo esc_html($pm_card4_title); ?></h3></div>
         </div>
     </section>
 

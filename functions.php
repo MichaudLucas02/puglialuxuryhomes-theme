@@ -2008,6 +2008,67 @@ function plh_render_discover_settings() {
 
 
 /**
+ * Handle contact page form submissions.
+ */
+function plh_handle_contact_form() {
+  $redirect = wp_get_referer() ?: home_url('/contact/');
+
+  // Honeypot: if filled, pretend success but drop.
+  if (!empty($_POST['contact_hp_field'])) {
+    wp_safe_redirect(add_query_arg('contact_status', 'success', $redirect));
+    exit;
+  }
+
+  if (!isset($_POST['plh_contact_nonce']) || !wp_verify_nonce($_POST['plh_contact_nonce'], 'plh_contact')) {
+    wp_safe_redirect(add_query_arg(['contact_status' => 'error', 'contact_error' => urlencode('Security check failed.')], $redirect));
+    exit;
+  }
+
+  $name    = sanitize_text_field($_POST['contact_name'] ?? '');
+  $email   = sanitize_email($_POST['contact_email'] ?? '');
+  $phone   = sanitize_text_field($_POST['contact_phone'] ?? '');
+  $subject = sanitize_text_field($_POST['contact_subject'] ?? '');
+  $message = wp_kses_post($_POST['contact_message'] ?? '');
+  $consent = isset($_POST['contact_consent']);
+
+  if ($name === '' || $email === '' || !is_email($email) || $message === '' || !$consent) {
+    wp_safe_redirect(add_query_arg(['contact_status' => 'error', 'contact_error' => urlencode('Please fill all required fields.')], $redirect));
+    exit;
+  }
+
+  $recipient = 'reservation@puglialuxuryhomes.com';
+  $subject_line = $subject ? 'Contact enquiry: ' . $subject : 'Contact enquiry from site';
+  $headers = [
+    'Content-Type: text/html; charset=UTF-8',
+    'Reply-To: ' . $name . ' <' . $email . '>'
+  ];
+
+  $body  = '<h2>New Contact Enquiry</h2>';
+  $body .= '<p><strong>Name:</strong> ' . esc_html($name) . '</p>';
+  $body .= '<p><strong>Email:</strong> ' . esc_html($email) . '</p>';
+  if ($phone) {
+    $body .= '<p><strong>Phone:</strong> ' . esc_html($phone) . '</p>';
+  }
+  if ($subject) {
+    $body .= '<p><strong>Subject:</strong> ' . esc_html($subject) . '</p>';
+  }
+  $body .= '<p><strong>Message:</strong><br>' . wpautop($message) . '</p>';
+  $body .= '<hr><p>Sent from ' . esc_url(home_url()) . '</p>';
+
+  $sent = wp_mail($recipient, $subject_line, $body, $headers);
+
+  if ($sent) {
+    wp_safe_redirect(add_query_arg('contact_status', 'success', $redirect));
+  } else {
+    wp_safe_redirect(add_query_arg(['contact_status' => 'error', 'contact_error' => urlencode('Could not send email. Please try again.')], $redirect));
+  }
+  exit;
+}
+
+add_action('admin_post_plh_contact_form', 'plh_handle_contact_form');
+add_action('admin_post_nopriv_plh_contact_form', 'plh_handle_contact_form');
+
+/**
  * Handle booking request form submissions.
  */
 function plh_handle_booking_request() {
@@ -2657,6 +2718,13 @@ add_action('acf/init', function () {
     'type'  => 'url',
     'instructions' => 'URL for "Explore Collection" button',
   ];
+  $fields[] = [
+    'key'   => 'field_home_sea_button_text',
+    'label' => 'Sea Collection - Button Text',
+    'name'  => 'home_sea_button_text',
+    'type'  => 'text',
+    'default_value' => 'EXPLORE COLLECTION',
+  ];
   
   // City Collection
   $fields[] = [
@@ -2687,6 +2755,13 @@ add_action('acf/init', function () {
     'name'  => 'home_city_link',
     'type'  => 'url',
     'instructions' => 'URL for "Explore Collection" button',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_city_button_text',
+    'label' => 'City Collection - Button Text',
+    'name'  => 'home_city_button_text',
+    'type'  => 'text',
+    'default_value' => 'EXPLORE COLLECTION',
   ];
   
   // Land Collection
@@ -2719,10 +2794,170 @@ add_action('acf/init', function () {
     'type'  => 'url',
     'instructions' => 'URL for "Explore Collection" button',
   ];
+  $fields[] = [
+    'key'   => 'field_home_land_button_text',
+    'label' => 'Land Collection - Button Text',
+    'name'  => 'home_land_button_text',
+    'type'  => 'text',
+    'default_value' => 'EXPLORE COLLECTION',
+  ];
 
   acf_add_local_field_group([
     'key'    => 'group_homepage_collections',
     'title'  => 'Homepage Collections',
+    'fields' => $fields,
+    'location' => [[[
+      'param'    => 'page_type',
+      'operator' => '==',
+      'value'    => 'front_page',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
+// ACF Fields: Homepage Hero Section
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $fields = [];
+  
+  $fields[] = [
+    'key'   => 'field_home_hero_image',
+    'label' => 'Background Image',
+    'name'  => 'home_hero_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the hero background image',
+    'default_value' => 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/7-Vue-1-scaled.webp',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_hero_title',
+    'label' => 'Title',
+    'name'  => 'home_hero_title',
+    'type'  => 'text',
+    'default_value' => 'A WINDOW ON THE ADRIATIC',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_hero_description',
+    'label' => 'Description',
+    'name'  => 'home_hero_description',
+    'type'  => 'textarea',
+    'rows'  => 3,
+    'default_value' => 'Here, the dry stone of Solento sinks into the intense blue of the Mediterranean. Bordered by cliffs, inlets and long white beaches, hemmed in by scrumbland and pine forests, this wild land is an obe to the art of living and the seaside indolence.',
+  ];
+
+  acf_add_local_field_group([
+    'key'    => 'group_homepage_hero',
+    'title'  => 'Homepage Hero Section',
+    'fields' => $fields,
+    'location' => [[[
+      'param'    => 'page_type',
+      'operator' => '==',
+      'value'    => 'front_page',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
+// ACF Fields: Homepage Property Management
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $fields = [];
+  
+  // Property Management Title & Description
+  $fields[] = [
+    'key'   => 'field_home_pm_title',
+    'label' => 'Property Management - Title',
+    'name'  => 'home_pm_title',
+    'type'  => 'text',
+    'default_value' => 'PROPERTY MANAGEMENT',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_pm_description',
+    'label' => 'Property Management - Description',
+    'name'  => 'home_pm_description',
+    'type'  => 'textarea',
+    'rows'  => 4,
+    'default_value' => 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.',
+  ];
+  
+  // Management Card 1
+  $fields[] = [
+    'key'   => 'field_home_pm_card1_image',
+    'label' => 'Management Card 1 - Image',
+    'name'  => 'home_pm_card1_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the card 1 image',
+    'default_value' => 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/1-Vue-generale-1.webp',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_pm_card1_title',
+    'label' => 'Management Card 1 - Title',
+    'name'  => 'home_pm_card1_title',
+    'type'  => 'text',
+    'default_value' => 'Marketing of your property',
+  ];
+  
+  // Management Card 2
+  $fields[] = [
+    'key'   => 'field_home_pm_card2_image',
+    'label' => 'Management Card 2 - Image',
+    'name'  => 'home_pm_card2_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the card 2 image',
+    'default_value' => 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/4.1-Diner-1.webp',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_pm_card2_title',
+    'label' => 'Management Card 2 - Title',
+    'name'  => 'home_pm_card2_title',
+    'type'  => 'text',
+    'default_value' => 'Annual management of your property',
+  ];
+  
+  // Management Card 3
+  $fields[] = [
+    'key'   => 'field_home_pm_card3_image',
+    'label' => 'Management Card 3 - Image',
+    'name'  => 'home_pm_card3_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the card 3 image',
+    'default_value' => 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/2-CH-1.2-scaled.webp',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_pm_card3_title',
+    'label' => 'Management Card 3 - Title',
+    'name'  => 'home_pm_card3_title',
+    'type'  => 'text',
+    'default_value' => 'Rental Management',
+  ];
+  
+  // Management Card 4
+  $fields[] = [
+    'key'   => 'field_home_pm_card4_image',
+    'label' => 'Management Card 4 - Image',
+    'name'  => 'home_pm_card4_image',
+    'type'  => 'url',
+    'instructions' => 'URL of the card 4 image',
+    'default_value' => 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/Lifestyle-24-scaled.webp',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_pm_card4_title',
+    'label' => 'Management Card 4 - Title',
+    'name'  => 'home_pm_card4_title',
+    'type'  => 'text',
+    'default_value' => 'Dedicated conciergerie',
+  ];
+
+  acf_add_local_field_group([
+    'key'    => 'group_homepage_property_management',
+    'title'  => 'Homepage Property Management',
     'fields' => $fields,
     'location' => [[[
       'param'    => 'page_type',

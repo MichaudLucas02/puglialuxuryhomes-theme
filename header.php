@@ -24,6 +24,31 @@
             <h3 class='website-title'>PUGLIA LUXURY HOMES</h3>
         </div>
         <div class='top-header-right'>
+            <div class="language-switcher">
+                <?php
+                if (function_exists('pll_current_language')) {
+                    $current_lang = strtoupper(pll_current_language('slug'));
+                    $languages = pll_the_languages(array('raw' => 1));
+                    ?>
+                    <div class="lang-dropdown">
+                        <button class="lang-current" aria-expanded="false">
+                            <?php echo $current_lang; ?>
+                            <span class="lang-arrow">▼</span>
+                        </button>
+                        <ul class="lang-options">
+                            <?php foreach ($languages as $lang): ?>
+                                <li class="<?php echo $lang['current_lang'] ? 'active' : ''; ?>">
+                                    <a href="<?php echo $lang['url']; ?>" lang="<?php echo $lang['slug']; ?>">
+                                        <?php echo strtoupper($lang['slug']); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
             <div class="mobile-header-menu">
                 <button id="mobile-menu-toggle"
                         class="mobile-menu-toggle"
@@ -270,6 +295,25 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function () {
     if (window.innerWidth <= DESKTOP_BREAKPOINT) closeAll();
   });
+
+  // Language Switcher Dropdown
+  const langButton = document.querySelector('.lang-current');
+  const langDropdown = document.querySelector('.lang-dropdown');
+
+  if (langButton && langDropdown) {
+    langButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isExpanded = langButton.getAttribute('aria-expanded') === 'true';
+      langButton.setAttribute('aria-expanded', !isExpanded);
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!langDropdown.contains(e.target)) {
+        langButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 });
 </script>
 
