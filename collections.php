@@ -121,24 +121,7 @@ get_header(); ?>
     <section class="collection-villa-button-section">
         <a href="<?php echo esc_url(get_post_type_archive_link('villa')); ?>" class="all-villa-button"><?php echo plh_t('See all our luxury villas'); ?></a>
     </section>
-    <section class="ski-fever">
-        <div class="ski-fever-column">
-            <h1>Ski Fever</h1>
-            <p>Winter may seem a world away, but the mountains reward those who book early! Find your dream chalet today and get ready to head for the summits.</p>
-            <a href="" class="all-villa-button">Explore our Chalets</a>
-
-        </div>
-        <div class="ski-fever-column">
-            <img src="/wp-content/uploads/2025/08/kalina-o-5BhEr7SKhvE-unsplash-scaled.jpg">
-        </div>
-
-    </section>
-    <section class="exceptional-section">
-        <h1>A selection of exceptional villas and chalets</h1>
-        <p>Each house in our collection is a match between our criteria of excellence and a love at first sight. Our advisors help you with total transparency to find the perfect house that matches your every desire.</p>
-        <img src="http://puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp">
-
-    </section>
+    
 </div>
 
 <?php get_footer();

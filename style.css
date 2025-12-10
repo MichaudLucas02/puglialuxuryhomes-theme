@@ -2468,31 +2468,32 @@ h2 {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
  
 }
 
 .book-box {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 12px 28px;
+  padding: 9px 15px;
   background-color: #6c9ba3;
   color: white;
   text-decoration: none;
   text-transform: uppercase;
   font-family: 'Raleway';
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
   border-radius: 4px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background .25s ease, transform .25s ease;
   width: 100%;
 }
 
 .book-box:hover {
-  background-color: #5a8790;
-  transform: translateY(-1px);
+  background-color: #557e85;
+  transform: translateY(-2px);
 }
 
 .book-box i {
@@ -2517,10 +2518,10 @@ h2 {
 
 .booking-box {
   border: 0.5px solid #000;
-  padding: 30px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  margin: 40px 0;
+  margin: 15px 0;
   position: sticky;
   top: calc(var(--header-height) + var(--adminbar, 0px) + var(--sticky-gap));
 }
@@ -2543,25 +2544,32 @@ h2 {
     position: static; /* remove sticky behavior on mobile */
     overflow: visible; /* prevent scrolling */
   }
-  
+  .booking-box.mobile h3 {
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0 0 20px 0;
+    padding: 0;
+    text-transform: uppercase;
+  }
 }
 
 /* Booking form styles */
-.villa-booking-form { display:flex; flex-direction:column; gap:14px; margin-top:10px; }
-.villa-booking-form .form-row { display:flex; flex-direction:column; gap:6px; }
-.villa-booking-form .form-row.two { flex-direction:row; gap:14px; }
-.villa-booking-form .form-row.two > div { flex:1; display:flex; flex-direction:column; gap:6px; }
-.villa-booking-form label { font-size:12px; letter-spacing:.05em; text-transform:uppercase; font-family:'Raleway'; opacity:.85; }
+.villa-booking-form { display:flex; flex-direction:column; gap:8px; margin-top:6px; }
+.villa-booking-form .form-row { display:flex; flex-direction:column; gap:3px; }
+.villa-booking-form .form-row.two { flex-direction:row; gap:8px; }
+.villa-booking-form .form-row.two > div { flex:1; display:flex; flex-direction:column; gap:3px; }
+.villa-booking-form label { font-size:10px; letter-spacing:.05em; text-transform:uppercase; font-family:'Raleway'; opacity:.85; }
 .villa-booking-form input[type="text"],
 .villa-booking-form input[type="email"],
 .villa-booking-form input[type="date"],
-.villa-booking-form textarea { padding:10px 12px; border:1px solid #ccc; font-family:'Raleway'; font-size:14px; background:#fff; }
+.villa-booking-form textarea { padding:7px 9px; border:1px solid #ccc; font-family:'Raleway'; font-size:12px; background:#fff; }
 .villa-booking-form textarea { resize:vertical; }
 .villa-booking-form input:focus,
 .villa-booking-form textarea:focus { outline:2px solid #9ed6ea; border-color:#9ed6ea; }
-.booking-submit { background:#6c9ba3; color:#fff; border:none; padding:12px 18px; font-family:'Raleway'; font-size:14px; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; border-radius:4px; transition:background .25s ease, transform .25s ease; }
+.booking-submit { background:#6c9ba3; color:#fff; border:none; padding:9px 15px; font-family:'Raleway'; font-size:12px; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; border-radius:4px; transition:background .25s ease, transform .25s ease; }
 .booking-submit:hover { background:#557e85; transform:translateY(-2px); }
-.booking-disclaimer { font-size:10px; opacity:.65; margin:4px 0 0; text-transform:none; letter-spacing:.02em; }
+.booking-disclaimer { font-size:8px; opacity:.65; margin:2px 0 0; text-transform:none; letter-spacing:.02em; }
 .booking-alert { padding:12px 14px; margin-bottom:14px; border:1px solid; font-size:13px; font-family:'Raleway'; }
 .booking-alert.success { background:#f0fbf6; border-color:#3cae7a; color:#176444; }
 .booking-alert.error { background:#fff5f5; border-color:#d64e4e; color:#8e1e1e; }
@@ -4522,6 +4530,177 @@ h2 {
   text-decoration: none;
   color: inherit;
 }
+
+
+/* Our Story Section Start */
+
+.our-story-content {
+  display: flex;;
+}
+
+.our-story-content.grey {
+  background-color: #f5f5f5;
+}
+
+.our-story-col {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 5vw;
+}
+
+.our-story-col.narrow {
+  width: 35%;
+}
+.our-story-col.wide {
+  width: 65%;
+}
+
+.our-story-col img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.our-story-col p {
+  text-transform: none;
+  font-family: 'Raleway';
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 315px; /* 9:16 aspect ratio for YouTube Shorts */
+  margin: 0 auto;
+  padding-bottom: 177.78%; /* 9:16 aspect ratio (16/9 * 100) */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Standard YouTube video (16:9 aspect ratio) */
+.video-container-standard {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  padding-bottom: 33.75%; /* 16:9 aspect ratio (60% * 56.25%) */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.video-container-standard iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.our-story-central-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* Conditions Générales Page */
+.cgl-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 5vw;
+}
+
+.cgl-content {
+  font-family: 'Raleway', sans-serif;
+  line-height: 1.8;
+  color: #333;
+}
+
+.cgl-content h1,
+.cgl-content h2,
+.cgl-content h3,
+.cgl-content h4 {
+  font-family: 'Didot', serif;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  color: #222;
+}
+
+.cgl-content h1 {
+  font-size: 36px;
+  margin-top: 0;
+}
+
+.cgl-content h2 {
+  font-size: 28px;
+}
+
+.cgl-content h3 {
+  font-size: 22px;
+}
+
+.cgl-content h4 {
+  font-size: 18px;
+}
+
+.cgl-content p {
+  margin-bottom: 1.2em;
+  font-size: 16px;
+}
+
+.cgl-content ul,
+.cgl-content ol {
+  margin: 1em 0 1.5em 2em;
+}
+
+.cgl-content li {
+  margin-bottom: 0.5em;
+}
+
+.cgl-content strong {
+  font-weight: 600;
+}
+
+.cgl-content a {
+  color: #6c9ba3;
+  text-decoration: underline;
+}
+
+.cgl-content a:hover {
+  color: #557e85;
+}
+
+@media (max-width: 720px) {
+  .cgl-page {
+    padding: 40px 5vw;
+  }
+  
+  .cgl-content h1 {
+    font-size: 28px;
+  }
+  
+  .cgl-content h2 {
+    font-size: 24px;
+  }
+  
+  .cgl-content h3 {
+    font-size: 20px;
+  }
+}
+
 
 
 

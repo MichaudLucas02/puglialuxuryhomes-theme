@@ -63,17 +63,6 @@ add_action('init', function() {
   register_post_type('blog', $args);
 });
 
-// Create default blog categories
-add_action('init', function() {
-  $default_categories = ['Travel', 'Discover', 'Restaurant'];
-  
-  foreach ($default_categories as $cat_name) {
-    if (!term_exists($cat_name, 'category')) {
-      wp_insert_term($cat_name, 'category');
-    }
-  }
-});
-
 // Flush rewrite rules on theme switch so the /blog archive works immediately
 add_action('after_switch_theme', function() {
   flush_rewrite_rules();
@@ -1428,12 +1417,35 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 
-// Add /gallery endpoint to single villa permalinks, e.g. /villas/my-villa/gallery/
+// Map gallery endpoint slugs per language; fallback to 'gallery'
+function plh_gallery_endpoint_map() {
+  return [
+    'en' => 'gallery',
+    'fr' => 'galerie',
+    'it' => 'galleria',
+  ];
+}
+
+// Add localized gallery endpoints to single villa permalinks, e.g. /villas/my-villa/gallery/ (EN), /fr/villas/ma-villa/galerie/, /it/villas/la-villa/galleria/
 add_action('init', function () {
-  add_rewrite_endpoint('gallery', EP_PERMALINK);
+  $slugs = array_values(plh_gallery_endpoint_map());
+  foreach ($slugs as $slug) {
+    add_rewrite_endpoint($slug, EP_PERMALINK);
+  }
 });
 
-// Load a special template when /gallery/ is present
+// Normalize localized endpoint query vars to a single 'gallery' flag
+add_filter('request', function ($vars) {
+  foreach (plh_gallery_endpoint_map() as $slug) {
+    if (isset($vars[$slug])) {
+      $vars['gallery'] = $vars[$slug];
+      unset($vars[$slug]);
+    }
+  }
+  return $vars;
+});
+
+// Load a special template when any gallery endpoint is present
 add_filter('template_include', function ($template) {
   if (is_singular('villa') && get_query_var('gallery', false) !== false) {
     $t = locate_template('single-villa-gallery.php');
@@ -1442,16 +1454,22 @@ add_filter('template_include', function ($template) {
   return $template;
 });
 
-// Make 'gallery' a public query var
+// Make gallery query vars public (base + localized slugs)
 add_filter('query_vars', function ($vars) {
   $vars[] = 'gallery';
+  foreach (plh_gallery_endpoint_map() as $slug) {
+    $vars[] = $slug;
+  }
   return $vars;
 });
 
-// Helper to build the gallery URL
+// Helper to build the gallery URL with localized slug based on current language
 function plh_villa_gallery_link($post_id = null) {
   $post_id = $post_id ?: get_the_ID();
-  return trailingslashit(get_permalink($post_id)) . 'gallery/';
+  $lang = function_exists('pll_current_language') ? pll_current_language('slug') : '';
+  $map  = plh_gallery_endpoint_map();
+  $slug = $map[$lang] ?? 'gallery';
+  return trailingslashit(get_permalink($post_id)) . $slug . '/';
 }
 
 
@@ -2969,4 +2987,253 @@ add_action('acf/init', function () {
   ]);
 });
 
+// Our Story Page ACF Fields
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_our_story',
+    'title'  => 'Our Story Sections',
+    'fields' => [
+      // --- THE STORY SECTION ---
+      [
+        'key'       => 'field_story_tab',
+        'label'     => 'The Story',
+        'type'      => 'tab',
+        'placement' => 'top',
+      ],
+      [
+        'key'   => 'field_story_subtitle',
+        'label' => 'Story Subtitle',
+        'name'  => 'story_subtitle',
+        'type'  => 'text',
+        'default_value' => 'The Story',
+      ],
+      [
+        'key'   => 'field_story_title',
+        'label' => 'Story Title',
+        'name'  => 'story_title',
+        'type'  => 'text',
+        'default_value' => 'Once Upon a Time...',
+      ],
+      [
+        'key'   => 'field_story_image',
+        'label' => 'Story Image',
+        'name'  => 'story_image',
+        'type'  => 'url',
+        'default_value' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp',
+      ],
+      [
+        'key'   => 'field_story_paragraph_1',
+        'label' => 'Story Paragraph 1',
+        'name'  => 'story_paragraph_1',
+        'type'  => 'textarea',
+        'rows'  => 4,
+        'default_value' => 'It all started with Villa Acquamarina, a simple vacation home project initiated by our parents. This precious place in Salento sparkered in us a passion for this authentic region bathed in light. The italian language became a new melody to our ears, the Salentine cuisine a feast, and the Italians we met, like actors in a sunny play, each adding a note of joy and charm to our stays.',
+      ],
+      [
+        'key'   => 'field_story_paragraph_2',
+        'label' => 'Story Paragraph 2',
+        'name'  => 'story_paragraph_2',
+        'type'  => 'textarea',
+        'rows'  => 4,
+        'default_value' => 'But what captibated us most was the feeling of being immersed in a bygone era. Salento had he nostalgic charm of the 60s, a place seemingly frozen in time but full of life - an oasis of serenity, far from the frenzy of today\'s world.',
+      ],
+
+      // --- THE ADVENTURE SECTION ---
+      [
+        'key'       => 'field_adventure_tab',
+        'label'     => 'The Adventure',
+        'type'      => 'tab',
+        'placement' => 'top',
+      ],
+      [
+        'key'   => 'field_adventure_subtitle',
+        'label' => 'Adventure Subtitle',
+        'name'  => 'adventure_subtitle',
+        'type'  => 'text',
+        'default_value' => 'The Adventure',
+      ],
+      [
+        'key'   => 'field_adventure_title',
+        'label' => 'Adventure Title',
+        'name'  => 'adventure_title',
+        'type'  => 'text',
+        'default_value' => 'The desire to live there...',
+      ],
+      [
+        'key'   => 'field_adventure_image',
+        'label' => 'Adventure Image',
+        'name'  => 'adventure_image',
+        'type'  => 'url',
+      ],
+      [
+        'key'   => 'field_adventure_paragraph_1',
+        'label' => 'Adventure Paragraph 1',
+        'name'  => 'adventure_paragraph_1',
+        'type'  => 'textarea',
+        'rows'  => 4,
+        'default_value' => 'Seeing it as a unique opportunity, we decided to pursue our professional dream, shaped by our meeting in 2015 at the Ecole Hôtelière de Lausanne, where we honed our sense of excellence in hospitality and service.',
+      ],
+      [
+        'key'   => 'field_adventure_paragraph_2',
+        'label' => 'Adventure Paragraph 2',
+        'name'  => 'adventure_paragraph_2',
+        'type'  => 'textarea',
+        'rows'  => 4,
+        'default_value' => 'After Acquamarina, our passion for Salento naturally led us to expand our collection of properties. We handpicked unique villas, each with its own character, to offer our guests priviledged access to the beauty and seranity of this still-preserved region. Our shared expertise, nurtured by our hospitality training, enabled us to create a tailored concierge service, where every detail is thoughtfully considered to ensure that every stay becomes an exceptional moment.',
+      ],
+
+      // --- OUR MISSION SECTION ---
+      [
+        'key'       => 'field_mission_tab',
+        'label'     => 'Our Mission',
+        'type'      => 'tab',
+        'placement' => 'top',
+      ],
+      [
+        'key'   => 'field_mission_subtitle',
+        'label' => 'Mission Subtitle',
+        'name'  => 'mission_subtitle',
+        'type'  => 'text',
+        'default_value' => 'Our Mission',
+      ],
+      [
+        'key'   => 'field_mission_title',
+        'label' => 'Mission Title',
+        'name'  => 'mission_title',
+        'type'  => 'text',
+        'default_value' => 'Share our paradise...',
+      ],
+      [
+        'key'   => 'field_mission_video_id',
+        'label' => 'Mission Video YouTube ID',
+        'name'  => 'mission_video_id',
+        'type'  => 'text',
+        'default_value' => 'HsHxR7onVnE',
+        'instructions' => 'YouTube Shorts video ID (e.g., HsHxR7onVnE from https://youtube.com/shorts/HsHxR7onVnE)',
+      ],
+      [
+        'key'   => 'field_mission_paragraph_1',
+        'label' => 'Mission Paragraph 1',
+        'name'  => 'mission_paragraph_1',
+        'type'  => 'textarea',
+        'rows'  => 4,
+        'default_value' => 'Today, our mission is to share this region, which has become our home, by offering our visitors more than just a vacation destination. We are committed to helping them experience Salento in all its authenticity, combining comfort, elegance, and attentive service. For us, every smile, every moment spent under the Salentine sun, is a way to transmit our passion and give travelers an experience that resonates long after their departure.',
+      ],
+      [
+        'key'   => 'field_mission_paragraph_2',
+        'label' => 'Mission Paragraph 2',
+        'name'  => 'mission_paragraph_2',
+        'type'  => 'textarea',
+        'rows'  => 3,
+        'default_value' => 'So, we hope you\'ll find a much delight here as we do, and we assure you of our wholehearted devotion and boundless joy.',
+      ],
+      [
+        'key'   => 'field_mission_signature',
+        'label' => 'Mission Signature',
+        'name'  => 'mission_signature',
+        'type'  => 'text',
+        'default_value' => 'Sébastien & Augustine',
+      ],
+
+      // --- THE PORTRAIT SECTION ---
+      [
+        'key'       => 'field_portrait_tab',
+        'label'     => 'The Portrait',
+        'type'      => 'tab',
+        'placement' => 'top',
+      ],
+      [
+        'key'   => 'field_portrait_subtitle',
+        'label' => 'Portrait Subtitle',
+        'name'  => 'portrait_subtitle',
+        'type'  => 'text',
+        'default_value' => 'The portrait',
+      ],
+      [
+        'key'   => 'field_portrait_title',
+        'label' => 'Portrait Title',
+        'name'  => 'portrait_title',
+        'type'  => 'text',
+        'default_value' => '"Born out of love...',
+      ],
+      [
+        'key'   => 'field_portrait_video_id',
+        'label' => 'Portrait Video YouTube ID',
+        'name'  => 'portrait_video_id',
+        'type'  => 'text',
+        'default_value' => '0xpYqmAWEvs',
+        'instructions' => 'YouTube video ID (standard 16:9 format)',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'our-story.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// Conditions Générales Page ACF Fields
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_conditions_generales',
+    'title'  => 'Conditions Générales Content',
+    'fields' => [
+      [
+        'key'   => 'field_cgl_content',
+        'label' => 'General Conditions Content',
+        'name'  => 'cgl_content',
+        'type'  => 'wysiwyg',
+        'tabs'  => 'all',
+        'toolbar' => 'full',
+        'media_upload' => 1,
+        'delay' => 0,
+        'instructions' => 'Add your general conditions / terms and conditions content here. Full HTML editor with formatting options.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'conditions-generales.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// Confidentiality Policy Page ACF Fields
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_confidentiality_policy',
+    'title'  => 'Confidentiality Policy Content',
+    'fields' => [
+      [
+        'key'   => 'field_confidentiality_content',
+        'label' => 'Confidentiality Policy Content',
+        'name'  => 'confidentiality_content',
+        'type'  => 'wysiwyg',
+        'tabs'  => 'all',
+        'toolbar' => 'full',
+        'media_upload' => 1,
+        'delay' => 0,
+        'instructions' => 'Add your confidentiality/privacy policy content here. Full HTML editor with formatting options.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'confidentiality-policy.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
 
