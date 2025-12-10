@@ -858,6 +858,15 @@ h2 {
   object-fit: cover;
 }
 
+.small-hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .small-hero::after {
   content: "";
   position: absolute;
@@ -1079,12 +1088,24 @@ h2 {
     justify-content: center;
     max-width: 1000px;
     margin: 0 auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 150px;
+    padding-right: 150px;
 }
 
 .hero-content h1 {
+    font-size: 70px;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 900px) {
+  .hero-content h1 {
     font-size: 50px;
+  }
+  .hero-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 @media (max-width: 550px) {
@@ -1701,6 +1722,16 @@ h2 {
 @media (max-width: 650px) {
   .villa-section p {
     font-size: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Hide collection descriptive text on mobile */
+  .our-collection .p-title,
+  .sea-overlay p,
+  .city-overlay p,
+  .land-overlay p {
+    display: none;
   }
 }
 
@@ -3538,6 +3569,12 @@ h2 {
   text-transform: uppercase;
 }
 
+@media (max-width: 700px) {
+  .villa-gallery-header h1 {
+    font-size: 24px;
+  }
+}
+
 /* Service Card Start */
 
 .service-process {
@@ -3788,6 +3825,15 @@ h2 {
 }
 
 .offered-services { align-items: center; justify-content: center; margin-top: 0;}
+
+.offered-services .service-image-carousel {
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.offered-services .service-image-carousel .swiper-wrapper {
+  align-items: stretch;
+}
 .services-title h2 {
   margin-bottom: 0;
   padding-bottom: 0;
@@ -3803,6 +3849,7 @@ h2 {
   background-color: #f5f5f5;
   display: flex;
   width: 100%;
+  height: 500px;
   max-height: 600px;
   margin: 100px 0;
   margin-top: 0;
@@ -3816,6 +3863,65 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.service-image-carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-image-carousel .swiper-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.service-image-carousel .swiper-slide {
+  width: 100%;
+  height: 100%;
+}
+
+.service-image-carousel .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.service-image-carousel .swiper-pagination {
+  bottom: 12px;
+  z-index: 10;
+}
+
+.service-image-carousel .swiper-button-prev,
+.service-image-carousel .swiper-button-next {
+  color: white;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.service-image-carousel .swiper-button-prev {
+  left: 10px;
+}
+
+.service-image-carousel .swiper-button-next {
+  right: 10px;
+}
+
+.service-image-carousel .swiper-button-prev:after,
+.service-image-carousel .swiper-button-next:after {
+  font-size: 16px;
+}
+
+.service-image-carousel .swiper-button-prev.swiper-button-disabled,
+.service-image-carousel .swiper-button-next.swiper-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .service-content {
   display: flex;

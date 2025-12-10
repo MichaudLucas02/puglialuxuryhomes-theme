@@ -289,10 +289,12 @@ if (have_posts()) : the_post(); ?>
       lightbox.style.display = "flex";
       lightboxImg.src = images[index].src;
       currentIndex = index;
+      document.body.style.overflow = "hidden";
     };
 
     const hideLightbox = () => {
       lightbox.style.display = "none";
+      document.body.style.overflow = "";
     };
 
     const showNextImage = () => {

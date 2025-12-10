@@ -54,7 +54,7 @@ add_action('init', function() {
     'labels' => $labels,
     'public' => true,
     'has_archive' => false,
-    'rewrite' => ['slug' => 'magazine', 'with_front' => false],
+    'rewrite' => ['slug' => 'magazine/%category%', 'with_front' => false],
     'show_in_rest' => true,
     'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'comments'],
     'taxonomies' => ['category', 'post_tag'],
@@ -62,6 +62,28 @@ add_action('init', function() {
   ];
   register_post_type('blog', $args);
 });
+
+// Replace %category% in blog post URLs with actual category slug
+add_filter('post_type_link', function($post_link, $post) {
+  if ($post->post_type !== 'blog') {
+    return $post_link;
+  }
+  
+  if (strpos($post_link, '%category%') === false) {
+    return $post_link;
+  }
+  
+  $categories = get_the_terms($post->ID, 'category');
+  
+  if ($categories && !is_wp_error($categories)) {
+    // Use the first category
+    $category = array_shift($categories);
+    return str_replace('%category%', $category->slug, $post_link);
+  } else {
+    // Fallback to 'uncategorized' if no category is set
+    return str_replace('%category%', 'uncategorized', $post_link);
+  }
+}, 10, 2);
 
 // Flush rewrite rules on theme switch so the /blog archive works immediately
 add_action('after_switch_theme', function() {
@@ -1266,9 +1288,10 @@ add_action('acf/init', function () {
         'key'   => 'field_mobile_banner_button_url',
         'label' => 'Button URL',
         'name'  => 'mobile_banner_button_url',
-        'type'  => 'url',
+        'type'  => 'text',
         'default_value' => '#',
         'wrapper' => ['width' => 50],
+        'placeholder' => 'https://example.com or leave empty',
       ],
     ],
     'location' => [[[
@@ -1925,6 +1948,12 @@ function plh_render_discover_settings() {
       wp_die('Security check failed');
     }
     
+    // Save region section
+    $region_title = isset($_POST['region_title']) ? sanitize_text_field($_POST['region_title']) : '';
+    $region_description = isset($_POST['region_description']) ? sanitize_textarea_field($_POST['region_description']) : '';
+    update_option($option_key . '_region_title', $region_title);
+    update_option($option_key . '_region_description', $region_description);
+    
     $saved_count = 0;
     // Save all 4 items (save even if empty to allow clearing)
     for ($i = 1; $i <= 4; $i++) {
@@ -1952,6 +1981,36 @@ function plh_render_discover_settings() {
   echo '<input type="hidden" name="lang" value="' . esc_attr($current_lang) . '">';
   
   echo '<table class="form-table">';
+  
+  // Region Section
+  $region_title = get_option($option_key . '_region_title', '');
+  $region_description = get_option($option_key . '_region_description', '');
+  
+  echo '<tr>';
+  echo '<th colspan="2" style="background: #f9f9f9; padding: 15px;"><h2 style="margin: 0;">Take a Glance at the Region Section</h2></th>';
+  echo '</tr>';
+  
+  // Region Title field
+  echo '<tr>';
+  echo '<th scope="row"><label for="region_title">Section Title</label></th>';
+  echo '<td>';
+  echo '<input type="text" id="region_title" name="region_title" value="' . esc_attr($region_title) . '" class="large-text" placeholder="Take a glance at the region" />';
+  echo '<p class="description">The main heading for the region section. Use &lt;br&gt; tag for line breaks.</p>';
+  echo '</td>';
+  echo '</tr>';
+  
+  // Region Description field
+  echo '<tr>';
+  echo '<th scope="row"><label for="region_description">Section Description</label></th>';
+  echo '<td>';
+  echo '<textarea id="region_description" name="region_description" rows="4" class="large-text">' . esc_textarea($region_description) . '</textarea>';
+  echo '<p class="description">The descriptive paragraph shown below the title.</p>';
+  echo '</td>';
+  echo '</tr>';
+  
+  echo '<tr>';
+  echo '<th colspan="2" style="background: #f9f9f9; padding: 15px;"><h2 style="margin: 0;">Discover Items</h2></th>';
+  echo '</tr>';
   
   for ($i = 1; $i <= 4; $i++) {
     $title = get_option($option_key . '_discover_item_' . $i . '_title', '');
@@ -2583,6 +2642,30 @@ add_action('acf/init', function () {
         'preview_size'  => 'medium_large',
       ],
       [
+        'key'           => 'field_service_1_image_2',
+        'label'         => 'Service 1 - Image 2 (Carousel)',
+        'name'          => 'service_1_image_2',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_1_image_3',
+        'label'         => 'Service 1 - Image 3 (Carousel)',
+        'name'          => 'service_1_image_3',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_1_image_4',
+        'label'         => 'Service 1 - Image 4 (Carousel)',
+        'name'          => 'service_1_image_4',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
         'key'   => 'field_service_1_title',
         'label' => 'Service 1 - Title',
         'name'  => 'service_1_title',
@@ -2608,6 +2691,30 @@ add_action('acf/init', function () {
         'key'           => 'field_service_2_image',
         'label'         => 'Service 2 - Image',
         'name'          => 'service_2_image',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_2_image_2',
+        'label'         => 'Service 2 - Image 2 (Carousel)',
+        'name'          => 'service_2_image_2',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_2_image_3',
+        'label'         => 'Service 2 - Image 3 (Carousel)',
+        'name'          => 'service_2_image_3',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_2_image_4',
+        'label'         => 'Service 2 - Image 4 (Carousel)',
+        'name'          => 'service_2_image_4',
         'type'          => 'image',
         'return_format' => 'id',
         'preview_size'  => 'medium_large',
@@ -2643,6 +2750,30 @@ add_action('acf/init', function () {
         'preview_size'  => 'medium_large',
       ],
       [
+        'key'           => 'field_service_3_image_2',
+        'label'         => 'Service 3 - Image 2 (Carousel)',
+        'name'          => 'service_3_image_2',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_3_image_3',
+        'label'         => 'Service 3 - Image 3 (Carousel)',
+        'name'          => 'service_3_image_3',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_3_image_4',
+        'label'         => 'Service 3 - Image 4 (Carousel)',
+        'name'          => 'service_3_image_4',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
         'key'   => 'field_service_3_title',
         'label' => 'Service 3 - Title',
         'name'  => 'service_3_title',
@@ -2668,6 +2799,30 @@ add_action('acf/init', function () {
         'key'           => 'field_service_4_image',
         'label'         => 'Service 4 - Image',
         'name'          => 'service_4_image',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_4_image_2',
+        'label'         => 'Service 4 - Image 2 (Carousel)',
+        'name'          => 'service_4_image_2',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_4_image_3',
+        'label'         => 'Service 4 - Image 3 (Carousel)',
+        'name'          => 'service_4_image_3',
+        'type'          => 'image',
+        'return_format' => 'id',
+        'preview_size'  => 'medium_large',
+      ],
+      [
+        'key'           => 'field_service_4_image_4',
+        'label'         => 'Service 4 - Image 4 (Carousel)',
+        'name'          => 'service_4_image_4',
         'type'          => 'image',
         'return_format' => 'id',
         'preview_size'  => 'medium_large',
@@ -2741,7 +2896,7 @@ add_action('acf/init', function () {
     'label' => 'Sea Collection - Button Text',
     'name'  => 'home_sea_button_text',
     'type'  => 'text',
-    'default_value' => 'EXPLORE COLLECTION',
+    'default_value' => '',
   ];
   
   // City Collection
@@ -2779,7 +2934,7 @@ add_action('acf/init', function () {
     'label' => 'City Collection - Button Text',
     'name'  => 'home_city_button_text',
     'type'  => 'text',
-    'default_value' => 'EXPLORE COLLECTION',
+    'default_value' => '',
   ];
   
   // Land Collection
@@ -2817,7 +2972,7 @@ add_action('acf/init', function () {
     'label' => 'Land Collection - Button Text',
     'name'  => 'home_land_button_text',
     'type'  => 'text',
-    'default_value' => 'EXPLORE COLLECTION',
+    'default_value' => '',
   ];
 
   acf_add_local_field_group([
@@ -3200,7 +3355,7 @@ add_action('acf/init', function () {
     'location' => [[[
       'param'    => 'page_template',
       'operator' => '==',
-      'value'    => 'conditions-generales.php',
+      'value'    => 'policies.php',
     ]]],
     'position'        => 'normal',
     'label_placement' => 'top',
@@ -3230,7 +3385,7 @@ add_action('acf/init', function () {
     'location' => [[[
       'param'    => 'page_template',
       'operator' => '==',
-      'value'    => 'confidentiality-policy.php',
+      'value'    => 'policies.php',
     ]]],
     'position'        => 'normal',
     'label_placement' => 'top',

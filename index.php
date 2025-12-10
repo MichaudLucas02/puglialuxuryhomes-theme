@@ -34,7 +34,7 @@
         $sea_title = get_field('home_sea_title') ?: 'Sea Collection';
         $sea_desc = get_field('home_sea_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
         $sea_link = get_field('home_sea_link') ?: '';
-        $sea_button_text = get_field('home_sea_button_text') ?: 'EXPLORE COLLECTION';
+        $sea_button_text = get_field('home_sea_button_text');
         ?>
         <div class="sea-collection">
             <img 
@@ -44,7 +44,9 @@
             <div class='sea-overlay'>
                 <h1><?php echo esc_html($sea_title); ?></h1>
                 <p><?php echo esc_html($sea_desc); ?></p>
-                <a href="<?php echo esc_url($sea_link); ?>"><?php echo esc_html($sea_button_text); ?></a>
+                <?php if (!empty($sea_button_text) && !empty($sea_link)) : ?>
+                    <a href="<?php echo esc_url($sea_link); ?>"><?php echo esc_html($sea_button_text); ?></a>
+                <?php endif; ?>
             </div>
         </div>
     
@@ -55,7 +57,7 @@
             $city_title = get_field('home_city_title') ?: 'City Collection';
             $city_desc = get_field('home_city_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
             $city_link = get_field('home_city_link') ?: '';
-            $city_button_text = get_field('home_city_button_text') ?: 'EXPLORE COLLECTION';
+            $city_button_text = get_field('home_city_button_text');
             ?>
             <div class='city-collection'>
                 <img
@@ -65,7 +67,9 @@
                 <div class='city-overlay'>
                     <h1><?php echo esc_html($city_title); ?></h1>
                     <p><?php echo esc_html($city_desc); ?></p>
-                    <a href="<?php echo esc_url($city_link); ?>"><?php echo esc_html($city_button_text); ?></a>
+                    <?php if (!empty($city_button_text) && !empty($city_link)) : ?>
+                        <a href="<?php echo esc_url($city_link); ?>"><?php echo esc_html($city_button_text); ?></a>
+                    <?php endif; ?>
                 </div>
             </div>
             
@@ -75,7 +79,7 @@
             $land_title = get_field('home_land_title') ?: 'Land Collection';
             $land_desc = get_field('home_land_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
             $land_link = get_field('home_land_link') ?: get_permalink(get_page_by_path('land-collection'));
-            $land_button_text = get_field('home_land_button_text') ?: 'EXPLORE COLLECTION';
+            $land_button_text = get_field('home_land_button_text');
             ?>
             <div class='land-collection'>
                 <img 
@@ -85,7 +89,9 @@
                 <div class='land-overlay'>
                     <h1><?php echo esc_html($land_title); ?></h1>
                     <p><?php echo esc_html($land_desc); ?></p>
-                    <a href="<?php echo esc_url($land_link); ?>"><?php echo esc_html($land_button_text); ?></a>
+                    <?php if (!empty($land_button_text) && !empty($land_link)) : ?>
+                        <a href="<?php echo esc_url($land_link); ?>"><?php echo esc_html($land_button_text); ?></a>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -136,10 +142,17 @@
     </section>
     <section class="central-title-section grey">
         <div class="central-title grey">
-            <h2>Take a glance <br>at the region</h2>
-            <p class="p-title">As a short-term rental management specialists in Salento, we assist our property owners with the management
-                of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental
-                from the outset to completion.</p>
+            <?php
+            // Get current language for Polylang
+            $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+            $option_key = 'discover_settings_' . $current_lang;
+            
+            // Get region section content from settings
+            $region_title = get_option($option_key . '_region_title', 'Take a glance <br>at the region');
+            $region_description = get_option($option_key . '_region_description', 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.');
+            ?>
+            <h2><?php echo wp_kses_post($region_title); ?></h2>
+            <p class="p-title"><?php echo esc_html($region_description); ?></p>
         </div>
     </section>
     <?php get_template_part('partials/discover-section', null, ['bg_color' => '#F5F5F5']); ?>

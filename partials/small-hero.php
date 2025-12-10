@@ -13,9 +13,6 @@ if (function_exists('get_field') && !is_admin()) {
     $title = get_field('small_hero_title');
     
     // Set defaults if ACF not available or fields empty
-    if (!$video) {
-        $video = 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/05/PLH.mp4';
-    }
     if (!$poster) {
         $poster = 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp';
     }
@@ -24,9 +21,13 @@ if (function_exists('get_field') && !is_admin()) {
     }
 ?>
 <section class="small-hero">
-    <video autoplay loop muted playsinline poster="<?php echo esc_attr($poster); ?>">
-        <source src="<?php echo esc_attr($video); ?>" type="video/mp4">
-    </video>
+    <?php if (!empty($video)) : ?>
+        <video autoplay loop muted playsinline poster="<?php echo esc_attr($poster); ?>">
+            <source src="<?php echo esc_attr($video); ?>" type="video/mp4">
+        </video>
+    <?php else : ?>
+        <img src="<?php echo esc_attr($poster); ?>" alt="<?php echo esc_attr($title); ?>">
+    <?php endif; ?>
     <div class="small-hero-title">
         <h2><?php echo esc_html($title); ?></h2>
     </div>

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const swiperConfigs = [
     {
-      selector: '.swiper:not(.sea-collection-swiper):not(.land-collection-swiper):not(.city-collection-swiper)',
+      selector: '.swiper:not(.sea-collection-swiper):not(.land-collection-swiper):not(.city-collection-swiper):not(.service-image-carousel)',
       options: {
         cssMode: true,
         slidesPerView: 3,

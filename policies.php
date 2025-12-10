@@ -8,11 +8,15 @@ get_header(); ?>
 <div class="cgl-page">
     <div class="cgl-content">
         <?php 
-        $cgl_content = get_field('cgl_content');
-        if ($cgl_content) {
-            echo wp_kses_post($cgl_content);
+        $conditions = get_field('cgl_content');
+        $confidentiality = get_field('confidentiality_content');
+
+        if ($conditions) {
+            echo wp_kses_post($conditions);
+        } elseif ($confidentiality) {
+            echo wp_kses_post($confidentiality);
         } else {
-            echo '<p>Please add your general conditions content in the WordPress editor.</p>';
+            echo '<p>Please add your policy content in the WordPress editor.</p>';
         }
         ?>
     </div>

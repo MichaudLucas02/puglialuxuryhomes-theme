@@ -353,8 +353,17 @@ $read_more      = get_field('read_more_paragraph');
         </section>
         <div id="experiences">
             <section class="central-title">
-                <h2><?php echo esc_html( plh_t('Take a glance') ); ?> <br><?php echo esc_html( plh_t('at the region') ); ?></h2>
-                <p><?php echo esc_html( plh_t('As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.') ); ?></p>
+                <?php
+                // Get current language for Polylang
+                $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+                $option_key = 'discover_settings_' . $current_lang;
+                
+                // Get region section content from settings
+                $region_title = get_option($option_key . '_region_title', 'Take a glance <br>at the region');
+                $region_description = get_option($option_key . '_region_description', 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.');
+                ?>
+                <h2><?php echo wp_kses_post($region_title); ?></h2>
+                <p><?php echo esc_html($region_description); ?></p>
             </section>
             <?php get_template_part('partials/discover-section'); ?>
             <?php get_template_part('partials/discover-slider'); ?>

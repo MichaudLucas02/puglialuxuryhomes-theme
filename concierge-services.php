@@ -32,12 +32,18 @@ get_header(); ?>
     // Array of 4 services with ACF field mapping
     $services = [];
     for ($i = 1; $i <= 4; $i++) {
+        $slides = array_filter([
+            get_field("service_{$i}_image"),
+            get_field("service_{$i}_image_2"),
+            get_field("service_{$i}_image_3"),
+            get_field("service_{$i}_image_4"),
+        ]);
         $service_data = [
-            'image_id' => get_field("service_{$i}_image"),
+            'slides' => $slides,
             'title' => get_field("service_{$i}_title"),
             'description' => get_field("service_{$i}_description"),
         ];
-        if (!empty($service_data['title']) || !empty($service_data['image_id'])) {
+        if (!empty($service_data['title']) || !empty($slides)) {
             $services[] = $service_data;
         }
     }
@@ -51,16 +57,25 @@ get_header(); ?>
             <section <?php echo $section_class ? 'class="' . esc_attr($section_class) . '"' : ''; ?>>
                 <div class="<?php echo esc_attr($wrapper_class); ?>">
                     <div class="service-image">
-                        <?php 
-                        if ($service['image_id']) {
-                            echo wp_get_attachment_image($service['image_id'], 'large', false, [
-                                'alt' => esc_attr($service['title']),
-                                'class' => 'service-img',
-                            ]);
-                        } else {
-                            echo '<img src="https://via.placeholder.com/600x400" alt="' . esc_attr($service['title']) . '" />';
-                        }
-                        ?>
+                        <?php if (!empty($service['slides'])) : ?>
+                            <div class="swiper service-image-carousel service-carousel-<?php echo $index; ?>">
+                                <div class="swiper-wrapper service-carousel-wrapper">
+                                    <?php foreach ($service['slides'] as $image_id) : ?>
+                                        <div class="swiper-slide service-carousel-slide">
+                                            <?php echo wp_get_attachment_image($image_id, 'large', false, [
+                                                'alt' => esc_attr($service['title']),
+                                                'class' => 'service-img',
+                                            ]); ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="swiper-pagination service-carousel-pagination"></div>
+                                <div class="swiper-button-prev service-carousel-prev"></div>
+                                <div class="swiper-button-next service-carousel-next"></div>
+                            </div>
+                        <?php else : ?>
+                            <img src="https://via.placeholder.com/600x400" alt="<?php echo esc_attr($service['title']); ?>" />
+                        <?php endif; ?>
                     </div>
                     <div class="service-content">
                         <h4><?php echo esc_html($service['title']); ?></h4>
@@ -111,6 +126,38 @@ get_header(); ?>
         }
     }
     ?>
+
+        <?php if (!empty($services)) : ?>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        if (typeof Swiper === 'undefined') return;
+                        
+                        // Initialize carousels with proper element selection
+                        var carousels = document.querySelectorAll('.service-image-carousel');
+                        
+                        carousels.forEach(function(carousel) {
+                            new Swiper(carousel, {
+                                loop: false,
+                                slidesPerView: 1,
+                                spaceBetween: 0,
+                                pagination: {
+                                    el: carousel.querySelector('.service-carousel-pagination'),
+                                    clickable: true
+                                },
+                                navigation: {
+                                    nextEl: carousel.querySelector('.service-carousel-next'),
+                                    prevEl: carousel.querySelector('.service-carousel-prev')
+                                },
+                                watchOverflow: true,
+                                observer: true,
+                                observeParents: true,
+                                observeSlideChildren: true,
+                                watchSlidesProgress: true
+                            });
+                        });
+                    });
+                </script>
+        <?php endif; ?>
 </div>
 
 
