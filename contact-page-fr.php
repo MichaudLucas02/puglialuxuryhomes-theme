@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Contact
+ * Template Name: Contact FR
  */
 get_header();
 get_template_part('partials/small-hero');
@@ -11,11 +11,11 @@ get_template_part('partials/small-hero');
         <div class="contact-info">
             <div class="contact-card">
                 <p class="eyebrow">Contact</p>
-                <h4>We would love to hear from you</h4>
-                <p class="lede">"Share your travel plans, ask about our villas, or request concierge services. Our team will respond as quickly as possible, usually within one business day."</p>
+                <h4>Nous serions ravis d'avoir de vos nouvelles.</h4>
+                <p class="lede">Partagez vos projets de voyage, posez vos questions sur nos villas ou demandez des services de conciergerie. Notre équipe vous répondra dans les plus brefs délais, généralement sous un jour ouvré.</p>
                 
                 <div class="contact-detail">
-                    <span class="label">Call (Whatsapp)</span>
+                    <span class="label">Appeler (Whatsapp)</span>
                     <a href="tel:+393279379067">+39 327 93 79 067</a>
                 </div>
                 
@@ -26,36 +26,36 @@ get_template_part('partials/small-hero');
             </div>
             
             <div class="contact-card">
-                <h4>Visit us</h4>
-                <p class="lede">We welcome you by appointment at our offices in Gagliano del Capo, in the heart of Puglia.</p>
+                <h4>Nous rendre visite</h4>
+                <p class="lede">Nous vous recevons sur rendez-vous dans nos bureaux à Gagliano del Capo, au cœur des Pouilles.</p>
                 <div class="contact-detail">
-                    <span class="label">Hours</span>
-                    <p class="detail-text">Mon-Fri 9am - 6pm CET</p>
+                    <span class="label">Horaires</span>
+                    <p class="detail-text">Du lundi au vendredi, de 9h à 18h (CET)</p>
                 </div>
             </div>
             
             <div class="contact-card">
-                <h4>For partnerships</h4>
-                <p class="lede">For press enquiries, brand partnerships</p>
-                <a class="inline-link" href="mailto:reservation@puglialuxuryhomes.com">Email our team</a>
+                <h4>Pour les partenariats</h4>
+                <p class="lede">Pour les demandes presse et partenariats de marque</p>
+                <a class="inline-link" href="mailto:reservation@puglialuxuryhomes.com">Contactez notre équipe par email</a>
             </div>
             
             <div class="contact-card">
-                <h4>For property owners</h4>
-                <p class="lede">To submit your property for consideration, please fill out the dedicated form.</p>
-                <a class="inline-link" href="<?php echo esc_url(home_url('/property-management')); ?>">Submit your property</a>
+                <h4>Pour les propriétaires</h4>
+                <p class="lede">Pour soumettre votre propriété à étude, veuillez remplir le formulaire dédié.</p>
+                <a class="inline-link" href="<?php echo esc_url(home_url('/property-management')); ?>">Accès au formulaire</a>
             </div>
         </div>
 
         <div class="contact-form-card">
-            <h4>Send a message</h4>
+            <h4>Envoyer un message</h4>
             <?php
             $status = isset($_GET['contact_status']) ? sanitize_text_field($_GET['contact_status']) : '';
             $error  = isset($_GET['contact_error']) ? sanitize_text_field($_GET['contact_error']) : '';
             if ($status === 'success') {
-                echo '<div class="form-message success">Thank you — your message has been sent.</div>';
+                echo '<div class="form-message success">Merci — votre message a été envoyé.</div>';
             } elseif ($status === 'error') {
-                $msg = $error ? $error : 'Something went wrong. Please try again.';
+                $msg = $error ? $error : 'Une erreur s\'est produite. Veuillez réessayer.';
                 echo '<div class="form-message error">' . esc_html($msg) . '</div>';
             }
             ?>
@@ -67,40 +67,40 @@ get_template_part('partials/small-hero');
 
                 <div class="contact-form-grid">
                     <div class="field">
-                        <label for="contact_name">Your full name *</label>
+                        <label for="contact_name">Votre nom complet *</label>
                         <input type="text" id="contact_name" name="contact_name" required>
                     </div>
                     <div class="field">
-                        <label for="contact_email">Your Email *</label>
+                        <label for="contact_email">Votre email *</label>
                         <input type="email" id="contact_email" name="contact_email" required>
                     </div>
                     <div class="field">
-                        <label for="contact_phone">Phone</label>
+                        <label for="contact_phone">Téléphone</label>
                         <input type="tel" id="contact_phone" name="contact_phone">
                     </div>
                     <div class="field">
-                        <label for="contact_subject">Subject *</label>
+                        <label for="contact_subject">Sujet *</label>
                         <select id="contact_subject" name="contact_subject" required>
-                            <option value="">Select a subject</option>
-                            <option value="Booking request">Booking request</option>
-                            <option value="Concierge service">Concierge service</option>
-                            <option value="Partnership">Partnership</option>
-                            <option value="Other">Other</option>
+                            <option value="">Sélectionnez un sujet</option>
+                            <option value="Demande de réservation">Demande de réservation</option>
+                            <option value="Service de conciergerie">Service de conciergerie</option>
+                            <option value="Partenariat">Partenariat</option>
+                            <option value="Autre">Autre</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="field">
-                    <label for="contact_message">How can we assist you? *</label>
+                    <label for="contact_message">Comment pouvons-nous vous aider ? *</label>
                     <textarea id="contact_message" name="contact_message" rows="5" required></textarea>
                 </div>
 
                 <label class="consent">
                     <input type="checkbox" name="contact_consent" value="1" required>
-                    <span>I agree to be contacted regarding this enquiry *</span>
+                    <span>J'accepte d'être contacté(e) concernant cette demande *</span>
                 </label>
 
-                <button type="submit" class="contact-submit">Submit enquiry</button>
+                <button type="submit" class="contact-submit">Envoyer la demande</button>
             </form>
         </div>
     </div>

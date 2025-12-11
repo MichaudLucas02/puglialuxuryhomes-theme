@@ -2836,6 +2836,7 @@ h2 {
   color: #4a4a4a;
   line-height: 1.6;
   margin: 0 0 12px;
+  text-transform: none;
 }
 
 .contact-detail {
@@ -4635,6 +4636,20 @@ h2 {
 .wide-blog-content a {
   text-decoration: none;
   color: inherit;
+}
+
+/* Contact Page Styling */
+.contact-section .eyebrow {
+  text-transform: uppercase;
+}
+
+.contact-section h4,
+.contact-form-card h4 {
+  text-transform: uppercase;
+}
+
+.contact-section .label {
+  text-transform: uppercase;
 }
 
 /* Blog Pagination Styling */
