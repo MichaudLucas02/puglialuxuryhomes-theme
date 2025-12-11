@@ -1,4 +1,4 @@
-<div class="simple-blog-card">
+<div class="simple-blog-card" onclick="window.location='<?php echo esc_url( $args['link'] ); ?>';" style="cursor: pointer;">
     <div class="simple-blog-card__thumb">
         <img src="<?php echo esc_url( $args['image_url'] ); ?>" alt="<?php echo esc_attr( $args['image_alt'] ); ?>">
     </div>

@@ -5,7 +5,7 @@ if (!$featured) {
     return;
 }
 ?>
-<div class="feature-blog-wrapper">
+<div class="feature-blog-wrapper" onclick="window.location='<?php echo esc_url($featured['permalink']); ?>';" style="cursor: pointer;">
     <div class="feature-blog-image">
         <?php if ($featured['image']) : ?>
             <a href="<?php echo esc_url($featured['permalink']); ?>">

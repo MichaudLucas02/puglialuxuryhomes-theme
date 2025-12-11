@@ -4637,6 +4637,71 @@ h2 {
   color: inherit;
 }
 
+/* Blog Pagination Styling */
+.blog-listing .pagination {
+  text-align: center;
+  margin: 60px 0;
+  padding: 0;
+}
+
+.blog-listing .pagination ul.page-numbers {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-listing .pagination .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 45px;
+  height: 45px;
+  padding: 0 15px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.blog-listing .pagination .page-numbers:hover {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+.blog-listing .pagination .page-numbers.current {
+  background: #333;
+  color: white;
+  border-color: #333;
+  font-weight: 500;
+}
+
+.blog-listing .pagination .page-numbers.dots {
+  border: none;
+  background: transparent;
+  pointer-events: none;
+}
+
+.blog-listing .pagination .page-numbers.prev,
+.blog-listing .pagination .page-numbers.next {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .blog-listing .pagination .page-numbers {
+    min-width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
 
 /* Our Story Section Start */
 

@@ -35,7 +35,7 @@ get_header(); ?>
         
         <?php
         // Query blog posts
-        $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+        $paged = isset($_GET['paged']) ? intval($_GET['paged']) : (get_query_var('paged') ? get_query_var('paged') : 1);
         $current_cat = isset($_GET['cat']) ? intval($_GET['cat']) : 0;
         
         $args = [
@@ -197,11 +197,20 @@ get_header(); ?>
             
             <?php
             // Pagination
+            $current_url = get_permalink();
+            if ($current_cat > 0) {
+                $current_url = add_query_arg('cat', $current_cat, $current_url);
+            }
+            
             echo '<div class="pagination" style="text-align: center; margin: 60px 0;">';
             echo paginate_links([
+                'base' => add_query_arg('paged', '%#%', $current_url),
+                'format' => '',
                 'total' => $q->max_num_pages,
                 'current' => $paged,
                 'type' => 'list',
+                'prev_text' => '← Previous',
+                'next_text' => 'Next →',
             ]);
             echo '</div>';
             
