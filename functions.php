@@ -97,7 +97,7 @@ add_action('acf/init', function () {
   if (!function_exists('acf_add_local_field_group')) return;
 
   acf_add_local_field_group([
-    'key'    => 'group_small_hero',
+    'key'    => 'group_small_hero_section',
     'title'  => 'Small Hero Section',
     'fields' => [
       [
@@ -2533,6 +2533,16 @@ add_action('acf/init', function () {
       'instructions'  => 'Main image for the collection section (left side)',
     ];
 
+    // Collection video (YouTube)
+    $fields[] = [
+      'key'           => "field_collection_{$collection}_video_url",
+      'label'         => 'Collection Video (YouTube URL)',
+      'name'          => "collection_{$collection}_video_url",
+      'type'          => 'url',
+      'instructions'  => 'Paste a YouTube link to autoplay in place of the image. Leave blank to show the image.',
+      'default_value' => '',
+    ];
+
     // Short description
     $fields[] = [
       'key'   => "field_collection_{$collection}_short_desc",
@@ -3019,6 +3029,14 @@ add_action('acf/init', function () {
     'type'  => 'textarea',
     'rows'  => 3,
     'default_value' => 'Here, the dry stone of Solento sinks into the intense blue of the Mediterranean. Bordered by cliffs, inlets and long white beaches, hemmed in by scrumbland and pine forests, this wild land is an obe to the art of living and the seaside indolence.',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_hero_video_url',
+    'label' => 'Background Video (YouTube URL)',
+    'name'  => 'home_hero_video_url',
+    'type'  => 'url',
+    'instructions' => 'Paste a YouTube link to autoplay as the hero background. Leave empty to use only the image.',
+    'default_value' => '',
   ];
 
   acf_add_local_field_group([

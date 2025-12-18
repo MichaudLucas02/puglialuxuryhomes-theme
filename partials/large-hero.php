@@ -3,6 +3,11 @@ $large_hero_title =  get_field('large_hero_title');
 $large_hero_button = get_field('large_hero_button');
 $large_hero_button2 = get_field('large_hero_button2');
 $large_hero_image = get_field('large_hero_image');
+
+// Use ACF image if set, otherwise fall back to featured image
+if (empty($large_hero_image)) {
+    $large_hero_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
+}
 ?>
 
 <section class="large-hero">

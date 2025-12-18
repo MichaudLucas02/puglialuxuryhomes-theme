@@ -4,15 +4,22 @@
     
     <div class="footer-col col-left">
         <nav class="footer-vertical-nav" aria-label="Footer (left)">
-            <ul class="footer-vertical-menu">
-                <li><a href="/villas/">villas</a></li>
-                <li><a href="/collections/">collections</a></li>
-                <li><a href="/contact/">contact</a></li>
-                <li><a href="/blog/">blog</a></li>
-                <li><a href="/conciergerie/">conciergerie</a></li>
-                <li><a href="/evenements/">evenements</a></li>
-                <li><a href="/our-story/">our story</a></li>
-            </ul>
+            <?php
+            $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+            $footer_menu = 'footer';
+            if ($current_lang === 'fr') {
+                $footer_menu = 'footer_fr';
+            } elseif ($current_lang === 'it') {
+                $footer_menu = 'footer_it';
+            }
+            
+            wp_nav_menu([
+                'theme_location' => $footer_menu,
+                'container'      => false,
+                'menu_class'     => 'footer-vertical-menu',
+                'fallback_cb'    => false,
+            ]);
+            ?>
         </nav>
 
     </div>
@@ -60,15 +67,22 @@
       <div class="mobile-footer-menu">
          <div class="footer-col col-left">
             <nav class="footer-vertical-nav" aria-label="Footer (left)">
-                <ul class="footer-vertical-menu">
-                    <li><a href="/villas/">villas</a></li>
-                    <li><a href="/collections/">collections</a></li>
-                    <li><a href="/contact/">contact</a></li>
-                    <li><a href="/blog/">blog</a></li>
-                    <li><a href="/conciergerie/">conciergerie</a></li>
-                    <li><a href="/evenements/">evenements</a></li>
-                    <li><a href="/our-story/">our story</a></li>
-                </ul>
+                <?php
+                $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+                $footer_menu = 'footer';
+                if ($current_lang === 'fr') {
+                    $footer_menu = 'footer_fr';
+                } elseif ($current_lang === 'it') {
+                    $footer_menu = 'footer_it';
+                }
+                
+                wp_nav_menu([
+                    'theme_location' => $footer_menu,
+                    'container'      => false,
+                    'menu_class'     => 'footer-vertical-menu',
+                    'fallback_cb'    => false,
+                ]);
+                ?>
             </nav>
 
           </div>
@@ -83,13 +97,22 @@
   <div class="bottom-footer-wrapper">
     <div class="bottom-footer">
       <div class="bottom-footer-left">
-        <ul class="bottom-footer-menu">
-          <li><a href="">Privacy Policy</a></li>
-          <li><a href="">Legal Notice</a></li>
-          <li><a href="">Terms and Conditions</a></li>
-          <li><a href="">Cookie Policy</a></li>
-          <li><a href="">Cookie Settings</a></li>
-        </ul>
+        <?php
+        $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+        $policies_menu = 'Policies EN';
+        if ($current_lang === 'fr') {
+            $policies_menu = 'Policies FR';
+        } elseif ($current_lang === 'it') {
+            $policies_menu = 'Policies IT';
+        }
+        
+        wp_nav_menu([
+            'menu'           => $policies_menu,
+            'container'      => false,
+            'menu_class'     => 'bottom-footer-menu',
+            'fallback_cb'    => false,
+        ]);
+        ?>
       </div>
       <div class="bottom-footer-right">
         <p>c Puglia Luxury Homes 2025</p>

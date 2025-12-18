@@ -302,16 +302,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (langButton && langDropdown) {
     langButton.addEventListener('click', function(e) {
+      e.preventDefault();
       e.stopPropagation();
       const isExpanded = langButton.getAttribute('aria-expanded') === 'true';
       langButton.setAttribute('aria-expanded', !isExpanded);
+      
+      // Toggle class for additional control
+      langDropdown.classList.toggle('is-open', !isExpanded);
     });
 
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
       if (!langDropdown.contains(e.target)) {
         langButton.setAttribute('aria-expanded', 'false');
+        langDropdown.classList.remove('is-open');
       }
+    });
+    
+    // Prevent dropdown from closing when clicking inside
+    langDropdown.addEventListener('click', function(e) {
+      e.stopPropagation();
     });
   }
 });

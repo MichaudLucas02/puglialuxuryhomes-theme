@@ -504,6 +504,12 @@ h2 {
     transform: translateY(0);
 }
 
+.lang-dropdown.is-open .lang-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
 .lang-options li {
     margin: 0;
 }
@@ -1073,6 +1079,41 @@ h2 {
     height: 100%;
     object-fit: cover;
     z-index: 1;
+}
+
+/* Video background layering */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-video iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Cover container: 16:9 scaled to fill */
+  width: 177.78vh; /* 100 * 16/9 */
+  height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.hero-fallback {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.hero-media.is-playing .hero-fallback {
+  opacity: 0;
 }
 
 .hero-content {
@@ -2181,6 +2222,9 @@ h2 {
   display: flex;
   width: 65%;
   height: 40vw;
+  position: relative;
+  overflow: hidden;
+  background: #000;
 }
 
 .collection-description-column__right {
@@ -2200,11 +2244,46 @@ h2 {
 .collection-description-column__right p { font-family: 'Raleway'; font-size: 15px; color:#000; opacity:.78; margin: 0 0 18px 0; padding: 0; text-transform: initial; }
 
 .collection-description-column__right a { font-family: 'Raleway'; font-size: 14px; color:#000; margin-top: 4px; text-transform: uppercase; text-decoration: underline; font-weight: 600; }
+
+/* Collection video media */
+.collection-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.collection-video {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.collection-video iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.78%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.collection-description-image.collection-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.6s ease;
+}
+
+.collection-media.is-playing .collection-fallback {
+  opacity: 0;
+}
 /* Responsive layout for collection description */
 @media (max-width: 1100px) {
   .collection-description-wrapper { flex-direction: column; }
   .collection-description-column__left, .collection-description-column__right { width:100%; height:auto; }
-  .collection-description-column__left img { aspect-ratio: 16/10; }
+  .collection-media { height: auto; aspect-ratio: 16/10; }
   .collection-description-column__right { padding: 22px 18px 26px; }
   .collection-description-column__right h2 { font-size:22px; margin-bottom:10px; }
   .collection-description-column__right p { font-size:13.5px; margin-bottom:16px; }
@@ -3850,8 +3929,8 @@ h2 {
   background-color: #f5f5f5;
   display: flex;
   width: 100%;
-  height: 500px;
-  max-height: 600px;
+  min-height: 500px;
+  height: auto;
   margin: 100px 0;
   margin-top: 0;
   
@@ -3946,16 +4025,80 @@ h2 {
   flex-direction: row-reverse;
 }
 
+@media (max-width: 1100px) {
+  .service-wrapper {
+    min-height: 420px;
+    height: auto;
+    margin: 70px 0;
+  }
+
+  .service-content {
+    padding: 16px 20px;
+  }
+
+  .service-image-carousel .swiper-button-prev,
+  .service-image-carousel .swiper-button-next {
+    width: 32px;
+    height: 32px;
+  }
+
+  .service-image-carousel .swiper-button-prev:after,
+  .service-image-carousel .swiper-button-next:after {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 800px) {
   .service-wrapper {
     flex-direction: column;
-    max-height: 100%;
+    height: auto;
+    max-height: none;
+    margin: 50px 0;
   }
   .service-wrapper.mirrored {
     flex-direction: column;
   }
   .service-image, .service-content {
     width: 100%;
+  }
+
+  .service-image {
+    height: 320px;
+  }
+
+  .service-content {
+    padding: 24px 20px;
+  }
+
+  .service-image-carousel,
+  .service-image-carousel .swiper-wrapper,
+  .service-image-carousel .swiper-slide,
+  .service-image-carousel .swiper-slide img {
+    height: 100%;
+  }
+
+  .service-image-carousel .swiper-pagination {
+    bottom: 8px;
+  }
+
+  .service-image-carousel .swiper-button-prev,
+  .service-image-carousel .swiper-button-next {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 520px) {
+  .service-wrapper {
+    margin: 36px 0;
+  }
+
+  .service-image {
+    height: 240px;
+  }
+
+  .service-content {
+    padding: 20px 16px;
   }
 }
 

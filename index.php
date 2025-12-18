@@ -7,23 +7,90 @@
     $hero_image = get_field('home_hero_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/7-Vue-1-scaled.webp';
     $hero_title = get_field('home_hero_title') ?: 'A WINDOW ON THE ADRIATIC';
     $hero_description = get_field('home_hero_description') ?: 'Here, the dry stone of Solento sinks into the intense blue of the Mediterranean. Bordered by cliffs, inlets and long white beaches, hemmed in by scrumbland and pine forests, this wild land is an obe to the art of living and the seaside indolence.';
+    $hero_video_url = get_field('home_hero_video_url');
+    $hero_video_id = '';
+    if (!empty($hero_video_url)) {
+        // Extract YouTube video ID from common URL formats
+        if (preg_match('~(?:youtu\.be/|youtube\.com/(?:embed/|shorts/|v/|watch\?v=|watch\?.*?&v=))([\w-]{11})~', $hero_video_url, $m)) {
+            $hero_video_id = $m[1];
+        }
+    }
     ?>
     
-    <section class='hero-section'>
-        <img 
-            src="<?php echo esc_url($hero_image); ?>"
-            class='hero-background'
-            alt="<?php echo esc_attr($hero_title); ?>"
-        ></img>
+        <section class='hero-section'>
+                <div class="hero-media<?php echo $hero_video_id ? '' : ' no-video'; ?>">
+                        <?php if ($hero_video_id) : ?>
+                                <div class="hero-video" data-video-id="<?php echo esc_attr($hero_video_id); ?>">
+                                        <div id="hero-yt-player"></div>
+                                </div>
+                        <?php endif; ?>
+                        <img 
+                                src="<?php echo esc_url($hero_image); ?>"
+                                class='hero-background hero-fallback'
+                                alt="<?php echo esc_attr($hero_title); ?>"
+                        />
+                </div>
 
 
-        <div class='hero-content'>
+                <div class='hero-content'>
             <h1><?php echo esc_html($hero_title); ?></h1>
             <p><?php echo esc_html($hero_description); ?></p>
             
         </div>
 
     </section>
+        <?php if ($hero_video_id) : ?>
+        <script>
+        (function(){
+            const media = document.querySelector('.hero-media');
+            const videoWrap = document.querySelector('.hero-video');
+            if (!media || !videoWrap) return;
+            const videoId = videoWrap.getAttribute('data-video-id');
+            if (!videoId) return;
+
+            // Respect reduced motion and very small screens
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            let player;
+            function onPlayerReady() {
+                try { player.mute(); } catch(e){}
+                try { player.playVideo(); } catch(e){}
+                media.classList.add('is-playing');
+            }
+
+            function createPlayer(){
+                player = new YT.Player('hero-yt-player', {
+                    videoId: videoId,
+                    playerVars: {
+                        autoplay: 1,
+                        mute: 1,
+                        controls: 0,
+                        rel: 0,
+                        playsinline: 1,
+                        modestbranding: 1,
+                        loop: 1,
+                        playlist: videoId,
+                        fs: 0,
+                        showinfo: 0,
+                        iv_load_policy: 3,
+                        disablekb: 1
+                    },
+                    events: { onReady: onPlayerReady }
+                });
+            }
+
+            function ensureYT(){
+                if (window.YT && YT.Player) { createPlayer(); return; }
+                const tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                document.head.appendChild(tag);
+                window.onYouTubeIframeAPIReady = function(){ createPlayer(); };
+            }
+
+            ensureYT();
+        })();
+        </script>
+        <?php endif; ?>
     <section class='our-collection'>
         <h2>Our Collections</h2>
         <p class="p-title">Discover our collections of exclusive villas</p>

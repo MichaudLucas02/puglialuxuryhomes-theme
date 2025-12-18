@@ -28,6 +28,12 @@ get_header(); ?>
     ];
 
     foreach ($collections as $slug => $data):
+        $video_url = get_field("collection_{$slug}_video_url");
+        $video_id = '';
+        if ($video_url && preg_match('~(?:youtu\.be/|youtube\.com/(?:embed/|shorts/|v/|watch\?v=|watch\?.*?&v=))([\w-]{11})~', $video_url, $m)) {
+            $video_id = $m[1];
+        }
+        $player_id = "collection-{$slug}-player";
         $args = [
             'post_type' => 'villa',
             'posts_per_page' => 12,
@@ -44,17 +50,24 @@ get_header(); ?>
     <section class="collection-description">
         <div class="collection-description-wrapper">
             <div class="collection-description-column__left">
-                <?php
-                $image_id = get_field("collection_{$slug}_image");
-                if ($image_id) {
-                    echo wp_get_attachment_image($image_id, 'medium_large', false, [
-                        'alt' => esc_attr($data['title']),
-                        'class' => 'collection-description-image',
-                    ]);
-                } else {
-                    echo '<img src="https://via.placeholder.com/400x300" alt="' . esc_attr($data['title']) . ' placeholder">';
-                }
-                ?>
+                <?php $image_id = get_field("collection_{$slug}_image"); ?>
+                <div class="collection-media<?php echo $video_id ? ' has-video' : ' no-video'; ?>">
+                    <?php if ($video_id): ?>
+                        <div class="collection-video" data-video-id="<?php echo esc_attr($video_id); ?>" data-player-id="<?php echo esc_attr($player_id); ?>">
+                            <div id="<?php echo esc_attr($player_id); ?>"></div>
+                        </div>
+                    <?php endif; ?>
+                    <?php
+                    if ($image_id) {
+                        echo wp_get_attachment_image($image_id, 'medium_large', false, [
+                            'alt' => esc_attr($data['title']),
+                            'class' => 'collection-description-image collection-fallback',
+                        ]);
+                    } else {
+                        echo '<img src="https://via.placeholder.com/400x300" alt="' . esc_attr($data['title']) . ' placeholder" class="collection-description-image collection-fallback">';
+                    }
+                    ?>
+                </div>
             </div>
             <div class="collection-description-column__right">
                 <h2 class="collection-description-title"><?php echo esc_html($data['title']); ?></h2>
@@ -117,6 +130,64 @@ get_header(); ?>
         wp_reset_postdata();
     endforeach;
     ?>
+
+        <script>
+        (function(){
+            const videos = document.querySelectorAll('.collection-video');
+            if (!videos.length) return;
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            function initPlayer(el){
+                const videoId = el.getAttribute('data-video-id');
+                const playerId = el.getAttribute('data-player-id');
+                if (!videoId || !playerId) return;
+                new YT.Player(playerId, {
+                    videoId: videoId,
+                    playerVars: {
+                        autoplay: 1,
+                        mute: 1,
+                        controls: 0,
+                        rel: 0,
+                        playsinline: 1,
+                        modestbranding: 1,
+                        loop: 1,
+                        playlist: videoId,
+                        fs: 0,
+                        showinfo: 0,
+                        iv_load_policy: 3,
+                        disablekb: 1
+                    },
+                    events: {
+                        onReady: function(){
+                            const media = el.closest('.collection-media');
+                            if (media) media.classList.add('is-playing');
+                        }
+                    }
+                });
+            }
+
+            function initAll(){ videos.forEach(initPlayer); }
+
+            function loadAPI(){
+                if (window.YT && YT.Player) { initAll(); return; }
+                window._plhYTQueues = window._plhYTQueues || [];
+                window._plhYTQueues.push(initAll);
+                if (!window._plhYTLoading) {
+                    window._plhYTLoading = true;
+                    const tag = document.createElement('script');
+                    tag.src = 'https://www.youtube.com/iframe_api';
+                    document.head.appendChild(tag);
+                    const prev = window.onYouTubeIframeAPIReady;
+                    window.onYouTubeIframeAPIReady = function(){
+                        if (typeof prev === 'function') { try { prev(); } catch(e){} }
+                        (window._plhYTQueues || []).forEach(fn => { try { fn(); } catch(e){} });
+                    };
+                }
+            }
+
+            loadAPI();
+        })();
+        </script>
 
     <section class="collection-villa-button-section">
         <a href="<?php echo esc_url(get_post_type_archive_link('villa')); ?>" class="all-villa-button"><?php echo plh_t('See all our luxury villas'); ?></a>
