@@ -1788,6 +1788,20 @@ add_action('acf/init', function () {
       ],
       [
         [
+          'param'    => 'page_template',
+          'operator' => '==',
+          'value'    => 'property-management-fr.php',
+        ],
+      ],
+      [
+        [
+          'param'    => 'page_template',
+          'operator' => '==',
+          'value'    => 'property-management-it.php',
+        ],
+      ],
+      [
+        [
           'param'   => 'page_template',
           'operator'  => '==',
           'value'   => 'concierge-services.php',
@@ -2257,6 +2271,9 @@ function plh_handle_villa_submission() {
   // Consent
   $consent = isset($_POST['consent_checkbox']) ? 'Yes' : 'No';
 
+  // Language
+  $form_language = sanitize_text_field($_POST['form_language'] ?? 'en');
+
   // Required field validation
   $required_fields = [
     'owner_name' => $owner_name,
@@ -2289,46 +2306,128 @@ function plh_handle_villa_submission() {
     exit;
   }
 
-  // Build email
+  // Build email with language-specific content
   $to = get_option('admin_email'); // or use a specific email
-  $subject = 'New Property Management Inquiry: ' . ($property_name ?: $property_location);
+  
+  // Language-specific email content
+  $translations = [
+    'en' => [
+      'subject_prefix' => 'New Property Management Inquiry',
+      'heading' => 'New Property Management Submission',
+      'contact_info' => 'Contact Information',
+      'full_name' => 'Full Name',
+      'email' => 'Email',
+      'phone' => 'Phone',
+      'country' => 'Country of Residence',
+      'property_details' => 'Property Details',
+      'property_name' => 'Property Name',
+      'location' => 'Location',
+      'type' => 'Type',
+      'bedrooms' => 'Bedrooms',
+      'bathrooms' => 'Bathrooms',
+      'size' => 'Size',
+      'features' => 'Main Features',
+      'website' => 'Website/Instagram',
+      'management' => 'Management & Collaboration',
+      'collaboration' => 'Collaboration Type',
+      'other_agency' => 'Working with other agency',
+      'rental_exp' => 'Rental Experience',
+      'message' => 'Additional Message',
+      'not_provided' => 'Not provided',
+      'submitted_on' => 'Submitted on',
+    ],
+    'fr' => [
+      'subject_prefix' => 'Nouvelle demande de gestion immobilière',
+      'heading' => 'Nouvelle soumission de gestion immobilière',
+      'contact_info' => 'Informations de contact',
+      'full_name' => 'Nom complet',
+      'email' => 'E-mail',
+      'phone' => 'Téléphone',
+      'country' => 'Pays de résidence',
+      'property_details' => 'Détails de la propriété',
+      'property_name' => 'Nom de la propriété',
+      'location' => 'Localisation',
+      'type' => 'Type',
+      'bedrooms' => 'Chambres',
+      'bathrooms' => 'Salles de bain',
+      'size' => 'Surface',
+      'features' => 'Caractéristiques principales',
+      'website' => 'Site web/Instagram',
+      'management' => 'Gestion & Collaboration',
+      'collaboration' => 'Type de collaboration',
+      'other_agency' => 'Travaille avec une autre agence',
+      'rental_exp' => 'Expérience de location',
+      'message' => 'Message supplémentaire',
+      'not_provided' => 'Non renseigné',
+      'submitted_on' => 'Soumis le',
+    ],
+    'it' => [
+      'subject_prefix' => 'Nuova richiesta di gestione immobiliare',
+      'heading' => 'Nuova sottomissione gestione immobiliare',
+      'contact_info' => 'Informazioni di contatto',
+      'full_name' => 'Nome e cognome',
+      'email' => 'E-mail',
+      'phone' => 'Telefono',
+      'country' => 'Paese di residenza',
+      'property_details' => 'Dettagli della proprietà',
+      'property_name' => 'Nome della proprietà',
+      'location' => 'Localizzazione',
+      'type' => 'Tipologia',
+      'bedrooms' => 'Camere da letto',
+      'bathrooms' => 'Bagni',
+      'size' => 'Superficie',
+      'features' => 'Caratteristiche principali',
+      'website' => 'Sito web/Instagram',
+      'management' => 'Gestione & Collaborazione',
+      'collaboration' => 'Tipo di collaborazione',
+      'other_agency' => 'Collabora con altra agenzia',
+      'rental_exp' => 'Esperienza di affitto',
+      'message' => 'Messaggio aggiuntivo',
+      'not_provided' => 'Non fornito',
+      'submitted_on' => 'Inviato il',
+    ],
+  ];
+  
+  $lang = $translations[$form_language] ?? $translations['en'];
+  
+  $subject = $lang['subject_prefix'] . ': ' . ($property_name ?: $property_location);
   $headers = ['Content-Type: text/html; charset=UTF-8'];
   
   $message = '<html><body style="font-family: Arial, sans-serif; line-height: 1.6;">';
-  $message .= '<h2 style="color: #6c9ba3;">New Property Management Submission</h2>';
+  $message .= '<h2 style="color: #6c9ba3;">' . esc_html($lang['heading']) . '</h2>';
   
-  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Contact Information</h3>';
-  $message .= '<p><strong>Full Name:</strong> ' . esc_html($owner_name) . '</p>';
-  $message .= '<p><strong>Email:</strong> ' . esc_html($owner_email) . '</p>';
-  $message .= '<p><strong>Phone:</strong> ' . esc_html($owner_phone ?: 'Not provided') . '</p>';
-  $message .= '<p><strong>Country of Residence:</strong> ' . esc_html($owner_country ?: 'Not provided') . '</p>';
+  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">' . esc_html($lang['contact_info']) . '</h3>';
+  $message .= '<p><strong>' . esc_html($lang['full_name']) . ':</strong> ' . esc_html($owner_name) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['email']) . ':</strong> ' . esc_html($owner_email) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['phone']) . ':</strong> ' . esc_html($owner_phone ?: $lang['not_provided']) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['country']) . ':</strong> ' . esc_html($owner_country ?: $lang['not_provided']) . '</p>';
   
-  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Property Details</h3>';
-  $message .= '<p><strong>Property Name:</strong> ' . esc_html($property_name ?: 'Not provided') . '</p>';
-  $message .= '<p><strong>Location:</strong> ' . esc_html($property_location) . '</p>';
-  $message .= '<p><strong>Type:</strong> ' . esc_html($property_type) . '</p>';
-  $message .= '<p><strong>Bedrooms:</strong> ' . esc_html($property_bedrooms) . '</p>';
-  $message .= '<p><strong>Bathrooms:</strong> ' . esc_html($property_bathrooms) . '</p>';
-  $message .= '<p><strong>Size:</strong> ' . esc_html($property_size ? $property_size . ' m²' : 'Not provided') . '</p>';
+  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">' . esc_html($lang['property_details']) . '</h3>';
+  $message .= '<p><strong>' . esc_html($lang['property_name']) . ':</strong> ' . esc_html($property_name ?: $lang['not_provided']) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['location']) . ':</strong> ' . esc_html($property_location) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['type']) . ':</strong> ' . esc_html($property_type) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['bedrooms']) . ':</strong> ' . esc_html($property_bedrooms) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['bathrooms']) . ':</strong> ' . esc_html($property_bathrooms) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['size']) . ':</strong> ' . esc_html($property_size ? $property_size . ' m²' : $lang['not_provided']) . '</p>';
   if (!empty($property_features)) {
-    $message .= '<p><strong>Main Features:</strong><br>' . nl2br(esc_html($property_features)) . '</p>';
+    $message .= '<p><strong>' . esc_html($lang['features']) . ':</strong><br>' . nl2br(esc_html($property_features)) . '</p>';
   }
   if (!empty($property_link)) {
-    $message .= '<p><strong>Website/Instagram:</strong> <a href="' . esc_url($property_link) . '">' . esc_html($property_link) . '</a></p>';
+    $message .= '<p><strong>' . esc_html($lang['website']) . ':</strong> <a href="' . esc_url($property_link) . '">' . esc_html($property_link) . '</a></p>';
   }
   
-  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Management & Collaboration</h3>';
-  $message .= '<p><strong>Collaboration Type:</strong> ' . esc_html($collaboration_type) . '</p>';
-  $message .= '<p><strong>Working with other agency:</strong> ' . esc_html($other_agency) . '</p>';
-  $message .= '<p><strong>Rental Experience:</strong> ' . esc_html($rental_experience) . '</p>';
+  $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">' . esc_html($lang['management']) . '</h3>';
+  $message .= '<p><strong>' . esc_html($lang['collaboration']) . ':</strong> ' . esc_html($collaboration_type) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['other_agency']) . ':</strong> ' . esc_html($other_agency) . '</p>';
+  $message .= '<p><strong>' . esc_html($lang['rental_exp']) . ':</strong> ' . esc_html($rental_experience) . '</p>';
   
   if (!empty($property_message)) {
-    $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">Additional Message</h3>';
+    $message .= '<h3 style="color: #6c9ba3; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">' . esc_html($lang['message']) . '</h3>';
     $message .= '<p>' . nl2br(esc_html($property_message)) . '</p>';
   }
   
   $message .= '<hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">';
-  $message .= '<p style="color: #888; font-size: 12px;"><em>Submitted on ' . date('F j, Y \a\t g:i a') . '</em></p>';
+  $message .= '<p style="color: #888; font-size: 12px;"><em>' . esc_html($lang['submitted_on']) . ' ' . date('F j, Y \a\t g:i a') . '</em></p>';
   $message .= '</body></html>';
 
   // Send email
