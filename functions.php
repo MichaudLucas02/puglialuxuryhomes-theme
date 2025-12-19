@@ -821,9 +821,9 @@ function plh_render_features_4x4($post_id, $rows_per = 15) {
   
   // Icon legend
   $legend = '<div class="villa-features-legend">'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.(function_exists('pll__') ? pll__('Included') : esc_html__('Included', 'plh')).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.(function_exists('pll__') ? pll__('Excluded') : esc_html__('Excluded', 'plh')).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.(function_exists('pll__') ? pll__('Optional (extra charge)') : esc_html__('Optional (extra charge)', 'plh')).'</span></div>'
     . '</div>';
   
   echo '<div class="villa-features"><div class="villa-features left">'.$left.'</div><div class="villa-features right">'.$right.$legend.'</div></div>';
@@ -1039,9 +1039,9 @@ function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
 
   // Icon legend
   $legend = '<div class="villa-features-legend">'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.esc_html__( 'Included', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.esc_html__( 'Excluded', 'thinktech' ).'</span></div>'
-    .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.esc_html__( 'Optional (extra charge)', 'thinktech' ).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-check"></i><span>'.(function_exists('pll__') ? pll__('Included') : esc_html__('Included', 'plh')).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-regular fa-circle-xmark"></i><span>'.(function_exists('pll__') ? pll__('Excluded') : esc_html__('Excluded', 'plh')).'</span></div>'
+    .   '<div class="legend-item"><i class="fa-solid fa-circle-minus"></i><span>'.(function_exists('pll__') ? pll__('Optional (extra charge)') : esc_html__('Optional (extra charge)', 'plh')).'</span></div>'
     
     . '</div>';
 
@@ -2459,7 +2459,7 @@ function plh_register_ui_strings() {
     'Check in', '4pm - 10pm', 'Check out', 'Minimum stay', 'Low season: 4 nights', 'April, May, September, October', 'High season: 5 nights', 'June, July, August', 'Booking Confirmation', 'A 50% deposit is required upon booking confirmation, along with the signed rental agrrement.', 'The remaining 50% balance is due 30 days prior to arrival (a payment link will be sent 35 days before arrival).', 'A bank imprint will be taken on your account as a security deposit on the day of check-in. It will be autimatically released within 15 days after your stay, provided no damages are found.', 'Cancellation Policy', 'Deposits and payments are non-refundable',
     'Open in Google Maps',
     'Take a glance', 'at the region',
-    'Included', 'Not included', 'Optional (extra charge)',
+    'Included', 'Excluded', 'Not included', 'Optional (extra charge)',
     'The Collections',
     'Sea Collection',
     'Land Collection',
@@ -2472,6 +2472,8 @@ function plh_register_ui_strings() {
     'villas by the sea',
     'villas in the countryside',
     'villas in the city',
+    // Footer UI
+    'Follow us on socials:',  'Contact us',
   ];
   foreach ( $strings as $s ) {
     pll_register_string( 'plh_ui_' . sanitize_title( $s ), $s, $group );

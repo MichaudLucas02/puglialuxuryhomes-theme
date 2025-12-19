@@ -137,11 +137,25 @@ get_header(); ?>
             if (!videos.length) return;
             if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const players = [];
+            let playAttempted = false;
+
+            function tryPlay() {
+                if (playAttempted) return;
+                playAttempted = true;
+                players.forEach(player => {
+                    if (player && typeof player.playVideo === 'function') {
+                        try { player.playVideo(); } catch(e) {}
+                    }
+                });
+            }
+
             function initPlayer(el){
                 const videoId = el.getAttribute('data-video-id');
                 const playerId = el.getAttribute('data-player-id');
                 if (!videoId || !playerId) return;
-                new YT.Player(playerId, {
+                const player = new YT.Player(playerId, {
                     videoId: videoId,
                     playerVars: {
                         autoplay: 1,
@@ -158,15 +172,24 @@ get_header(); ?>
                         disablekb: 1
                     },
                     events: {
-                        onReady: function(){
+                        onReady: function(event){
                             const media = el.closest('.collection-media');
                             if (media) media.classList.add('is-playing');
+                                                    if (isMobile) {
+                                                        players.push(event.target);
+                                                    }
                         }
                     }
                 });
             }
 
-            function initAll(){ videos.forEach(initPlayer); }
+            function initAll(){ 
+                videos.forEach(initPlayer);
+                if (isMobile && videos.length > 0) {
+                    document.addEventListener('touchstart', tryPlay, {once: true, passive: true});
+                    document.addEventListener('scroll', tryPlay, {once: true, passive: true});
+                }
+            }
 
             function loadAPI(){
                 if (window.YT && YT.Player) { initAll(); return; }

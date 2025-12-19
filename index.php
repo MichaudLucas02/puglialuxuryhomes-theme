@@ -48,14 +48,38 @@
             const videoId = videoWrap.getAttribute('data-video-id');
             if (!videoId) return;
 
-            // Respect reduced motion and very small screens
+            // Respect reduced motion
             if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
             let player;
+            let playAttempted = false;
+            
+            function tryPlay() {
+                if (!player || playAttempted) return;
+                playAttempted = true;
+                try {
+                    player.mute();
+                    player.playVideo();
+                    media.classList.add('is-playing');
+                } catch(e) {
+                    console.log('Video play attempt:', e);
+                }
+            }
+
             function onPlayerReady() {
-                try { player.mute(); } catch(e){}
-                try { player.playVideo(); } catch(e){}
-                media.classList.add('is-playing');
+                tryPlay();
+                
+                // Mobile fallback: try to play on first user interaction
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                if (isMobile) {
+                    const playOnInteraction = function() {
+                        tryPlay();
+                        document.removeEventListener('touchstart', playOnInteraction);
+                        document.removeEventListener('scroll', playOnInteraction);
+                    };
+                    document.addEventListener('touchstart', playOnInteraction, { once: true, passive: true });
+                    document.addEventListener('scroll', playOnInteraction, { once: true, passive: true });
+                }
             }
 
             function createPlayer(){

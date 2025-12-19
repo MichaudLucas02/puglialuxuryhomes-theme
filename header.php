@@ -59,14 +59,24 @@
                     <span class="screen-reader-text"><?php esc_html_e( 'Menu', 'thinktech' ); ?></span>
                 </button>
                 <nav id="mobile-menu" class="mobile-menu" aria-hidden="true">
-                    <?php
-                    wp_nav_menu( array(
-                        'theme_location' => 'mobile',
-                        'container'      => false,
-                        'menu_class'     => 'mobile-menu__list',
-                        'fallback_cb'    => false,
-                    ) );
-                    ?>
+                  <?php
+                  // Choose language-aware mobile menu location if available; fallback to base 'mobile'
+                  $mobile_location = 'mobile';
+                  if ( function_exists('pll_current_language') ) {
+                    $lang = pll_current_language('slug');
+                    if ( $lang === 'fr' && has_nav_menu('mobile_fr') ) {
+                      $mobile_location = 'mobile_fr';
+                    } elseif ( $lang === 'it' && has_nav_menu('mobile_it') ) {
+                      $mobile_location = 'mobile_it';
+                    }
+                  }
+                  wp_nav_menu( array(
+                    'theme_location' => $mobile_location,
+                    'container'      => false,
+                    'menu_class'     => 'mobile-menu__list',
+                    'fallback_cb'    => false,
+                  ) );
+                  ?>
                 </nav>
                 
             </div>

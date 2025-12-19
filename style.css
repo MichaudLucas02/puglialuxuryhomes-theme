@@ -609,20 +609,32 @@ h2 {
       display: none;
     }
   .language-switcher {
-    display: none;
+    display: block;
   }
+  
+  .lang-current {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+  
+  .lang-options {
+    right: 0;
+  }
+  
   .top-header-center {
     justify-content: flex-start;
     padding: 0 5vw;
   }
+  
+  .top-header-right {
+    gap: 12px;
+    padding-right: 5vw;
+  }
 
   .mobile-header-menu {
     display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: flex-end;
     align-items: center;
-    padding: 0 5vw;
+    gap: 12px;
   }
 
   .mobile-header-menu i {
@@ -649,14 +661,16 @@ h2 {
 .site-footer { box-sizing: border-box; width: 100%; background-color: #f5f5f5; }
 .footer-inner { display: flex; width: 100%; padding: 48px 10vw; align-items: stretch; box-sizing: border-box;}
 .footer-col { display: flex; flex-direction: column; min-width: 0;}
-.col-left, .col-right { width: 30%;}
+.col-left { width: 30%; }
+.col-right { width: 30%; }
 
-.col-middle { width: 40%; border-left: 1px solid rgb(188, 188, 188); border-right: 1px solid  rgb(188, 188, 188); align-items: center;}
+.col-middle { width: 40%; border-left: 1px solid rgb(188, 188, 188); border-right: 1px solid  rgb(188, 188, 188); align-items: center; }
 
-.col-middle img { width: 30%;}
-.col-middle p { font-family: Arial, Helvetica, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: 0.8rem; opacity: 0.9;}
-.col-right { align-items: flex-end; justify-content: center;}
-.col-right p { font-family: Arial, Helvetica, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: 0.8rem; opacity: 0.9;}
+.col-middle img { width: 30%; }
+.col-middle p { font-family: Arial, Helvetica, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: 0.8rem; opacity: 0.9; }
+.col-right { align-items: flex-end; justify-content: center; text-align: right;}
+.col-right p { font-family: Arial, Helvetica, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: 0.8rem; opacity: 0.9; text-align: right;}
+.col-right a { text-decoration: none; font-family: 'Raleway'; font-weight: 300; color: black; font-size: 14px; display: block; text-align: right; word-break: break-word; }
 
 
 .footer-vertical-menu {
@@ -672,7 +686,7 @@ h2 {
 
 .footer-vertical-menu a {
   color: #000000;
-  text-decoration: none;
+  text-decoration: none !important;
   text-transform: uppercase;           /* match your site nav style */
   letter-spacing: .06em;
   font-size: 0.8rem;
@@ -812,6 +826,7 @@ h2 {
     flex-direction: column;
     width: 100%;
     padding-top: 20px;
+    gap: 16px;
   }
   .col-middle {
     width: 100%;
@@ -822,26 +837,66 @@ h2 {
   }
   .mobile-footer-menu {
     display: flex;
+    flex-direction: row;
     width: 100%;
-    padding: 10vw;
+    padding: 24px 5vw;
+    gap: 24px;
+    align-items: flex-start;
   }
 
-  .col-left, .col-right {
+  .mobile-footer-menu .col-left,
+  .mobile-footer-menu .col-right {
     width: 50%;
   }
-  .footer-vertical-menu a {
-    font-size: 10px;
+
+  .mobile-footer-menu .col-right {
+    align-items: flex-end;
+    text-align: right;
+  }
+  .mobile-footer-menu .col-right p,
+  .mobile-footer-menu .col-right a {
+    width: 100%;
+    text-align: right;
+    display: block;
   }
 
-  .col-right a {
-    font-size: 10px;
+  .footer-vertical-menu {
+    gap: 12px;
   }
+  .footer-vertical-menu a {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+  .footer-vertical-menu a::before {
+    left: -8px;
+  }
+
+  .col-right p {
+    font-size: 12px;
+  }
+  .col-right a {
+    font-size: 14px;
+    padding: 8px 0;
+    display: block;
+  }
+
+  .footer-icons { justify-content: center; gap: 16px; }
+  .social-list a { font-size: 14px; }
+
   .bottom-footer-menu {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
   }
   .bottom-footer-menu a {
-    font-size: 10px;
+    font-size: 12px;
   }
+}
+
+@media (max-width: 480px) {
+  .footer-vertical-menu a { font-size: 13px; }
+  .col-right a { font-size: 13px; }
+  .bottom-footer-menu a { font-size: 11px; }
 }
 
 
