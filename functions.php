@@ -2522,6 +2522,15 @@ add_action('acf/init', function () {
       'placement' => 'top',
     ];
 
+    // Collection title
+    $fields[] = [
+      'key'   => "field_collection_{$collection}_title",
+      'label' => 'Collection Title',
+      'name'  => "collection_{$collection}_title",
+      'type'  => 'text',
+      'instructions' => 'Custom title for this collection (translatable via Polylang). Leave empty to use default.',
+    ];
+
     // Collection image
     $fields[] = [
       'key'           => "field_collection_{$collection}_image",

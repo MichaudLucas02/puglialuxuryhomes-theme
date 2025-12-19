@@ -11,17 +11,17 @@ get_header(); ?>
     <?php
     $collections = [
         'sea' => [
-            'title' => plh_t('Sea Collection'),
+            'title' => get_field('collection_sea_title') ?: plh_t('Sea Collection'),
             'description' => plh_t('Discover our exclusive coastal villas'),
             'class' => 'sea-collection-swiper'
         ],
         'land' => [
-            'title' => plh_t('Land Collection'),
+            'title' => get_field('collection_land_title') ?: plh_t('Land Collection'),
             'description' => plh_t('Experience luxury in the countryside'),
             'class' => 'land-collection-swiper'
         ],
         'city' => [
-            'title' => plh_t('City Collection'),
+            'title' => get_field('collection_city_title') ?: plh_t('City Collection'),
             'description' => plh_t('Urban elegance meets luxury living'),
             'class' => 'city-collection-swiper'
         ]
@@ -189,9 +189,11 @@ get_header(); ?>
         })();
         </script>
 
+    <?php /*
     <section class="collection-villa-button-section">
         <a href="<?php echo esc_url(get_post_type_archive_link('villa')); ?>" class="all-villa-button"><?php echo plh_t('See all our luxury villas'); ?></a>
     </section>
+    */ ?>
     
 </div>
 
