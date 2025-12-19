@@ -92,8 +92,8 @@
         </script>
         <?php endif; ?>
     <section class='our-collection'>
-        <h2>Our Collections</h2>
-        <p class="p-title">Discover our collections of exclusive villas</p>
+        <h2><?php echo esc_html( get_field('home_collections_title') ?: 'Our Collections' ); ?></h2>
+        <p class="p-title"><?php echo esc_html( get_field('home_collections_description') ?: 'Discover our collections of exclusive villas' ); ?></p>
         
         <?php
         // Sea Collection
@@ -165,8 +165,8 @@
         </div>
     </section>
     <section class='villa-section'>
-        <h2>Villas</h2>
-        <p class="p-title">Elegance and tranquility in exceptional places</p>
+        <h2><?php echo esc_html( get_field('home_villas_title') ?: 'Villas' ); ?></h2>
+        <p class="p-title"><?php echo esc_html( get_field('home_villas_description') ?: 'Elegance and tranquility in exceptional places' ); ?></p>
     </section>
     
 

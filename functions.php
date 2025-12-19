@@ -184,10 +184,10 @@ add_action('acf/init', function () {
       $custom = get_post_meta($post->ID, '_plh_seo_title', true);
       $desc   = get_post_meta($post->ID, '_plh_meta_description', true);
       if($custom){
-        echo '<title>'.esc_html($custom)."</title>\n"; // Overrides default title-tag for this CPT if provided
+        echo '<title>'.esc_html($custom).'</title>';
       }
       if($desc){
-        echo '<meta name="description" content="'.esc_attr($desc).'" />\n';
+        echo '<meta name="description" content="'.esc_attr($desc).'" />';
       }
     }
   });
@@ -2453,7 +2453,7 @@ function plh_register_ui_strings() {
   $group = 'Villa UI';
   $strings = [
     'Must Have', 'Description', 'Experiences', 'Reviews', 'Photo', 'Location',
-    'Bedrooms', 'bathrooms', 'guests', 'sqm',
+    'Bedrooms', 'bathrooms', 'guests', 'sqm', 'bedrooms', 'From', 'To', 'per weeks',
     'Read more', 'Read less',
     'Book now to secure your dates in this exceptional villa.',
     'Book your stay',
@@ -3318,6 +3318,60 @@ add_action('acf/init', function () {
   acf_add_local_field_group([
     'key'    => 'group_homepage_property_management',
     'title'  => 'Homepage Property Management',
+    'fields' => $fields,
+    'location' => [[[
+      'param'    => 'page_type',
+      'operator' => '==',
+      'value'    => 'front_page',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// Homepage Section Titles ACF Fields
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $fields = [];
+
+  // Our Collections Section
+  $fields[] = [
+    'key'   => 'field_home_collections_title',
+    'label' => 'Our Collections - Title',
+    'name'  => 'home_collections_title',
+    'type'  => 'text',
+    'default_value' => 'Our Collections',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_collections_description',
+    'label' => 'Our Collections - Description',
+    'name'  => 'home_collections_description',
+    'type'  => 'textarea',
+    'rows'  => 3,
+    'default_value' => 'Discover our collections of exclusive villas',
+  ];
+
+  // Villas Section
+  $fields[] = [
+    'key'   => 'field_home_villas_title',
+    'label' => 'Villas - Title',
+    'name'  => 'home_villas_title',
+    'type'  => 'text',
+    'default_value' => 'Villas',
+  ];
+  $fields[] = [
+    'key'   => 'field_home_villas_description',
+    'label' => 'Villas - Description',
+    'name'  => 'home_villas_description',
+    'type'  => 'textarea',
+    'rows'  => 3,
+    'default_value' => 'Elegance and tranquility in exceptional places',
+  ];
+
+  acf_add_local_field_group([
+    'key'    => 'group_homepage_section_titles',
+    'title'  => 'Homepage Section Titles',
     'fields' => $fields,
     'location' => [[[
       'param'    => 'page_type',
