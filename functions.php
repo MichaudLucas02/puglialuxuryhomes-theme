@@ -1408,27 +1408,21 @@ add_action('acf/init', function () {
 
 
 add_action('wp_enqueue_scripts', function () {
-  // Leaflet CSS & JS
-  wp_enqueue_style(
-    'leaflet',
-    'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-    [],
-    '1.9.4'
-  );
+  // Google Maps API - Replace YOUR_API_KEY with your actual Google Maps API key
   wp_enqueue_script(
-    'leaflet',
-    'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+    'google-maps',
+    'https://maps.googleapis.com/maps/api/js?key=AIzaSyCG3b66d3LyMC9bKhMYAnlGtsmSOZcLcgw',
     [],
-    '1.9.4',
+    null,
     true
   );
 
-  // Our tiny init script
+  // Our map init script
   wp_enqueue_script(
     'villa-map',
     get_stylesheet_directory_uri() . '/assets/js/villa-map.js',
-    ['leaflet'],
-    '1.0',
+    ['google-maps'],
+    '1.1',
     true
   );
   wp_enqueue_style(
