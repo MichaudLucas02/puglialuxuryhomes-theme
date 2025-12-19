@@ -2097,6 +2097,10 @@ h2 {
 
 }
 
+.collection-villa h2 {
+  font-size: 28px;
+}
+
 .all-villa-button {
   display: inline-block;
   background-color: #0e3b39; /* dark green shade */

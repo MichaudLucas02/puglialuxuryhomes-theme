@@ -2597,6 +2597,51 @@ add_action('acf/init', function () {
 });
 
 // -----------------------
+// ACF Fields: All Villas Page Titles
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_all_villas_titles',
+    'title'  => 'All Villas Page Titles',
+    'fields' => [
+      [
+        'key'   => 'field_all_villas_sea_title',
+        'label' => 'Sea Collection Title',
+        'name'  => 'all_villas_sea_title',
+        'type'  => 'text',
+        'default_value' => 'Sea Collection',
+        'instructions' => 'H2 title for the Sea collection slider.',
+      ],
+      [
+        'key'   => 'field_all_villas_land_title',
+        'label' => 'Land Collection Title',
+        'name'  => 'all_villas_land_title',
+        'type'  => 'text',
+        'default_value' => 'Land Collection',
+        'instructions' => 'H2 title for the Land collection slider.',
+      ],
+      [
+        'key'   => 'field_all_villas_city_title',
+        'label' => 'City Collection Title',
+        'name'  => 'all_villas_city_title',
+        'type'  => 'text',
+        'default_value' => 'City Collection',
+        'instructions' => 'H2 title for the City collection slider.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'all-villas.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
 // ACF Fields: Concierge Services Page
 // -----------------------
 add_action('acf/init', function () {
