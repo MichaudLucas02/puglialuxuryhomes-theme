@@ -4042,6 +4042,10 @@ h2 {
     padding: 16px 20px;
   }
 
+  .service-content h4 {
+    margin-bottom: 0;
+  }
+
   .service-image-carousel .swiper-button-prev,
   .service-image-carousel .swiper-button-next {
     width: 32px;
@@ -4055,6 +4059,22 @@ h2 {
 }
 
 @media (max-width: 800px) {
+  .services-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+
+  .services-title-content {
+    width: 100%;
+  }
+
+  .discover-services-btn {
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
   .service-wrapper {
     flex-direction: column;
     height: auto;
@@ -4462,7 +4482,7 @@ h2 {
   }
 
   .services-title {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 20px;
   }

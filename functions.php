@@ -1710,6 +1710,14 @@ add_action('acf/init', function () {
     'title'  => 'Process',
     'fields' => [
       [
+        'key'   => 'field_process_title',
+        'label' => 'Process Section Title',
+        'name'  => 'process_title',
+        'type'  => 'text',
+        'default_value' => 'With you from start to finish',
+        'instructions' => 'Heading displayed above the process steps (desktop and mobile).',
+      ],
+      [
         'key'   => 'field_step_title_1',
         'label' => 'Step 1 Title',
         'name'  => 'step_title_1',
@@ -2674,6 +2682,14 @@ add_action('acf/init', function () {
         'type'  => 'text',
         'default_value' => 'Discover All Services',
         'instructions' => 'Text for "Discover All Services" button',
+      ],
+      [
+        'key'   => 'field_concierge_button_url',
+        'label' => 'Button Link',
+        'name'  => 'concierge_button_url',
+        'type'  => 'text',
+        'default_value' => '#all-services',
+        'instructions' => 'URL or anchor link for the button (e.g., #all-services or https://example.com)',
       ],
     ],
     'location' => [[[

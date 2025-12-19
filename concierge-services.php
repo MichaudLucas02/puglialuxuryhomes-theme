@@ -20,7 +20,10 @@ get_header(); ?>
             echo esc_html($subtitle ?: plh_t('Top experiences for your itinerary')); 
             ?></p>
         </div>
-        <a href="#all-services" class="discover-services-btn">
+        <a href="<?php 
+            $button_url = get_field('concierge_button_url');
+            echo esc_url($button_url ?: '#all-services'); 
+            ?>" class="discover-services-btn">
             <?php 
             $button_text = get_field('concierge_button_text');
             echo esc_html($button_text ?: plh_t('Discover All Services')); 
