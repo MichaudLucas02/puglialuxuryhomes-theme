@@ -1443,41 +1443,54 @@ function plh_gallery_endpoint_map() {
   ];
 }
 
-// Add localized gallery endpoints to single villa permalinks, e.g. /villas/my-villa/gallery/ (EN), /fr/villas/ma-villa/galerie/, /it/villas/la-villa/galleria/
-add_action('init', function () {
-  $slugs = array_values(plh_gallery_endpoint_map());
-  foreach ($slugs as $slug) {
-    add_rewrite_endpoint($slug, EP_PERMALINK);
-  }
-});
+// Map villa post type slug per language
+function plh_villa_slug_map() {
+  return [
+    'en' => 'villas',
+    'fr' => 'villas',
+    'it' => 'ville',
+  ];
+}
 
-// Normalize localized endpoint query vars to a single 'gallery' flag
-add_filter('request', function ($vars) {
-  foreach (plh_gallery_endpoint_map() as $slug) {
-    if (isset($vars[$slug])) {
-      $vars['gallery'] = $vars[$slug];
-      unset($vars[$slug]);
+// Register gallery rewrite rules (more reliable than endpoints with Polylang)
+add_action('init', function () {
+  $gallery_map = plh_gallery_endpoint_map();
+  $villa_map = plh_villa_slug_map();
+  
+  foreach ($gallery_map as $lang => $gallery_slug) {
+    $villa_slug = $villa_map[$lang];
+    
+    if ($lang === 'en') {
+      // English: /villas/{villa-slug}/gallery/
+      add_rewrite_rule(
+        '^' . $villa_slug . '/([^/]+)/' . $gallery_slug . '/?$',
+        'index.php?villa=$matches[1]&gallery_page=1',
+        'top'
+      );
+    } else {
+      // Other languages: /{lang}/ville-or-villas/{villa-slug}/galerie-or-galleria/
+      add_rewrite_rule(
+        '^' . $lang . '/' . $villa_slug . '/([^/]+)/' . $gallery_slug . '/?$',
+        'index.php?villa=$matches[1]&gallery_page=1&lang=' . $lang,
+        'top'
+      );
     }
   }
+}, 10);
+
+// Make gallery_page query var public
+add_filter('query_vars', function ($vars) {
+  $vars[] = 'gallery_page';
   return $vars;
 });
 
-// Load a special template when any gallery endpoint is present
+// Load gallery template when gallery_page is set
 add_filter('template_include', function ($template) {
-  if (is_singular('villa') && get_query_var('gallery', false) !== false) {
+  if (is_singular('villa') && get_query_var('gallery_page')) {
     $t = locate_template('single-villa-gallery.php');
     if ($t) return $t;
   }
   return $template;
-});
-
-// Make gallery query vars public (base + localized slugs)
-add_filter('query_vars', function ($vars) {
-  $vars[] = 'gallery';
-  foreach (plh_gallery_endpoint_map() as $slug) {
-    $vars[] = $slug;
-  }
-  return $vars;
 });
 
 // Helper to build the gallery URL with localized slug based on current language

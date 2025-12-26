@@ -21,7 +21,11 @@
 
         </div>
         <div class='top-header-center'>
-            <h3 class='website-title'>PUGLIA LUXURY HOMES</h3>
+          <h3 class='website-title'>
+            <a href="<?php echo esc_url( home_url('/') ); ?>" aria-label="<?php echo esc_attr( get_bloginfo('name') ); ?>">
+              PUGLIA LUXURY HOMES
+            </a>
+          </h3>
         </div>
         <div class='top-header-right'>
             <div class="language-switcher">
@@ -199,6 +203,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  // Language dropdown toggle (desktop)
+  (function(){
+    const dropdown = document.querySelector('.lang-dropdown');
+    if (!dropdown) return;
+    const toggle = dropdown.querySelector('.lang-current');
+    const menu = dropdown.querySelector('.lang-options');
+    if (!toggle || !menu) return;
+
+    function closeDropdown(){
+      toggle.setAttribute('aria-expanded', 'false');
+      dropdown.classList.remove('is-open');
+    }
+
+    function openDropdown(){
+      toggle.setAttribute('aria-expanded', 'true');
+      dropdown.classList.add('is-open');
+    }
+
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? closeDropdown() : openDropdown();
+    });
+
+    menu.addEventListener('click', function(e){
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', function(e){
+      if (!dropdown.contains(e.target)) closeDropdown();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') closeDropdown();
+    });
+  })();
+
   const DESKTOP_BREAKPOINT = 720;
   const nav = document.querySelector('.main-nav');
   const backdrop = document.getElementById('mega-backdrop');
@@ -333,6 +375,53 @@ document.addEventListener('DOMContentLoaded', function () {
     langDropdown.addEventListener('click', function(e) {
       e.stopPropagation();
     });
+  }
+});
+</script>
+
+<script>
+// Failsafe language dropdown toggle
+document.addEventListener('DOMContentLoaded', function(){
+  try {
+    const dropdown = document.querySelector('.lang-dropdown');
+    if (!dropdown) return;
+    const toggle = dropdown.querySelector('.lang-current');
+    const menu = dropdown.querySelector('.lang-options');
+    if (!toggle || !menu) return;
+
+    const open = () => {
+      toggle.setAttribute('aria-expanded', 'true');
+      dropdown.classList.add('is-open');
+      menu.style.opacity = '1';
+      menu.style.visibility = 'visible';
+      menu.style.transform = 'translateY(0)';
+    };
+    const close = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      dropdown.classList.remove('is-open');
+      menu.style.opacity = '0';
+      menu.style.visibility = 'hidden';
+      menu.style.transform = 'translateY(-8px)';
+    };
+
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? close() : open();
+    });
+
+    menu.addEventListener('click', function(e){ e.stopPropagation(); });
+
+    document.addEventListener('click', function(e){
+      if (!dropdown.contains(e.target)) close();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') close();
+    });
+  } catch (err) {
+    console.error('Language dropdown error', err);
   }
 });
 </script>
