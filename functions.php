@@ -371,6 +371,13 @@ add_action('acf/init', function () {
         'min'   => 0,
       ],
       [
+        'key'   => 'field_price_range_1',
+        'label' => 'Price Range',
+        'name'  => 'price_range_1',
+        'type'  => 'text',
+        'instructions' => 'e.g., From €1000 to €1500 per week or From €50 per day',
+      ],
+      [
         'key'   => 'field_beds_1',
         'label' => 'Beds',
         'name'  => 'beds_1',
@@ -2314,7 +2321,7 @@ function plh_handle_villa_submission() {
   }
 
   // Build email with language-specific content
-  $to = get_option('admin_email'); // or use a specific email
+  $to = 'reservation@puglialuxuryhomes.com'; // or use a specific email
   
   // Language-specific email content
   $translations = [

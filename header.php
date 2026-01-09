@@ -28,6 +28,11 @@
           </h3>
         </div>
         <div class='top-header-right'>
+          <div class="header-phone">
+            <a href="tel:+393279379067" aria-label="Call +39 327 93 79 067">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+            </a>
+          </div>
             <div class="language-switcher">
                 <?php
                 if (function_exists('pll_current_language')) {
