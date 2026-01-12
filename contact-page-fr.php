@@ -43,7 +43,7 @@ get_template_part('partials/small-hero');
             <div class="contact-card">
                 <h4>Pour les propriétaires</h4>
                 <p class="lede">Pour soumettre votre propriété à étude, veuillez remplir le formulaire dédié.</p>
-                <a class="inline-link" href="<?php echo esc_url(home_url('/property-management')); ?>">Accès au formulaire</a>
+                <a class="inline-link" href="<?php echo esc_url(home_url('/fr/gestion-de-bien/')); ?>">Accès au formulaire</a>
             </div>
         </div>
 

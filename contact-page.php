@@ -12,7 +12,7 @@ get_template_part('partials/small-hero');
             <div class="contact-card">
                 <p class="eyebrow">Contact</p>
                 <h4>We would love to hear from you</h4>
-                <p class="lede">"Share your travel plans, ask about our villas, or request concierge services. Our team will respond as quickly as possible, usually within one business day."</p>
+                <p class="lede">Share your travel plans, ask about our villas, or request concierge services. Our team will respond as quickly as possible, usually within one business day.</p>
                 
                 <div class="contact-detail">
                     <span class="label">Call (Whatsapp)</span>

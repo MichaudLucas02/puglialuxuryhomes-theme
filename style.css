@@ -474,7 +474,7 @@ h2 {
 /* Language Switcher Dropdown */
 .language-switcher {
     position: relative;
-  z-index: 12010;
+  z-index: 123010;
 }
 
 .lang-dropdown {
@@ -3304,8 +3304,19 @@ h2 {
   position: relative;
   color: #333;
   transition: max-height 0.4s ease;
-  text-transform: none;
+  text-transform: none !important;
   margin: 0;
+}
+
+.intro-paragraph {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.text-container .text-body p {
+  text-transform: none !important;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .text-container .text-body:after {

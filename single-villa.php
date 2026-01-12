@@ -70,7 +70,7 @@ $read_more      = get_field('read_more_paragraph');
                     </div>
                 </div>
                 <div class="villa-divider"></div>
-                <p><?php echo wp_kses_post($intro_paragrph); ?></p>
+                <p class="intro-paragraph"><?php echo wp_kses_post($intro_paragrph); ?></p>
                 <div class="text-container">
                     <div class="text-body"><?php echo wp_kses_post($read_more); ?></div>
                     <button id="readMoreBtn"><?php echo esc_html( plh_t('Read more') ); ?> <span>&#9660;</span></button>

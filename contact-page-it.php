@@ -43,7 +43,7 @@ get_template_part('partials/small-hero');
             <div class="contact-card">
                 <h4>Per i proprietari</h4>
                 <p class="lede">Per proporre la Sua proprietà alla nostra valutazione, compili il modulo dedicato.</p>
-                <a class="inline-link" href="<?php echo esc_url(home_url('/property-management')); ?>">Accedi al modulo</a>
+                <a class="inline-link" href="<?php echo esc_url(home_url('/it/gestionne-immobiliare/')); ?>">Accedi al modulo</a>
             </div>
         </div>
 

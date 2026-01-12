@@ -101,7 +101,7 @@
         ?>
       </div>
       <div class="bottom-footer-right">
-        <p>© Puglia Luxury Homes 2025</p>
+        <p>© Puglia Luxury Homes 2026</p>
       </div>
       
 
