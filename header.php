@@ -21,9 +21,43 @@
 
         </div>
         <div class='top-header-center'>
-            <h3 class='website-title'>PUGLIA LUXURY HOMES</h3>
+          <h3 class='website-title'>
+            <a href="<?php echo esc_url( home_url('/') ); ?>" aria-label="<?php echo esc_attr( get_bloginfo('name') ); ?>">
+              PUGLIA LUXURY HOMES
+            </a>
+          </h3>
         </div>
         <div class='top-header-right'>
+          <div class="header-phone">
+            <a href="tel:+393279379067" aria-label="Call +39 327 93 79 067">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+            </a>
+          </div>
+            <div class="language-switcher">
+                <?php
+                if (function_exists('pll_current_language')) {
+                    $current_lang = strtoupper(pll_current_language('slug'));
+                    $languages = pll_the_languages(array('raw' => 1));
+                    ?>
+                    <div class="lang-dropdown">
+                        <button class="lang-current" aria-expanded="false">
+                            <?php echo $current_lang; ?>
+                            <span class="lang-arrow">▼</span>
+                        </button>
+                        <ul class="lang-options">
+                            <?php foreach ($languages as $lang): ?>
+                                <li class="<?php echo $lang['current_lang'] ? 'active' : ''; ?>">
+                                    <a href="<?php echo $lang['url']; ?>" lang="<?php echo $lang['slug']; ?>">
+                                        <?php echo strtoupper($lang['slug']); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
             <div class="mobile-header-menu">
                 <button id="mobile-menu-toggle"
                         class="mobile-menu-toggle"
@@ -34,14 +68,24 @@
                     <span class="screen-reader-text"><?php esc_html_e( 'Menu', 'thinktech' ); ?></span>
                 </button>
                 <nav id="mobile-menu" class="mobile-menu" aria-hidden="true">
-                    <?php
-                    wp_nav_menu( array(
-                        'theme_location' => 'mobile',
-                        'container'      => false,
-                        'menu_class'     => 'mobile-menu__list',
-                        'fallback_cb'    => false,
-                    ) );
-                    ?>
+                  <?php
+                  // Choose language-aware mobile menu location if available; fallback to base 'mobile'
+                  $mobile_location = 'mobile';
+                  if ( function_exists('pll_current_language') ) {
+                    $lang = pll_current_language('slug');
+                    if ( $lang === 'fr' && has_nav_menu('mobile_fr') ) {
+                      $mobile_location = 'mobile_fr';
+                    } elseif ( $lang === 'it' && has_nav_menu('mobile_it') ) {
+                      $mobile_location = 'mobile_it';
+                    }
+                  }
+                  wp_nav_menu( array(
+                    'theme_location' => $mobile_location,
+                    'container'      => false,
+                    'menu_class'     => 'mobile-menu__list',
+                    'fallback_cb'    => false,
+                  ) );
+                  ?>
                 </nav>
                 
             </div>
@@ -164,6 +208,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  // Language dropdown toggle (desktop)
+  (function(){
+    const dropdown = document.querySelector('.lang-dropdown');
+    if (!dropdown) return;
+    const toggle = dropdown.querySelector('.lang-current');
+    const menu = dropdown.querySelector('.lang-options');
+    if (!toggle || !menu) return;
+
+    function closeDropdown(){
+      toggle.setAttribute('aria-expanded', 'false');
+      dropdown.classList.remove('is-open');
+    }
+
+    function openDropdown(){
+      toggle.setAttribute('aria-expanded', 'true');
+      dropdown.classList.add('is-open');
+    }
+
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? closeDropdown() : openDropdown();
+    });
+
+    menu.addEventListener('click', function(e){
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', function(e){
+      if (!dropdown.contains(e.target)) closeDropdown();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') closeDropdown();
+    });
+  })();
+
   const DESKTOP_BREAKPOINT = 720;
   const nav = document.querySelector('.main-nav');
   const backdrop = document.getElementById('mega-backdrop');
@@ -270,6 +352,82 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function () {
     if (window.innerWidth <= DESKTOP_BREAKPOINT) closeAll();
   });
+
+  // Language Switcher Dropdown
+  const langButton = document.querySelector('.lang-current');
+  const langDropdown = document.querySelector('.lang-dropdown');
+
+  if (langButton && langDropdown) {
+    langButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isExpanded = langButton.getAttribute('aria-expanded') === 'true';
+      langButton.setAttribute('aria-expanded', !isExpanded);
+      
+      // Toggle class for additional control
+      langDropdown.classList.toggle('is-open', !isExpanded);
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!langDropdown.contains(e.target)) {
+        langButton.setAttribute('aria-expanded', 'false');
+        langDropdown.classList.remove('is-open');
+      }
+    });
+    
+    // Prevent dropdown from closing when clicking inside
+    langDropdown.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
+});
+</script>
+
+<script>
+// Failsafe language dropdown toggle
+document.addEventListener('DOMContentLoaded', function(){
+  try {
+    const dropdown = document.querySelector('.lang-dropdown');
+    if (!dropdown) return;
+    const toggle = dropdown.querySelector('.lang-current');
+    const menu = dropdown.querySelector('.lang-options');
+    if (!toggle || !menu) return;
+
+    const open = () => {
+      toggle.setAttribute('aria-expanded', 'true');
+      dropdown.classList.add('is-open');
+      menu.style.opacity = '1';
+      menu.style.visibility = 'visible';
+      menu.style.transform = 'translateY(0)';
+    };
+    const close = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      dropdown.classList.remove('is-open');
+      menu.style.opacity = '0';
+      menu.style.visibility = 'hidden';
+      menu.style.transform = 'translateY(-8px)';
+    };
+
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? close() : open();
+    });
+
+    menu.addEventListener('click', function(e){ e.stopPropagation(); });
+
+    document.addEventListener('click', function(e){
+      if (!dropdown.contains(e.target)) close();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') close();
+    });
+  } catch (err) {
+    console.error('Language dropdown error', err);
+  }
 });
 </script>
 

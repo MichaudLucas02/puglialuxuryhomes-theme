@@ -1,0 +1,22 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PLH_theme 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-18 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Manual init (migrate from root)\n"
+"X-Domain: thinktech\n"
+
+#: single-villa.php:27 single-villa.php:69
+msgid "Must Have"
+msgstr ""
+
+# NOTE: Re-sync with Loco to populate the rest of the strings automatically.

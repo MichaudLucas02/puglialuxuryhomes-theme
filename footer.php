@@ -4,22 +4,21 @@
     
     <div class="footer-col col-left">
         <nav class="footer-vertical-nav" aria-label="Footer (left)">
-            <ul class="footer-vertical-menu">
-                <li><a href="/villas/">villas</a></li>
-                <li><a href="/collections/">collections</a></li>
-                <li><a href="/contact/">contact</a></li>
-                <li><a href="/blog/">blog</a></li>
-                <li><a href="/conciergerie/">conciergerie</a></li>
-                <li><a href="/evenements/">evenements</a></li>
-                <li><a href="/our-story/">our story</a></li>
-            </ul>
+            <?php
+            wp_nav_menu([
+                'theme_location' => 'footer',
+                'container'      => false,
+                'menu_class'     => 'footer-vertical-menu',
+                'fallback_cb'    => false,
+            ]);
+            ?>
         </nav>
 
     </div>
     
     <div class="footer-col col-middle">
         <img src='https://www.puglialuxuryhomes.com/wp-content/uploads/2023/06/Fichier-16.png'></img>
-        <p>Follow us on socials: </p>
+        <p><?php echo esc_html( function_exists('pll__') ? pll__('Follow us on socials:') : __('Follow us on socials:', 'thinktech') ); ?></p>
         <div class="footer-icons">
           <div class="social-list">
             <a href="https://www.instagram.com/puglia_luxury_homes/"><i class="fa-brands fa-instagram"></i></a>
@@ -34,7 +33,7 @@
     </div>
     
     <div class="footer-col col-right">
-      <p>Contact us</p>
+      <p><?php echo esc_html( function_exists('pll__') ? pll__('Contact us') : __('Contact us', 'thinktech') ); ?></p>
       <a href="">reservation@puglialuxuryhomes.com</a>
       <a href="">ajaquet@puglialuxuryhomes.com</a>
       <a href="">+(39) 327 93 79 067</a>
@@ -45,7 +44,7 @@
   <div class="mobile-footer-inner">
      <div class="footer-col col-middle">
         <img src='https://www.puglialuxuryhomes.com/wp-content/uploads/2023/06/Fichier-16.png'></img>
-        <p>Follow us on socials: </p>
+        <p><?php echo esc_html( function_exists('pll__') ? pll__('Follow us on socials:') : __('Follow us on socials:', 'thinktech') ); ?></p>
         <div class="footer-icons">
           <div class="social-list">
             <a href="https://www.instagram.com/puglia_luxury_homes/"><i class="fa-brands fa-instagram"></i></a>
@@ -60,20 +59,16 @@
       <div class="mobile-footer-menu">
          <div class="footer-col col-left">
             <nav class="footer-vertical-nav" aria-label="Footer (left)">
-                <ul class="footer-vertical-menu">
-                    <li><a href="/villas/">villas</a></li>
-                    <li><a href="/collections/">collections</a></li>
-                    <li><a href="/contact/">contact</a></li>
-                    <li><a href="/blog/">blog</a></li>
-                    <li><a href="/conciergerie/">conciergerie</a></li>
-                    <li><a href="/evenements/">evenements</a></li>
-                    <li><a href="/our-story/">our story</a></li>
-                </ul>
+                <?php
+                wp_nav_menu([
+                    'theme_location' => 'footer',
+                ]);
+                ?>
             </nav>
 
           </div>
           <div class="footer-col col-right">
-            <p>Contact us</p>
+            <p><?php echo esc_html( function_exists('pll__') ? pll__('Contact us') : __('Contact us', 'thinktech') ); ?></p>
             <a href="">reservation@puglialuxuryhomes.com</a>
             <a href="">ajaquet@puglialuxuryhomes.com</a>
             <a href="">+(39) 327 93 79 067</a>
@@ -83,16 +78,25 @@
   <div class="bottom-footer-wrapper">
     <div class="bottom-footer">
       <div class="bottom-footer-left">
-        <ul class="bottom-footer-menu">
-          <li><a href="">Privacy Policy</a></li>
-          <li><a href="">Legal Notice</a></li>
-          <li><a href="">Terms and Conditions</a></li>
-          <li><a href="">Cookie Policy</a></li>
-          <li><a href="">Cookie Settings</a></li>
-        </ul>
+        <?php
+        $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+        $policies_menu = 'Policies EN';
+        if ($current_lang === 'fr') {
+            $policies_menu = 'Policies FR';
+        } elseif ($current_lang === 'it') {
+            $policies_menu = 'Policies IT';
+        }
+        
+        wp_nav_menu([
+            'menu'           => $policies_menu,
+            'container'      => false,
+            'menu_class'     => 'bottom-footer-menu',
+            'fallback_cb'    => false,
+        ]);
+        ?>
       </div>
       <div class="bottom-footer-right">
-        <p>c Puglia Luxury Homes 2025</p>
+        <p>© Puglia Luxury Homes 2026</p>
       </div>
       
 

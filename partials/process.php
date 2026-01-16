@@ -14,7 +14,7 @@ $step5_text = get_field('step_text_5');
 
 <section class="service-process">
     <div class="service-process-div">
-        <h3>With you from start to finish</h3>
+        <h3><?php echo esc_html( get_field('process_title') ?: plh_t('With you from start to finish') ); ?></h3>
         <div class="service-process-row">
             <div class="service-process-columns">
                 <div class="process-header">
@@ -108,7 +108,7 @@ $step5_text = get_field('step_text_5');
 
 </section>
 <section class="mobile-service-process">
-    <h3>With you from start to finish</h3>
+    <h3><?php echo esc_html( get_field('process_title') ?: plh_t('With you from start to finish') ); ?></h3>
     <div class="service-process-div">
         
         <div class="service-process-row1">

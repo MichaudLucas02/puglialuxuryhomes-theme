@@ -14,7 +14,7 @@ if (have_posts()) : the_post(); ?>
   <?php
   // Renders all sections using your ACF fields
   if (function_exists('plh_render_villa_gallery_sections')) {
-    plh_render_villa_gallery_sections(get_the_ID(), 6); // 6 = number of sections you set
+    plh_render_villa_gallery_sections(get_the_ID(), 10); // 10 = number of sections you set
   } else {
     echo '<p>Gallery renderer not found.</p>';
   }
@@ -289,10 +289,12 @@ if (have_posts()) : the_post(); ?>
       lightbox.style.display = "flex";
       lightboxImg.src = images[index].src;
       currentIndex = index;
+      document.body.style.overflow = "hidden";
     };
 
     const hideLightbox = () => {
       lightbox.style.display = "none";
+      document.body.style.overflow = "";
     };
 
     const showNextImage = () => {
