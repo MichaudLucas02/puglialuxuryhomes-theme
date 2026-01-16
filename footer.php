@@ -79,25 +79,20 @@
     <div class="bottom-footer">
       <div class="bottom-footer-left">
         <?php
-        // Pick Policies menu by current language (expects menus named: Policies EN/FR/IT)
-        $slug = function_exists('pll_current_language') ? pll_current_language('slug') : 'en';
-        $map  = ['en' => 'EN', 'fr' => 'FR', 'it' => 'IT'];
-        $suffix = isset($map[$slug]) ? $map[$slug] : 'EN';
-        $policies_menu = 'Policies ' . $suffix;
-
-        // If a named menu doesn't exist, fallback to the footer location
-        $menu_obj = wp_get_nav_menu_object($policies_menu);
-        $args = [
-          'container'   => false,
-          'menu_class'  => 'bottom-footer-menu',
-          'fallback_cb' => false,
-        ];
-        if ($menu_obj) {
-          $args['menu'] = $policies_menu;
-        } else {
-          $args['theme_location'] = 'footer';
+        $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+        $policies_menu = 'Policies EN';
+        if ($current_lang === 'fr') {
+            $policies_menu = 'Policies FR';
+        } elseif ($current_lang === 'it') {
+            $policies_menu = 'Policies IT';
         }
-        wp_nav_menu($args);
+        
+        wp_nav_menu([
+            'menu'           => $policies_menu,
+            'container'      => false,
+            'menu_class'     => 'bottom-footer-menu',
+            'fallback_cb'    => false,
+        ]);
         ?>
       </div>
       <div class="bottom-footer-right">

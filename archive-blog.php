@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Archive Blog
+ * Archive template for Blog CPT
  */
 get_header();
 ?>
