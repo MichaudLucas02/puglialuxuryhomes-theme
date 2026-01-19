@@ -34,9 +34,9 @@
     
     <div class="footer-col col-right">
       <p><?php echo esc_html( function_exists('pll__') ? pll__('Contact us') : __('Contact us', 'thinktech') ); ?></p>
-      <a href="">reservation@puglialuxuryhomes.com</a>
-      <a href="">ajaquet@puglialuxuryhomes.com</a>
-      <a href="">+(39) 327 93 79 067</a>
+      <a href="mailto:reservation@puglialuxuryhomes.com">reservation@puglialuxuryhomes.com</a>
+      <a href="mailto:ajaquet@puglialuxuryhomes.com">ajaquet@puglialuxuryhomes.com</a>
+      <a href="tel:+393279379067">+(39) 327 93 79 067</a>
     </div>
     
 
@@ -72,9 +72,9 @@
           </div>
           <div class="footer-col col-right">
             <p><?php echo esc_html( function_exists('pll__') ? pll__('Contact us') : __('Contact us', 'thinktech') ); ?></p>
-            <a href="">reservation@puglialuxuryhomes.com</a>
-            <a href="">ajaquet@puglialuxuryhomes.com</a>
-            <a href="">+(39) 327 93 79 067</a>
+            <a href="mailto:reservation@puglialuxuryhomes.com">reservation@puglialuxuryhomes.com</a>
+            <a href="mailto:ajaquet@puglialuxuryhomes.com">ajaquet@puglialuxuryhomes.com</a>
+            <a href="tel:+393279379067">+(39) 327 93 79 067</a>
           </div>
       </div>
   </div>
