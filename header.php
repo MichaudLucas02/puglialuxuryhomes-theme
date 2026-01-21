@@ -32,6 +32,9 @@
             <a href="tel:+393279379067" aria-label="Call +39 327 93 79 067">
               <i class="fa fa-phone" aria-hidden="true"></i>
             </a>
+            <a href="tel:+393279379067" class="header-phone-number" aria-label="Call +39 327 93 79 067">
+              +39 327 93 79 067
+            </a>
           </div>
             <div class="language-switcher">
                 <?php
