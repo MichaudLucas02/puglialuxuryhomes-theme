@@ -47,7 +47,7 @@ get_header(); ?>
         ];
         $query = new WP_Query($args);
     ?>
-    <section class="collection-description">
+    <section class="collection-description" id="collection-<?php echo esc_attr($slug); ?>">
         <div class="collection-description-wrapper">
             <div class="collection-description-column__left">
                 <?php $image_id = get_field("collection_{$slug}_image"); ?>
@@ -87,7 +87,7 @@ get_header(); ?>
                 $read_more_url = get_field("collection_{$slug}_read_more_url");
                 if ($read_more_url):
                 ?>
-                <a href="<?php echo esc_url($read_more_url); ?>" class="collection-description-read-more">Read more</a>
+                
                 <?php endif; ?>
             </div>
         </div>

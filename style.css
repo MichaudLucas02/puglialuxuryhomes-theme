@@ -1659,6 +1659,15 @@ h2 {
   margin-left: 40px;
 }
 
+@media (max-width: 650px) {
+  .sea-overlay h1, 
+  .city-overlay h1,
+  .land-overlay h1 {
+    
+    font-size: 18px;
+  }
+}
+
 .sea-overlay a,
 .city-overlay a,
 .land-overlay a {
@@ -1961,7 +1970,7 @@ h2 {
 .central-title {margin-top: 50px; background-color: #FFFFFF; width: 100%; max-width: 1600px;}
 .central-title.grey { background-color: #F5F5F5F5;}
 .central-title h2 { color: black; text-align: center;  font-family: 'Raleway'; font-weight: 300;}
-.central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 15vw; text-align: center; margin-bottom: 30px;}
+.central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 5vw; text-align: center; margin-bottom: 30px;}
 
 @media (max-width: 1244px) {
   .central-title {display: flex; flex-direction: column;}
@@ -2355,7 +2364,7 @@ h2 {
 
 .collection-description-column__right h2 { margin: 0 0 14px 0; padding: 0; font-size: 28px; font-family: 'Didot'; font-weight: 300; text-transform: uppercase; letter-spacing: .04em; }
 
-.collection-description-column__right p { font-family: 'Raleway'; font-size: 15px; color:#000; opacity:.78; margin: 0 0 18px 0; padding: 0; text-transform: initial; }
+.collection-description-column__right p { font-family: 'Raleway'; font-size: 15px; color:#000; opacity:.78; margin: 0 0 0 0; padding: 0; text-transform: initial; }
 
 .collection-description-column__right a { font-family: 'Raleway'; font-size: 14px; color:#000; margin-top: 4px; text-transform: uppercase; text-decoration: underline; font-weight: 600; }
 
@@ -2467,7 +2476,7 @@ h2 {
 }
 
 .villa-arrow.prev{ left: calc(5vw - 25px); }
-.villa-arrow.next{ right: calc(5vw - 15px); }
+.villa-arrow.next{ right: calc(5vw - 25px); }
 .villa-arrow.prev img { transform: rotate(180deg); }
 
 /* Villa slider section End */
