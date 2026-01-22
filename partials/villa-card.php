@@ -1,16 +1,15 @@
 <?php
 
 $args = wp_parse_args( $args ?? [], [
-  'title'      => function_exists('get_field') ? ( get_field('villa_title') ?: get_the_title() ) : get_the_title(),
-  'collection' => function_exists('get_field') ? get_field('villa_collection_1') : null,
-  'location'   => function_exists('get_field') ? get_field('villa_location_1') : '',
-  'price_from' => function_exists('get_field') ? get_field('price_from_1') : '',
-  'price_to'   => function_exists('get_field') ? get_field('price_to_1') : '',
-  'beds'       => function_exists('get_field') ? get_field('beds_1') : '',
-  'baths'      => function_exists('get_field') ? get_field('baths_1') : '',
-  'guests'     => function_exists('get_field') ? get_field('guests_1') : '',
-  'image_id'   => function_exists('get_field') ? ( get_field('card_image_1') ?: get_post_thumbnail_id() ) : get_post_thumbnail_id(),
-  'link'       => get_permalink(),
+  'title'       => function_exists('get_field') ? ( get_field('villa_title') ?: get_the_title() ) : get_the_title(),
+  'collection'  => function_exists('get_field') ? get_field('villa_collection_1') : null,
+  'location'    => function_exists('get_field') ? get_field('villa_location_1') : '',
+  'price_range' => function_exists('get_field') ? get_field('price_range_1') : '',
+  'beds'        => function_exists('get_field') ? get_field('beds_1') : '',
+  'baths'       => function_exists('get_field') ? get_field('baths_1') : '',
+  'guests'      => function_exists('get_field') ? get_field('guests_1') : '',
+  'image_id'    => function_exists('get_field') ? ( get_field('card_image_1') ?: get_post_thumbnail_id() ) : get_post_thumbnail_id(),
+  'link'        => get_permalink(),
 ] ); // <-- needed semicolon
 
 $image_html = $args['image_id']
@@ -35,13 +34,9 @@ $image_html = $args['image_id']
         if ( $args['guests'] ) { $bits[] = esc_html( $args['guests'] ) . ' ' . esc_html( function_exists('pll__') ? pll__('guests') : 'guests' ); }
         if ( $bits ) { echo ' • ' . implode( ' • ', $bits ); }
       ?>
-      <?php if ( $args['price_from'] ) : ?>
+      <?php if ( $args['price_range'] ) : ?>
         <div class="villa-card__price">
-          <?php echo esc_html( function_exists('pll__') ? pll__('From') : 'From' ); ?> €<?php echo esc_html( number_format_i18n( (float) $args['price_from'] ) ); ?>
-          <?php if ( $args['price_to'] ) : ?>
-            <?php echo esc_html( function_exists('pll__') ? pll__('To') : 'To' ); ?> €<?php echo esc_html( number_format_i18n( (float) $args['price_to'] ) ); ?>
-          <?php endif; ?>
-          <?php echo esc_html( function_exists('pll__') ? pll__('per weeks') : 'per weeks' ); ?>
+          <?php echo esc_html( $args['price_range'] ); ?>
         </div>
       <?php endif; ?>
     </div>
