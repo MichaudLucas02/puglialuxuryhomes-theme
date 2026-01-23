@@ -3459,6 +3459,20 @@ add_action('acf/init', function () {
         'rows'  => 4,
         'default_value' => 'But what captibated us most was the feeling of being immersed in a bygone era. Salento had he nostalgic charm of the 60s, a place seemingly frozen in time but full of life - an oasis of serenity, far from the frenzy of today\'s world.',
       ],
+      [
+        'key'   => 'field_story_button_text',
+        'label' => 'Story Button Text',
+        'name'  => 'story_button_text',
+        'type'  => 'text',
+        'default_value' => 'Contact Us',
+      ],
+      [
+        'key'   => 'field_story_button_url',
+        'label' => 'Story Button URL',
+        'name'  => 'story_button_url',
+        'type'  => 'url',
+        'default_value' => '/contact',
+      ],
 
       // --- THE ADVENTURE SECTION ---
       [

@@ -15,7 +15,7 @@ get_header(); ?>
             <p><?php echo wp_kses_post( get_field('story_paragraph_1') ?: 'It all started with Villa Acquamarina...' ); ?></p>
             <p><?php echo wp_kses_post( get_field('story_paragraph_2') ?: 'But what captivated us most...' ); ?></p>
 
-            <a href="/contact" class="discover-services-btn">Contact Us</a>
+            <a href="<?php echo esc_url( get_field('story_button_url') ?: '/contact' ); ?>" class="discover-services-btn"><?php echo esc_html( get_field('story_button_text') ?: 'Contact Us' ); ?></a>
         </div>
     </section>
     <section class="our-story-content grey">
