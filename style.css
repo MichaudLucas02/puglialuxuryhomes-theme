@@ -3334,6 +3334,10 @@ h2 {
   padding-top: 0;
 }
 
+.text-container {
+  margin-top: -20px;
+}
+
 .text-container .text-body:after {
   content: "";
   position: absolute;

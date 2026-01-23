@@ -3649,3 +3649,97 @@ add_action('acf/init', function () {
   ]);
 });
 
+// -----------------------
+// AJAX Filter Villas
+// -----------------------
+add_action('wp_ajax_filter_villas', 'plh_filter_villas');
+add_action('wp_ajax_nopriv_filter_villas', 'plh_filter_villas');
+
+function plh_filter_villas() {
+  // Verify nonce
+  if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'filter_villas_nonce')) {
+    wp_die('Security check failed');
+  }
+  
+  // Get filter values
+  $collection = isset($_POST['collection']) ? sanitize_text_field($_POST['collection']) : '';
+  $beds = isset($_POST['beds']) ? intval($_POST['beds']) : 0;
+  $guests = isset($_POST['guests']) ? intval($_POST['guests']) : 0;
+  $price = isset($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
+  
+  // Build query args
+  $args = [
+    'post_type' => 'villa',
+    'posts_per_page' => -1,
+    'orderby' => 'date',
+    'order' => 'DESC',
+  ];
+  
+  // Collection taxonomy filter
+  if (!empty($collection)) {
+    $args['tax_query'] = [[
+      'taxonomy' => 'villa_collection',
+      'field' => 'slug',
+      'terms' => $collection,
+    ]];
+  }
+  
+  // Meta query for beds, guests, and price
+  $meta_query = ['relation' => 'AND'];
+  
+  if ($beds > 0) {
+    $meta_query[] = [
+      'key' => 'beds_1',
+      'value' => $beds,
+      'compare' => '>=',
+      'type' => 'NUMERIC',
+    ];
+  }
+  
+  if ($guests > 0) {
+    $meta_query[] = [
+      'key' => 'guests_1',
+      'value' => $guests,
+      'compare' => '>=',
+      'type' => 'NUMERIC',
+    ];
+  }
+  
+  // Price range filter
+  if (!empty($price)) {
+    $price_parts = explode('-', $price);
+    if (count($price_parts) === 2) {
+      $price_min = intval($price_parts[0]);
+      $price_max = intval($price_parts[1]);
+      
+      $meta_query[] = [
+        'key' => 'price_from_1',
+        'value' => [$price_min, $price_max],
+        'compare' => 'BETWEEN',
+        'type' => 'NUMERIC',
+      ];
+    }
+  }
+  
+  if (count($meta_query) > 1) {
+    $args['meta_query'] = $meta_query;
+  }
+  
+  // Execute query
+  $query = new WP_Query($args);
+  
+  // Output results
+  if ($query->have_posts()) {
+    while ($query->have_posts()) {
+      $query->the_post();
+      echo '<article class="villa-grid-item">';
+      get_template_part('partials/villa-card', null, ['post_id' => get_the_ID()]);
+      echo '</article>';
+    }
+    wp_reset_postdata();
+  } else {
+    echo '<p class="no-villas">' . esc_html__('No villas found matching your criteria', 'plh') . '</p>';
+  }
+  
+  wp_die();
+}
