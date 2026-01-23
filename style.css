@@ -3857,7 +3857,7 @@ h2 {
   display: flex;
   width: 100%;
   gap: 10px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -5331,7 +5331,7 @@ h2 {
   
   .discover-services-btn {
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
 }
 
