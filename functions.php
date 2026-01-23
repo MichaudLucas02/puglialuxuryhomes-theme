@@ -3073,7 +3073,8 @@ add_action('acf/init', function () {
     'key'   => 'field_home_sea_title',
     'label' => 'Sea Collection - Title',
     'name'  => 'home_sea_title',
-    'type'  => 'text',
+    'type'  => 'textarea',
+    'rows'  => 2,
     'default_value' => 'Sea Collection',
   ];
   $fields[] = [
@@ -3111,7 +3112,8 @@ add_action('acf/init', function () {
     'key'   => 'field_home_city_title',
     'label' => 'City Collection - Title',
     'name'  => 'home_city_title',
-    'type'  => 'text',
+    'type'  => 'textarea',
+    'rows'  => 2,
     'default_value' => 'City Collection',
   ];
   $fields[] = [
@@ -3149,7 +3151,8 @@ add_action('acf/init', function () {
     'key'   => 'field_home_land_title',
     'label' => 'Land Collection - Title',
     'name'  => 'home_land_title',
-    'type'  => 'text',
+    'type'  => 'textarea',
+    'rows'  => 2,
     'default_value' => 'Land Collection',
   ];
   $fields[] = [
