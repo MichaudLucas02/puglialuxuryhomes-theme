@@ -6,6 +6,127 @@ get_header(); ?>
 
 <?php get_template_part('partials/small-hero'); ?>
 
+<!-- Villa Filters Section -->
+<section class="villa-filters-section">
+    <div class="villa-filters-container">
+        <aside class="villa-filters">
+            <h2><?php echo esc_html(plh_t('Filter')); ?></h2>
+            
+            <!-- Capacity Filter -->
+            <div class="filter-group">
+                <h3><?php echo esc_html(plh_t('Capacity')); ?></h3>
+                <div class="filter-options">
+                    <label><input type="checkbox" name="capacity[]" value="6"> <?php echo esc_html(plh_t('Up to 6 guests')); ?></label>
+                    <label><input type="checkbox" name="capacity[]" value="8"> <?php echo esc_html(plh_t('Up to 8 guests')); ?></label>
+                    <label><input type="checkbox" name="capacity[]" value="10"> <?php echo esc_html(plh_t('Up to 10 guests')); ?></label>
+                    <label><input type="checkbox" name="capacity[]" value="12"> <?php echo esc_html(plh_t('Up to 12 guests')); ?></label>
+                    <label><input type="checkbox" name="capacity[]" value="15"> <?php echo esc_html(plh_t('Up to 15 guests')); ?></label>
+                    <label><input type="checkbox" name="capacity[]" value="16"> <?php echo esc_html(plh_t('16 + guests')); ?></label>
+                </div>
+            </div>
+
+            <!-- Collection Filter -->
+            <div class="filter-group">
+                <h3><?php echo esc_html(plh_t('Collection')); ?></h3>
+                <div class="filter-options">
+                    <label><input type="checkbox" name="collection[]" value="sea"> <?php echo esc_html(plh_t('Seaside')); ?></label>
+                    <label><input type="checkbox" name="collection[]" value="land"> <?php echo esc_html(plh_t('Countryside')); ?></label>
+                    <label><input type="checkbox" name="collection[]" value="city"> <?php echo esc_html(plh_t('Historic center')); ?></label>
+                </div>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="filter-group">
+                <h3><?php echo esc_html(plh_t('Price per night (from)')); ?></h3>
+                <div class="filter-options">
+                    <label><input type="checkbox" name="price[]" value="0-600"> <?php echo esc_html(plh_t('Up to €600')); ?></label>
+                    <label><input type="checkbox" name="price[]" value="600-1200"> <?php echo esc_html(plh_t('€600 – €1,200')); ?></label>
+                    <label><input type="checkbox" name="price[]" value="1200-2000"> <?php echo esc_html(plh_t('€1,200 – €2,000')); ?></label>
+                    <label><input type="checkbox" name="price[]" value="2000-3000"> <?php echo esc_html(plh_t('€2,000 – €3,000')); ?></label>
+                    <label><input type="checkbox" name="price[]" value="3000-5000"> <?php echo esc_html(plh_t('€3,000 – €5,000')); ?></label>
+                    <label><input type="checkbox" name="price[]" value="5000-999999"> <?php echo esc_html(plh_t('More than €5,000')); ?></label>
+                </div>
+            </div>
+
+            <button type="button" class="reset-filters"><?php echo esc_html(plh_t('Reset Filters')); ?></button>
+        </aside>
+
+        <div class="filtered-villas-content">
+            <div class="villas-results-header">
+                <p class="results-count"><span class="count">0</span> <?php echo esc_html(plh_t('villas found')); ?></p>
+            </div>
+            <div class="villas-grid" id="filtered-villas-grid">
+                <div class="loading-spinner"><?php echo esc_html(plh_t('Loading...')); ?></div>
+            </div>
+            <div class="no-results" style="display: none;">
+                <p><?php echo esc_html(plh_t('No villas match your filters. Please try adjusting your criteria.')); ?></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    const filtersForm = document.querySelector('.villa-filters');
+    const villasGrid = document.getElementById('filtered-villas-grid');
+    const resultsCount = document.querySelector('.results-count .count');
+    const noResults = document.querySelector('.no-results');
+    const resetBtn = document.querySelector('.reset-filters');
+
+    function getFilters() {
+        const capacity = Array.from(document.querySelectorAll('input[name="capacity[]"]:checked')).map(el => el.value);
+        const collection = Array.from(document.querySelectorAll('input[name="collection[]"]:checked')).map(el => el.value);
+        const price = Array.from(document.querySelectorAll('input[name="price[]"]:checked')).map(el => el.value);
+        return { capacity, collection, price };
+    }
+
+    function loadVillas() {
+        const filters = getFilters();
+        villasGrid.innerHTML = '<div class="loading-spinner"><?php echo esc_js(plh_t('Loading...')); ?></div>';
+        noResults.style.display = 'none';
+
+        fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                action: 'filter_villas',
+                capacity: JSON.stringify(filters.capacity),
+                collection: JSON.stringify(filters.collection),
+                price: JSON.stringify(filters.price),
+                nonce: '<?php echo wp_create_nonce('villa_filter_nonce'); ?>'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.data.html) {
+                villasGrid.innerHTML = data.data.html;
+                resultsCount.textContent = data.data.count;
+                noResults.style.display = 'none';
+            } else {
+                villasGrid.innerHTML = '';
+                resultsCount.textContent = '0';
+                noResults.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            villasGrid.innerHTML = '<p><?php echo esc_js(plh_t('Error loading villas. Please try again.')); ?></p>';
+        });
+    }
+
+    if (filtersForm) {
+        filtersForm.addEventListener('change', loadVillas);
+    }
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            document.querySelectorAll('.villa-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+            loadVillas();
+        });
+    }
+    loadVillas();
+})();
+</script>
+
 <div class="homepage">
 
     <?php
@@ -47,7 +168,7 @@ get_header(); ?>
         ];
         $query = new WP_Query($args);
     ?>
-    <section class="collection-description">
+    <section class="collection-description" id="collection-<?php echo esc_attr($slug); ?>">
         <div class="collection-description-wrapper">
             <div class="collection-description-column__left">
                 <?php $image_id = get_field("collection_{$slug}_image"); ?>
@@ -87,7 +208,7 @@ get_header(); ?>
                 $read_more_url = get_field("collection_{$slug}_read_more_url");
                 if ($read_more_url):
                 ?>
-                <a href="<?php echo esc_url($read_more_url); ?>" class="collection-description-read-more">Read more</a>
+                
                 <?php endif; ?>
             </div>
         </div>

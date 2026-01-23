@@ -1659,6 +1659,15 @@ h2 {
   margin-left: 40px;
 }
 
+@media (max-width: 650px) {
+  .sea-overlay h1, 
+  .city-overlay h1,
+  .land-overlay h1 {
+    
+    font-size: 18px;
+  }
+}
+
 .sea-overlay a,
 .city-overlay a,
 .land-overlay a {
@@ -1961,7 +1970,7 @@ h2 {
 .central-title {margin-top: 50px; background-color: #FFFFFF; width: 100%; max-width: 1600px;}
 .central-title.grey { background-color: #F5F5F5F5;}
 .central-title h2 { color: black; text-align: center;  font-family: 'Raleway'; font-weight: 300;}
-.central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 15vw; text-align: center; margin-bottom: 30px;}
+.central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 5vw; text-align: center; margin-bottom: 30px;}
 
 @media (max-width: 1244px) {
   .central-title {display: flex; flex-direction: column;}
@@ -2355,7 +2364,7 @@ h2 {
 
 .collection-description-column__right h2 { margin: 0 0 14px 0; padding: 0; font-size: 28px; font-family: 'Didot'; font-weight: 300; text-transform: uppercase; letter-spacing: .04em; }
 
-.collection-description-column__right p { font-family: 'Raleway'; font-size: 15px; color:#000; opacity:.78; margin: 0 0 18px 0; padding: 0; text-transform: initial; }
+.collection-description-column__right p { font-family: 'Raleway'; font-size: 15px; color:#000; opacity:.78; margin: 0 0 0 0; padding: 0; text-transform: initial; }
 
 .collection-description-column__right a { font-family: 'Raleway'; font-size: 14px; color:#000; margin-top: 4px; text-transform: uppercase; text-decoration: underline; font-weight: 600; }
 
@@ -2467,7 +2476,7 @@ h2 {
 }
 
 .villa-arrow.prev{ left: calc(5vw - 25px); }
-.villa-arrow.next{ right: calc(5vw - 15px); }
+.villa-arrow.next{ right: calc(5vw - 25px); }
 .villa-arrow.prev img { transform: rotate(180deg); }
 
 /* Villa slider section End */
@@ -3332,6 +3341,10 @@ h2 {
   text-transform: none !important;
   margin-top: 0;
   padding-top: 0;
+}
+
+.text-container {
+  margin-top: -20px;
 }
 
 .text-container .text-body:after {
@@ -5319,5 +5332,190 @@ h2 {
   .discover-services-btn {
     width: 100%;
     text-align: center;
+  }
+}
+
+/* Villa Filters Section */
+.villa-filters-section {
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.villa-filters-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+}
+
+.villa-filters {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 25px;
+  height: fit-content;
+}
+
+.villa-filters h2 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0 0 25px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.filter-group {
+  margin-bottom: 30px;
+}
+
+.filter-group h3 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-options label {
+  display: flex;
+  align-items: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.filter-options label:hover {
+  color: #000;
+}
+
+.filter-options input[type="checkbox"] {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #000;
+}
+
+.reset-filters {
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.reset-filters:hover {
+  background: #333;
+}
+
+.filtered-villas-content {
+  min-height: 500px;
+}
+
+.villas-results-header {
+  margin-bottom: 30px;
+}
+
+.results-count {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.villas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.villa-grid-item {
+  width: 100%;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 60px 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  color: #666;
+  grid-column: 1 / -1;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  color: #666;
+}
+
+.no-results p {
+  margin: 0;
+  font-size: 18px;
+}
+
+@media (max-width: 1024px) {
+  .villa-filters-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .villa-filters {
+    position: relative;
+    top: 0;
+  }
+  
+  .villas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .villa-filters-section {
+    padding: 30px 15px;
+  }
+  
+  .villa-filters {
+    padding: 20px;
+  }
+  
+  .villa-filters h2 {
+    font-size: 20px;
+  }
+  
+  .filter-group h3 {
+    font-size: 15px;
+  }
+  
+  .villas-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .villa-filters {
+    padding: 15px;
+  }
+  
+  .filter-group {
+    margin-bottom: 20px;
   }
 }
