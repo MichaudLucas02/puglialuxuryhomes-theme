@@ -2492,6 +2492,11 @@ function plh_register_ui_strings() {
     'villas by the sea',
     'villas in the countryside',
     'villas in the city',
+    // Filter UI
+    'Filter', 'Capacity', 'Up to 6 guests', 'Up to 8 guests', 'Up to 10 guests', 'Up to 12 guests', 'Up to 15 guests', '16 + guests',
+    'Collection', 'Seaside', 'Countryside', 'Historic center',
+    'Price per night (from)', 'Up to €600', '€600 – €1,200', '€1,200 – €2,000', '€2,000 – €3,000', '€3,000 – €5,000', 'More than €5,000',
+    'Reset Filters', 'villas found', 'Loading...', 'No villas match your filters. Please try adjusting your criteria.', 'Error loading villas. Please try again.',
     // Footer UI
     'Follow us on socials:',  'Contact us',
   ];
@@ -3663,7 +3668,6 @@ function plh_filter_villas() {
   
   // Get filter values
   $collection = isset($_POST['collection']) ? sanitize_text_field($_POST['collection']) : '';
-  $beds = isset($_POST['beds']) ? intval($_POST['beds']) : 0;
   $guests = isset($_POST['guests']) ? intval($_POST['guests']) : 0;
   $price = isset($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
   
@@ -3684,33 +3688,35 @@ function plh_filter_villas() {
     ]];
   }
   
-  // Meta query for beds, guests, and price
+  // Meta query for guests and price
   $meta_query = ['relation' => 'AND'];
   
-  if ($beds > 0) {
-    $meta_query[] = [
-      'key' => 'beds_1',
-      'value' => $beds,
-      'compare' => '>=',
-      'type' => 'NUMERIC',
-    ];
-  }
-  
   if ($guests > 0) {
-    $meta_query[] = [
-      'key' => 'guests_1',
-      'value' => $guests,
-      'compare' => '>=',
-      'type' => 'NUMERIC',
-    ];
+    if ($guests == 16) {
+      // 16+ guests
+      $meta_query[] = [
+        'key' => 'guests_1',
+        'value' => 16,
+        'compare' => '>=',
+        'type' => 'NUMERIC',
+      ];
+    } else {
+      // Up to X guests
+      $meta_query[] = [
+        'key' => 'guests_1',
+        'value' => $guests,
+        'compare' => '<=',
+        'type' => 'NUMERIC',
+      ];
+    }
   }
   
-  // Price range filter
+  // Price range filter (convert nightly to weekly)
   if (!empty($price)) {
     $price_parts = explode('-', $price);
     if (count($price_parts) === 2) {
-      $price_min = intval($price_parts[0]);
-      $price_max = intval($price_parts[1]);
+      $price_min = intval($price_parts[0]) * 7;
+      $price_max = intval($price_parts[1]) * 7;
       
       $meta_query[] = [
         'key' => 'price_from_1',
@@ -3739,6 +3745,117 @@ function plh_filter_villas() {
     wp_reset_postdata();
   } else {
     echo '<p class="no-villas">' . esc_html__('No villas found matching your criteria', 'plh') . '</p>';
+  }
+  
+  wp_die();
+}
+
+// AJAX handler for villa filters (with capacity, collection, price)
+add_action('wp_ajax_filter_villas', 'plh_filter_villas_ajax');
+add_action('wp_ajax_nopriv_filter_villas', 'plh_filter_villas_ajax');
+
+function plh_filter_villas_ajax() {
+  if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'villa_filter_nonce')) {
+    wp_send_json_error(['message' => 'Invalid nonce']);
+    return;
+  }
+
+  $capacity = isset($_POST['capacity']) ? json_decode(stripslashes($_POST['capacity']), true) : [];
+  $collection = isset($_POST['collection']) ? json_decode(stripslashes($_POST['collection']), true) : [];
+  $price = isset($_POST['price']) ? json_decode(stripslashes($_POST['price']), true) : [];
+
+  $args = [
+    'post_type' => 'villa',
+    'posts_per_page' => -1,
+    'post_status' => 'publish',
+  ];
+
+  $meta_query = ['relation' => 'AND'];
+  
+  if (!empty($capacity)) {
+    $capacity_query = ['relation' => 'OR'];
+    foreach ($capacity as $cap) {
+      $cap_value = intval($cap);
+      if ($cap_value == 16) {
+        $capacity_query[] = [
+          'key' => 'guests_1',
+          'value' => 16,
+          'compare' => '>=',
+          'type' => 'NUMERIC',
+        ];
+      } else {
+        $capacity_query[] = [
+          'key' => 'guests_1',
+          'value' => $cap_value,
+          'compare' => '<=',
+          'type' => 'NUMERIC',
+        ];
+      }
+    }
+    if (count($capacity_query) > 1) {
+      $meta_query[] = $capacity_query;
+    }
+  }
+
+  if (!empty($price)) {
+    $price_query = ['relation' => 'OR'];
+    foreach ($price as $range) {
+      $parts = explode('-', $range);
+      if (count($parts) === 2) {
+        $min = intval($parts[0]);
+        $max = intval($parts[1]);
+        $price_query[] = [
+          'key' => 'price_from_1',
+          'value' => [$min * 7, $max * 7],
+          'compare' => 'BETWEEN',
+          'type' => 'NUMERIC',
+        ];
+      }
+    }
+    if (count($price_query) > 1) {
+      $meta_query[] = $price_query;
+    }
+  }
+
+  if (count($meta_query) > 1) {
+    $args['meta_query'] = $meta_query;
+  }
+
+  if (!empty($collection)) {
+    $args['tax_query'] = [
+      [
+        'taxonomy' => 'villa_collection',
+        'field' => 'slug',
+        'terms' => $collection,
+        'operator' => 'IN',
+      ],
+    ];
+  }
+
+  $query = new WP_Query($args);
+  
+  ob_start();
+  
+  if ($query->have_posts()) {
+    while ($query->have_posts()) {
+      $query->the_post();
+      echo '<article class="villa-grid-item">';
+      get_template_part('partials/villa-card');
+      echo '</article>';
+    }
+    $html = ob_get_clean();
+    wp_reset_postdata();
+    
+    wp_send_json_success([
+      'html' => $html,
+      'count' => $query->post_count,
+    ]);
+  } else {
+    ob_end_clean();
+    wp_send_json_error([
+      'html' => '',
+      'count' => 0,
+    ]);
   }
   
   wp_die();

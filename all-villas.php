@@ -167,48 +167,38 @@ $all_villas = new WP_Query([
         <h3><?php echo esc_html( function_exists('pll__') ? pll__('Filter Villas') : 'Filter Villas' ); ?></h3>
         <div class="filter-row">
             <div class="filter-group">
-                <label for="collection-filter"><?php echo esc_html( function_exists('pll__') ? pll__('Collection') : 'Collection' ); ?></label>
+                <label for="collection-filter"><?php echo esc_html(plh_t('Collection')); ?></label>
                 <select id="collection-filter" class="filter-select">
                     <option value=""><?php echo esc_html( function_exists('pll__') ? pll__('All') : 'All' ); ?></option>
-                    <option value="sea"><?php echo esc_html( function_exists('pll__') ? pll__('Sea') : 'Sea' ); ?></option>
-                    <option value="land"><?php echo esc_html( function_exists('pll__') ? pll__('Land') : 'Land' ); ?></option>
-                    <option value="city"><?php echo esc_html( function_exists('pll__') ? pll__('City') : 'City' ); ?></option>
+                    <option value="sea"><?php echo esc_html(plh_t('Seaside')); ?></option>
+                    <option value="land"><?php echo esc_html(plh_t('Countryside')); ?></option>
+                    <option value="city"><?php echo esc_html(plh_t('Historic center')); ?></option>
                 </select>
             </div>
             
             <div class="filter-group">
-                <label for="beds-filter"><?php echo esc_html( function_exists('pll__') ? pll__('Bedrooms') : 'Bedrooms' ); ?></label>
-                <select id="beds-filter" class="filter-select">
-                    <option value=""><?php echo esc_html( function_exists('pll__') ? pll__('Any') : 'Any' ); ?></option>
-                    <option value="1">1+</option>
-                    <option value="2">2+</option>
-                    <option value="3">3+</option>
-                    <option value="4">4+</option>
-                    <option value="5">5+</option>
-                </select>
-            </div>
-            
-            <div class="filter-group">
-                <label for="guests-filter"><?php echo esc_html( function_exists('pll__') ? pll__('Guests') : 'Guests' ); ?></label>
+                <label for="guests-filter"><?php echo esc_html(plh_t('Capacity')); ?></label>
                 <select id="guests-filter" class="filter-select">
                     <option value=""><?php echo esc_html( function_exists('pll__') ? pll__('Any') : 'Any' ); ?></option>
-                    <option value="2">2+</option>
-                    <option value="4">4+</option>
-                    <option value="6">6+</option>
-                    <option value="8">8+</option>
-                    <option value="10">10+</option>
+                    <option value="6"><?php echo esc_html(plh_t('Up to 6 guests')); ?></option>
+                    <option value="8"><?php echo esc_html(plh_t('Up to 8 guests')); ?></option>
+                    <option value="10"><?php echo esc_html(plh_t('Up to 10 guests')); ?></option>
+                    <option value="12"><?php echo esc_html(plh_t('Up to 12 guests')); ?></option>
+                    <option value="15"><?php echo esc_html(plh_t('Up to 15 guests')); ?></option>
+                    <option value="16"><?php echo esc_html(plh_t('16 + guests')); ?></option>
                 </select>
             </div>
             
             <div class="filter-group">
-                <label for="price-filter"><?php echo esc_html( function_exists('pll__') ? pll__('Price Range') : 'Price Range' ); ?></label>
+                <label for="price-filter"><?php echo esc_html(plh_t('Price per night (from)')); ?></label>
                 <select id="price-filter" class="filter-select">
                     <option value=""><?php echo esc_html( function_exists('pll__') ? pll__('Any') : 'Any' ); ?></option>
-                    <option value="0-1000">€0 - €1,000</option>
-                    <option value="1000-2500">€1,000 - €2,500</option>
-                    <option value="2500-5000">€2,500 - €5,000</option>
-                    <option value="5000-10000">€5,000 - €10,000</option>
-                    <option value="10000-999999">€10,000+</option>
+                    <option value="0-600"><?php echo esc_html(plh_t('Up to €600')); ?></option>
+                    <option value="600-1200"><?php echo esc_html(plh_t('€600 – €1,200')); ?></option>
+                    <option value="1200-2000"><?php echo esc_html(plh_t('€1,200 – €2,000')); ?></option>
+                    <option value="2000-3000"><?php echo esc_html(plh_t('€2,000 – €3,000')); ?></option>
+                    <option value="3000-5000"><?php echo esc_html(plh_t('€3,000 – €5,000')); ?></option>
+                    <option value="5000-999999"><?php echo esc_html(plh_t('More than €5,000')); ?></option>
                 </select>
             </div>
             
@@ -232,7 +222,6 @@ $all_villas = new WP_Query([
 <script>
 (function() {
     const collectionFilter = document.getElementById('collection-filter');
-    const bedsFilter = document.getElementById('beds-filter');
     const guestsFilter = document.getElementById('guests-filter');
     const priceFilter = document.getElementById('price-filter');
     const resetBtn = document.querySelector('.reset-filters');
@@ -240,7 +229,6 @@ $all_villas = new WP_Query([
     
     let currentFilters = {
         collection: '',
-        beds: '',
         guests: '',
         price: ''
     };
@@ -248,11 +236,6 @@ $all_villas = new WP_Query([
     // Dropdown changes
     collectionFilter.addEventListener('change', function() {
         currentFilters.collection = this.value;
-        fetchVillas();
-    });
-    
-    bedsFilter.addEventListener('change', function() {
-        currentFilters.beds = this.value;
         fetchVillas();
     });
     
@@ -268,9 +251,8 @@ $all_villas = new WP_Query([
     
     // Reset filters
     resetBtn.addEventListener('click', function() {
-        currentFilters = { collection: '', beds: '', guests: '', price: '' };
+        currentFilters = { collection: '', guests: '', price: '' };
         collectionFilter.value = '';
-        bedsFilter.value = '';
         guestsFilter.value = '';
         priceFilter.value = '';
         fetchVillas();
@@ -284,7 +266,6 @@ $all_villas = new WP_Query([
         formData.append('action', 'filter_villas');
         formData.append('nonce', '<?php echo wp_create_nonce('filter_villas_nonce'); ?>');
         formData.append('collection', currentFilters.collection);
-        formData.append('beds', currentFilters.beds);
         formData.append('guests', currentFilters.guests);
         formData.append('price', currentFilters.price);
         
