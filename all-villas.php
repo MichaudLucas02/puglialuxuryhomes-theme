@@ -180,12 +180,12 @@ $all_villas = new WP_Query([
                 <label for="guests-filter"><?php echo esc_html(plh_t('Capacity')); ?></label>
                 <select id="guests-filter" class="filter-select">
                     <option value=""><?php echo esc_html( function_exists('pll__') ? pll__('Any') : 'Any' ); ?></option>
-                    <option value="6"><?php echo esc_html(plh_t('Up to 6 guests')); ?></option>
-                    <option value="8"><?php echo esc_html(plh_t('Up to 8 guests')); ?></option>
-                    <option value="10"><?php echo esc_html(plh_t('Up to 10 guests')); ?></option>
-                    <option value="12"><?php echo esc_html(plh_t('Up to 12 guests')); ?></option>
-                    <option value="15"><?php echo esc_html(plh_t('Up to 15 guests')); ?></option>
-                    <option value="16"><?php echo esc_html(plh_t('16 + guests')); ?></option>
+                    <option value="6"><?php echo esc_html(plh_t('6+ guests')); ?></option>
+                    <option value="8"><?php echo esc_html(plh_t('8+ guests')); ?></option>
+                    <option value="10"><?php echo esc_html(plh_t('10+ guests')); ?></option>
+                    <option value="12"><?php echo esc_html(plh_t('12+ guests')); ?></option>
+                    <option value="15"><?php echo esc_html(plh_t('15+ guests')); ?></option>
+                    <option value="16"><?php echo esc_html(plh_t('16+ guests')); ?></option>
                 </select>
             </div>
             
