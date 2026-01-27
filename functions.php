@@ -2493,7 +2493,7 @@ function plh_register_ui_strings() {
     'villas in the countryside',
     'villas in the city',
     // Filter UI
-    'Filter', 'Capacity', 'Up to 6 guests', 'Up to 8 guests', 'Up to 10 guests', 'Up to 12 guests', 'Up to 15 guests', '16 + guests',
+    'Filter', 'Capacity', '6+ guests', '8+ guests', '10+ guests', '12+ guests', '15+ guests', '16+ guests',
     'Collection', 'Seaside', 'Countryside', 'Historic center',
     'Price per night (from)', 'Up to €600', '€600 – €1,200', '€1,200 – €2,000', '€2,000 – €3,000', '€3,000 – €5,000', 'More than €5,000',
     'Reset Filters', 'villas found', 'Loading...', 'No villas match your filters. Please try adjusting your criteria.', 'Error loading villas. Please try again.',
@@ -3709,23 +3709,13 @@ function plh_filter_villas() {
   $meta_query = ['relation' => 'AND'];
   
   if ($guests > 0) {
-    if ($guests == 16) {
-      // 16+ guests
-      $meta_query[] = [
-        'key' => 'guests_1',
-        'value' => 16,
-        'compare' => '>=',
-        'type' => 'NUMERIC',
-      ];
-    } else {
-      // Up to X guests
-      $meta_query[] = [
-        'key' => 'guests_1',
-        'value' => $guests,
-        'compare' => '<=',
-        'type' => 'NUMERIC',
-      ];
-    }
+    // Guests filter now uses threshold buckets (e.g., 8+ means guests_1 >= 8)
+    $meta_query[] = [
+      'key' => 'guests_1',
+      'value' => $guests,
+      'compare' => '>=',
+      'type' => 'NUMERIC',
+    ];
   }
   
   // Price range filter (convert nightly to weekly)
@@ -3791,24 +3781,19 @@ function plh_filter_villas_ajax() {
   
   if (!empty($capacity)) {
     $capacity_query = ['relation' => 'OR'];
+
     foreach ($capacity as $cap) {
       $cap_value = intval($cap);
-      if ($cap_value == 16) {
-        $capacity_query[] = [
-          'key' => 'guests_1',
-          'value' => 16,
-          'compare' => '>=',
-          'type' => 'NUMERIC',
-        ];
-      } else {
+      if ($cap_value > 0) {
         $capacity_query[] = [
           'key' => 'guests_1',
           'value' => $cap_value,
-          'compare' => '<=',
+          'compare' => '>=',
           'type' => 'NUMERIC',
         ];
       }
     }
+
     if (count($capacity_query) > 1) {
       $meta_query[] = $capacity_query;
     }
@@ -3874,6 +3859,14 @@ function plh_filter_villas_ajax() {
       'count' => 0,
     ]);
   }
-  
+
   wp_die();
 }
+
+// Allow identical slugs for villa CPT across Polylang languages
+add_filter('wp_unique_post_slug', function ($slug, $post_ID, $post_status, $post_type, $post_parent, $original_slug) {
+  if ($post_type !== 'villa') {
+    return $slug;
+  }
+  return $original_slug;
+}, 10, 6);
