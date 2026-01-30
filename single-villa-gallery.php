@@ -7,7 +7,7 @@ if (have_posts()) : the_post(); ?>
 
 <article <?php post_class('villa-gallery-page'); ?>>
   <header class="villa-gallery-header">
-    <a href="<?php echo esc_url( get_permalink() ); ?>">← Back to villa</a>
+    <a href="<?php echo esc_url( get_permalink() ); ?>">← <?php echo esc_html( plh_t('Back to villa') ); ?></a>
     <h1><?php the_title(); ?></h1>
   </header>
 

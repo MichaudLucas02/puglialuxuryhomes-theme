@@ -322,6 +322,18 @@ add_action('after_switch_theme', function () {
   flush_rewrite_rules();
 });
 
+// --- Translate villa CPT slug per language (Polylang) ---
+add_filter('pll_translated_post_type_rewrite_slugs', function($slugs, $post_type) {
+  if ($post_type === 'villa') {
+    $slugs = [
+      'en' => ['has_archive' => 'villas', 'rewrite' => ['slug' => 'villas']],
+      'fr' => ['has_archive' => 'villas', 'rewrite' => ['slug' => 'villas']],
+      'it' => ['has_archive' => 'ville',  'rewrite' => ['slug' => 'ville']],
+    ];
+  }
+  return $slugs;
+}, 10, 2);
+
 function custom_breadcrumbs() {
   echo '<nav class="breadcrumbs">';
   if (!is_front_page()) {
@@ -2499,6 +2511,8 @@ function plh_register_ui_strings() {
     'Reset Filters', 'villas found', 'Loading...', 'No villas match your filters. Please try adjusting your criteria.', 'Error loading villas. Please try again.',
     // Footer UI
     'Follow us on socials:',  'Contact us',
+    // Gallery UI
+    'Back to villa',
   ];
   foreach ( $strings as $s ) {
     pll_register_string( 'plh_ui_' . sanitize_title( $s ), $s, $group );
