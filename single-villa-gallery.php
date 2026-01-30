@@ -262,6 +262,10 @@ if (have_posts()) : the_post(); ?>
     .row2-col2-row1, .row2-col2-row2 {
         height: calc(50% - 2.5px) !important;
     }
+
+    .villa-gallery-header h1 {
+        font-size: 0.9rem !important;
+    }
 }
 
 
