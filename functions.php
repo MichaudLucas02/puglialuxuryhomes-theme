@@ -3863,10 +3863,4 @@ function plh_filter_villas_ajax() {
   wp_die();
 }
 
-// Allow identical slugs for villa CPT across Polylang languages
-add_filter('wp_unique_post_slug', function ($slug, $post_ID, $post_status, $post_type, $post_parent, $original_slug) {
-  if ($post_type !== 'villa') {
-    return $slug;
-  }
-  return $original_slug;
-}, 10, 6);
+
