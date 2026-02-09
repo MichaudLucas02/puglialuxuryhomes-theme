@@ -9,7 +9,7 @@ get_header(); ?>
 
     <section class="blog-listing">
         <div class="blog-header">
-            <h2>Latest Blog Posts</h2>
+            <h2><?php pll_e('Latest Blog Posts'); ?></h2>
             
             <div class="blog-category-filter">
                 <?php
@@ -23,7 +23,7 @@ get_header(); ?>
                 $current_url = get_permalink();
                 ?>
                 <select id="blog-category-filter" onchange="window.location.href=this.value">
-                    <option value="<?php echo esc_url($current_url); ?>" <?php selected($current_cat, 0); ?>>All Categories</option>
+                    <option value="<?php echo esc_url($current_url); ?>" <?php selected($current_cat, 0); ?>><?php pll_e('All Categories'); ?></option>
                     <?php foreach ($categories as $category): ?>
                         <option value="<?php echo esc_url(add_query_arg('cat', $category->term_id, $current_url)); ?>" <?php selected($current_cat, $category->term_id); ?>>
                             <?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)
@@ -106,7 +106,7 @@ get_header(); ?>
                                     'title' => $card['title'],
                                     'excerpt' => wp_trim_words($card['excerpt'], 15),
                                     'link' => $card['permalink'],
-                                    'read_more_text' => 'Read More',
+                                    'read_more_text' => pll__('Read More'),
                                 ]);
                                 $post_index++;
                             }
@@ -121,7 +121,7 @@ get_header(); ?>
                         $wide = $posts[$post_index];
                         ?>
                         <section class="wide-blog-section-wrapper">
-                            <?php 
+                            <?php
                             get_template_part('partials/wide-blog-section', null, [
                                 'image_url' => $wide['image'],
                                 'image_alt' => $wide['title'],
@@ -129,7 +129,7 @@ get_header(); ?>
                                 'title' => $wide['title'],
                                 'excerpt' => wp_trim_words($wide['excerpt'], 25),
                                 'link' => $wide['permalink'],
-                                'read_more_text' => 'Read More',
+                                'read_more_text' => pll__('Read More'),
                             ]);
                             ?>
                         </section>
@@ -183,7 +183,7 @@ get_header(); ?>
                                 'title' => $card['title'],
                                 'excerpt' => wp_trim_words($card['excerpt'], 15),
                                 'link' => $card['permalink'],
-                                'read_more_text' => 'Read More',
+                                'read_more_text' => pll__('Read More'),
                             ]);
                             $post_index++;
                         }
@@ -209,13 +209,13 @@ get_header(); ?>
                 'total' => $q->max_num_pages,
                 'current' => $paged,
                 'type' => 'list',
-                'prev_text' => '← Previous',
-                'next_text' => 'Next →',
+                'prev_text' => '← ' . pll__('Previous'),
+                'next_text' => pll__('Next') . ' →',
             ]);
             echo '</div>';
             
         else:
-            echo '<p style="text-align: center; margin: 40px;">No blog posts found.</p>';
+            echo '<p style="text-align: center; margin: 40px;">' . pll__('No blog posts found.') . '</p>';
         endif;
         ?>
     </section>

@@ -11,6 +11,7 @@ $sqm            = get_field('sqm_1');
 $rameaux        = get_field('rameaux_1');
 $intro_paragrph = get_field('intro_paragraph');
 $read_more      = get_field('read_more_paragraph');
+$large_hero_button = get_field('large_hero_button');
 ?>
 
 <div class="homepage">
@@ -31,7 +32,7 @@ $read_more      = get_field('read_more_paragraph');
                         <li><a href="#description"><?php echo esc_html( plh_t('Description') ); ?></a></li>
                         <li><a href="#experiences"><?php echo esc_html( plh_t('Experiences') ); ?></a></li>
                         <li><a href="#avis"><?php echo esc_html( plh_t('Reviews') ); ?></a></li>
-                        <li><a href="<?php echo esc_url( plh_villa_gallery_link(get_the_ID()) ); ?>"><?php echo esc_html( plh_t('Photos') ); ?></a></li>
+                        <li><a href="<?php echo esc_url($large_hero_button['url']); ?>"><?php echo esc_html( plh_t('Photos') ); ?></a></li>
                     </ul>
                 </div>
                 <button class="villa-menu-scroll-arrow villa-menu-scroll-right" aria-label="Scroll right">

@@ -2513,6 +2513,9 @@ function plh_register_ui_strings() {
     'Follow us on socials:',  'Contact us',
     // Gallery UI
     'Back to villa',
+    // Blog page
+    'Latest Blog Posts', 'All Categories', 'Read More', 'Read More', 'Read More', 'Previous', 'Next',
+
   ];
   foreach ( $strings as $s ) {
     pll_register_string( 'plh_ui_' . sanitize_title( $s ), $s, $group );

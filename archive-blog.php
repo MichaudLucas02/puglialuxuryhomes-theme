@@ -6,9 +6,9 @@ get_header();
 ?>
 <div class="blog-archive">
   <header class="archive-header">
-    <h1>Blog</h1>
+    <h1><?php pll_e('Blog'); ?></h1>
     <?php if ( is_search() ) : ?>
-      <p>Search results</p>
+      <p><?php pll_e('Search results'); ?></p>
     <?php endif; ?>
   </header>
   <?php if ( have_posts() ) : ?>
@@ -30,7 +30,7 @@ get_header();
               <span class="author"><?php the_author(); ?></span>
             </div>
             <div class="excerpt"><?php the_excerpt(); ?></div>
-            <a class="read-more" href="<?php the_permalink(); ?>">Read more →</a>
+            <a class="read-more" href="<?php the_permalink(); ?>"><?php pll_e('Read more'); ?> →</a>
           </div>
         </article>
       <?php endwhile; ?>
@@ -39,7 +39,7 @@ get_header();
       <?php the_posts_pagination(); ?>
     </nav>
   <?php else : ?>
-    <p>No blog posts yet.</p>
+    <p><?php pll_e('No blog posts yet.'); ?></p>
   <?php endif; ?>
 </div>
 <?php
