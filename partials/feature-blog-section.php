@@ -17,6 +17,6 @@ if (!$featured) {
         <p><?php echo esc_html($featured['category']); ?></p>
         <h4><a href="<?php echo esc_url($featured['permalink']); ?>"><?php echo esc_html($featured['title']); ?></a></h4>
         <p><?php echo esc_html($featured['excerpt']); ?></p>
-        <a href="<?php echo esc_url($featured['permalink']); ?>" class="read-more-button">Read More</a>
+        <a href="<?php echo esc_url($featured['permalink']); ?>" class="read-more-button"><?php pll_e('Read More'); ?></a>
     </div>
 </div>
