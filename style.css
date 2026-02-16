@@ -1966,10 +1966,8 @@ a.collection-link {
 
 .villa-card:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.1); }
 
-.villa-card__media { position: relative; aspect-ratio: 4/3; overflow: hidden; height: 0; padding-bottom: 75%; }
+.villa-card__media { position: relative; aspect-ratio: 4/3; overflow: hidden; }
 .villa-card__img { width: 100%; height: 100%; object-fit: cover; display:block; }
-.villa-card__media > .villa-card__img,
-.villa-card__media > .villa-card__img--placeholder { position: absolute; inset: 0; }
 
 .villa-card__collection {
   position: absolute; left: 12px; top: 12px;
@@ -1986,26 +1984,11 @@ a.collection-link {
 .villa-card__price {font-family: 'Raleway'; font-weight: 400;}
 
 /* Villa card image carousel */
-.villa-card-carousel {
+.villa-card__media .villa-card-carousel {
   position: absolute;
   inset: 0;
+  z-index: 1;
   overflow: hidden;
-}
-
-.villa-card-carousel .swiper-wrapper {
-  height: 100%;
-}
-
-.villa-card-carousel .swiper-slide {
-  height: 100%;
-  position: relative;
-}
-
-.villa-card-carousel .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
 .villa-card-carousel__pagination {

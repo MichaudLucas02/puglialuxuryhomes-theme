@@ -35,6 +35,11 @@ $has_carousel = count( $card_images ) > 1;
 
 <a class="villa-card" href="<?php echo esc_url( $args['link'] ); ?>">
     <div class="villa-card__media">
+        <?php if ( ! empty( $card_images ) ) : ?>
+            <?php echo wp_get_attachment_image( $card_images[0], 'villa_card', false, ['class' => 'villa-card__img'] ); ?>
+        <?php else : ?>
+            <div class="villa-card__img villa-card__img--placeholder"></div>
+        <?php endif; ?>
         <?php if ( $has_carousel ) : ?>
             <div class="swiper villa-card-carousel">
                 <div class="swiper-wrapper">
@@ -48,10 +53,6 @@ $has_carousel = count( $card_images ) > 1;
                 <div class="swiper-button-prev villa-card-carousel__prev"></div>
                 <div class="swiper-button-next villa-card-carousel__next"></div>
             </div>
-        <?php elseif ( ! empty( $card_images ) ) : ?>
-            <?php echo wp_get_attachment_image( $card_images[0], 'villa_card', false, ['class' => 'villa-card__img'] ); ?>
-        <?php else : ?>
-            <div class="villa-card__img villa-card__img--placeholder"></div>
         <?php endif; ?>
         <div class="villa-card__collection"><?php echo esc_html($args['collection']); ?></div>
     </div>
