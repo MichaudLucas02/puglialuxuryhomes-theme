@@ -1552,7 +1552,8 @@ h2 {
   .our-collection p, .villa-section p {
     font-size: 10px;
   }
-  .sea-collection a {
+  .sea-collection a,
+  .sea-collection .collection-btn {
     font-size: 8px;
   }
 }
@@ -1670,14 +1671,42 @@ h2 {
 
 .sea-overlay a,
 .city-overlay a,
-.land-overlay a {
+.land-overlay a,
+.sea-overlay .collection-btn,
+.city-overlay .collection-btn,
+.land-overlay .collection-btn {
   color: white;
   font-size: 17px;
   font-weight: 400;
   text-decoration: underline;
   margin-bottom: 40px;
   margin-left: 40px;
-  
+}
+
+/* Make entire collection container clickable */
+a.collection-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.collection-wrapper > a.collection-link {
+  display: flex;
+}
+
+.collection-wrapper > a.collection-link:first-child {
+  width: 40%;
+}
+
+.collection-wrapper > a.collection-link:last-child {
+  width: 60%;
+}
+
+.collection-wrapper > a.collection-link > .city-collection,
+.collection-wrapper > a.collection-link > .land-collection {
+  width: 100%;
 }
 
 /* base overlay layer for all three blocks */
@@ -1833,6 +1862,10 @@ h2 {
     z-index: 0;
   }
 
+  .collection-wrapper > a.collection-link {
+    width: 100% !important;
+  }
+
   .land-overlay {
     width: 80%;
   }
@@ -1844,7 +1877,7 @@ h2 {
   .sea-overlay {
     width: 80%;
   }
-  
+
 }
 
 @media (max-width: 500px) {
