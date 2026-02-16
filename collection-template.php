@@ -57,10 +57,10 @@ $description_image = $collection_description['description_image'] ?? null;
     
   </div>
   <button class="villa-arrow prev" type="button" aria-label="Previous slide">
-      <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/right-arrow.png" alt="" />
-    </button>
-    <button class="villa-arrow next" type="button" aria-label="Next slide">
-      <img src="http://puglialuxuryhomes.local/wp-content/uploads/2025/09/right-arrow.png" alt="" />
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="villa-arrow next" type="button" aria-label="Next slide">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
   <div class="swiper-pagination"></div>
 
