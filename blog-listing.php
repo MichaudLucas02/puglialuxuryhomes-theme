@@ -88,7 +88,7 @@ get_header(); ?>
                             get_template_part('partials/feature-blog-section'); 
                             ?>
                         </section>
-                        <?php
+                        <?php   
                         $post_index++;
                     }
                     
