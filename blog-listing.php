@@ -106,7 +106,7 @@ get_header(); ?>
                                     'title' => $card['title'],
                                     'excerpt' => wp_trim_words($card['excerpt'], 15),
                                     'link' => $card['permalink'],
-                                    'read_more_text' => pll__('Read More'),
+                                    'read_more_text' => pll__('Read more'),
                                 ]);
                                 $post_index++;
                             }
@@ -129,7 +129,7 @@ get_header(); ?>
                                 'title' => $wide['title'],
                                 'excerpt' => wp_trim_words($wide['excerpt'], 25),
                                 'link' => $wide['permalink'],
-                                'read_more_text' => pll__('Read More'),
+                                'read_more_text' => pll__('Read more'),
                             ]);
                             ?>
                         </section>
@@ -151,7 +151,7 @@ get_header(); ?>
                                     'title' => $card['title'],
                                     'excerpt' => wp_trim_words($card['excerpt'], 15),
                                     'link' => $card['permalink'],
-                                    'read_more_text' => 'Read More',
+                                    'read_more_text' => pll__('Read more'),
                                 ]);
                                 $post_index++;
                             }
@@ -183,7 +183,7 @@ get_header(); ?>
                                 'title' => $card['title'],
                                 'excerpt' => wp_trim_words($card['excerpt'], 15),
                                 'link' => $card['permalink'],
-                                'read_more_text' => pll__('Read More'),
+                                'read_more_text' => pll__('Read more'),
                             ]);
                             $post_index++;
                         }
