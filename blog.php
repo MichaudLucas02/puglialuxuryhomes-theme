@@ -41,7 +41,7 @@ $blog_query = new WP_Query($args);
                     <div class="excerpt">
                         <?php the_excerpt(); ?>
                     </div>
-                    <a href="<?php the_permalink(); ?>" class="read-more">Read More</a>
+                    <a href="<?php the_permalink(); ?>" class="read-more"><?php pll_e('Read more'); ?></a>
                 </article>
             <?php endwhile; ?>
         </div>
