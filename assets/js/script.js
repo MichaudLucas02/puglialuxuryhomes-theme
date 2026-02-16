@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const swiperConfigs = [
     {
-      selector: '.swiper:not(.sea-collection-swiper):not(.land-collection-swiper):not(.city-collection-swiper):not(.service-image-carousel)',
+      selector: '.swiper:not(.sea-collection-swiper):not(.land-collection-swiper):not(.city-collection-swiper):not(.service-image-carousel):not(.villa-card-carousel)',
       options: {
         cssMode: true,
         slidesPerView: 3,
@@ -83,4 +83,32 @@ document.addEventListener('DOMContentLoaded', () => {
       new Swiper(el, config.options);
     }
   });
+
+  // Villa card image carousels
+  if (typeof Swiper !== 'undefined') {
+    document.querySelectorAll('.villa-card-carousel').forEach(function(carousel) {
+      var swiperInstance = new Swiper(carousel, {
+        nested: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        watchOverflow: true,
+        pagination: {
+          el: carousel.querySelector('.villa-card-carousel__pagination'),
+          clickable: true,
+        },
+        navigation: {
+          prevEl: carousel.querySelector('.villa-card-carousel__prev'),
+          nextEl: carousel.querySelector('.villa-card-carousel__next'),
+        },
+      });
+
+      // Prevent arrows and pagination from triggering the parent <a> link
+      carousel.querySelectorAll('.villa-card-carousel__prev, .villa-card-carousel__next, .villa-card-carousel__pagination').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+      });
+    });
+  }
 });
