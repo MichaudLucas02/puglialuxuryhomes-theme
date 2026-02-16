@@ -288,15 +288,17 @@
     $pm_title = get_field('home_pm_title') ?: 'PROPERTY MANAGEMENT';
     $pm_description = get_field('home_pm_description') ?: 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.';
     
+    $pm_link = get_field('home_pm_link') ?: '';
+
     $pm_card1_image = get_field('home_pm_card1_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/1-Vue-generale-1.webp';
     $pm_card1_title = get_field('home_pm_card1_title') ?: 'Marketing of your property';
-    
+
     $pm_card2_image = get_field('home_pm_card2_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/4.1-Diner-1.webp';
     $pm_card2_title = get_field('home_pm_card2_title') ?: 'Annual management of your property';
-    
+
     $pm_card3_image = get_field('home_pm_card3_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/2-CH-1.2-scaled.webp';
     $pm_card3_title = get_field('home_pm_card3_title') ?: 'Rental Management';
-    
+
     $pm_card4_image = get_field('home_pm_card4_image') ?: 'http://puglialuxuryhomes.com/wp-content/uploads/2024/11/Lifestyle-24-scaled.webp';
     $pm_card4_title = get_field('home_pm_card4_title') ?: 'Dedicated conciergerie';
     ?>
@@ -308,23 +310,34 @@
     
     <section class="management">
 
+        <?php if (!empty($pm_link)) : ?><a href="<?php echo esc_url($pm_link); ?>" class="management-link"><?php endif; ?>
         <div class="management-div">
             <img src="<?php echo esc_url($pm_card1_image); ?>" alt="<?php echo esc_attr($pm_card1_title); ?>">
             <div class="management-title"><h3><?php echo esc_html($pm_card1_title); ?></h3></div>
         </div>
-        
+        <?php if (!empty($pm_link)) : ?></a><?php endif; ?>
+
+        <?php if (!empty($pm_link)) : ?><a href="<?php echo esc_url($pm_link); ?>" class="management-link"><?php endif; ?>
         <div class="management-div">
             <img src="<?php echo esc_url($pm_card2_image); ?>" alt="<?php echo esc_attr($pm_card2_title); ?>">
             <div class="management-title"><h3><?php echo esc_html($pm_card2_title); ?></h3></div>
         </div>
+        <?php if (!empty($pm_link)) : ?></a><?php endif; ?>
+
+        <?php if (!empty($pm_link)) : ?><a href="<?php echo esc_url($pm_link); ?>" class="management-link"><?php endif; ?>
         <div class="management-div">
             <img src="<?php echo esc_url($pm_card3_image); ?>" alt="<?php echo esc_attr($pm_card3_title); ?>">
             <div class="management-title"><h3><?php echo esc_html($pm_card3_title); ?></h3></div>
         </div>
+        <?php if (!empty($pm_link)) : ?></a><?php endif; ?>
+
+        <?php if (!empty($pm_link)) : ?><a href="<?php echo esc_url($pm_link); ?>" class="management-link"><?php endif; ?>
         <div class="management-div">
             <img src="<?php echo esc_url($pm_card4_image); ?>" alt="<?php echo esc_attr($pm_card4_title); ?>">
             <div class="management-title"><h3><?php echo esc_html($pm_card4_title); ?></h3></div>
         </div>
+        <?php if (!empty($pm_link)) : ?></a><?php endif; ?>
+
     </section>
 
 

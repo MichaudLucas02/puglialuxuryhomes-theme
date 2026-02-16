@@ -2161,10 +2161,24 @@ a.collection-link {
   height: clamp(320px, 45vw, 560px);
 }
 
+a.management-link {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  transition: flex-grow .35s ease, transform .35s ease;
+}
+
+a.management-link > .management-div {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
 .management-div {
   position: relative;
-  flex: 1 1 0%;             
-  min-width: 0;           
+  flex: 1 1 0%;
+  min-width: 0;
   overflow: hidden;
   transition: flex-grow .35s ease, transform .35s ease;
 }
@@ -2179,17 +2193,20 @@ a.collection-link {
 }
 
 
-.management:hover .management-div {
+.management:hover .management-div,
+.management:hover a.management-link {
   flex-grow: .8;
   filter: brightness(.9);
 }
 
 
-.management:hover .management-div:hover {
-  flex-grow: 2.4;           
+.management:hover .management-div:hover,
+.management:hover a.management-link:hover {
+  flex-grow: 2.4;
   filter: none;
 }
-.management-div:hover img {
+.management-div:hover img,
+a.management-link:hover img {
   transform: scale(1.05);
 }
 
@@ -2198,7 +2215,8 @@ a.collection-link {
 .management-div:focus {
   outline: none;
 }
-.management:hover .management-div:focus-within {
+.management:hover .management-div:focus-within,
+.management:hover a.management-link:focus-within {
   flex-grow: 2.4;
 }
 
@@ -2208,7 +2226,7 @@ a.collection-link {
 
 @media (max-width: 900px) {
   .management { flex-direction: column; height: 100%; gap: 0;}
-  .management-div { height: 55vw; }       /* or a fixed px height */
+  .management-div, a.management-link { height: 55vw; }       /* or a fixed px height */
 }
 @media (prefers-reduced-motion: reduce) {
   .management-div,

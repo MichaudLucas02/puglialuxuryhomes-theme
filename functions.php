@@ -3287,7 +3287,14 @@ add_action('acf/init', function () {
     'rows'  => 4,
     'default_value' => 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.',
   ];
-  
+  $fields[] = [
+    'key'   => 'field_home_pm_link',
+    'label' => 'Management Cards - Link',
+    'name'  => 'home_pm_link',
+    'type'  => 'url',
+    'instructions' => 'URL all management cards link to',
+  ];
+
   // Management Card 1
   $fields[] = [
     'key'   => 'field_home_pm_card1_image',
@@ -3304,7 +3311,6 @@ add_action('acf/init', function () {
     'type'  => 'text',
     'default_value' => 'Marketing of your property',
   ];
-  
   // Management Card 2
   $fields[] = [
     'key'   => 'field_home_pm_card2_image',
@@ -3321,7 +3327,6 @@ add_action('acf/init', function () {
     'type'  => 'text',
     'default_value' => 'Annual management of your property',
   ];
-  
   // Management Card 3
   $fields[] = [
     'key'   => 'field_home_pm_card3_image',
@@ -3338,7 +3343,6 @@ add_action('acf/init', function () {
     'type'  => 'text',
     'default_value' => 'Rental Management',
   ];
-  
   // Management Card 4
   $fields[] = [
     'key'   => 'field_home_pm_card4_image',
@@ -3355,7 +3359,6 @@ add_action('acf/init', function () {
     'type'  => 'text',
     'default_value' => 'Dedicated conciergerie',
   ];
-
   acf_add_local_field_group([
     'key'    => 'group_homepage_property_management',
     'title'  => 'Homepage Property Management',
