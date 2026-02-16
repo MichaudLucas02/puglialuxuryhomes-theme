@@ -116,10 +116,10 @@ get_header(); ?>
             </div>
         </div>
         <button class="villa-arrow prev <?php echo esc_attr($slug); ?>-prev" type="button" aria-label="Previous slide">
-            <img src="/wp-content/uploads/2025/09/right-arrow.png" alt="" />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <button class="villa-arrow next <?php echo esc_attr($slug); ?>-next" type="button" aria-label="Next slide">
-            <img src="/wp-content/uploads/2025/09/right-arrow.png" alt="" />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="swiper-pagination"></div>
         <?php else: ?>
