@@ -4255,7 +4255,11 @@ a.management-link:hover img {
 
   .discover-services-btn {
     align-self: flex-start;
-    margin-top: 8px;
+    margin-top: 0;
+  }
+
+  .services-title {
+    margin-bottom: 10px;
   }
 
   .service-wrapper {
