@@ -5327,12 +5327,12 @@ a.management-link:hover img {
   .our-story-content {
     flex-direction: column;
   }
-  
+
   .our-story-col,
   .our-story-col.narrow,
   .our-story-col.wide {
     width: 100%;
-    padding: 8vw 5vw;
+    padding: 3vw 5vw;
   }
   
   .our-story-col img {
@@ -5359,7 +5359,7 @@ a.management-link:hover img {
   .our-story-col,
   .our-story-col.narrow,
   .our-story-col.wide {
-    padding: 10vw 6vw;
+    padding: 3vw 6vw;
   }
   
   .our-story-col img {
