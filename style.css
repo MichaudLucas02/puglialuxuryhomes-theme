@@ -1863,7 +1863,7 @@ a.collection-link {
   }
 
   .collection-wrapper > a.collection-link {
-    width: 100% !important;
+    display: contents;
   }
 
   .land-overlay {
@@ -1886,7 +1886,7 @@ a.collection-link {
   }
 
   .collection-wrapper {
-    height: 700px;
+    height: auto;
   }
 
   .city-collection {
@@ -2038,7 +2038,7 @@ a.collection-link {
 .discover-absolute-mobile p { font-family: "Raleway"; font-weight: 300; color: white; font-size: 12px;margin: 0 15px 60px 15px;}
 
 /* Slider container */
-.discover-mobile{ position: relative; margin-bottom: 30px;}
+.discover-mobile{ position: relative; margin-bottom: 30px; width: 100%; padding: 0;}
 
 /* Horizontal track with scroll-snap */
 .discover-track{
