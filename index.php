@@ -129,19 +129,21 @@
         $sea_button_text = get_field('home_sea_button_text');
         ?>
 
+        <?php if (!empty($sea_link)) : ?><a href="<?php echo esc_url($sea_link); ?>" class="collection-link"><?php endif; ?>
         <div class="sea-collection">
-            <img 
+            <img
                 src="<?php echo esc_url($sea_image); ?>"
                 class='sea-collection-cover'
             ></img>
             <div class='sea-overlay'>
                 <h1><?php echo $sea_title_display; ?></h1>
                 <p><?php echo esc_html($sea_desc); ?></p>
-                <?php if (!empty($sea_button_text) && !empty($sea_link)) : ?>
-                    <a href="<?php echo esc_url($sea_link); ?>"><?php echo esc_html($sea_button_text); ?></a>
+                <?php if (!empty($sea_button_text)) : ?>
+                    <span class="collection-btn"><?php echo esc_html($sea_button_text); ?></span>
                 <?php endif; ?>
             </div>
         </div>
+        <?php if (!empty($sea_link)) : ?></a><?php endif; ?>
     
         <div class="collection-wrapper">
             <?php
@@ -153,6 +155,7 @@
             $city_link = get_field('home_city_link') ?: '';
             $city_button_text = get_field('home_city_button_text');
             ?>
+            <?php if (!empty($city_link)) : ?><a href="<?php echo esc_url($city_link); ?>" class="collection-link"><?php endif; ?>
             <div class='city-collection'>
                 <img
                     src="<?php echo esc_url($city_image); ?>"
@@ -161,11 +164,12 @@
                 <div class='city-overlay'>
                     <h1><?php echo $city_title_display; ?></h1>
                     <p><?php echo esc_html($city_desc); ?></p>
-                    <?php if (!empty($city_button_text) && !empty($city_link)) : ?>
-                        <a href="<?php echo esc_url($city_link); ?>"><?php echo esc_html($city_button_text); ?></a>
+                    <?php if (!empty($city_button_text)) : ?>
+                        <span class="collection-btn"><?php echo esc_html($city_button_text); ?></span>
                     <?php endif; ?>
                 </div>
             </div>
+            <?php if (!empty($city_link)) : ?></a><?php endif; ?>
             
             <?php
             // Land Collection
@@ -176,19 +180,21 @@
             $land_link = get_field('home_land_link') ?: get_permalink(get_page_by_path('land-collection'));
             $land_button_text = get_field('home_land_button_text');
             ?>
+            <?php if (!empty($land_link)) : ?><a href="<?php echo esc_url($land_link); ?>" class="collection-link"><?php endif; ?>
             <div class='land-collection'>
-                <img 
+                <img
                     src="<?php echo esc_url($land_image); ?>"
                     class='sea-collection-cover'
                 ></img>
                 <div class='land-overlay'>
                     <h1><?php echo $land_title_display; ?></h1>
                     <p><?php echo esc_html($land_desc); ?></p>
-                    <?php if (!empty($land_button_text) && !empty($land_link)) : ?>
-                        <a href="<?php echo esc_url($land_link); ?>"><?php echo esc_html($land_button_text); ?></a>
+                    <?php if (!empty($land_button_text)) : ?>
+                        <span class="collection-btn"><?php echo esc_html($land_button_text); ?></span>
                     <?php endif; ?>
                 </div>
             </div>
+            <?php if (!empty($land_link)) : ?></a><?php endif; ?>
 
         </div>
     </section>
