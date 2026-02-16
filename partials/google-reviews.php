@@ -21,10 +21,10 @@ if (empty($reviews)) return; // Don't show section if no reviews
 <section id="avis" class="google-reviews-section">
     <div class="google-reviews-wrapper">
         <div class="reviews-header">
-            <h2>Guest Reviews</h2>
+            <h2><?php pll_e('Guest Reviews'); ?></h2>
             <a href="https://www.google.com/search?q=puglia+luxury+homes" target="_blank" rel="noopener" class="google-badge">
                 <i class="fa-brands fa-google"></i>
-                <span>Google Reviews</span>
+                <span><?php pll_e('Google Reviews'); ?></span>
             </a>
         </div>
 
@@ -68,7 +68,7 @@ if (empty($reviews)) return; // Don't show section if no reviews
 
         <div class="reviews-cta">
             <a href="https://www.google.com/search?q=puglia+luxury+homes" target="_blank" rel="noopener" class="view-all-reviews">
-                View all reviews on Google
+                <?php pll_e('View all reviews on Google'); ?>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>

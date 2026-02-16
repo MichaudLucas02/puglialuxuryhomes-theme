@@ -650,6 +650,7 @@ add_action('acf/init', function () {
           'label'   => "Icon Color (hex)",
           'name'    => "features_title_kpi_color_$g",
           'type'    => 'text', // e.g. #90b0b7 (use color_picker if you have ACF Pro)
+          'default_value' => '#90b0b7',
           'placeholder' => '#90b0b7',
           'conditional_logic' => [[[
             'field'    => "field_features_title_kpi_type_$g",
@@ -717,6 +718,7 @@ add_action('acf/init', function () {
             'label'   => "Icon Color (hex)",
             'name'    => "feature_kpi_color_{$g}_{$i}",
             'type'    => 'text',
+            'default_value' => '#90b0b7',
             'placeholder' => '#90b0b7',
             'conditional_logic' => [[[
               'field'    => "field_feature_kpi_type_{$g}_{$i}",
@@ -784,7 +786,8 @@ function plh_render_features_4x4($post_id, $rows_per = 15) {
 
   $render_kpi = function ($type, $txt, $icon_key, $color_hex) use ($fa_map, $sanitize_hex) {
     if ($type === 'icon' && isset($fa_map[$icon_key])) {
-      $style = ($color_hex = $sanitize_hex($color_hex)) ? ' style="color:'.$color_hex.';"' : '';
+      $color_hex = $sanitize_hex($color_hex) ?: '#90b0b7';
+      $style = ' style="color:'.$color_hex.';"';
       return '<i class="'.esc_attr($fa_map[$icon_key]).'"'.$style.'></i>';
     }
     if ($type === 'text' && $txt !== '') {
@@ -1012,7 +1015,7 @@ add_action('acf/init', function () {
 function plh_render_included_excluded_rows2($post_id, $rows_per = 12) {
   $fa = [
     'check' => 'fa-solid fa-circle-check',
-    'minus' => 'fa-regular fa-circle-minus',
+    'minus' => 'fa-solid fa-circle-minus',
     'x'     => 'fa-regular fa-circle-xmark',
   ];
   $icon_tag = function($key) use ($fa) {
@@ -2513,6 +2516,8 @@ function plh_register_ui_strings() {
     'Follow us on socials:',  'Contact us',
     // Gallery UI
     'Back to villa',
+    // Google Reviews
+    'Guest Reviews', 'Google Reviews', 'View all reviews on Google',
     // Blog page
     'Latest Blog Posts', 'All Categories', 'Read More', 'Read More', 'Read More', 'Previous', 'Next',
 
