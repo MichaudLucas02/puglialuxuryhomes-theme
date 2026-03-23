@@ -3896,7 +3896,7 @@ a.management-link:hover img {
 }
 
 .leaflet-tile-pane img {
-  filter: grayscale(1) contrast(1.05) brightness(1.02);
+  filter: saturate(3.5) contrast(1.1);
 }
 
 .villa-gallery-header {
