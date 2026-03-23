@@ -213,7 +213,16 @@ h2 {
 .bottom-header.hidden {
     opacity: 0;
     transform: translateY(-100%);
-    
+    pointer-events: none;
+}
+
+/* When bottom-header is hidden, the .header container still occupies full height
+   and blocks clicks in the invisible area — pass them through */
+.header:has(.bottom-header.hidden) {
+    pointer-events: none;
+}
+.header:has(.bottom-header.hidden) .top-header {
+    pointer-events: auto;
 }
 
 .main-nav ul {
@@ -3896,7 +3905,7 @@ a.management-link:hover img {
 }
 
 .leaflet-tile-pane img {
-  filter: grayscale(1) contrast(1.05) brightness(1.02);
+  filter: saturate(3.5) contrast(1.1);
 }
 
 .villa-gallery-header {

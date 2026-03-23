@@ -2508,10 +2508,11 @@ function plh_register_ui_strings() {
     'villas in the countryside',
     'villas in the city',
     // Filter UI
-    'Filter', 'Capacity', '6+ guests', '8+ guests', '10+ guests', '12+ guests', '15+ guests', '16+ guests',
+    'Filter', 'Filters', 'Capacity', '6+ guests', '8+ guests', '10+ guests', '12+ guests', '15+ guests', '16+ guests',
     'Collection', 'Seaside', 'Countryside', 'Historic center',
-    'Price per night (from)', 'Up to €600', '€600 – €1,200', '€1,200 – €2,000', '€2,000 – €3,000', '€3,000 – €5,000', 'More than €5,000',
-    'Reset Filters', 'villas found', 'Loading...', 'No villas match your filters. Please try adjusting your criteria.', 'Error loading villas. Please try again.',
+    'Price per night', 'Price per night (from)', 'Up to €600', '€600 – €1,200', '€1,200 – €2,000', '€2,000 – €3,000', '€3,000 – €5,000', 'More than €5,000',
+    'Any', 'All', 'Reset', 'Reset Filters', 'See results', 'List', 'Map',
+    'villas found', 'Loading...', 'No villas match your filters. Please try adjusting your criteria.', 'Error loading villas. Please try again.',
     // Footer UI
     'Follow us on socials:',  'Contact us',
     // Gallery UI
@@ -3770,7 +3771,7 @@ function plh_filter_villas() {
   if ($query->have_posts()) {
     while ($query->have_posts()) {
       $query->the_post();
-      echo '<article class="villa-grid-item">';
+      echo '<article class="villa-grid-item" data-post-id="' . get_the_ID() . '">';
       get_template_part('partials/villa-card', null, ['post_id' => get_the_ID()]);
       echo '</article>';
     }
