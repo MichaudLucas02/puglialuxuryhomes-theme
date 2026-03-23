@@ -213,7 +213,16 @@ h2 {
 .bottom-header.hidden {
     opacity: 0;
     transform: translateY(-100%);
-    
+    pointer-events: none;
+}
+
+/* When bottom-header is hidden, the .header container still occupies full height
+   and blocks clicks in the invisible area — pass them through */
+.header:has(.bottom-header.hidden) {
+    pointer-events: none;
+}
+.header:has(.bottom-header.hidden) .top-header {
+    pointer-events: auto;
 }
 
 .main-nav ul {
