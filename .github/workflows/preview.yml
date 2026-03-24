@@ -1,9 +1,10 @@
 name: Deploy to Preview                                                       
                                                                                 
-on:                                                                           
+on:
   push:
     branches:
       - preview
+  workflow_dispatch:
 
 jobs:
   deploy:
