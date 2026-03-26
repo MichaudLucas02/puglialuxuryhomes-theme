@@ -2688,13 +2688,56 @@ function plh_register_ui_strings() {
 add_action('init', 'plh_register_ui_strings');
 
 /**
- * Helper for translating UI strings via Polylang first, fallback to theme domain.
+ * Inline translations — used as fallback when Polylang has no DB entry.
+ * Polylang DB entries always take priority.
+ */
+function plh_inline_translations() {
+  return [
+    'fr' => [
+      'Weekly rates'     => 'Tarifs hebdomadaires',
+      'Available'        => 'Disponible du',
+      'per week'         => 'par semaine',
+      'Price'            => 'Prix',
+      'max'              => 'max',
+      'Low season'       => 'Basse saison',
+      'Mid season'       => 'Moyenne saison',
+      'High season'      => 'Haute saison',
+      'Very high season' => 'Très haute saison',
+      'Bedrooms'         => 'Chambres',
+      'guests'           => 'personnes',
+    ],
+    'it' => [
+      'Weekly rates'     => 'Tariffe settimanali',
+      'Available'        => 'Disponibile dal',
+      'per week'         => 'a settimana',
+      'Price'            => 'Prezzo',
+      'max'              => 'max',
+      'Low season'       => 'Bassa stagione',
+      'Mid season'       => 'Media stagione',
+      'High season'      => 'Alta stagione',
+      'Very high season' => 'Altissima stagione',
+      'Bedrooms'         => 'Camere',
+      'guests'           => 'ospiti',
+    ],
+  ];
+}
+
+/**
+ * Helper for translating UI strings via Polylang first, fallback to inline map, then theme domain.
+ * Polylang DB entries always override inline translations.
  */
 function plh_t( $text, $context = '' ) {
   if ( function_exists('pll__') ) {
     $translated = pll__($text);
-    if ( is_string($translated) && $translated !== '' ) return $translated;
+    // Only trust Polylang if it returned a real translation (different from source)
+    if ( is_string($translated) && $translated !== '' && $translated !== $text ) {
+      return $translated;
+    }
   }
+  $lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+  $map  = plh_inline_translations();
+  if ( isset($map[$lang][$text]) ) return $map[$lang][$text];
+
   return $context ? _x( $text, $context, 'thinktech' ) : __( $text, 'thinktech' );
 }
 
