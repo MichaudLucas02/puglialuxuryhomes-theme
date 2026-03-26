@@ -5658,8 +5658,334 @@ a.management-link:hover img {
   .villa-filters {
     padding: 15px;
   }
-  
+
   .filter-group {
     margin-bottom: 20px;
+  }
+}
+
+/* ============================================================
+   SEASONAL PRICES SECTION
+   ============================================================ */
+
+.season-prices {
+  margin-top: 50px;
+  margin-bottom: 40px;
+  padding: 0;
+  max-width: none;
+  text-align: center;
+}
+
+/* Villa info line */
+.season-villa-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.season-villa-info-item {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #2c2a27;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.season-villa-info-sep {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: #bbb8b3;
+}
+
+/* Minimum stay tags */
+.season-minstay-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.season-minstay-tag {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: #2c2a27;
+  background: #f7f5f2;
+  border: 0.5px solid #e0dbd4;
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+
+/* Season legend */
+.season-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.season-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.season-bar.season-bar--h {
+  width: 24px;
+  height: 4px;
+}
+
+.season-legend-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: #7a7570;
+}
+
+/* Two cards side-by-side, full available width */
+.season-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Each half-year = one card */
+.season-col {
+  border: 0.5px solid rgb(210, 210, 210);
+  border-radius: 6px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Card header */
+.season-col-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #d5cfc6;
+  border-bottom: 0.5px solid #c4bdb3;
+}
+
+.season-col-range {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #2c2a27;
+}
+
+.season-col-price-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: #7a7570;
+}
+
+/* Month rows — alternating background */
+.season-month {
+  box-sizing: border-box;
+  padding: 11px 14px;
+}
+
+.season-month:nth-child(odd)  { background: #fff; }
+.season-month:nth-child(even) { background: #f7f5f2; }
+
+/* Subtle divider between rows */
+.season-month + .season-month {
+  border-top: 0.5px solid #ece9e4;
+}
+
+.season-month-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: default;
+}
+
+[data-expand].season-month-row {
+  cursor: pointer;
+}
+
+[data-expand].season-month-row:hover .season-month-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Vertical colour bar */
+.season-bar {
+  flex-shrink: 0;
+  width: 4px;
+  height: 26px;
+  border-radius: 2px;
+  background: #d0ccc4;
+}
+
+.season-bar.season-dot--low      { background: #7bbf8e; }
+.season-bar.season-dot--mid      { background: #e8c96a; }
+.season-bar.season-dot--high     { background: #e8996a; }
+.season-bar.season-dot--veryhigh { background: #d9534f; }
+
+/* Month name */
+.season-month-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: #2c2a27;
+  min-width: 80px;
+}
+
+/* Season label */
+.season-month-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: #7a7570;
+  font-style: italic;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Price */
+.season-month-price {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: #2c2a27;
+  white-space: nowrap;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.season-per-week {
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: #7a7570;
+}
+
+.season-month--empty .season-month-price {
+  color: #bbb;
+  font-weight: 400;
+}
+
+
+
+
+/* Expand detail panel */
+.season-month-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 0.5px solid #e0dbd4;
+  animation: seasonFadeIn 0.2s ease;
+}
+
+.season-month-detail[hidden] { display: none; }
+
+@keyframes seasonFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.season-detail-dates,
+.season-detail-minstay {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: #7a7570;
+}
+
+.season-detail-minstay {
+  font-style: italic;
+}
+
+/* Footer row below cards */
+.season-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.season-footer-left {
+  flex: 1;
+  text-align: left;
+}
+
+.season-footer-note {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #7a7570;
+  line-height: 1.7;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.season-footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.season-footer-price {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #2c2a27;
+  margin: 0;
+}
+
+.season-footer-book {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: #fff;
+  background: #2c2a27;
+  border: 0.5px solid #2c2a27;
+  padding: 6px 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.season-footer-book:hover {
+  background: #4a4540;
+  border-color: #4a4540;
+}
+
+/* Mobile: stack the two cards */
+@media (max-width: 775px) {
+  .season-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .season-month-label {
+    display: none;
+  }
+
+  .season-book-btn {
+    padding: 4px 9px;
+    font-size: 9px;
   }
 }

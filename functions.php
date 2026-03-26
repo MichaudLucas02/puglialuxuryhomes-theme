@@ -1429,6 +1429,161 @@ add_action('acf/init', function () {
 });
 
 
+// Seasonal Prices ACF Group
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $month_slugs = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  $month_nums  = [1,2,3,4,5,6,7,8,9,10,11,12];
+
+  $fields = [];
+
+  // ── Tab: General ──────────────────────────────────────────
+  $fields[] = ['key' => 'field_season_tab_general', 'label' => 'General', 'type' => 'tab', 'placement' => 'top'];
+
+  $fields[] = [
+    'key'           => 'field_season_price_year',
+    'label'         => 'Year',
+    'name'          => 'season_price_year',
+    'type'          => 'text',
+    'default_value' => '2026',
+    'instructions'  => 'Displayed in the section title.',
+    'wrapper'       => ['width' => 20],
+  ];
+  $fields[] = [
+    'key'          => 'field_season_min_stay_1',
+    'label'        => 'Minimum Stay — Tag 1',
+    'name'         => 'season_min_stay_1',
+    'type'         => 'text',
+    'placeholder'  => 'e.g. 4 nights minimum — Jan, Feb, Mar',
+    'instructions' => 'Leave empty to hide.',
+    'wrapper'      => ['width' => 40],
+  ];
+  $fields[] = [
+    'key'          => 'field_season_min_stay_2',
+    'label'        => 'Minimum Stay — Tag 2',
+    'name'         => 'season_min_stay_2',
+    'type'         => 'text',
+    'placeholder'  => 'e.g. 5 nights minimum — Jun, Jul, Aug',
+    'instructions' => 'Leave empty to hide.',
+    'wrapper'      => ['width' => 40],
+  ];
+
+  // ── One tab per month ──────────────────────────────────────
+  foreach ($month_slugs as $i => $slug) {
+    $num   = $month_nums[$i];
+    $label = date('F', mktime(0, 0, 0, $num, 1));
+
+    $fields[] = ['key' => "field_season_tab_{$slug}", 'label' => $label, 'type' => 'tab', 'placement' => 'top'];
+
+    $fields[] = [
+      'key'     => "field_season_{$slug}_price",
+      'label'   => 'Price (€/week)',
+      'name'    => "season_{$slug}_price",
+      'type'    => 'number',
+      'min'     => 0,
+      'prepend' => '€',
+      'wrapper' => ['width' => 25],
+    ];
+    $fields[] = [
+      'key'         => "field_season_{$slug}_label",
+      'label'       => 'Season Label',
+      'name'        => "season_{$slug}_label",
+      'type'        => 'text',
+      'placeholder' => 'e.g. Basse saison',
+      'wrapper'     => ['width' => 35],
+    ];
+    $fields[] = [
+      'key'        => "field_season_{$slug}_color",
+      'label'      => 'Season Color',
+      'name'       => "season_{$slug}_color",
+      'type'       => 'select',
+      'choices'    => [
+        'low'      => 'Low (green)',
+        'mid'      => 'Mid (yellow)',
+        'high'     => 'High (orange)',
+        'veryhigh' => 'Very High (red)',
+      ],
+      'allow_null' => 1,
+      'wrapper'    => ['width' => 25],
+    ];
+    $fields[] = [
+      'key'         => "field_season_{$slug}_date_from",
+      'label'       => 'Available From',
+      'name'        => "season_{$slug}_date_from",
+      'type'        => 'text',
+      'placeholder' => 'e.g. 1 Jan.',
+      'wrapper'     => ['width' => 25],
+    ];
+    $fields[] = [
+      'key'         => "field_season_{$slug}_date_to",
+      'label'       => 'Available To',
+      'name'        => "season_{$slug}_date_to",
+      'type'        => 'text',
+      'placeholder' => 'e.g. 31 Jan.',
+      'wrapper'     => ['width' => 25],
+    ];
+    $fields[] = [
+      'key'         => "field_season_{$slug}_min_stay",
+      'label'       => 'Min. Stay',
+      'name'        => "season_{$slug}_min_stay",
+      'type'        => 'text',
+      'placeholder' => 'e.g. 4 nights min.',
+      'wrapper'     => ['width' => 50],
+    ];
+  }
+
+  // ── Tab: Footer ───────────────────────────────────────────
+  $fields[] = ['key' => 'field_season_tab_footer', 'label' => 'Footer', 'type' => 'tab', 'placement' => 'top'];
+
+  $fields[] = [
+    'key'         => 'field_season_footer_note',
+    'label'       => 'Note (left)',
+    'name'        => 'season_footer_note',
+    'type'        => 'textarea',
+    'rows'        => 4,
+    'placeholder' => 'Optional note displayed below the price cards.',
+    'wrapper'     => ['width' => 50],
+  ];
+  $fields[] = [
+    'key'         => 'field_season_price_from',
+    'label'       => 'Price From Text (right)',
+    'name'        => 'season_price_from',
+    'type'        => 'text',
+    'placeholder' => 'e.g. À partir de €6 860 / semaine',
+    'wrapper'     => ['width' => 50],
+  ];
+  $fields[] = [
+    'key'         => 'field_season_book_label',
+    'label'       => 'Book Button — Label',
+    'name'        => 'season_book_label',
+    'type'        => 'text',
+    'placeholder' => 'e.g. Réserver',
+    'wrapper'     => ['width' => 30],
+  ];
+  $fields[] = [
+    'key'         => 'field_season_book_url',
+    'label'       => 'Book Button — URL',
+    'name'        => 'season_book_url',
+    'type'        => 'url',
+    'placeholder' => 'https://...',
+    'wrapper'     => ['width' => 70],
+  ];
+
+  acf_add_local_field_group([
+    'key'             => 'group_seasonal_prices',
+    'title'           => 'Seasonal Prices',
+    'fields'          => $fields,
+    'location'        => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'villa',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
 add_action('wp_enqueue_scripts', function () {
   // Google Maps API - Replace YOUR_API_KEY with your actual Google Maps API key
   wp_enqueue_script(
@@ -2521,6 +2676,9 @@ function plh_register_ui_strings() {
     'Guest Reviews', 'Google Reviews', 'View all reviews on Google',
     // Blog page
     'Latest Blog Posts', 'All Categories', 'Read More', 'Read More', 'Read More', 'Previous', 'Next',
+    // Seasonal prices
+    'Weekly rates', 'Available', 'per week', 'Price', 'max',
+    'Low season', 'Mid season', 'High season', 'Very high season',
 
   ];
   foreach ( $strings as $s ) {
@@ -2530,13 +2688,56 @@ function plh_register_ui_strings() {
 add_action('init', 'plh_register_ui_strings');
 
 /**
- * Helper for translating UI strings via Polylang first, fallback to theme domain.
+ * Inline translations — used as fallback when Polylang has no DB entry.
+ * Polylang DB entries always take priority.
+ */
+function plh_inline_translations() {
+  return [
+    'fr' => [
+      'Weekly rates'     => 'Tarifs hebdomadaires',
+      'Available'        => 'Disponible du',
+      'per week'         => 'par semaine',
+      'Price'            => 'Prix',
+      'max'              => 'max',
+      'Low season'       => 'Basse saison',
+      'Mid season'       => 'Moyenne saison',
+      'High season'      => 'Haute saison',
+      'Very high season' => 'Très haute saison',
+      'Bedrooms'         => 'Chambres',
+      'guests'           => 'personnes',
+    ],
+    'it' => [
+      'Weekly rates'     => 'Tariffe settimanali',
+      'Available'        => 'Disponibile dal',
+      'per week'         => 'a settimana',
+      'Price'            => 'Prezzo',
+      'max'              => 'max',
+      'Low season'       => 'Bassa stagione',
+      'Mid season'       => 'Media stagione',
+      'High season'      => 'Alta stagione',
+      'Very high season' => 'Altissima stagione',
+      'Bedrooms'         => 'Camere',
+      'guests'           => 'ospiti',
+    ],
+  ];
+}
+
+/**
+ * Helper for translating UI strings via Polylang first, fallback to inline map, then theme domain.
+ * Polylang DB entries always override inline translations.
  */
 function plh_t( $text, $context = '' ) {
   if ( function_exists('pll__') ) {
     $translated = pll__($text);
-    if ( is_string($translated) && $translated !== '' ) return $translated;
+    // Only trust Polylang if it returned a real translation (different from source)
+    if ( is_string($translated) && $translated !== '' && $translated !== $text ) {
+      return $translated;
+    }
   }
+  $lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+  $map  = plh_inline_translations();
+  if ( isset($map[$lang][$text]) ) return $map[$lang][$text];
+
   return $context ? _x( $text, $context, 'thinktech' ) : __( $text, 'thinktech' );
 }
 
