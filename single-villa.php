@@ -210,6 +210,9 @@ $large_hero_button = get_field('large_hero_button');
 
 
                 </div>
+
+                <?php get_template_part('partials/season-prices'); ?>
+
                 <div class="booking-box mobile">
                         <h3><?php the_title(); ?></h3>
                         <p><?php echo esc_html( plh_booking_text('booking_intro', 'Book now to secure your dates in this exceptional villa.') ); ?></p>
