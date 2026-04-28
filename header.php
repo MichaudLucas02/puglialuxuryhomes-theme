@@ -12,6 +12,14 @@
       as="font" type="font/woff2" crossorigin>
 
   <?php wp_head(); ?>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ6GRJ6FBH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CQ6GRJ6FBH');
+  </script>
 </head>
 <body <?php body_class(); ?>>
 <div id="mega-backdrop" class="mega-backdrop" aria-hidden="true"></div>
