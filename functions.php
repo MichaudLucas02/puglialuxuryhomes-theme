@@ -1990,8 +1990,43 @@ add_action('acf/init', function () {
           'operator'  => '==',
           'value'   => 'concierge-services.php',
         ],
-      ]
+      ],
+      [
+        [
+          'param'    => 'page_template',
+          'operator' => '==',
+          'value'    => 'real-estate.php',
+        ],
+      ],
     ],
+  ]);
+});
+
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+  acf_add_local_field_group([
+    'key'    => 'group_real_estate_page',
+    'title'  => 'Real Estate Page',
+    'fields' => [
+      [
+        'key'          => 'field_re_subtitle',
+        'label'        => 'Hero Subtitle',
+        'name'         => 're_subtitle',
+        'type'         => 'text',
+        'instructions' => 'Short tagline displayed below the hero (e.g. "A more personal way to buy and sell villas in Puglia.").',
+      ],
+      [
+        'key'          => 'field_re_intro_text',
+        'label'        => 'Intro Text',
+        'name'         => 're_intro_text',
+        'type'         => 'textarea',
+        'rows'         => 5,
+        'new_lines'    => 'wpautop',
+        'instructions' => 'SEO paragraph displayed above the process section. Enter the version for the current language.',
+      ],
+    ],
+    'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'real-estate.php']]],
+    'position' => 'normal',
   ]);
 });
 
@@ -2679,6 +2714,21 @@ function plh_register_ui_strings() {
     // Seasonal prices
     'Weekly rates', 'Available', 'per week', 'Price', 'max',
     'Low season', 'Mid season', 'High season', 'Very high season',
+    // Real Estate page
+    'Start your property journey in Puglia',
+    'Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.',
+    'Full Name', 'Email address', 'Phone', 'Country of residence',
+    'I am looking to:', 'Select an option', 'Buy a property', 'Sell a property', 'Both', 'Other',
+    'Preferred location', 'Budget', 'Select a range',
+    'Under €500,000', '€500,000 – €1,000,000', '€1,000,000 – €2,000,000', '€2,000,000 – €5,000,000', '€5,000,000+',
+    'Property type', 'Select property type', 'Apartment',
+    'Timeline', 'Select a timeline', 'Within 3 months', '3–6 months', '6–12 months', 'No fixed timeline',
+    'Have you purchased property abroad before?', 'Yes', 'No',
+    'Tell us more about your project',
+    'I agree to be contacted by Puglia Luxury Homes regarding this enquiry.',
+    'Send my enquiry',
+    'Thank you! Your enquiry has been received. We will be in touch shortly.',
+    'An error occurred. Please try again.',
 
   ];
   foreach ( $strings as $s ) {
@@ -2738,6 +2788,44 @@ function plh_inline_translations() {
       'Loading...'       => 'Chargement...',
       'No villas match your filters. Please try adjusting your criteria.' => 'Aucune villa ne correspond à vos filtres. Veuillez ajuster vos critères.',
       'Error loading villas. Please try again.' => 'Erreur lors du chargement des villas. Veuillez réessayer.',
+      // Real Estate page
+      'Start your property journey in Puglia'    => 'Commencez votre projet immobilier en Pouille',
+      'Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.' => 'Que vous cherchiez à trouver votre place en Pouille ou à envisager la vente de votre propriété, nous vous accompagnons à chaque étape.',
+      'Full Name'                                => 'Nom complet',
+      'Email address'                            => 'Adresse e-mail',
+      'Phone'                                    => 'Téléphone',
+      'Country of residence'                     => 'Pays de résidence',
+      'I am looking to:'                         => 'Je souhaite :',
+      'Select an option'                         => 'Choisir une option',
+      'Buy a property'                           => 'Acheter un bien',
+      'Sell a property'                          => 'Vendre un bien',
+      'Both'                                     => 'Les deux',
+      'Other'                                    => 'Autre',
+      'Preferred location'                       => 'Zone de préférence',
+      'Budget'                                   => 'Budget',
+      'Select a range'                           => 'Choisir une fourchette',
+      'Under €500,000'                           => 'Moins de 500 000 €',
+      '€500,000 – €1,000,000'                   => '500 000 € – 1 000 000 €',
+      '€1,000,000 – €2,000,000'                 => '1 000 000 € – 2 000 000 €',
+      '€2,000,000 – €5,000,000'                 => '2 000 000 € – 5 000 000 €',
+      '€5,000,000+'                              => 'Plus de 5 000 000 €',
+      'Property type'                            => 'Type de bien',
+      'Select property type'                     => 'Choisir un type de bien',
+      'Apartment'                                => 'Appartement',
+      'Timeline'                                 => 'Horizon de projet',
+      'Select a timeline'                        => 'Choisir un délai',
+      'Within 3 months'                          => 'Sous 3 mois',
+      '3–6 months'                               => '3 à 6 mois',
+      '6–12 months'                              => '6 à 12 mois',
+      'No fixed timeline'                        => 'Sans délai fixe',
+      'Have you purchased property abroad before?' => 'Avez-vous déjà acheté un bien à l\'étranger ?',
+      'Yes'                                      => 'Oui',
+      'No'                                       => 'Non',
+      'Tell us more about your project'          => 'Parlez-nous de votre projet',
+      'I agree to be contacted by Puglia Luxury Homes regarding this enquiry.' => 'J\'accepte d\'être contacté par Puglia Luxury Homes concernant cette demande.',
+      'Send my enquiry'                          => 'Envoyer ma demande',
+      'Thank you! Your enquiry has been received. We will be in touch shortly.' => 'Merci ! Votre demande a bien été reçue. Nous vous contacterons prochainement.',
+      'An error occurred. Please try again.'     => 'Une erreur s\'est produite. Veuillez réessayer.',
     ],
     'it' => [
       'Weekly rates'     => 'Tariffe settimanali',
@@ -2784,6 +2872,44 @@ function plh_inline_translations() {
       'Loading...'       => 'Caricamento...',
       'No villas match your filters. Please try adjusting your criteria.' => 'Nessuna villa corrisponde ai tuoi filtri. Prova a modificare i criteri.',
       'Error loading villas. Please try again.' => 'Errore nel caricamento delle ville. Riprova.',
+      // Real Estate page
+      'Start your property journey in Puglia'    => 'Inizia il tuo percorso immobiliare in Puglia',
+      'Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.' => 'Che tu stia cercando la tua casa in Puglia o considerando di vendere la tua proprietà, ti guidiamo in ogni fase.',
+      'Full Name'                                => 'Nome e cognome',
+      'Email address'                            => 'Indirizzo e-mail',
+      'Phone'                                    => 'Telefono',
+      'Country of residence'                     => 'Paese di residenza',
+      'I am looking to:'                         => 'Sono interessato a:',
+      'Select an option'                         => 'Seleziona un\'opzione',
+      'Buy a property'                           => 'Acquistare un immobile',
+      'Sell a property'                          => 'Vendere un immobile',
+      'Both'                                     => 'Entrambi',
+      'Other'                                    => 'Altro',
+      'Preferred location'                       => 'Zona preferita',
+      'Budget'                                   => 'Budget',
+      'Select a range'                           => 'Seleziona un intervallo',
+      'Under €500,000'                           => 'Meno di €500.000',
+      '€500,000 – €1,000,000'                   => '€500.000 – €1.000.000',
+      '€1,000,000 – €2,000,000'                 => '€1.000.000 – €2.000.000',
+      '€2,000,000 – €5,000,000'                 => '€2.000.000 – €5.000.000',
+      '€5,000,000+'                              => 'Più di €5.000.000',
+      'Property type'                            => 'Tipo di proprietà',
+      'Select property type'                     => 'Seleziona tipo di proprietà',
+      'Apartment'                                => 'Appartamento',
+      'Timeline'                                 => 'Tempistica prevista',
+      'Select a timeline'                        => 'Seleziona una tempistica',
+      'Within 3 months'                          => 'Entro 3 mesi',
+      '3–6 months'                               => '3–6 mesi',
+      '6–12 months'                              => '6–12 mesi',
+      'No fixed timeline'                        => 'Nessuna tempistica fissa',
+      'Have you purchased property abroad before?' => 'Ha già acquistato un immobile all\'estero?',
+      'Yes'                                      => 'Sì',
+      'No'                                       => 'No',
+      'Tell us more about your project'          => 'Raccontaci il tuo progetto',
+      'I agree to be contacted by Puglia Luxury Homes regarding this enquiry.' => 'Accetto di essere contattato da Puglia Luxury Homes in merito a questa richiesta.',
+      'Send my enquiry'                          => 'Invia la mia richiesta',
+      'Thank you! Your enquiry has been received. We will be in touch shortly.' => 'Grazie! La tua richiesta è stata ricevuta. Ti contatteremo a breve.',
+      'An error occurred. Please try again.'     => 'Si è verificato un errore. Si prega di riprovare.',
     ],
   ];
 }
@@ -4155,5 +4281,149 @@ function plh_filter_villas_ajax() {
 
   wp_die();
 }
+
+function plh_handle_real_estate_inquiry() {
+  if ( !isset($_POST['plh_re_inquiry_nonce']) || !wp_verify_nonce($_POST['plh_re_inquiry_nonce'], 'plh_re_inquiry_nonce') ) {
+    wp_redirect(add_query_arg(['re_inquiry' => 'error', 're_error' => urlencode('Security check failed.')], wp_get_referer()));
+    exit;
+  }
+
+  if ( !empty($_POST['re_hp_field']) ) {
+    wp_redirect(add_query_arg('re_inquiry', 'error', wp_get_referer()));
+    exit;
+  }
+
+  $full_name      = sanitize_text_field($_POST['re_full_name'] ?? '');
+  $email          = sanitize_email($_POST['re_email'] ?? '');
+  $phone          = sanitize_text_field($_POST['re_phone'] ?? '');
+  $country        = sanitize_text_field($_POST['re_country'] ?? '');
+  $intent         = sanitize_text_field($_POST['re_intent'] ?? '');
+  $locations_raw  = isset($_POST['re_locations']) && is_array($_POST['re_locations']) ? $_POST['re_locations'] : [];
+  $locations      = array_map('sanitize_text_field', $locations_raw);
+  $budget         = sanitize_text_field($_POST['re_budget'] ?? '');
+  $property_type  = sanitize_text_field($_POST['re_property_type'] ?? '');
+  $timeline       = sanitize_text_field($_POST['re_timeline'] ?? '');
+  $prior_purchase = sanitize_text_field($_POST['re_prior_purchase'] ?? '');
+  $message        = sanitize_textarea_field($_POST['re_message'] ?? '');
+  $form_language  = sanitize_text_field($_POST['form_language'] ?? 'en');
+
+  if ( empty($full_name) || empty($email) || empty($phone) || empty($intent) || empty($budget) ) {
+    wp_redirect(add_query_arg(['re_inquiry' => 'error', 're_error' => urlencode('Please fill in all required fields.')], wp_get_referer()));
+    exit;
+  }
+
+  if ( empty($locations) ) {
+    wp_redirect(add_query_arg(['re_inquiry' => 'error', 're_error' => urlencode('Please select at least one preferred location.')], wp_get_referer()));
+    exit;
+  }
+
+  if ( !is_email($email) ) {
+    wp_redirect(add_query_arg(['re_inquiry' => 'error', 're_error' => urlencode('Please provide a valid email address.')], wp_get_referer()));
+    exit;
+  }
+
+  $t = [
+    'en' => [
+      'subject'      => 'New Real Estate Inquiry',
+      'heading'      => 'New Real Estate Inquiry',
+      'contact'      => 'Contact Information',
+      'full_name'    => 'Full Name',
+      'email'        => 'Email',
+      'phone'        => 'Phone',
+      'country'      => 'Country of Residence',
+      'project'      => 'Project Details',
+      'intent'       => 'Looking to',
+      'locations'    => 'Preferred Location(s)',
+      'budget'       => 'Budget',
+      'prop_type'    => 'Property Type',
+      'timeline'     => 'Timeline',
+      'prior'        => 'Purchased abroad before',
+      'message'      => 'Project Description',
+      'not_provided' => 'Not provided',
+      'submitted_on' => 'Submitted on',
+    ],
+    'fr' => [
+      'subject'      => 'Nouvelle demande immobilière',
+      'heading'      => 'Nouvelle demande immobilière',
+      'contact'      => 'Informations de contact',
+      'full_name'    => 'Nom complet',
+      'email'        => 'E-mail',
+      'phone'        => 'Téléphone',
+      'country'      => 'Pays de résidence',
+      'project'      => 'Détails du projet',
+      'intent'       => 'Objectif',
+      'locations'    => 'Zone(s) de préférence',
+      'budget'       => 'Budget',
+      'prop_type'    => 'Type de bien',
+      'timeline'     => 'Horizon de projet',
+      'prior'        => "Achat à l'étranger déjà effectué",
+      'message'      => 'Description du projet',
+      'not_provided' => 'Non renseigné',
+      'submitted_on' => 'Soumis le',
+    ],
+    'it' => [
+      'subject'      => 'Nuova richiesta immobiliare',
+      'heading'      => 'Nuova richiesta immobiliare',
+      'contact'      => 'Informazioni di contatto',
+      'full_name'    => 'Nome e cognome',
+      'email'        => 'E-mail',
+      'phone'        => 'Telefono',
+      'country'      => 'Paese di residenza',
+      'project'      => 'Dettagli del progetto',
+      'intent'       => 'Obiettivo',
+      'locations'    => 'Zona/e preferita/e',
+      'budget'       => 'Budget',
+      'prop_type'    => 'Tipo di proprietà',
+      'timeline'     => 'Tempistica prevista',
+      'prior'        => "Acquisto all'estero già effettuato",
+      'message'      => 'Descrizione del progetto',
+      'not_provided' => 'Non fornito',
+      'submitted_on' => 'Inviato il',
+    ],
+  ];
+
+  $l = $t[$form_language] ?? $t['en'];
+
+  $to      = 'reservation@puglialuxuryhomes.com';
+  $subject = $l['subject'] . ': ' . $full_name;
+  $headers = ['Content-Type: text/html; charset=UTF-8'];
+
+  $body  = '<html><body style="font-family:Arial,sans-serif;line-height:1.6;">';
+  $body .= '<h2 style="color:#6c9ba3;">' . esc_html($l['heading']) . '</h2>';
+
+  $body .= '<h3 style="color:#6c9ba3;border-bottom:2px solid #f0f0f0;padding-bottom:8px;">' . esc_html($l['contact']) . '</h3>';
+  $body .= '<p><strong>' . esc_html($l['full_name']) . ':</strong> ' . esc_html($full_name) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['email']) . ':</strong> ' . esc_html($email) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['phone']) . ':</strong> ' . esc_html($phone) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['country']) . ':</strong> ' . esc_html($country ?: $l['not_provided']) . '</p>';
+
+  $body .= '<h3 style="color:#6c9ba3;border-bottom:2px solid #f0f0f0;padding-bottom:8px;">' . esc_html($l['project']) . '</h3>';
+  $body .= '<p><strong>' . esc_html($l['intent']) . ':</strong> ' . esc_html($intent) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['locations']) . ':</strong> ' . esc_html(implode(', ', $locations)) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['budget']) . ':</strong> ' . esc_html($budget) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['prop_type']) . ':</strong> ' . esc_html($property_type ?: $l['not_provided']) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['timeline']) . ':</strong> ' . esc_html($timeline ?: $l['not_provided']) . '</p>';
+  $body .= '<p><strong>' . esc_html($l['prior']) . ':</strong> ' . esc_html($prior_purchase ?: $l['not_provided']) . '</p>';
+
+  if ( !empty($message) ) {
+    $body .= '<h3 style="color:#6c9ba3;border-bottom:2px solid #f0f0f0;padding-bottom:8px;">' . esc_html($l['message']) . '</h3>';
+    $body .= '<p>' . nl2br(esc_html($message)) . '</p>';
+  }
+
+  $body .= '<hr style="margin:30px 0;border:none;border-top:1px solid #ddd;">';
+  $body .= '<p style="color:#888;font-size:12px;"><em>' . esc_html($l['submitted_on']) . ' ' . date('F j, Y \a\t g:i a') . '</em></p>';
+  $body .= '</body></html>';
+
+  $sent = wp_mail($to, $subject, $body, $headers);
+
+  if ( $sent ) {
+    wp_redirect(add_query_arg('re_inquiry', 'success', wp_get_referer()));
+  } else {
+    wp_redirect(add_query_arg(['re_inquiry' => 'error', 're_error' => urlencode('Failed to send. Please try again.')], wp_get_referer()));
+  }
+  exit;
+}
+add_action('admin_post_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry');
+add_action('admin_post_nopriv_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry');
 
 
