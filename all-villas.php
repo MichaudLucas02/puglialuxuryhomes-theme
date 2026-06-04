@@ -438,7 +438,7 @@ body { margin: 0; }
     <!-- Filter drawer -->
     <aside class="filter-drawer" id="filter-drawer" aria-hidden="true">
         <div class="filter-drawer__header">
-            <h3><?php echo esc_html(function_exists('pll__') ? pll__('Filters') : 'Filters'); ?></h3>
+            <h3><?php echo esc_html(plh_t('Filters')); ?></h3>
             <button class="filter-drawer__close" id="filter-drawer-close" aria-label="Close filters">&#215;</button>
         </div>
         <div class="filter-drawer__body">
@@ -446,7 +446,7 @@ body { margin: 0; }
             <div class="filter-section">
                 <p class="filter-section__title"><?php echo esc_html(plh_t('Collection')); ?></p>
                 <div class="filter-pills" data-filter="collection">
-                    <button class="filter-pill active" data-value=""><?php echo esc_html(function_exists('pll__') ? pll__('All') : 'All'); ?></button>
+                    <button class="filter-pill active" data-value=""><?php echo esc_html(plh_t('All')); ?></button>
                     <button class="filter-pill" data-value="sea"><?php echo esc_html(plh_t('Seaside')); ?></button>
                     <button class="filter-pill" data-value="land"><?php echo esc_html(plh_t('Countryside')); ?></button>
                     <button class="filter-pill" data-value="city"><?php echo esc_html(plh_t('Historic center')); ?></button>
@@ -456,7 +456,7 @@ body { margin: 0; }
             <div class="filter-section">
                 <p class="filter-section__title"><?php echo esc_html(plh_t('Capacity')); ?></p>
                 <div class="filter-pills" data-filter="guests">
-                    <button class="filter-pill active" data-value=""><?php echo esc_html(function_exists('pll__') ? pll__('Any') : 'Any'); ?></button>
+                    <button class="filter-pill active" data-value=""><?php echo esc_html(plh_t('Any')); ?></button>
                     <button class="filter-pill" data-value="6">6+</button>
                     <button class="filter-pill" data-value="8">8+</button>
                     <button class="filter-pill" data-value="10">10+</button>
@@ -469,7 +469,7 @@ body { margin: 0; }
             <div class="filter-section">
                 <p class="filter-section__title"><?php echo esc_html(plh_t('Price per night')); ?></p>
                 <div class="filter-pills" data-filter="price">
-                    <button class="filter-pill active" data-value=""><?php echo esc_html(function_exists('pll__') ? pll__('Any') : 'Any'); ?></button>
+                    <button class="filter-pill active" data-value=""><?php echo esc_html(plh_t('Any')); ?></button>
                     <button class="filter-pill" data-value="0-600"><?php echo esc_html(plh_t('Up to €600')); ?></button>
                     <button class="filter-pill" data-value="600-1200">€600 – €1,200</button>
                     <button class="filter-pill" data-value="1200-2000">€1,200 – €2,000</button>
@@ -481,15 +481,15 @@ body { margin: 0; }
 
         </div>
         <div class="filter-drawer__footer">
-            <button class="filter-reset-btn" id="filter-reset"><?php echo esc_html(function_exists('pll__') ? pll__('Reset') : 'Reset'); ?></button>
-            <button class="filter-close-btn" id="filter-apply"><?php echo esc_html(function_exists('pll__') ? pll__('See results') : 'See results'); ?></button>
+            <button class="filter-reset-btn" id="filter-reset"><?php echo esc_html(plh_t('Reset')); ?></button>
+            <button class="filter-close-btn" id="filter-apply"><?php echo esc_html(plh_t('See results')); ?></button>
         </div>
     </aside>
 
     <div class="filter-trigger-bar">
         <button class="filter-trigger-btn" id="filter-trigger">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-            <?php echo esc_html(function_exists('pll__') ? pll__('Filters') : 'Filters'); ?>
+            <?php echo esc_html(plh_t('Filters')); ?>
             <span class="filter-active-count" id="filter-count">0</span>
         </button>
     </div>
@@ -497,10 +497,10 @@ body { margin: 0; }
     <!-- Mobile map/list toggle -->
     <div class="map-toggle-bar">
         <button class="map-toggle-btn active" data-panel="list">
-            <?php echo esc_html(function_exists('pll__') ? pll__('List') : 'List'); ?>
+            <?php echo esc_html(plh_t('List')); ?>
         </button>
         <button class="map-toggle-btn" data-panel="map">
-            <?php echo esc_html(function_exists('pll__') ? pll__('Map') : 'Map'); ?>
+            <?php echo esc_html(plh_t('Map')); ?>
         </button>
     </div>
 
