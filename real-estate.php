@@ -34,6 +34,14 @@ get_template_part('partials/small-hero');
         <p><?php echo esc_html( plh_t('Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.') ); ?></p>
       </div>
 
+      <?php
+      $re_old = [];
+      if ( isset($_SESSION['re_form_data']) ) {
+        $re_old = $_SESSION['re_form_data'];
+        unset($_SESSION['re_form_data']);
+      }
+      ?>
+
       <?php if ( isset($_GET['re_inquiry']) ) :
         if ( $_GET['re_inquiry'] === 'success' ) : ?>
           <div class="form-message success"><?php echo esc_html( plh_t('Thank you! Your enquiry has been received. We will be in touch shortly.') ); ?></div>
@@ -52,22 +60,22 @@ get_template_part('partials/small-hero');
         <div class="form-row">
           <div class="form-col">
             <label for="re_full_name"><?php echo esc_html( plh_t('Full Name') ); ?> *</label>
-            <input type="text" id="re_full_name" name="re_full_name" required>
+            <input type="text" id="re_full_name" name="re_full_name" value="<?php echo esc_attr($re_old['re_full_name'] ?? ''); ?>" required>
           </div>
           <div class="form-col">
             <label for="re_email"><?php echo esc_html( plh_t('Email address') ); ?> *</label>
-            <input type="email" id="re_email" name="re_email" required>
+            <input type="email" id="re_email" name="re_email" value="<?php echo esc_attr($re_old['re_email'] ?? ''); ?>" required>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-col">
             <label for="re_phone"><?php echo esc_html( plh_t('Phone') ); ?> *</label>
-            <input type="tel" id="re_phone" name="re_phone" placeholder="+39 123 456 7890" required>
+            <input type="tel" id="re_phone" name="re_phone" placeholder="+39 123 456 7890" value="<?php echo esc_attr($re_old['re_phone'] ?? ''); ?>" required>
           </div>
           <div class="form-col">
             <label for="re_country"><?php echo esc_html( plh_t('Country of residence') ); ?></label>
-            <input type="text" id="re_country" name="re_country">
+            <input type="text" id="re_country" name="re_country" value="<?php echo esc_attr($re_old['re_country'] ?? ''); ?>">
           </div>
         </div>
 
@@ -75,10 +83,9 @@ get_template_part('partials/small-hero');
           <label for="re_intent"><?php echo esc_html( plh_t('I am looking to:') ); ?> *</label>
           <select id="re_intent" name="re_intent" required>
             <option value=""><?php echo esc_html( plh_t('Select an option') ); ?></option>
-            <option value="Buy a property"><?php echo esc_html( plh_t('Buy a property') ); ?></option>
-            <option value="Sell a property"><?php echo esc_html( plh_t('Sell a property') ); ?></option>
-            <option value="Both"><?php echo esc_html( plh_t('Both') ); ?></option>
-            <option value="Other"><?php echo esc_html( plh_t('Other') ); ?></option>
+            <?php foreach ( ['Buy a property', 'Sell a property', 'Both', 'Other'] as $v ) : ?>
+              <option value="<?php echo esc_attr($v); ?>"<?php selected($re_old['re_intent'] ?? '', $v); ?>><?php echo esc_html( plh_t($v) ); ?></option>
+            <?php endforeach; ?>
           </select>
         </div>
 
@@ -86,10 +93,11 @@ get_template_part('partials/small-hero');
           <label><?php echo esc_html( plh_t('Preferred location') ); ?> *</label>
           <div class="re-location-grid">
             <?php
-            $locations = ['Basso Salento', 'Lecce & surroundings', "Valle d'Itria", 'Alta Murgia & Gravine', 'Ionian Arc', 'Gargano & Foggia', 'Other'];
+            $locations     = ['Basso Salento', 'Lecce & surroundings', "Valle d'Itria", 'Alta Murgia & Gravine', 'Ionian Arc', 'Gargano & Foggia', 'Other'];
+            $old_locations = $re_old['re_locations'] ?? [];
             foreach ( $locations as $loc ) : ?>
               <label class="re-checkbox-label">
-                <input type="checkbox" name="re_locations[]" value="<?php echo esc_attr($loc); ?>">
+                <input type="checkbox" name="re_locations[]" value="<?php echo esc_attr($loc); ?>"<?php checked(in_array($loc, $old_locations)); ?>>
                 <span><?php echo esc_html( plh_t($loc) ); ?></span>
               </label>
             <?php endforeach; ?>
@@ -101,23 +109,18 @@ get_template_part('partials/small-hero');
             <label for="re_budget"><?php echo esc_html( plh_t('Budget') ); ?> *</label>
             <select id="re_budget" name="re_budget" required>
               <option value=""><?php echo esc_html( plh_t('Select a range') ); ?></option>
-              <option value="Under €500,000"><?php echo esc_html( plh_t('Under €500,000') ); ?></option>
-              <option value="€500,000 – €1,000,000"><?php echo esc_html( plh_t('€500,000 – €1,000,000') ); ?></option>
-              <option value="€1,000,000 – €2,000,000"><?php echo esc_html( plh_t('€1,000,000 – €2,000,000') ); ?></option>
-              <option value="€2,000,000 – €5,000,000"><?php echo esc_html( plh_t('€2,000,000 – €5,000,000') ); ?></option>
-              <option value="€5,000,000+"><?php echo esc_html( plh_t('€5,000,000+') ); ?></option>
+              <?php foreach ( ['Under €500,000', '€500,000 – €1,000,000', '€1,000,000 – €2,000,000', '€2,000,000 – €5,000,000', '€5,000,000+'] as $v ) : ?>
+                <option value="<?php echo esc_attr($v); ?>"<?php selected($re_old['re_budget'] ?? '', $v); ?>><?php echo esc_html( plh_t($v) ); ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
           <div class="form-col">
             <label for="re_property_type"><?php echo esc_html( plh_t('Property type') ); ?></label>
             <select id="re_property_type" name="re_property_type">
               <option value=""><?php echo esc_html( plh_t('Select property type') ); ?></option>
-              <option value="Villa">Villa</option>
-              <option value="Masseria">Masseria</option>
-              <option value="Palazzo">Palazzo</option>
-              <option value="Apartment"><?php echo esc_html( plh_t('Apartment') ); ?></option>
-              <option value="Trullo">Trullo</option>
-              <option value="Other"><?php echo esc_html( plh_t('Other') ); ?></option>
+              <?php foreach ( ['Villa', 'Masseria', 'Palazzo', 'Apartment', 'Trullo', 'Buildable land', 'Other'] as $v ) : ?>
+                <option value="<?php echo esc_attr($v); ?>"<?php selected($re_old['re_property_type'] ?? '', $v); ?>><?php echo esc_html( plh_t($v) ); ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
         </div>
@@ -127,25 +130,25 @@ get_template_part('partials/small-hero');
             <label for="re_timeline"><?php echo esc_html( plh_t('Timeline') ); ?></label>
             <select id="re_timeline" name="re_timeline">
               <option value=""><?php echo esc_html( plh_t('Select a timeline') ); ?></option>
-              <option value="Within 3 months"><?php echo esc_html( plh_t('Within 3 months') ); ?></option>
-              <option value="3–6 months"><?php echo esc_html( plh_t('3–6 months') ); ?></option>
-              <option value="6–12 months"><?php echo esc_html( plh_t('6–12 months') ); ?></option>
-              <option value="No fixed timeline"><?php echo esc_html( plh_t('No fixed timeline') ); ?></option>
+              <?php foreach ( ['Within 3 months', '3–6 months', '6–12 months', 'No fixed timeline'] as $v ) : ?>
+                <option value="<?php echo esc_attr($v); ?>"<?php selected($re_old['re_timeline'] ?? '', $v); ?>><?php echo esc_html( plh_t($v) ); ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
           <div class="form-col">
-            <label for="re_prior_purchase"><?php echo esc_html( plh_t('Have you purchased property abroad before?') ); ?></label>
-            <select id="re_prior_purchase" name="re_prior_purchase">
+            <label for="re_property_state"><?php echo esc_html( plh_t('Property state') ); ?></label>
+            <select id="re_property_state" name="re_property_state">
               <option value=""><?php echo esc_html( plh_t('Select an option') ); ?></option>
-              <option value="Yes"><?php echo esc_html( plh_t('Yes') ); ?></option>
-              <option value="No"><?php echo esc_html( plh_t('No') ); ?></option>
+              <?php foreach ( ['Completely renovated', 'To renovate', 'Build project'] as $v ) : ?>
+                <option value="<?php echo esc_attr($v); ?>"<?php selected($re_old['re_property_state'] ?? '', $v); ?>><?php echo esc_html( plh_t($v) ); ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
         </div>
 
         <div class="form-row full-width">
           <label for="re_message"><?php echo esc_html( plh_t('Tell us more about your project') ); ?></label>
-          <textarea id="re_message" name="re_message" rows="5"></textarea>
+          <textarea id="re_message" name="re_message" rows="5"><?php echo esc_textarea($re_old['re_message'] ?? ''); ?></textarea>
         </div>
 
         <div class="form-row full-width">
