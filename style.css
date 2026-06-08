@@ -6060,3 +6060,129 @@ a.management-link:hover img {
     font-size: 9px;
   }
 }
+
+/* =========================================
+   Real Estate — Homepage Section
+   ========================================= */
+
+.re-homepage-section {
+  display: flex;
+  width: 100%;
+  min-height: 580px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.re-homepage-text {
+  flex: 0 0 44%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 64px;
+  background-color: #fff;
+}
+
+.re-homepage-eyebrow {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  opacity: 0.55;
+  margin: 0 0 14px;
+}
+
+.re-homepage-rule {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background-color: #1a1a1a;
+  opacity: 0.25;
+  margin-bottom: 28px;
+}
+
+.re-homepage-title {
+  font-family: 'Didot', serif;
+  font-size: 2.6rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin: 0 0 24px;
+}
+
+.re-homepage-desc {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #1a1a1a;
+  opacity: 0.75;
+  margin: 0 0 40px;
+  max-width: 360px;
+}
+
+.re-homepage-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  text-decoration: none;
+  border: 1.5px solid #1a1a1a;
+  padding: 12px 28px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.re-homepage-cta:hover {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.re-homepage-image {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.re-homepage-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.re-homepage-section:hover .re-homepage-image img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 775px) {
+  .re-homepage-section {
+    flex-direction: column;
+    min-height: unset;
+  }
+
+  .re-homepage-image {
+    order: -1;
+    height: 280px;
+  }
+
+  .re-homepage-text {
+    flex: unset;
+    padding: 48px 24px;
+  }
+
+  .re-homepage-title {
+    font-size: 1.9rem;
+  }
+
+  .re-homepage-desc {
+    max-width: 100%;
+  }
+}

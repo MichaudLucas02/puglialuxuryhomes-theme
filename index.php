@@ -259,6 +259,9 @@
     <?php get_template_part('partials/discover-section', null, ['bg_color' => '#F5F5F5']); ?>
 
     <?php get_template_part('partials/discover-slider'); ?>
+
+    <?php get_template_part('partials/re-homepage-section'); ?>
+
     <!--
     
     <section class="why-us">
