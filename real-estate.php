@@ -86,11 +86,11 @@ get_template_part('partials/small-hero');
           <label><?php echo esc_html( plh_t('Preferred location') ); ?> *</label>
           <div class="re-location-grid">
             <?php
-            $locations = ["Valle d'Itria", 'Salento', 'Ostuni area', 'Lecce area', 'Bari coast', 'Alberobello area', 'Other'];
+            $locations = ['Basso Salento', 'Lecce & surroundings', "Valle d'Itria", 'Alta Murgia & Gravine', 'Ionian Arc', 'Gargano & Foggia', 'Other'];
             foreach ( $locations as $loc ) : ?>
               <label class="re-checkbox-label">
                 <input type="checkbox" name="re_locations[]" value="<?php echo esc_attr($loc); ?>">
-                <span><?php echo esc_html($loc); ?></span>
+                <span><?php echo esc_html( plh_t($loc) ); ?></span>
               </label>
             <?php endforeach; ?>
           </div>

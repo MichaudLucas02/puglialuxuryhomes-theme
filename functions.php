@@ -1451,6 +1451,16 @@ add_action('acf/init', function () {
     'wrapper'       => ['width' => 20],
   ];
   $fields[] = [
+    'key'           => 'field_season_price_period',
+    'label'         => 'Price period',
+    'name'          => 'season_price_period',
+    'type'          => 'select',
+    'choices'       => ['week' => 'Per week', 'day' => 'Per day'],
+    'default_value' => 'week',
+    'instructions'  => 'Controls whether prices are shown as per week or per day.',
+    'wrapper'       => ['width' => 20],
+  ];
+  $fields[] = [
     'key'          => 'field_season_min_stay_1',
     'label'        => 'Minimum Stay — Tag 1',
     'name'         => 'season_min_stay_1',
@@ -2712,14 +2722,15 @@ function plh_register_ui_strings() {
     // Blog page
     'Latest Blog Posts', 'All Categories', 'Read More', 'Read More', 'Read More', 'Previous', 'Next',
     // Seasonal prices
-    'Weekly rates', 'Available', 'per week', 'Price', 'max',
+    'Weekly rates', 'Daily rates', 'Available', 'per week', 'per day', 'Price', 'max',
     'Low season', 'Mid season', 'High season', 'Very high season',
     // Real Estate page
     'Start your property journey in Puglia',
     'Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.',
     'Full Name', 'Email address', 'Phone', 'Country of residence',
     'I am looking to:', 'Select an option', 'Buy a property', 'Sell a property', 'Both', 'Other',
-    'Preferred location', 'Budget', 'Select a range',
+    'Preferred location', 'Basso Salento', 'Lecce & surroundings', "Valle d'Itria", 'Alta Murgia & Gravine', 'Ionian Arc', 'Gargano & Foggia',
+    'Budget', 'Select a range',
     'Under €500,000', '€500,000 – €1,000,000', '€1,000,000 – €2,000,000', '€2,000,000 – €5,000,000', '€5,000,000+',
     'Property type', 'Select property type', 'Apartment',
     'Timeline', 'Select a timeline', 'Within 3 months', '3–6 months', '6–12 months', 'No fixed timeline',
@@ -2745,8 +2756,10 @@ function plh_inline_translations() {
   return [
     'fr' => [
       'Weekly rates'     => 'Tarifs hebdomadaires',
+      'Daily rates'      => 'Tarifs journaliers',
       'Available'        => 'Disponible du',
       'per week'         => 'par semaine',
+      'per day'          => 'par jour',
       'Price'            => 'Prix',
       'max'              => 'max',
       'Low season'       => 'Basse saison',
@@ -2789,8 +2802,8 @@ function plh_inline_translations() {
       'No villas match your filters. Please try adjusting your criteria.' => 'Aucune villa ne correspond à vos filtres. Veuillez ajuster vos critères.',
       'Error loading villas. Please try again.' => 'Erreur lors du chargement des villas. Veuillez réessayer.',
       // Real Estate page
-      'Start your property journey in Puglia'    => 'Commencez votre projet immobilier en Pouille',
-      'Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.' => 'Que vous cherchiez à trouver votre place en Pouille ou à envisager la vente de votre propriété, nous vous accompagnons à chaque étape.',
+      'Start your property journey in Puglia'    => 'Commencez votre projet immobilier dans les Pouilles',
+      'Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.' => 'Que vous cherchiez à trouver votre place dans les Pouilles ou à envisager la vente de votre propriété, nous vous accompagnons à chaque étape.',
       'Full Name'                                => 'Nom complet',
       'Email address'                            => 'Adresse e-mail',
       'Phone'                                    => 'Téléphone',
@@ -2802,6 +2815,12 @@ function plh_inline_translations() {
       'Both'                                     => 'Les deux',
       'Other'                                    => 'Autre',
       'Preferred location'                       => 'Zone de préférence',
+      'Basso Salento'                            => 'Basso Salento',
+      'Lecce & surroundings'                     => 'Lecce & environs',
+      "Valle d'Itria"                            => "Valle d'Itria",
+      'Alta Murgia & Gravine'                    => 'Alta Murgia & Gravine',
+      'Ionian Arc'                               => 'Arc Ionien',
+      'Gargano & Foggia'                         => 'Gargano & Foggia',
       'Budget'                                   => 'Budget',
       'Select a range'                           => 'Choisir une fourchette',
       'Under €500,000'                           => 'Moins de 500 000 €',
@@ -2829,8 +2848,10 @@ function plh_inline_translations() {
     ],
     'it' => [
       'Weekly rates'     => 'Tariffe settimanali',
+      'Daily rates'      => 'Tariffe giornaliere',
       'Available'        => 'Disponibile dal',
       'per week'         => 'a settimana',
+      'per day'          => 'al giorno',
       'Price'            => 'Prezzo',
       'max'              => 'max',
       'Low season'       => 'Bassa stagione',
@@ -2886,6 +2907,12 @@ function plh_inline_translations() {
       'Both'                                     => 'Entrambi',
       'Other'                                    => 'Altro',
       'Preferred location'                       => 'Zona preferita',
+      'Basso Salento'                            => 'Basso Salento',
+      'Lecce & surroundings'                     => 'Lecce e dintorni',
+      "Valle d'Itria"                            => "Valle d'Itria",
+      'Alta Murgia & Gravine'                    => 'Alta Murgia & Gravine',
+      'Ionian Arc'                               => 'Arco Ionico',
+      'Gargano & Foggia'                         => 'Gargano & Foggia',
       'Budget'                                   => 'Budget',
       'Select a range'                           => 'Seleziona un intervallo',
       'Under €500,000'                           => 'Meno di €500.000',
