@@ -4,8 +4,11 @@
  * Weekly seasonal prices section — inserted between accordion and location.
  */
 
-$pid  = get_the_ID();
-$year = get_field('season_price_year', $pid) ?: '2026';
+$pid    = get_the_ID();
+$year   = get_field('season_price_year', $pid) ?: '2026';
+$period = get_field('season_price_period', $pid) ?: 'week';
+$per_period_label = $period === 'day' ? plh_t('per day') : plh_t('per week');
+$rates_label      = $period === 'day' ? plh_t('Daily rates') : plh_t('Weekly rates');
 
 $month_slugs = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
 $month_nums  = [1,2,3,4,5,6,7,8,9,10,11,12];
@@ -39,7 +42,7 @@ $first_half  = array_slice($months, 0, 6);
 $second_half = array_slice($months, 6, 6);
 
 // Helper to render a single month row
-function plh_render_season_row($m, $color_class) {
+function plh_render_season_row($m, $color_class, $per_period_label = '') {
     $slug      = $m['slug'];
     $has_price = $m['price'] !== null && $m['price'] > 0;
     $has_extra = $has_price && ($m['date_from'] || $m['date_to'] || $m['min_stay']);
@@ -56,7 +59,7 @@ function plh_render_season_row($m, $color_class) {
             <span class="season-month-price">
                 <?php if ($has_price): ?>
                     &euro;&nbsp;<?php echo esc_html(number_format($m['price'], 0, ',', '&thinsp;')); ?>
-                    <span class="season-per-week">/<?php echo esc_html(plh_t('per week')); ?></span>
+                    <span class="season-per-week">/<?php echo esc_html($per_period_label); ?></span>
                 <?php else: ?>
                     &mdash;
                 <?php endif; ?>
@@ -83,7 +86,7 @@ function plh_render_season_row($m, $color_class) {
 ?>
 
 <section class="season-prices" id="season-prices">
-    <h2 class="must-have-title"><?php echo esc_html(plh_t('Weekly rates')); ?> <?php echo esc_html($year); ?></h2>
+    <h2 class="must-have-title"><?php echo esc_html($rates_label); ?> <?php echo esc_html($year); ?></h2>
     <?php
     $sp_location = get_field('villa_location_1', $pid);
     $sp_beds     = get_field('beds_1', $pid);
@@ -141,19 +144,19 @@ function plh_render_season_row($m, $color_class) {
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,1,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,6,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html(plh_t('per week')); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label); ?></span>
             </div>
             <?php foreach ($first_half as $m): ?>
-                <?php plh_render_season_row($m, $color_class); ?>
+                <?php plh_render_season_row($m, $color_class, $per_period_label); ?>
             <?php endforeach; ?>
         </div>
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,7,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,12,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html(plh_t('per week')); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label); ?></span>
             </div>
             <?php foreach ($second_half as $m): ?>
-                <?php plh_render_season_row($m, $color_class); ?>
+                <?php plh_render_season_row($m, $color_class, $per_period_label); ?>
             <?php endforeach; ?>
         </div>
     </div>
