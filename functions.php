@@ -292,7 +292,7 @@ function plh_register_cpts() {
     'label'         => 'Villas',
     'labels'        => ['singular_name' => 'Villa'],
     'public'        => true,
-    'has_archive'   => true,
+    'has_archive'   => false,
     'rewrite'       => ['slug' => 'villas'],
     'menu_icon'     => 'dashicons-admin-home',
     'menu_position' => 20,
