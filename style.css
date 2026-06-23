@@ -6186,3 +6186,256 @@ a.management-link:hover img {
     max-width: 100%;
   }
 }
+
+
+/* ============================================================
+   Press / TV Landing Page
+   ============================================================ */
+
+/* Hero */
+.press-hero::after {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
+
+.press-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0 5vw 64px;
+  z-index: 2;
+}
+
+.press-hero .press-hero-eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 14px;
+  opacity: 1;
+}
+
+.press-hero h1 {
+  font-family: 'Didot', serif;
+  font-size: 68px;
+  font-weight: 300;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  line-height: 1.05;
+}
+
+.press-hero .press-hero-sub {
+  font-family: 'Didot', serif;
+  font-size: 30px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.82);
+  text-transform: uppercase;
+  margin: 6px 0 28px;
+  padding: 0;
+  opacity: 1;
+}
+
+.press-hero-broadcast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0 36px;
+}
+
+.press-hero-broadcast span {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.press-hero-dot {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.press-hero-cta {
+  display: inline-block;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 28px;
+  border-radius: 4px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.press-hero-cta:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #fff;
+}
+
+
+.press-contact-section {
+  background: #f9f9f9;
+  padding: 80px 5vw;
+}
+
+.press-contact-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.press-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.press-contact-info h2 {
+  font-size: 32px;
+  margin: 8px 0 16px;
+  text-align: left;
+}
+
+.press-contact-info .press-eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #6c9ba3;
+  margin: 0;
+  opacity: 1;
+}
+
+.press-contact-info .press-body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  text-transform: none;
+  color: #4a4a4a;
+  line-height: 1.65;
+  opacity: 1;
+  margin-bottom: 20px;
+}
+
+.press-villa-swiper {
+  width: 100%;
+  height: 500px;
+}
+
+.press-villa-swiper .swiper-wrapper {
+  scrollbar-width: none;
+}
+
+.press-villa-swiper .swiper-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.press-villa-swiper .swiper-slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.press-villa-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .press-villa-swiper {
+    height: 320px;
+  }
+}
+
+@media (max-width: 520px) {
+  .press-villa-swiper {
+    height: 250px;
+  }
+}
+
+.press-page .our-story-col h4 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #6c9ba3;
+  margin: 0 0 8px;
+}
+
+.our-story-col .press-body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  text-transform: none;
+  opacity: 0.9;
+}
+
+@media (max-width: 775px) {
+  .press-hero h1 {
+    font-size: 40px;
+  }
+
+  .press-hero .press-hero-sub {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .press-hero-content {
+    padding-bottom: 44px;
+  }
+
+  .press-hero-broadcast {
+    margin: 10px 0 24px;
+    gap: 7px;
+  }
+
+  .press-contact-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .press-contact-section {
+    padding: 60px 5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .press-slider-col {
+    padding: 0 !important;
+  }
+
+  .press-page > .our-story-content:first-child {
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 520px) {
+  .press-hero h1 {
+    font-size: 32px;
+  }
+
+  .press-hero .press-hero-sub {
+    font-size: 17px;
+  }
+
+  .press-hero-broadcast span {
+    font-size: 11px;
+  }
+}
