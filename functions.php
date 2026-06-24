@@ -60,7 +60,7 @@ add_action('init', function() {
     'labels' => $labels,
     'public' => true,
     'has_archive' => false,
-    'rewrite' => ['slug' => 'magazine/%category%', 'with_front' => false],
+    'rewrite' => ['slug' => 'magazine', 'with_front' => false],
     'show_in_rest' => true,
     'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'comments'],
     'taxonomies' => ['category', 'post_tag'],
@@ -69,31 +69,22 @@ add_action('init', function() {
   register_post_type('blog', $args);
 });
 
-// Replace %category% in blog post URLs with actual category slug
-add_filter('post_type_link', function($post_link, $post) {
-  if ($post->post_type !== 'blog') {
-    return $post_link;
-  }
-  
-  if (strpos($post_link, '%category%') === false) {
-    return $post_link;
-  }
-  
-  $categories = get_the_terms($post->ID, 'category');
-  
-  if ($categories && !is_wp_error($categories)) {
-    // Use the first category
-    $category = array_shift($categories);
-    return str_replace('%category%', $category->slug, $post_link);
-  } else {
-    // Fallback to 'uncategorized' if no category is set
-    return str_replace('%category%', 'uncategorized', $post_link);
-  }
-}, 10, 2);
-
 // Flush rewrite rules on theme switch so the /blog archive works immediately
 add_action('after_switch_theme', function() {
   flush_rewrite_rules();
+});
+
+// 301 redirect old /magazine/{category}/{slug}/ URLs to flat /magazine/{slug}/
+add_action('template_redirect', function() {
+  $uri = $_SERVER['REQUEST_URI'];
+  // Handles optional Polylang prefix: /fr/ or /it/
+  if (preg_match('~^((?:/(?:fr|it))?)(/magazine/)([^/]+)/([^/?#]+)/?(?:\?.*)?$~', $uri, $m)) {
+    $post = get_page_by_path($m[4], OBJECT, 'blog');
+    if ($post && $post->post_status === 'publish') {
+      wp_redirect(home_url($m[1] . '/magazine/' . $post->post_name . '/'), 301);
+      exit;
+    }
+  }
 });
 
 // -----------------------
