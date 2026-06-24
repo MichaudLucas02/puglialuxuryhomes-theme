@@ -87,6 +87,34 @@ add_action('template_redirect', function() {
   }
 });
 
+// Output hreflang x-default pointing to the English version of the current page
+add_action('wp_head', function() {
+  if (!function_exists('pll_get_post')) return;
+
+  $en_url = null;
+
+  if (is_singular()) {
+    $en_id = pll_get_post(get_the_ID(), 'en');
+    if ($en_id) {
+      $en_url = get_permalink($en_id);
+    }
+  } elseif (is_home() || is_front_page()) {
+    $en_url = function_exists('pll_home_url') ? pll_home_url('en') : home_url('/');
+  } elseif (is_category() || is_tax() || is_tag()) {
+    $term = get_queried_object();
+    if ($term) {
+      $en_term_id = pll_get_term($term->term_id, 'en');
+      if ($en_term_id) {
+        $en_url = get_term_link($en_term_id);
+      }
+    }
+  }
+
+  if ($en_url && !is_wp_error($en_url)) {
+    echo '<link rel="alternate" hreflang="x-default" href="' . esc_url($en_url) . '" />' . "\n";
+  }
+}, 1);
+
 // -----------------------
 // ACF Fields: Small Hero (available on all pages)
 // -----------------------
