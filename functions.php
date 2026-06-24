@@ -4657,3 +4657,20 @@ add_action('admin_post_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry
 add_action('admin_post_nopriv_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry');
 
 
+//-----------------------
+// Redirection Section
+//-----------------------
+add_filter('redirect_canonical', function($redirect_url, $requested_url) {
+  if (strpos($requested_url, '/villas/') !== false) {
+    return false;
+  }
+  return $redirect_url;
+}, 10, 2);
+
+add_action('template_redirect', function () {
+  if ( is_404() && strpos($_SERVER['REQUEST_URI'], '/villas/') !== false ) {
+    wp_redirect( home_url('/the-villas/'), 301 );
+    exit;
+  }
+});
+
