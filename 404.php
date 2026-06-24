@@ -38,7 +38,7 @@ get_header();
 
 <div class="small-hero">
     <img
-        src="https://www.puglialuxuryhomes.com/wp-content/uploads/2023/06/puglia-hero.jpg"
+        src="https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/5-Terrasse-SO-2.webp"
         alt=""
         aria-hidden="true"
     >

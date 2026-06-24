@@ -60,7 +60,7 @@ add_action('init', function() {
     'labels' => $labels,
     'public' => true,
     'has_archive' => false,
-    'rewrite' => ['slug' => 'magazine/%category%', 'with_front' => false],
+    'rewrite' => ['slug' => 'magazine', 'with_front' => false],
     'show_in_rest' => true,
     'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'author', 'comments'],
     'taxonomies' => ['category', 'post_tag'],
@@ -69,32 +69,51 @@ add_action('init', function() {
   register_post_type('blog', $args);
 });
 
-// Replace %category% in blog post URLs with actual category slug
-add_filter('post_type_link', function($post_link, $post) {
-  if ($post->post_type !== 'blog') {
-    return $post_link;
-  }
-  
-  if (strpos($post_link, '%category%') === false) {
-    return $post_link;
-  }
-  
-  $categories = get_the_terms($post->ID, 'category');
-  
-  if ($categories && !is_wp_error($categories)) {
-    // Use the first category
-    $category = array_shift($categories);
-    return str_replace('%category%', $category->slug, $post_link);
-  } else {
-    // Fallback to 'uncategorized' if no category is set
-    return str_replace('%category%', 'uncategorized', $post_link);
-  }
-}, 10, 2);
-
 // Flush rewrite rules on theme switch so the /blog archive works immediately
 add_action('after_switch_theme', function() {
   flush_rewrite_rules();
 });
+
+// 301 redirect old /magazine/{category}/{slug}/ URLs to flat /magazine/{slug}/
+add_action('template_redirect', function() {
+  $uri = $_SERVER['REQUEST_URI'];
+  // Handles optional Polylang prefix: /fr/ or /it/
+  if (preg_match('~^((?:/(?:fr|it))?)(/magazine/)([^/]+)/([^/?#]+)/?(?:\?.*)?$~', $uri, $m)) {
+    $post = get_page_by_path($m[4], OBJECT, 'blog');
+    if ($post && $post->post_status === 'publish') {
+      wp_redirect(home_url($m[1] . '/magazine/' . $post->post_name . '/'), 301);
+      exit;
+    }
+  }
+});
+
+// Output hreflang x-default pointing to the English version of the current page
+add_action('wp_head', function() {
+  if (!function_exists('pll_get_post')) return;
+
+  $en_url = null;
+
+  if (is_singular()) {
+    $en_id = pll_get_post(get_the_ID(), 'en');
+    if ($en_id) {
+      $en_url = get_permalink($en_id);
+    }
+  } elseif (is_home() || is_front_page()) {
+    $en_url = function_exists('pll_home_url') ? pll_home_url('en') : home_url('/');
+  } elseif (is_category() || is_tax() || is_tag()) {
+    $term = get_queried_object();
+    if ($term) {
+      $en_term_id = pll_get_term($term->term_id, 'en');
+      if ($en_term_id) {
+        $en_url = get_term_link($en_term_id);
+      }
+    }
+  }
+
+  if ($en_url && !is_wp_error($en_url)) {
+    echo '<link rel="alternate" hreflang="x-default" href="' . esc_url($en_url) . '" />' . "\n";
+  }
+}, 1);
 
 // -----------------------
 // ACF Fields: Small Hero (available on all pages)
@@ -292,7 +311,7 @@ function plh_register_cpts() {
     'label'         => 'Villas',
     'labels'        => ['singular_name' => 'Villa'],
     'public'        => true,
-    'has_archive'   => true,
+    'has_archive'   => false,
     'rewrite'       => ['slug' => 'villas'],
     'menu_icon'     => 'dashicons-admin-home',
     'menu_position' => 20,
@@ -4656,4 +4675,21 @@ function plh_handle_real_estate_inquiry() {
 add_action('admin_post_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry');
 add_action('admin_post_nopriv_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry');
 
+
+//-----------------------
+// Redirection Section
+//-----------------------
+add_filter('redirect_canonical', function($redirect_url, $requested_url) {
+  if (strpos($requested_url, '/villas/') !== false) {
+    return false;
+  }
+  return $redirect_url;
+}, 10, 2);
+
+add_action('template_redirect', function () {
+  if ( is_404() && strpos($_SERVER['REQUEST_URI'], '/villas/') !== false ) {
+    wp_redirect( home_url('/the-villas/'), 301 );
+    exit;
+  }
+});
 
