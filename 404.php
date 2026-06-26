@@ -11,7 +11,7 @@ $strings = [
         'sub'     => 'The page you\'re looking for doesn\'t exist or has been moved.',
         'home'    => 'Back to Home',
         'villas'  => 'Browse Our Villas',
-        'villas_url' => '/villas/',
+        'villas_url' => '/the-villas/',
     ],
     'fr' => [
         'hero'    => '404',
@@ -19,7 +19,7 @@ $strings = [
         'sub'     => 'La page que vous cherchez n\'existe pas ou a été déplacée.',
         'home'    => 'Retour à l\'accueil',
         'villas'  => 'Découvrir nos villas',
-        'villas_url' => '/villas/',
+        'villas_url' => '/les-villas/',
     ],
     'it' => [
         'hero'    => '404',
