@@ -47,23 +47,42 @@ $press_kits = [
 
 <div class="homepage press-page">
 
+    <?php
+    $villa_gallery = array_filter([
+        get_field('press_villa_slide_1'),
+        get_field('press_villa_slide_2'),
+        get_field('press_villa_slide_3'),
+        get_field('press_villa_slide_4'),
+        get_field('press_villa_slide_5'),
+        get_field('press_villa_slide_6'),
+    ]);
+    $villa_eyebrow  = get_field('press_villa_eyebrow') ?: plh_t('Featured in the episode');
+    $villa_title    = get_field('press_villa_title')   ?: 'Villa Acquamarina';
+    $villa_body_1   = get_field('press_villa_body_1')  ?: plh_t('The very first villa to join our portfolio, Villa Acquamarina sits perched above the turquoise waters of Salento — the place that sparked the entire Puglia Luxury Homes adventure.');
+    $villa_body_2   = get_field('press_villa_body_2')  ?: plh_t('In this episode, our team organises an exclusive private boat excursion departing from the villa, exploring the hidden sea caves and crystal-clear bays of the Salento coast.');
+    $villa_cta_text = get_field('press_villa_cta_text') ?: plh_t('Discover the villa');
+    $villa_cta_url  = get_field('press_villa_cta_url')  ?: $villa_url;
+
+    if (empty($villa_gallery)) {
+        $villa_gallery = [
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp', 'alt' => 'Villa Acquamarina'],
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp', 'alt' => 'Villa Acquamarina'],
+        ];
+    }
+    ?>
     <section class="our-story-content">
         <div class="our-story-col press-slider-col">
-            <!-- Replace src values with actual Villa Acquamarina photos when available -->
             <div class="swiper press-villa-swiper">
                 <div class="swiper-wrapper">
+                    <?php foreach ($villa_gallery as $i => $img) : ?>
                     <div class="swiper-slide">
-                        <img src="https://www.puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp" alt="Villa Acquamarina" loading="eager">
+                        <img
+                            src="<?php echo esc_url($img['url']); ?>"
+                            alt="<?php echo esc_attr($img['alt'] ?: $villa_title); ?>"
+                            loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>"
+                        >
                     </div>
-                    <div class="swiper-slide">
-                        <img src="https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp" alt="Villa Acquamarina" loading="lazy">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://www.puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp" alt="Villa Acquamarina" loading="lazy">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp" alt="Villa Acquamarina" loading="lazy">
-                    </div>
+                    <?php endforeach; ?>
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
@@ -71,12 +90,16 @@ $press_kits = [
             </div>
         </div>
         <div class="our-story-col">
-            <h4><?php echo esc_html(plh_t('Featured in the episode')); ?></h4>
-            <h2>Villa Acquamarina</h2>
-            <p class="press-body"><?php echo esc_html(plh_t('The very first villa to join our portfolio, Villa Acquamarina sits perched above the turquoise waters of Salento — the place that sparked the entire Puglia Luxury Homes adventure.')); ?></p>
-            <p class="press-body"><?php echo esc_html(plh_t('In this episode, our team organises an exclusive private boat excursion departing from the villa, exploring the hidden sea caves and crystal-clear bays of the Salento coast.')); ?></p>
-            <a href="<?php echo esc_url($villa_url); ?>" class="discover-services-btn">
-                <?php echo esc_html(plh_t('Discover the villa')); ?>
+            <h4><?php echo esc_html($villa_eyebrow); ?></h4>
+            <h2><?php echo esc_html($villa_title); ?></h2>
+            <?php if ($villa_body_1) : ?>
+            <p class="press-body"><?php echo esc_html($villa_body_1); ?></p>
+            <?php endif; ?>
+            <?php if ($villa_body_2) : ?>
+            <p class="press-body"><?php echo esc_html($villa_body_2); ?></p>
+            <?php endif; ?>
+            <a href="<?php echo esc_url($villa_cta_url); ?>" class="discover-services-btn">
+                <?php echo esc_html($villa_cta_text); ?>
             </a>
         </div>
     </section>

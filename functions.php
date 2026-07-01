@@ -4405,6 +4405,127 @@ add_action('acf/init', function () {
 });
 
 // -----------------------
+// Press Page — Villa Section ACF Fields
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_press_villa_section',
+    'title'  => 'Press Page — Villa Section',
+    'fields' => [
+      [
+        'key'           => 'field_press_villa_slide_1',
+        'label'         => 'Slide 1',
+        'name'          => 'press_villa_slide_1',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+        'instructions'  => 'First slider image (required).',
+      ],
+      [
+        'key'           => 'field_press_villa_slide_2',
+        'label'         => 'Slide 2',
+        'name'          => 'press_villa_slide_2',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_villa_slide_3',
+        'label'         => 'Slide 3',
+        'name'          => 'press_villa_slide_3',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_villa_slide_4',
+        'label'         => 'Slide 4',
+        'name'          => 'press_villa_slide_4',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_villa_slide_5',
+        'label'         => 'Slide 5',
+        'name'          => 'press_villa_slide_5',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_villa_slide_6',
+        'label'         => 'Slide 6',
+        'name'          => 'press_villa_slide_6',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_villa_eyebrow',
+        'label'         => 'Eyebrow',
+        'name'          => 'press_villa_eyebrow',
+        'type'          => 'text',
+        'default_value' => 'Featured in the episode',
+        'instructions'  => 'Small label above the villa title.',
+      ],
+      [
+        'key'           => 'field_press_villa_title',
+        'label'         => 'Villa Title',
+        'name'          => 'press_villa_title',
+        'type'          => 'text',
+        'default_value' => 'Villa Acquamarina',
+      ],
+      [
+        'key'           => 'field_press_villa_body_1',
+        'label'         => 'Body Paragraph 1',
+        'name'          => 'press_villa_body_1',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => 'The very first villa to join our portfolio, Villa Acquamarina sits perched above the turquoise waters of Salento — the place that sparked the entire Puglia Luxury Homes adventure.',
+      ],
+      [
+        'key'           => 'field_press_villa_body_2',
+        'label'         => 'Body Paragraph 2',
+        'name'          => 'press_villa_body_2',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => 'In this episode, our team organises an exclusive private boat excursion departing from the villa, exploring the hidden sea caves and crystal-clear bays of the Salento coast.',
+      ],
+      [
+        'key'           => 'field_press_villa_cta_text',
+        'label'         => 'CTA Button Text',
+        'name'          => 'press_villa_cta_text',
+        'type'          => 'text',
+        'default_value' => 'Discover the villa',
+      ],
+      [
+        'key'           => 'field_press_villa_cta_url',
+        'label'         => 'CTA Button URL',
+        'name'          => 'press_villa_cta_url',
+        'type'          => 'url',
+        'instructions'  => 'Leave blank to auto-link to the villa page based on language.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'press.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
 // AJAX Filter Villas
 // -----------------------
 add_action('wp_ajax_filter_villas', 'plh_filter_villas');
