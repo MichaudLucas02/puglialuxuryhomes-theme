@@ -25,17 +25,15 @@ $story_url = home_url($story_slugs[$lang] ?? '/our-story/');
     <div class="press-hero-content">
         <p class="press-hero-eyebrow">L'agence · Nouvelles destinations</p>
         <h1>Puglia Luxury Homes</h1>
-        <p class="press-hero-sub"><?php echo esc_html(plh_t('As seen on television')); ?></p>
+        <p class="press-hero-sub"><?php echo esc_html(plh_t('Soon on television')); ?></p>
         <div class="press-hero-broadcast">
             <span>TMC</span>
             <span class="press-hero-dot">·</span>
-            <span><?php echo esc_html(plh_t('July 22 or 29, 2025')); ?></span>
+            <span>22 July 2026</span>
             <span class="press-hero-dot">·</span>
-            <span><?php echo esc_html(plh_t('9:00 pm')); ?></span>
+            <span>9:00pm</span>
             <span class="press-hero-dot">·</span>
-            <span>TF1 Replay</span>
-            <span class="press-hero-dot">·</span>
-            <span>Netflix France</span>
+            <span>TF1+</span>
         </div>
         <a href="#press-contact" class="press-hero-cta"><?php echo esc_html(plh_t('Book your stay in Puglia')); ?></a>
     </div>
