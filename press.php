@@ -37,7 +37,7 @@ $press_kits = [
             <span class="press-hero-dot">·</span>
             <span>22 July 2026</span>
             <span class="press-hero-dot">·</span>
-            <span>9:00pm</span>
+            <span>9:25pm</span>
             <span class="press-hero-dot">·</span>
             <span>TF1+</span>
         </div>
