@@ -6286,6 +6286,13 @@ a.management-link:hover img {
   border-color: #fff;
 }
 
+.press-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
 
 .press-contact-section {
   background: #f9f9f9;

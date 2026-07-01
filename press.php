@@ -15,6 +15,15 @@ $story_slugs = [
 ];
 $story_url = home_url($story_slugs[$lang] ?? '/our-story/');
 
+$hero_image      = get_field('press_hero_image')            ?: 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Ext.-Grande-14-scaled.webp';
+$hero_eyebrow    = get_field('press_hero_eyebrow')          ?: 'L\'agence · Nouvelles destinations';
+$hero_title      = get_field('press_hero_title')            ?: 'Puglia Luxury Homes';
+$broadcast_ch1   = get_field('press_broadcast_channel_1')   ?: 'TMC';
+$broadcast_date  = get_field('press_broadcast_date')        ?: '22 July 2026';
+$broadcast_time  = get_field('press_broadcast_time')        ?: '9:25pm';
+$broadcast_ch2   = get_field('press_broadcast_channel_2')   ?: 'TF1+';
+$hero_cta_url    = get_field('press_hero_cta_url')          ?: '#press-contact';
+
 $press_kits = [
     'en' => site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-EN.pdf'),
     'fr' => site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-FR.pdf'),
@@ -24,24 +33,27 @@ $press_kits = [
 
 <section class="large-hero press-hero">
     <img
-        src="https://www.puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp"
-        alt="Villa Acquamarina — Puglia Luxury Homes"
+        src="<?php echo esc_url($hero_image); ?>"
+        alt="<?php echo esc_attr($hero_title); ?> — Puglia Luxury Homes"
         loading="eager"
     >
     <div class="press-hero-content">
-        <p class="press-hero-eyebrow">L'agence · Nouvelles destinations</p>
-        <h1>Puglia Luxury Homes</h1>
+        <p class="press-hero-eyebrow"><?php echo esc_html($hero_eyebrow); ?></p>
+        <h1><?php echo esc_html($hero_title); ?></h1>
         <p class="press-hero-sub"><?php echo esc_html(plh_t('Soon on television')); ?></p>
         <div class="press-hero-broadcast">
-            <span>TMC</span>
+            <span><?php echo esc_html($broadcast_ch1); ?></span>
             <span class="press-hero-dot">·</span>
-            <span>22 July 2026</span>
+            <span><?php echo esc_html($broadcast_date); ?></span>
             <span class="press-hero-dot">·</span>
-            <span>9:25pm</span>
+            <span><?php echo esc_html($broadcast_time); ?></span>
             <span class="press-hero-dot">·</span>
-            <span>TF1+</span>
+            <span><?php echo esc_html($broadcast_ch2); ?></span>
         </div>
-        <a href="#press-contact" class="press-hero-cta"><?php echo esc_html(plh_t('Book your stay in Puglia')); ?></a>
+        <div class="press-hero-ctas">
+            <a href="<?php echo esc_attr($hero_cta_url); ?>" class="press-hero-cta"><?php echo esc_html(plh_t('Book your stay in Puglia')); ?></a>
+            <a href="#press-media" class="press-hero-cta press-hero-cta--ghost"><?php echo esc_html(plh_t('Press enquiries')); ?></a>
+        </div>
     </div>
 </section>
 
@@ -65,8 +77,11 @@ $press_kits = [
 
     if (empty($villa_gallery)) {
         $villa_gallery = [
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/02/Jardin-3-scaled.webp', 'alt' => 'Villa Acquamarina'],
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp', 'alt' => 'Villa Acquamarina'],
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Ext.-Grande-14-scaled.webp',                  'alt' => 'Villa Acquamarina'],
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Vue-generale-9-Mise-en-avant-scaled.webp',    'alt' => 'Villa Acquamarina'],
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Piscine-2.3-scaled.webp',                     'alt' => 'Villa Acquamarina'],
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/1-Vue-generale-1.webp',                       'alt' => 'Villa Acquamarina'],
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/3-Grande-2-CH-8-scaled.webp',                 'alt' => 'Villa Acquamarina'],
         ];
     }
     ?>
@@ -123,7 +138,7 @@ $press_kits = [
         </div>
     </section>
 
-    <section class="press-media-section">
+    <section id="press-media" class="press-media-section">
         <div class="press-media-inner">
 
             <div class="press-media-header">

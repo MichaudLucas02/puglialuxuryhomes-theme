@@ -4408,6 +4408,88 @@ add_action('acf/init', function () {
 });
 
 // -----------------------
+// Press Page — Hero Section ACF Fields
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_press_hero_section',
+    'title'  => 'Press Page — Hero Section',
+    'fields' => [
+      [
+        'key'           => 'field_press_hero_image',
+        'label'         => 'Hero Image',
+        'name'          => 'press_hero_image',
+        'type'          => 'image',
+        'return_format' => 'url',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+        'instructions'  => 'Full-screen background image for the hero.',
+      ],
+      [
+        'key'           => 'field_press_hero_eyebrow',
+        'label'         => 'Eyebrow',
+        'name'          => 'press_hero_eyebrow',
+        'type'          => 'text',
+        'default_value' => 'L\'agence · Nouvelles destinations',
+        'instructions'  => 'Small text above the title (e.g. show name).',
+      ],
+      [
+        'key'           => 'field_press_hero_title',
+        'label'         => 'Title',
+        'name'          => 'press_hero_title',
+        'type'          => 'text',
+        'default_value' => 'Puglia Luxury Homes',
+      ],
+      [
+        'key'           => 'field_press_broadcast_channel_1',
+        'label'         => 'Broadcast — Channel 1',
+        'name'          => 'press_broadcast_channel_1',
+        'type'          => 'text',
+        'default_value' => 'TMC',
+      ],
+      [
+        'key'           => 'field_press_broadcast_date',
+        'label'         => 'Broadcast — Date',
+        'name'          => 'press_broadcast_date',
+        'type'          => 'text',
+        'default_value' => '22 July 2026',
+      ],
+      [
+        'key'           => 'field_press_broadcast_time',
+        'label'         => 'Broadcast — Time',
+        'name'          => 'press_broadcast_time',
+        'type'          => 'text',
+        'default_value' => '9:25pm',
+      ],
+      [
+        'key'           => 'field_press_broadcast_channel_2',
+        'label'         => 'Broadcast — Channel 2',
+        'name'          => 'press_broadcast_channel_2',
+        'type'          => 'text',
+        'default_value' => 'TF1+',
+      ],
+      [
+        'key'           => 'field_press_hero_cta_url',
+        'label'         => 'CTA Button URL',
+        'name'          => 'press_hero_cta_url',
+        'type'          => 'text',
+        'default_value' => '#press-contact',
+        'instructions'  => 'Use #press-contact to scroll to the booking form, or enter any URL.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'press.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
 // Press Page — Villa Section ACF Fields
 // -----------------------
 add_action('acf/init', function () {
