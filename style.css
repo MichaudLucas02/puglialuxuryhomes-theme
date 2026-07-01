@@ -6313,7 +6313,8 @@ a.management-link:hover img {
   text-align: left;
 }
 
-.press-contact-info .press-eyebrow {
+.press-contact-info .press-eyebrow,
+.press-media-header .press-eyebrow {
   font-family: 'Raleway', sans-serif;
   font-size: 11px;
   text-transform: uppercase;
@@ -6416,6 +6417,146 @@ a.management-link:hover img {
   }
 }
 
+/* ── Press media / enquiries section ── */
+
+.press-media-section {
+  background: #fff;
+  padding: 80px 5vw;
+  border-top: 1px solid rgba(108, 155, 163, 0.18);
+}
+
+.press-media-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.press-media-header {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 56px;
+}
+
+.press-media-header h2 {
+  margin: 8px 0 16px;
+  text-align: center;
+}
+
+.press-media-intro {
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+  text-transform: none;
+  color: #4a4a4a;
+  line-height: 1.65;
+  opacity: 1;
+  margin: 0;
+}
+
+.press-media-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.press-media-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.press-person-card {
+  border-left: 2px solid #6c9ba3;
+  padding-left: 24px;
+}
+
+.press-person-name {
+  font-family: 'Didot', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+  text-transform: none;
+}
+
+.press-person-role {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #6c9ba3;
+  margin: 0 0 20px;
+  opacity: 1;
+}
+
+.press-person-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.press-kit-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.press-kit-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #6c9ba3;
+  margin: 0;
+  opacity: 1;
+}
+
+.press-kit-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.press-kit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(108, 155, 163, 0.45);
+  color: #2a2a2a;
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 16px;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.press-kit-btn:hover {
+  border-color: #6c9ba3;
+  color: #6c9ba3;
+  background: rgba(108, 155, 163, 0.06);
+}
+
+.press-kit-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.press-enquiry-card h4 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #6c9ba3;
+  margin: 0 0 20px;
+}
+
+/* ── Mobile ── */
+
 @media (max-width: 768px) {
   .press-slider-col {
     padding: 0 !important;
@@ -6423,6 +6564,18 @@ a.management-link:hover img {
 
   .press-page > .our-story-content:first-child {
     margin-top: 36px;
+  }
+
+  .press-media-body {
+    grid-template-columns: 1fr;
+  }
+
+  .press-media-section {
+    padding: 60px 5vw;
+  }
+
+  .press-media-header {
+    margin-bottom: 40px;
   }
 }
 

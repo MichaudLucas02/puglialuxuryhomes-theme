@@ -2422,6 +2422,58 @@ add_action('admin_post_plh_contact_form', 'plh_handle_contact_form');
 add_action('admin_post_nopriv_plh_contact_form', 'plh_handle_contact_form');
 
 /**
+ * Handle press enquiry form submissions (press page).
+ */
+function plh_handle_press_enquiry() {
+  $redirect = wp_get_referer() ?: home_url();
+
+  if (!empty($_POST['press_hp_field'])) {
+    wp_safe_redirect(add_query_arg('press_status', 'success', $redirect));
+    exit;
+  }
+
+  if (!isset($_POST['plh_press_nonce']) || !wp_verify_nonce($_POST['plh_press_nonce'], 'plh_press_enquiry')) {
+    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect));
+    exit;
+  }
+
+  $name    = sanitize_text_field($_POST['press_name'] ?? '');
+  $email   = sanitize_email($_POST['press_email'] ?? '');
+  $media   = sanitize_text_field($_POST['press_media'] ?? '');
+  $phone   = sanitize_text_field($_POST['press_phone'] ?? '');
+  $message = wp_kses_post($_POST['press_message'] ?? '');
+  $consent = isset($_POST['press_consent']);
+
+  if ($name === '' || $email === '' || !is_email($email) || $message === '' || !$consent) {
+    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect));
+    exit;
+  }
+
+  $recipient = 'ajaquet@puglialuxuryhomes.com';
+  $subject   = 'Press enquiry from ' . $name . ($media ? ' — ' . $media : '');
+  $headers   = [
+    'Content-Type: text/html; charset=UTF-8',
+    'Reply-To: ' . $name . ' <' . $email . '>',
+  ];
+
+  $body  = '<h2>New Press Enquiry</h2>';
+  $body .= '<p><strong>Name:</strong> ' . esc_html($name) . '</p>';
+  $body .= '<p><strong>Email:</strong> ' . esc_html($email) . '</p>';
+  if ($media) $body .= '<p><strong>Publication / Media:</strong> ' . esc_html($media) . '</p>';
+  if ($phone) $body .= '<p><strong>Phone:</strong> ' . esc_html($phone) . '</p>';
+  $body .= '<p><strong>Enquiry:</strong><br>' . wpautop($message) . '</p>';
+  $body .= '<hr><p>Sent from the Press page — ' . esc_url(home_url()) . '</p>';
+
+  $sent = wp_mail($recipient, $subject, $body, $headers);
+
+  wp_safe_redirect(add_query_arg('press_status', $sent ? 'success' : 'error', $redirect));
+  exit;
+}
+
+add_action('admin_post_plh_press_enquiry', 'plh_handle_press_enquiry');
+add_action('admin_post_nopriv_plh_press_enquiry', 'plh_handle_press_enquiry');
+
+/**
  * Handle booking request form submissions.
  */
 function plh_handle_booking_request() {
@@ -2802,6 +2854,16 @@ function plh_register_ui_strings() {
     'Submit enquiry',
     'Thank you — your message has been sent.',
     'Something went wrong. Please try again.',
+    // Press enquiries section
+    'Press',
+    'Press enquiries',
+    'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.',
+    'Co-founder',
+    'Press kit',
+    'Send a press enquiry',
+    'Publication / Media outlet',
+    'Your enquiry',
+    'Thank you — your enquiry has been sent.',
 
   ];
   foreach ( $strings as $s ) {
@@ -2946,6 +3008,16 @@ function plh_inline_translations() {
       'Submit enquiry'                           => 'Envoyer la demande',
       'Thank you — your message has been sent.'  => 'Merci — votre message a bien été envoyé.',
       'Something went wrong. Please try again.'  => 'Une erreur s\'est produite. Veuillez réessayer.',
+      // Press enquiries section
+      'Press'                                    => 'Presse',
+      'Press enquiries'                          => 'Relations presse',
+      'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.' => 'Pour toute demande d\'interview, assets presse ou couverture médiatique de Puglia Luxury Homes, contactez directement notre responsable presse.',
+      'Co-founder'                               => 'Co-fondatrice',
+      'Press kit'                                => 'Dossier de presse',
+      'Send a press enquiry'                     => 'Envoyer une demande presse',
+      'Publication / Media outlet'               => 'Publication / Média',
+      'Your enquiry'                             => 'Votre demande',
+      'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
     ],
     'it' => [
       'Weekly rates'     => 'Tariffe settimanali',
@@ -3077,6 +3149,16 @@ function plh_inline_translations() {
       'Submit enquiry'                           => 'Invia la richiesta',
       'Thank you — your message has been sent.'  => 'Grazie — il tuo messaggio è stato inviato.',
       'Something went wrong. Please try again.'  => 'Si è verificato un errore. Riprova.',
+      // Press enquiries section
+      'Press'                                    => 'Stampa',
+      'Press enquiries'                          => 'Ufficio stampa',
+      'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.' => 'Per richieste di interviste, materiali stampa o copertura mediatica di Puglia Luxury Homes, contatta direttamente il nostro responsabile stampa.',
+      'Co-founder'                               => 'Co-fondatrice',
+      'Press kit'                                => 'Kit stampa',
+      'Send a press enquiry'                     => 'Invia una richiesta stampa',
+      'Publication / Media outlet'               => 'Testata / Media',
+      'Your enquiry'                             => 'La tua richiesta',
+      'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
     ],
   ];
 }
