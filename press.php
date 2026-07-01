@@ -119,22 +119,59 @@ $press_kits = [
         </div>
     </section>
 
+    <?php
+    $story_gallery  = array_filter([
+        get_field('press_story_slide_1'),
+        get_field('press_story_slide_2'),
+        get_field('press_story_slide_3'),
+        get_field('press_story_slide_4'),
+        get_field('press_story_slide_5'),
+        get_field('press_story_slide_6'),
+    ]);
+    $story_eyebrow  = get_field('press_story_eyebrow')   ?: plh_t('Our story');
+    $story_title    = get_field('press_story_title')     ?: plh_t('Born in Puglia, for the love of Puglia');
+    $story_body_1   = get_field('press_story_body_1')    ?: plh_t('Puglia Luxury Homes curates an exceptional collection of private villas in Puglia, each paired with a bespoke programme of concierge services — private chefs, boat excursions, wine tastings and more.');
+    $story_body_2   = get_field('press_story_body_2')    ?: plh_t('Founded by Sébastien and Augustine, the company was born from a deep love for this corner of southern Italy and a desire to share it with travellers who seek something truly extraordinary.');
+    $story_cta_text = get_field('press_story_cta_text')  ?: plh_t('Our story');
+    $story_cta_url  = get_field('press_story_cta_url')   ?: $story_url;
+
+    if (empty($story_gallery)) {
+        $story_gallery = [
+            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp', 'alt' => 'Puglia Luxury Homes'],
+        ];
+    }
+    ?>
     <section class="our-story-content grey">
         <div class="our-story-col">
-            <h4><?php echo esc_html(plh_t('Our story')); ?></h4>
-            <h2><?php echo esc_html(plh_t('Born in Puglia, for the love of Puglia')); ?></h2>
-            <p class="press-body"><?php echo esc_html(plh_t('Puglia Luxury Homes curates an exceptional collection of private villas in Puglia, each paired with a bespoke programme of concierge services — private chefs, boat excursions, wine tastings and more.')); ?></p>
-            <p class="press-body"><?php echo esc_html(plh_t('Founded by Sébastien and Augustine, the company was born from a deep love for this corner of southern Italy and a desire to share it with travellers who seek something truly extraordinary.')); ?></p>
-            <a href="<?php echo esc_url($story_url); ?>" class="discover-services-btn">
-                <?php echo esc_html(plh_t('Our story')); ?>
+            <h4><?php echo esc_html($story_eyebrow); ?></h4>
+            <h2><?php echo esc_html($story_title); ?></h2>
+            <?php if ($story_body_1) : ?>
+            <p class="press-body"><?php echo esc_html($story_body_1); ?></p>
+            <?php endif; ?>
+            <?php if ($story_body_2) : ?>
+            <p class="press-body"><?php echo esc_html($story_body_2); ?></p>
+            <?php endif; ?>
+            <a href="<?php echo esc_url($story_cta_url); ?>" class="discover-services-btn">
+                <?php echo esc_html($story_cta_text); ?>
             </a>
         </div>
-        <div class="our-story-col">
-            <img
-                src="https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp"
-                alt="<?php echo esc_attr(plh_t('Puglia Luxury Homes founders')); ?>"
-                loading="lazy"
-            >
+        <div class="our-story-col press-slider-col">
+            <div class="swiper press-story-swiper">
+                <div class="swiper-wrapper">
+                    <?php foreach ($story_gallery as $i => $img) : ?>
+                    <div class="swiper-slide">
+                        <img
+                            src="<?php echo esc_url($img['url']); ?>"
+                            alt="<?php echo esc_attr($img['alt'] ?: 'Puglia Luxury Homes'); ?>"
+                            loading="lazy"
+                        >
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
         </div>
     </section>
 
@@ -316,19 +353,24 @@ $press_kits = [
 add_action('wp_footer', function () { ?>
 <script>
 (function () {
-    var el = document.querySelector('.press-villa-swiper');
-    if (!el || typeof Swiper === 'undefined') return;
-    new Swiper(el, {
-        cssMode: true,
-        loop: true,
-        slidesPerView: 1,
-        spaceBetween: 0,
-        pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
-        navigation: {
-            nextEl: el.querySelector('.swiper-button-next'),
-            prevEl: el.querySelector('.swiper-button-prev'),
-        },
-    });
+    var opts = function (el) {
+        return {
+            cssMode: true,
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 0,
+            pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev'),
+            },
+        };
+    };
+    if (typeof Swiper === 'undefined') return;
+    var villa = document.querySelector('.press-villa-swiper');
+    if (villa) new Swiper(villa, opts(villa));
+    var story = document.querySelector('.press-story-swiper');
+    if (story) new Swiper(story, opts(story));
 })();
 </script>
 <?php }, 30);

@@ -4611,6 +4611,129 @@ add_action('acf/init', function () {
 });
 
 // -----------------------
+// Press Page — Our Story Section ACF Fields
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_press_story_section',
+    'title'  => 'Press Page — Our Story Section',
+    'fields' => [
+      [
+        'key'           => 'field_press_story_slide_1',
+        'label'         => 'Slide 1',
+        'name'          => 'press_story_slide_1',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+        'instructions'  => 'First slider image (required).',
+      ],
+      [
+        'key'           => 'field_press_story_slide_2',
+        'label'         => 'Slide 2',
+        'name'          => 'press_story_slide_2',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_story_slide_3',
+        'label'         => 'Slide 3',
+        'name'          => 'press_story_slide_3',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_story_slide_4',
+        'label'         => 'Slide 4',
+        'name'          => 'press_story_slide_4',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_story_slide_5',
+        'label'         => 'Slide 5',
+        'name'          => 'press_story_slide_5',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_story_slide_6',
+        'label'         => 'Slide 6',
+        'name'          => 'press_story_slide_6',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+      ],
+      [
+        'key'           => 'field_press_story_eyebrow',
+        'label'         => 'Eyebrow',
+        'name'          => 'press_story_eyebrow',
+        'type'          => 'text',
+        'default_value' => '',
+        'instructions'  => 'Small label above the title. Leave blank to use the translated default.',
+      ],
+      [
+        'key'           => 'field_press_story_title',
+        'label'         => 'Title',
+        'name'          => 'press_story_title',
+        'type'          => 'text',
+        'default_value' => '',
+        'instructions'  => 'Leave blank to use the translated default.',
+      ],
+      [
+        'key'           => 'field_press_story_body_1',
+        'label'         => 'Body Paragraph 1',
+        'name'          => 'press_story_body_1',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => '',
+      ],
+      [
+        'key'           => 'field_press_story_body_2',
+        'label'         => 'Body Paragraph 2',
+        'name'          => 'press_story_body_2',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => '',
+      ],
+      [
+        'key'           => 'field_press_story_cta_text',
+        'label'         => 'CTA Button Text',
+        'name'          => 'press_story_cta_text',
+        'type'          => 'text',
+        'default_value' => '',
+        'instructions'  => 'Leave blank to use the translated default.',
+      ],
+      [
+        'key'           => 'field_press_story_cta_url',
+        'label'         => 'CTA Button URL',
+        'name'          => 'press_story_cta_url',
+        'type'          => 'url',
+        'instructions'  => 'Leave blank to auto-link to the Our Story page based on language.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'press.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
 // AJAX Filter Villas
 // -----------------------
 add_action('wp_ajax_filter_villas', 'plh_filter_villas');
