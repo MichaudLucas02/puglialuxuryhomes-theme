@@ -2422,6 +2422,58 @@ add_action('admin_post_plh_contact_form', 'plh_handle_contact_form');
 add_action('admin_post_nopriv_plh_contact_form', 'plh_handle_contact_form');
 
 /**
+ * Handle press enquiry form submissions (press page).
+ */
+function plh_handle_press_enquiry() {
+  $redirect = wp_get_referer() ?: home_url();
+
+  if (!empty($_POST['press_hp_field'])) {
+    wp_safe_redirect(add_query_arg('press_status', 'success', $redirect));
+    exit;
+  }
+
+  if (!isset($_POST['plh_press_nonce']) || !wp_verify_nonce($_POST['plh_press_nonce'], 'plh_press_enquiry')) {
+    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect));
+    exit;
+  }
+
+  $name    = sanitize_text_field($_POST['press_name'] ?? '');
+  $email   = sanitize_email($_POST['press_email'] ?? '');
+  $media   = sanitize_text_field($_POST['press_media'] ?? '');
+  $phone   = sanitize_text_field($_POST['press_phone'] ?? '');
+  $message = wp_kses_post($_POST['press_message'] ?? '');
+  $consent = isset($_POST['press_consent']);
+
+  if ($name === '' || $email === '' || !is_email($email) || $message === '' || !$consent) {
+    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect));
+    exit;
+  }
+
+  $recipient = 'ajaquet@puglialuxuryhomes.com';
+  $subject   = 'Press enquiry from ' . $name . ($media ? ' — ' . $media : '');
+  $headers   = [
+    'Content-Type: text/html; charset=UTF-8',
+    'Reply-To: ' . $name . ' <' . $email . '>',
+  ];
+
+  $body  = '<h2>New Press Enquiry</h2>';
+  $body .= '<p><strong>Name:</strong> ' . esc_html($name) . '</p>';
+  $body .= '<p><strong>Email:</strong> ' . esc_html($email) . '</p>';
+  if ($media) $body .= '<p><strong>Publication / Media:</strong> ' . esc_html($media) . '</p>';
+  if ($phone) $body .= '<p><strong>Phone:</strong> ' . esc_html($phone) . '</p>';
+  $body .= '<p><strong>Enquiry:</strong><br>' . wpautop($message) . '</p>';
+  $body .= '<hr><p>Sent from the Press page — ' . esc_url(home_url()) . '</p>';
+
+  $sent = wp_mail($recipient, $subject, $body, $headers);
+
+  wp_safe_redirect(add_query_arg('press_status', $sent ? 'success' : 'error', $redirect));
+  exit;
+}
+
+add_action('admin_post_plh_press_enquiry', 'plh_handle_press_enquiry');
+add_action('admin_post_nopriv_plh_press_enquiry', 'plh_handle_press_enquiry');
+
+/**
  * Handle booking request form submissions.
  */
 function plh_handle_booking_request() {
@@ -2771,7 +2823,7 @@ function plh_register_ui_strings() {
     'Whether you are looking to buy, sell or build — we know the territory and guide you every step of the way.',
     'Discover more',
     // Press / TV page
-    'As seen on television',
+    'Soon on television',
     'Puglia Luxury Homes on Television',
     'Villa Acquamarina and our private boat excursion service are featured in L\'agence : Nouvelles destinations, a spin-off of the hit show L\'agence, airing on TMC and available on Netflix.',
     'July 22 or 29, 2025',
@@ -2802,6 +2854,17 @@ function plh_register_ui_strings() {
     'Submit enquiry',
     'Thank you — your message has been sent.',
     'Something went wrong. Please try again.',
+    // Press enquiries section
+    'Press',
+    'Press enquiries',
+    'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.',
+    'Founder',
+    'Our story',
+    'Press kit',
+    'Send a press enquiry',
+    'Publication / Media outlet',
+    'Your enquiry',
+    'Thank you — your enquiry has been sent.',
 
   ];
   foreach ( $strings as $s ) {
@@ -2915,7 +2978,7 @@ function plh_inline_translations() {
       'Whether you are looking to buy, sell or build — we know the territory and guide you every step of the way.' => 'Que vous souhaitiez acheter, vendre ou construire — nous connaissons le territoire et vous accompagnons à chaque étape.',
       'Discover more'                            => 'En savoir plus',
       // Press / TV page
-      'As seen on television'                    => 'Vu à la télévision',
+      'Soon on television'                       => 'Bientôt à la télévision',
       'Puglia Luxury Homes on Television'        => 'Puglia Luxury Homes à la télévision',
       'Villa Acquamarina and our private boat excursion service are featured in L\'agence : Nouvelles destinations, a spin-off of the hit show L\'agence, airing on TMC and available on Netflix.' => 'Villa Acquamarina et notre service de sortie en bateau privé sont à l\'honneur dans L\'agence : Nouvelles destinations, le spin-off diffusé sur TMC et disponible sur Netflix.',
       'July 22 or 29, 2025'                     => '22 ou 29 juillet 2025',
@@ -2946,6 +3009,17 @@ function plh_inline_translations() {
       'Submit enquiry'                           => 'Envoyer la demande',
       'Thank you — your message has been sent.'  => 'Merci — votre message a bien été envoyé.',
       'Something went wrong. Please try again.'  => 'Une erreur s\'est produite. Veuillez réessayer.',
+      // Press enquiries section
+      'Press'                                    => 'Presse',
+      'Press enquiries'                          => 'Relations presse',
+      'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.' => 'Pour toute demande d\'interview, assets presse ou couverture médiatique de Puglia Luxury Homes, contactez directement notre responsable presse.',
+      'Founder'                                  => 'Fondatrice',
+      'Our story'                                => 'Notre histoire',
+      'Press kit'                                => 'Dossier de presse',
+      'Send a press enquiry'                     => 'Envoyer une demande presse',
+      'Publication / Media outlet'               => 'Publication / Média',
+      'Your enquiry'                             => 'Votre demande',
+      'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
     ],
     'it' => [
       'Weekly rates'     => 'Tariffe settimanali',
@@ -3046,7 +3120,7 @@ function plh_inline_translations() {
       'Whether you are looking to buy, sell or build — we know the territory and guide you every step of the way.' => 'Che tu voglia acquistare, vendere o costruire — conosciamo il territorio e ti guidiamo in ogni fase.',
       'Discover more'                            => 'Scopri di più',
       // Press / TV page
-      'As seen on television'                    => 'In televisione',
+      'Soon on television'                       => 'Presto in televisione',
       'Puglia Luxury Homes on Television'        => 'Puglia Luxury Homes in televisione',
       'Villa Acquamarina and our private boat excursion service are featured in L\'agence : Nouvelles destinations, a spin-off of the hit show L\'agence, airing on TMC and available on Netflix.' => 'Villa Acquamarina e il nostro servizio di escursione in barca privata sono protagonisti di L\'agence : Nouvelles destinations, lo spin-off in onda su TMC e disponibile su Netflix.',
       'July 22 or 29, 2025'                     => '22 o 29 luglio 2025',
@@ -3077,6 +3151,17 @@ function plh_inline_translations() {
       'Submit enquiry'                           => 'Invia la richiesta',
       'Thank you — your message has been sent.'  => 'Grazie — il tuo messaggio è stato inviato.',
       'Something went wrong. Please try again.'  => 'Si è verificato un errore. Riprova.',
+      // Press enquiries section
+      'Press'                                    => 'Stampa',
+      'Press enquiries'                          => 'Ufficio stampa',
+      'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.' => 'Per richieste di interviste, materiali stampa o copertura mediatica di Puglia Luxury Homes, contatta direttamente il nostro responsabile stampa.',
+      'Founder'                                  => 'Fondatrice',
+      'Our story'                                => 'La nostra storia',
+      'Press kit'                                => 'Kit stampa',
+      'Send a press enquiry'                     => 'Invia una richiesta stampa',
+      'Publication / Media outlet'               => 'Testata / Media',
+      'Your enquiry'                             => 'La tua richiesta',
+      'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
     ],
   ];
 }
@@ -4316,6 +4401,296 @@ add_action('acf/init', function () {
       'param'    => 'page_template',
       'operator' => '==',
       'value'    => 'policies.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
+// Press Page — Hero Section ACF Fields
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_press_hero_section',
+    'title'  => 'Press Page — Hero Section',
+    'fields' => [
+      [
+        'key'           => 'field_press_hero_image',
+        'label'         => 'Hero Image',
+        'name'          => 'press_hero_image',
+        'type'          => 'image',
+        'return_format' => 'url',
+        'preview_size'  => 'medium',
+        'library'       => 'all',
+        'instructions'  => 'Full-screen background image for the hero.',
+      ],
+      [
+        'key'           => 'field_press_hero_eyebrow',
+        'label'         => 'Eyebrow',
+        'name'          => 'press_hero_eyebrow',
+        'type'          => 'text',
+        'default_value' => 'L\'agence · Nouvelles destinations',
+        'instructions'  => 'Small text above the title (e.g. show name).',
+      ],
+      [
+        'key'           => 'field_press_hero_title',
+        'label'         => 'Title',
+        'name'          => 'press_hero_title',
+        'type'          => 'text',
+        'default_value' => 'Puglia Luxury Homes',
+      ],
+      [
+        'key'           => 'field_press_broadcast_channel_1',
+        'label'         => 'Broadcast — Channel 1',
+        'name'          => 'press_broadcast_channel_1',
+        'type'          => 'text',
+        'default_value' => 'TMC',
+      ],
+      [
+        'key'           => 'field_press_broadcast_date',
+        'label'         => 'Broadcast — Date',
+        'name'          => 'press_broadcast_date',
+        'type'          => 'text',
+        'default_value' => '22 July 2026',
+      ],
+      [
+        'key'           => 'field_press_broadcast_time',
+        'label'         => 'Broadcast — Time',
+        'name'          => 'press_broadcast_time',
+        'type'          => 'text',
+        'default_value' => '9:25pm',
+      ],
+      [
+        'key'           => 'field_press_broadcast_channel_2',
+        'label'         => 'Broadcast — Channel 2',
+        'name'          => 'press_broadcast_channel_2',
+        'type'          => 'text',
+        'default_value' => 'TF1+',
+      ],
+      [
+        'key'           => 'field_press_hero_cta_url',
+        'label'         => 'CTA Button URL',
+        'name'          => 'press_hero_cta_url',
+        'type'          => 'text',
+        'default_value' => '#press-contact',
+        'instructions'  => 'Use #press-contact to scroll to the booking form, or enter any URL.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'press.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
+// Press Page — Villa Section ACF Fields
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_press_villa_section',
+    'title'  => 'Press Page — Villa Section',
+    'fields' => [
+      [
+        'key'          => 'field_press_villa_slide_1',
+        'label'        => 'Slide 1',
+        'name'         => 'press_villa_slide_1',
+        'type'         => 'text',
+        'instructions' => 'First slider image URL (required).',
+      ],
+      [
+        'key'  => 'field_press_villa_slide_2',
+        'label' => 'Slide 2',
+        'name' => 'press_villa_slide_2',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_villa_slide_3',
+        'label' => 'Slide 3',
+        'name' => 'press_villa_slide_3',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_villa_slide_4',
+        'label' => 'Slide 4',
+        'name' => 'press_villa_slide_4',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_villa_slide_5',
+        'label' => 'Slide 5',
+        'name' => 'press_villa_slide_5',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_villa_slide_6',
+        'label' => 'Slide 6',
+        'name' => 'press_villa_slide_6',
+        'type' => 'text',
+      ],
+      [
+        'key'           => 'field_press_villa_eyebrow',
+        'label'         => 'Eyebrow',
+        'name'          => 'press_villa_eyebrow',
+        'type'          => 'text',
+        'default_value' => '',
+        'instructions'  => 'Small label above the villa title.',
+      ],
+      [
+        'key'           => 'field_press_villa_title',
+        'label'         => 'Villa Title',
+        'name'          => 'press_villa_title',
+        'type'          => 'text',
+        'default_value' => 'Villa Acquamarina',
+      ],
+      [
+        'key'           => 'field_press_villa_body_1',
+        'label'         => 'Body Paragraph 1',
+        'name'          => 'press_villa_body_1',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => 'The very first villa to join our portfolio, Villa Acquamarina sits perched above the turquoise waters of Salento — the place that sparked the entire Puglia Luxury Homes adventure.',
+      ],
+      [
+        'key'           => 'field_press_villa_body_2',
+        'label'         => 'Body Paragraph 2',
+        'name'          => 'press_villa_body_2',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => 'In this episode, our team organises an exclusive private boat excursion departing from the villa, exploring the hidden sea caves and crystal-clear bays of the Salento coast.',
+      ],
+      [
+        'key'           => 'field_press_villa_cta_text',
+        'label'         => 'CTA Button Text',
+        'name'          => 'press_villa_cta_text',
+        'type'          => 'text',
+        'default_value' => 'Discover the villa',
+      ],
+      [
+        'key'           => 'field_press_villa_cta_url',
+        'label'         => 'CTA Button URL',
+        'name'          => 'press_villa_cta_url',
+        'type'          => 'url',
+        'instructions'  => 'Leave blank to auto-link to the villa page based on language.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'press.php',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// -----------------------
+// Press Page — Our Story Section ACF Fields
+// -----------------------
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'    => 'group_press_story_section',
+    'title'  => 'Press Page — Our Story Section',
+    'fields' => [
+      [
+        'key'          => 'field_press_story_slide_1',
+        'label'        => 'Slide 1',
+        'name'         => 'press_story_slide_1',
+        'type'         => 'text',
+        'instructions' => 'First slider image URL (required).',
+      ],
+      [
+        'key'  => 'field_press_story_slide_2',
+        'label' => 'Slide 2',
+        'name' => 'press_story_slide_2',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_story_slide_3',
+        'label' => 'Slide 3',
+        'name' => 'press_story_slide_3',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_story_slide_4',
+        'label' => 'Slide 4',
+        'name' => 'press_story_slide_4',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_story_slide_5',
+        'label' => 'Slide 5',
+        'name' => 'press_story_slide_5',
+        'type' => 'text',
+      ],
+      [
+        'key'  => 'field_press_story_slide_6',
+        'label' => 'Slide 6',
+        'name' => 'press_story_slide_6',
+        'type' => 'text',
+      ],
+      [
+        'key'           => 'field_press_story_eyebrow',
+        'label'         => 'Eyebrow',
+        'name'          => 'press_story_eyebrow',
+        'type'          => 'text',
+        'default_value' => '',
+        'instructions'  => 'Small label above the title. Leave blank to use the translated default.',
+      ],
+      [
+        'key'           => 'field_press_story_title',
+        'label'         => 'Title',
+        'name'          => 'press_story_title',
+        'type'          => 'text',
+        'default_value' => '',
+        'instructions'  => 'Leave blank to use the translated default.',
+      ],
+      [
+        'key'           => 'field_press_story_body_1',
+        'label'         => 'Body Paragraph 1',
+        'name'          => 'press_story_body_1',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => '',
+      ],
+      [
+        'key'           => 'field_press_story_body_2',
+        'label'         => 'Body Paragraph 2',
+        'name'          => 'press_story_body_2',
+        'type'          => 'textarea',
+        'rows'          => 3,
+        'default_value' => '',
+      ],
+      [
+        'key'           => 'field_press_story_cta_text',
+        'label'         => 'CTA Button Text',
+        'name'          => 'press_story_cta_text',
+        'type'          => 'text',
+        'default_value' => '',
+        'instructions'  => 'Leave blank to use the translated default.',
+      ],
+      [
+        'key'           => 'field_press_story_cta_url',
+        'label'         => 'CTA Button URL',
+        'name'          => 'press_story_cta_url',
+        'type'          => 'url',
+        'instructions'  => 'Leave blank to auto-link to the Our Story page based on language.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_template',
+      'operator' => '==',
+      'value'    => 'press.php',
     ]]],
     'position'        => 'normal',
     'label_placement' => 'top',
