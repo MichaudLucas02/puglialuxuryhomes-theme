@@ -2410,10 +2410,12 @@ function plh_handle_contact_form() {
 
   $sent = wp_mail($recipient, $subject_line, $body, $headers);
 
+  $anchor = !empty($_POST['return_anchor']) ? '#' . sanitize_key($_POST['return_anchor']) : '';
+
   if ($sent) {
-    wp_safe_redirect(add_query_arg('contact_status', 'success', $redirect));
+    wp_safe_redirect(add_query_arg('contact_status', 'success', $redirect) . $anchor);
   } else {
-    wp_safe_redirect(add_query_arg(['contact_status' => 'error', 'contact_error' => urlencode('Could not send email. Please try again.')], $redirect));
+    wp_safe_redirect(add_query_arg(['contact_status' => 'error', 'contact_error' => urlencode('Could not send email. Please try again.')], $redirect) . $anchor);
   }
   exit;
 }
@@ -2426,14 +2428,15 @@ add_action('admin_post_nopriv_plh_contact_form', 'plh_handle_contact_form');
  */
 function plh_handle_press_enquiry() {
   $redirect = wp_get_referer() ?: home_url();
+  $anchor   = '#press-media';
 
   if (!empty($_POST['press_hp_field'])) {
-    wp_safe_redirect(add_query_arg('press_status', 'success', $redirect));
+    wp_safe_redirect(add_query_arg('press_status', 'success', $redirect) . $anchor);
     exit;
   }
 
   if (!isset($_POST['plh_press_nonce']) || !wp_verify_nonce($_POST['plh_press_nonce'], 'plh_press_enquiry')) {
-    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect));
+    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect) . $anchor);
     exit;
   }
 
@@ -2445,7 +2448,7 @@ function plh_handle_press_enquiry() {
   $consent = isset($_POST['press_consent']);
 
   if ($name === '' || $email === '' || !is_email($email) || $message === '' || !$consent) {
-    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect));
+    wp_safe_redirect(add_query_arg('press_status', 'error', $redirect) . $anchor);
     exit;
   }
 
@@ -2466,7 +2469,7 @@ function plh_handle_press_enquiry() {
 
   $sent = wp_mail($recipient, $subject, $body, $headers);
 
-  wp_safe_redirect(add_query_arg('press_status', $sent ? 'success' : 'error', $redirect));
+  wp_safe_redirect(add_query_arg('press_status', $sent ? 'success' : 'error', $redirect) . $anchor);
   exit;
 }
 
@@ -2839,8 +2842,8 @@ function plh_register_ui_strings() {
     'Founded by Sébastien and Augustine, the company was born from a deep love for this corner of southern Italy and a desire to share it with travellers who seek something truly extraordinary.',
     'Puglia Luxury Homes founders',
     'Enquire now',
-    'Book your stay in Puglia',
-    'Inspired by what you saw? Our team is on hand to help you plan the perfect Puglia escape — whether you are looking to stay at Villa Acquamarina or explore our wider collection.',
+    'Plan your stay in Puglia',
+    'Inspired by what you\'ve seen? Let\'s talk about your stay, whether at Villa Acquamarina or one of the villas in our exclusive collection.',
     'Call (WhatsApp)',
     'Send a message',
     'Your full name',
@@ -2857,7 +2860,7 @@ function plh_register_ui_strings() {
     // Press enquiries section
     'Press',
     'Press enquiries',
-    'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.',
+    'For interview requests, photos or information about Puglia Luxury Homes, please contact Augustine Jaquet, our press officer, directly.',
     'Founder',
     'Our story',
     'Press kit',
@@ -2994,8 +2997,8 @@ function plh_inline_translations() {
       'Founded by Sébastien and Augustine, the company was born from a deep love for this corner of southern Italy and a desire to share it with travellers who seek something truly extraordinary.' => 'Fondée par Sébastien et Augustine, l\'agence est née d\'un amour profond pour ce coin d\'Italie du Sud et d\'une envie de le faire découvrir à des voyageurs en quête d\'expériences véritablement extraordinaires.',
       'Puglia Luxury Homes founders'             => 'Les fondateurs de Puglia Luxury Homes',
       'Enquire now'                              => 'Nous contacter',
-      'Book your stay in Puglia'                 => 'Réservez votre séjour en Puglia',
-      'Inspired by what you saw? Our team is on hand to help you plan the perfect Puglia escape — whether you are looking to stay at Villa Acquamarina or explore our wider collection.' => 'Inspiré par ce que vous avez vu ? Notre équipe est disponible pour vous aider à planifier votre escapade en Puglia — que vous souhaitiez séjourner à Villa Acquamarina ou découvrir notre collection.',
+      'Plan your stay in Puglia'                 => 'Planifiez votre séjour en Puglia',
+      'Inspired by what you\'ve seen? Let\'s talk about your stay, whether at Villa Acquamarina or one of the villas in our exclusive collection.' => 'Inspiré par ce que vous avez vu ? Parlons de votre séjour, à Villa Acquamarina ou dans l\'une des villas de notre collection exclusive.',
       'Call (WhatsApp)'                          => 'Appeler (WhatsApp)',
       'Send a message'                           => 'Envoyer un message',
       'Your full name'                           => 'Votre nom complet',
@@ -3012,7 +3015,7 @@ function plh_inline_translations() {
       // Press enquiries section
       'Press'                                    => 'Presse',
       'Press enquiries'                          => 'Relations presse',
-      'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.' => 'Pour toute demande d\'interview, assets presse ou couverture médiatique de Puglia Luxury Homes, contactez directement notre responsable presse.',
+      'For interview requests, photos or information about Puglia Luxury Homes, please contact Augustine Jaquet, our press officer, directly.' => 'Pour toute demande d\'interview, de photos ou d\'informations sur Puglia Luxury Homes, contactez directement Augustine Jaquet, notre responsable presse.',
       'Founder'                                  => 'Fondatrice',
       'Our story'                                => 'Notre histoire',
       'Press kit'                                => 'Dossier de presse',
@@ -3136,8 +3139,8 @@ function plh_inline_translations() {
       'Founded by Sébastien and Augustine, the company was born from a deep love for this corner of southern Italy and a desire to share it with travellers who seek something truly extraordinary.' => 'Fondata da Sébastien e Augustine, l\'agenzia nasce da un profondo amore per questo angolo dell\'Italia del Sud e dal desiderio di condividerlo con viaggiatori alla ricerca di esperienze davvero straordinarie.',
       'Puglia Luxury Homes founders'             => 'I fondatori di Puglia Luxury Homes',
       'Enquire now'                              => 'Contattaci',
-      'Book your stay in Puglia'                 => 'Prenota il tuo soggiorno in Puglia',
-      'Inspired by what you saw? Our team is on hand to help you plan the perfect Puglia escape — whether you are looking to stay at Villa Acquamarina or explore our wider collection.' => 'Ispirato da ciò che hai visto? Il nostro team è a disposizione per aiutarti a pianificare la tua fuga in Puglia — che tu voglia soggiornare a Villa Acquamarina o esplorare la nostra collezione.',
+      'Plan your stay in Puglia'                 => 'Pianificate il vostro soggiorno in Puglia',
+      'Inspired by what you\'ve seen? Let\'s talk about your stay, whether at Villa Acquamarina or one of the villas in our exclusive collection.' => 'Ispirati da ciò che avete visto? Parliamo del vostro soggiorno, a Villa Acquamarina o in una delle ville della nostra collezione esclusiva.',
       'Call (WhatsApp)'                          => 'Chiama (WhatsApp)',
       'Send a message'                           => 'Invia un messaggio',
       'Your full name'                           => 'Nome completo',
@@ -3154,7 +3157,7 @@ function plh_inline_translations() {
       // Press enquiries section
       'Press'                                    => 'Stampa',
       'Press enquiries'                          => 'Ufficio stampa',
-      'For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.' => 'Per richieste di interviste, materiali stampa o copertura mediatica di Puglia Luxury Homes, contatta direttamente il nostro responsabile stampa.',
+      'For interview requests, photos or information about Puglia Luxury Homes, please contact Augustine Jaquet, our press officer, directly.' => 'Per richieste di interviste, foto o informazioni su Puglia Luxury Homes, contattate direttamente Augustine Jaquet, la nostra responsabile stampa.',
       'Founder'                                  => 'Fondatrice',
       'Our story'                                => 'La nostra storia',
       'Press kit'                                => 'Kit stampa',
@@ -4477,6 +4480,27 @@ add_action('acf/init', function () {
         'type'          => 'text',
         'default_value' => '#press-contact',
         'instructions'  => 'Use #press-contact to scroll to the booking form, or enter any URL.',
+      ],
+      [
+        'key'          => 'field_press_kit_url_en',
+        'label'        => 'Press Kit — English (URL)',
+        'name'         => 'press_kit_url_en',
+        'type'         => 'text',
+        'instructions' => 'Paste the URL of the English press kit PDF.',
+      ],
+      [
+        'key'          => 'field_press_kit_url_fr',
+        'label'        => 'Press Kit — Français (URL)',
+        'name'         => 'press_kit_url_fr',
+        'type'         => 'text',
+        'instructions' => 'Collez l\'URL du dossier de presse en français.',
+      ],
+      [
+        'key'          => 'field_press_kit_url_it',
+        'label'        => 'Press Kit — Italiano (URL)',
+        'name'         => 'press_kit_url_it',
+        'type'         => 'text',
+        'instructions' => 'Incolla l\'URL del kit stampa in italiano.',
       ],
     ],
     'location' => [[[
