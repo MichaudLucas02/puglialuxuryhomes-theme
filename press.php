@@ -60,14 +60,14 @@ $press_kits = [
 <div class="homepage press-page">
 
     <?php
-    $villa_gallery = array_filter([
+    $villa_gallery = array_values(array_filter([
         get_field('press_villa_slide_1'),
         get_field('press_villa_slide_2'),
         get_field('press_villa_slide_3'),
         get_field('press_villa_slide_4'),
         get_field('press_villa_slide_5'),
         get_field('press_villa_slide_6'),
-    ]);
+    ]));
     $villa_eyebrow  = get_field('press_villa_eyebrow') ?: plh_t('Featured in the episode');
     $villa_title    = get_field('press_villa_title')   ?: 'Villa Acquamarina';
     $villa_body_1   = get_field('press_villa_body_1')  ?: plh_t('The very first villa to join our portfolio, Villa Acquamarina sits perched above the turquoise waters of Salento — the place that sparked the entire Puglia Luxury Homes adventure.');
@@ -77,11 +77,11 @@ $press_kits = [
 
     if (empty($villa_gallery)) {
         $villa_gallery = [
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Ext.-Grande-14-scaled.webp',                  'alt' => 'Villa Acquamarina'],
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Vue-generale-9-Mise-en-avant-scaled.webp',    'alt' => 'Villa Acquamarina'],
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Piscine-2.3-scaled.webp',                     'alt' => 'Villa Acquamarina'],
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/1-Vue-generale-1.webp',                       'alt' => 'Villa Acquamarina'],
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/3-Grande-2-CH-8-scaled.webp',                 'alt' => 'Villa Acquamarina'],
+            'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Ext.-Grande-14-scaled.webp',
+            'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Vue-generale-9-Mise-en-avant-scaled.webp',
+            'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Piscine-2.3-scaled.webp',
+            'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/1-Vue-generale-1.webp',
+            'https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/3-Grande-2-CH-8-scaled.webp',
         ];
     }
     ?>
@@ -89,11 +89,11 @@ $press_kits = [
         <div class="our-story-col press-slider-col">
             <div class="swiper press-villa-swiper">
                 <div class="swiper-wrapper">
-                    <?php foreach ($villa_gallery as $i => $img) : ?>
+                    <?php foreach ($villa_gallery as $i => $url) : ?>
                     <div class="swiper-slide">
                         <img
-                            src="<?php echo esc_url($img['url']); ?>"
-                            alt="<?php echo esc_attr($img['alt'] ?: $villa_title); ?>"
+                            src="<?php echo esc_url($url); ?>"
+                            alt="<?php echo esc_attr($villa_title); ?>"
                             loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>"
                         >
                     </div>
@@ -120,14 +120,14 @@ $press_kits = [
     </section>
 
     <?php
-    $story_gallery  = array_filter([
+    $story_gallery = array_values(array_filter([
         get_field('press_story_slide_1'),
         get_field('press_story_slide_2'),
         get_field('press_story_slide_3'),
         get_field('press_story_slide_4'),
         get_field('press_story_slide_5'),
         get_field('press_story_slide_6'),
-    ]);
+    ]));
     $story_eyebrow  = get_field('press_story_eyebrow')   ?: plh_t('Our story');
     $story_title    = get_field('press_story_title')     ?: plh_t('Born in Puglia, for the love of Puglia');
     $story_body_1   = get_field('press_story_body_1')    ?: plh_t('Puglia Luxury Homes curates an exceptional collection of private villas in Puglia, each paired with a bespoke programme of concierge services — private chefs, boat excursions, wine tastings and more.');
@@ -137,7 +137,7 @@ $press_kits = [
 
     if (empty($story_gallery)) {
         $story_gallery = [
-            ['url' => 'https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp', 'alt' => 'Puglia Luxury Homes'],
+            'https://www.puglialuxuryhomes.com/wp-content/uploads/2023/12/les-3-fondateurs-scaled.webp',
         ];
     }
     ?>
@@ -158,11 +158,11 @@ $press_kits = [
         <div class="our-story-col press-slider-col">
             <div class="swiper press-story-swiper">
                 <div class="swiper-wrapper">
-                    <?php foreach ($story_gallery as $i => $img) : ?>
+                    <?php foreach ($story_gallery as $i => $url) : ?>
                     <div class="swiper-slide">
                         <img
-                            src="<?php echo esc_url($img['url']); ?>"
-                            alt="<?php echo esc_attr($img['alt'] ?: 'Puglia Luxury Homes'); ?>"
+                            src="<?php echo esc_url($url); ?>"
+                            alt="Puglia Luxury Homes"
                             loading="lazy"
                         >
                     </div>
