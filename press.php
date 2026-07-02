@@ -25,9 +25,9 @@ $broadcast_ch2   = get_field('press_broadcast_channel_2')   ?: 'TF1+';
 $hero_cta_url    = get_field('press_hero_cta_url')          ?: '#press-contact';
 
 $press_kits = [
-    'en' => site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-EN.pdf'),
-    'fr' => site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-FR.pdf'),
-    'it' => site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-IT.pdf'),
+    'en' => get_field('press_kit_url_en') ?: site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-EN.pdf'),
+    'fr' => get_field('press_kit_url_fr') ?: site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-FR.pdf'),
+    'it' => get_field('press_kit_url_it') ?: site_url('/wp-content/uploads/2026/07/PRESS-KIT-PLH-IT.pdf'),
 ];
 ?>
 
@@ -38,8 +38,8 @@ $press_kits = [
         loading="eager"
     >
     <div class="press-hero-content">
-        <p class="press-hero-eyebrow"><?php echo esc_html($hero_eyebrow); ?></p>
         <h1><?php echo esc_html($hero_title); ?></h1>
+        <p class="press-hero-eyebrow"><?php echo esc_html($hero_eyebrow); ?></p>
         <p class="press-hero-sub"><?php echo esc_html(plh_t('Soon on television')); ?></p>
         <div class="press-hero-broadcast">
             <span><?php echo esc_html($broadcast_ch1); ?></span>
@@ -51,7 +51,7 @@ $press_kits = [
             <span><?php echo esc_html($broadcast_ch2); ?></span>
         </div>
         <div class="press-hero-ctas">
-            <a href="<?php echo esc_attr($hero_cta_url); ?>" class="press-hero-cta"><?php echo esc_html(plh_t('Book your stay in Puglia')); ?></a>
+            <a href="<?php echo esc_attr($hero_cta_url); ?>" class="press-hero-cta"><?php echo esc_html(plh_t('Plan your stay in Puglia')); ?></a>
             <a href="#press-media" class="press-hero-cta press-hero-cta--ghost"><?php echo esc_html(plh_t('Press enquiries')); ?></a>
         </div>
     </div>
@@ -173,6 +173,7 @@ $press_kits = [
                 <div class="swiper-button-next"></div>
             </div>
         </div>
+        <a href="#" class="press-back-to-top" aria-label="Back to top">↑</a>
     </section>
 
     <section id="press-media" class="press-media-section">
@@ -181,7 +182,7 @@ $press_kits = [
             <div class="press-media-header">
                 <p class="press-eyebrow"><?php echo esc_html(plh_t('Press')); ?></p>
                 <h2><?php echo esc_html(plh_t('Press enquiries')); ?></h2>
-                <p class="press-media-intro"><?php echo esc_html(plh_t('For interview requests, press assets or media coverage of Puglia Luxury Homes, get in touch with our press contact directly.')); ?></p>
+                <p class="press-media-intro"><?php echo esc_html(plh_t('For interview requests, photos or information about Puglia Luxury Homes, please contact Augustine Jaquet, our press officer, directly.')); ?></p>
             </div>
 
             <div class="press-media-body">
@@ -277,8 +278,8 @@ $press_kits = [
         <div class="press-contact-inner">
             <div class="press-contact-info">
                 <p class="press-eyebrow"><?php echo esc_html(plh_t('Enquire now')); ?></p>
-                <h2><?php echo esc_html(plh_t('Book your stay in Puglia')); ?></h2>
-                <p class="press-body"><?php echo esc_html(plh_t('Inspired by what you saw? Our team is on hand to help you plan the perfect Puglia escape — whether you are looking to stay at Villa Acquamarina or explore our wider collection.')); ?></p>
+                <h2><?php echo esc_html(plh_t('Plan your stay in Puglia')); ?></h2>
+                <p class="press-body"><?php echo esc_html(plh_t('Inspired by what you\'ve seen? Let\'s talk about your stay, whether at Villa Acquamarina or one of the villas in our exclusive collection.')); ?></p>
 
                 <div class="contact-detail">
                     <span class="label"><?php echo esc_html(plh_t('Call (WhatsApp)')); ?></span>
@@ -304,6 +305,7 @@ $press_kits = [
                 ?>
                 <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="contact-form">
                     <input type="hidden" name="action" value="plh_contact_form">
+                    <input type="hidden" name="return_anchor" value="press-contact">
                     <?php wp_nonce_field('plh_contact', 'plh_contact_nonce'); ?>
                     <input type="text" name="contact_hp_field" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" aria-hidden="true">
 
@@ -345,6 +347,7 @@ $press_kits = [
                 </form>
             </div>
         </div>
+        <a href="#" class="press-back-to-top" aria-label="Back to top">↑</a>
     </section>
 
 </div>
@@ -356,7 +359,8 @@ add_action('wp_footer', function () { ?>
     var opts = function (el) {
         return {
             cssMode: true,
-            loop: true,
+            loop: false,
+            rewind: true,
             slidesPerView: 1,
             spaceBetween: 0,
             pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },

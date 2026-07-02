@@ -6193,6 +6193,10 @@ a.management-link:hover img {
    ============================================================ */
 
 /* Hero */
+html {
+  scroll-behavior: smooth;
+}
+
 .press-hero::after {
   background: linear-gradient(
     to top,
@@ -6220,7 +6224,7 @@ a.management-link:hover img {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 14px;
+  margin: 10px 0 14px;
   opacity: 1;
 }
 
@@ -6341,10 +6345,19 @@ a.management-link:hover img {
   margin-bottom: 20px;
 }
 
-.press-villa-swiper,
-.press-story-swiper {
+.press-villa-swiper {
   width: 100%;
   height: 500px;
+}
+
+.press-story-swiper {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+.our-story-content.grey .press-slider-col {
+  padding: 0;
 }
 
 .press-villa-swiper .swiper-wrapper,
@@ -6372,16 +6385,20 @@ a.management-link:hover img {
 }
 
 @media (max-width: 768px) {
-  .press-villa-swiper,
-  .press-story-swiper {
+  .press-villa-swiper {
     height: 320px;
+  }
+  .press-story-swiper {
+    min-height: 280px;
   }
 }
 
 @media (max-width: 520px) {
-  .press-villa-swiper,
-  .press-story-swiper {
+  .press-villa-swiper {
     height: 250px;
+  }
+  .press-story-swiper {
+    min-height: 220px;
   }
 }
 
@@ -6429,6 +6446,29 @@ a.management-link:hover img {
   .press-contact-section {
     padding: 60px 5vw;
   }
+}
+
+.press-back-to-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(108, 155, 163, 0.4);
+  border-radius: 50%;
+  color: #6c9ba3;
+  font-size: 15px;
+  text-decoration: none;
+  margin-left: auto;
+  margin-top: 28px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.press-back-to-top:hover {
+  background: rgba(108, 155, 163, 0.1);
+  border-color: #6c9ba3;
+  color: #6c9ba3;
 }
 
 /* ── Press media / enquiries section ── */
