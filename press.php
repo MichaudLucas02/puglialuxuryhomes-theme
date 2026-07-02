@@ -359,7 +359,8 @@ add_action('wp_footer', function () { ?>
     var opts = function (el) {
         return {
             cssMode: true,
-            loop: true,
+            loop: false,
+            rewind: true,
             slidesPerView: 1,
             spaceBetween: 0,
             pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
