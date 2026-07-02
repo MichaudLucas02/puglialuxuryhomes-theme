@@ -6356,7 +6356,8 @@ html {
   min-height: 400px;
 }
 
-.our-story-content.grey .press-slider-col {
+.our-story-content.grey .press-slider-col,
+.our-story-content:not(.grey) .press-slider-col {
   padding: 0;
 }
 
