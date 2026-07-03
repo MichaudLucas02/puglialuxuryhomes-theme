@@ -173,7 +173,6 @@ $press_kits = [
                 <div class="swiper-button-next"></div>
             </div>
         </div>
-        <a href="#" class="press-back-to-top" aria-label="Back to top">↑</a>
     </section>
 
     <section id="press-media" class="press-media-section">
@@ -272,6 +271,7 @@ $press_kits = [
 
             </div>
         </div>
+        <a href="#" class="press-back-to-top" aria-label="Back to top">↑</a>
     </section>
 
     <section id="press-contact" class="press-contact-section">
