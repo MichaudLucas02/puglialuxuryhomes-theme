@@ -40,7 +40,7 @@ $press_kits = [
     <div class="press-hero-content">
         <h1><?php echo esc_html($hero_title); ?></h1>
         <p class="press-hero-eyebrow"><?php echo esc_html($hero_eyebrow); ?></p>
-        <p class="press-hero-sub"><?php echo esc_html(plh_t('Soon on television')); ?></p>
+        <p class="press-hero-sub"><?php echo esc_html(plh_t('Soon on TV')); ?></p>
         <div class="press-hero-broadcast">
             <span><?php echo esc_html($broadcast_ch1); ?></span>
             <span class="press-hero-dot">·</span>
