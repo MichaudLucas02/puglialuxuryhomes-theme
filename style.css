@@ -6357,13 +6357,12 @@ html {
 
 .press-story-swiper {
   width: 100%;
-  flex: 1;
-  min-height: 200px;
-  max-height: 380px;
+  height: 500px;
 }
 
 .our-story-content.grey .press-slider-col {
   padding: 0;
+  justify-content: center;
 }
 
 .press-villa-swiper .swiper-wrapper,
@@ -6395,7 +6394,7 @@ html {
     height: 320px;
   }
   .press-story-swiper {
-    min-height: 240px;
+    height: 320px;
   }
 }
 
