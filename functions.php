@@ -2826,8 +2826,8 @@ function plh_register_ui_strings() {
     'Whether you are looking to buy, sell or build — we know the territory and guide you every step of the way.',
     'Discover more',
     // Press / TV page
-    'Soon on television',
-    'Puglia Luxury Homes on Television',
+    'Soon on TV',
+    'Puglia Luxury Homes on TV',
     'Villa Acquamarina and our private boat excursion service are featured in L\'agence : Nouvelles destinations, a spin-off of the hit show L\'agence, airing on TMC and available on Netflix.',
     'July 22 or 29, 2025',
     '9:00 pm',
@@ -2981,8 +2981,8 @@ function plh_inline_translations() {
       'Whether you are looking to buy, sell or build — we know the territory and guide you every step of the way.' => 'Que vous souhaitiez acheter, vendre ou construire — nous connaissons le territoire et vous accompagnons à chaque étape.',
       'Discover more'                            => 'En savoir plus',
       // Press / TV page
-      'Soon on television'                       => 'Bientôt à la télévision',
-      'Puglia Luxury Homes on Television'        => 'Puglia Luxury Homes à la télévision',
+      'Soon on television'                       => 'Bientôt à la TV',
+      'Puglia Luxury Homes on Television'        => 'Puglia Luxury Homes à la TV',
       'Villa Acquamarina and our private boat excursion service are featured in L\'agence : Nouvelles destinations, a spin-off of the hit show L\'agence, airing on TMC and available on Netflix.' => 'Villa Acquamarina et notre service de sortie en bateau privé sont à l\'honneur dans L\'agence : Nouvelles destinations, le spin-off diffusé sur TMC et disponible sur Netflix.',
       'July 22 or 29, 2025'                     => '22 ou 29 juillet 2025',
       '9:00 pm'                                  => '21h00',
@@ -3123,8 +3123,8 @@ function plh_inline_translations() {
       'Whether you are looking to buy, sell or build — we know the territory and guide you every step of the way.' => 'Che tu voglia acquistare, vendere o costruire — conosciamo il territorio e ti guidiamo in ogni fase.',
       'Discover more'                            => 'Scopri di più',
       // Press / TV page
-      'Soon on television'                       => 'Presto in televisione',
-      'Puglia Luxury Homes on Television'        => 'Puglia Luxury Homes in televisione',
+      'Soon on television'                       => 'Presto in TV',
+      'Puglia Luxury Homes on Television'        => 'Puglia Luxury Homes in TV',
       'Villa Acquamarina and our private boat excursion service are featured in L\'agence : Nouvelles destinations, a spin-off of the hit show L\'agence, airing on TMC and available on Netflix.' => 'Villa Acquamarina e il nostro servizio di escursione in barca privata sono protagonisti di L\'agence : Nouvelles destinations, lo spin-off in onda su TMC e disponibile su Netflix.',
       'July 22 or 29, 2025'                     => '22 o 29 luglio 2025',
       '9:00 pm'                                  => 'ore 21:00',
