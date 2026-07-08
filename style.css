@@ -6080,6 +6080,59 @@ a.management-link:hover img {
   }
 }
 
+/* Season prices — year toggle */
+.season-prices-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.season-rates-title {
+  margin: 0;
+}
+
+.season-year-tabs {
+  display: flex;
+  gap: 0;
+  border: 0.5px solid #d0ccc4;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.season-year-tab {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #7a7570;
+  background: #fff;
+  border: none;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.season-year-tab + .season-year-tab {
+  border-left: 0.5px solid #d0ccc4;
+}
+
+.season-year-tab.is-active {
+  background: #2c2a27;
+  color: #fff;
+}
+
+.season-year-tab:hover:not(.is-active) {
+  background: #f7f5f2;
+  color: #2c2a27;
+}
+
+.season-panel--hidden {
+  display: none !important;
+}
+
 /* =========================================
    Real Estate — Homepage Section
    ========================================= */
