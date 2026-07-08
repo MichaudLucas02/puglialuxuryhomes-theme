@@ -5092,6 +5092,14 @@ add_action('template_redirect', function () {
   }
 });
 
+// Blog posts without a hero image: solid header + breadcrumb offset
+add_filter('body_class', function($classes) {
+    if (is_singular('blog') && !get_field('large_hero_image')) {
+        $classes[] = 'blog-no-hero';
+    }
+    return $classes;
+});
+
 // Category pages → 301 redirect to /magazine/
 add_action('template_redirect', function() {
     if (is_category()) {
@@ -5102,11 +5110,4 @@ add_action('template_redirect', function() {
     }
 });
 
-// Single blog posts: opaque header so white text is visible
-add_filter('body_class', function($classes) {
-    if (is_singular('blog')) {
-        $classes[] = 'has-dark-header';
-    }
-    return $classes;
-});
 

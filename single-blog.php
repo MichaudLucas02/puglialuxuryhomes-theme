@@ -17,10 +17,15 @@ get_header();
       ?>
       
       <section class="blog-navigation">
+        <?php
+        $lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+        $mag_slugs = ['en' => '/magazine/', 'fr' => '/fr/magazine/', 'it' => '/it/magazine/'];
+        $mag_url   = home_url($mag_slugs[$lang] ?? '/magazine/');
+        ?>
         <div class="blog-breadcrumbs">
           <a href="<?php echo home_url('/'); ?>"><?php _e('Accueil', 'plh'); ?></a>
           <span class="sep">></span>
-          <a href="<?php echo get_post_type_archive_link('blog'); ?>"><?php _e('Blog', 'plh'); ?></a>
+          <a href="<?php echo esc_url($mag_url); ?>">Magazine</a>
           <span class="sep">></span>
           <span class="current"><?php the_title(); ?></span>
         </div>
