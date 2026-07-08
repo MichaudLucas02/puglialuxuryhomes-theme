@@ -4488,6 +4488,16 @@ a.management-link:hover img {
 .blog-no-hero .top-header {
   background-color: #83A7AE !important;
 }
+.blog-no-hero .bottom-header {
+  border-top-color: rgba(0, 0, 0, 0.15);
+  border-bottom-color: rgba(0, 0, 0, 0.15);
+}
+.blog-no-hero .main-nav a {
+  color: #1a1a1a;
+}
+.blog-no-hero .main-nav a::after {
+  background-color: #1a1a1a;
+}
 .blog-no-hero .blog-navigation {
   padding-top: 175px;
 }
