@@ -6220,7 +6220,7 @@ html {
 
 .press-hero .press-hero-eyebrow {
   font-family: 'Didot', serif;
-  font-size: 68px;
+  font-size: clamp(42px, 4.3vw, 68px);
   font-weight: 300;
   text-transform: uppercase;
   color: #fff;
@@ -6357,11 +6357,11 @@ html {
 
 .press-story-swiper {
   width: 100%;
-  height: 500px;
+  flex: 1;
 }
 
 .our-story-content.grey .press-slider-col {
-  padding: 0;
+  padding: 5vw 0;
   justify-content: center;
 }
 
