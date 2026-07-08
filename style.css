@@ -4486,23 +4486,7 @@ a.management-link:hover img {
 
 /* Blog posts without a hero: solid header + push breadcrumb below it */
 .blog-no-hero .top-header {
-  background-color: #fff !important;
-  border-top-color: rgba(0, 0, 0, 0.08);
-  border-bottom-color: rgba(0, 0, 0, 0.08);
-}
-.blog-no-hero .bottom-header {
-  border-bottom-color: rgba(0, 0, 0, 0.08);
-}
-.blog-no-hero .website-title,
-.blog-no-hero .website-title a,
-.blog-no-hero .main-nav a,
-.blog-no-hero .header-phone a,
-.blog-no-hero .header-phone-number,
-.blog-no-hero .lang-current {
-  color: #1a1a1a;
-}
-.blog-no-hero .main-nav a::after {
-  background-color: #1a1a1a;
+  background-color: #83A7AE !important;
 }
 .blog-no-hero .blog-navigation {
   padding-top: 175px;
