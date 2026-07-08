@@ -6357,6 +6357,7 @@ html {
 
 .press-story-swiper {
   width: 100%;
+  max-height: 500px;
 }
 
 .our-story-content.grey .press-slider-col {
