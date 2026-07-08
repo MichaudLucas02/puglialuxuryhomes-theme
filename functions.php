@@ -5092,3 +5092,22 @@ add_action('template_redirect', function () {
   }
 });
 
+// Blog posts without a hero image: solid header + breadcrumb offset
+add_filter('body_class', function($classes) {
+    if (is_singular('blog') && !get_field('large_hero_image')) {
+        $classes[] = 'blog-no-hero';
+    }
+    return $classes;
+});
+
+// Category pages → 301 redirect to /magazine/
+add_action('template_redirect', function() {
+    if (is_category()) {
+        $lang   = function_exists('pll_current_language') ? pll_current_language() : 'en';
+        $slugs  = ['en' => '/magazine/', 'fr' => '/fr/magazine/', 'it' => '/it/magazine/'];
+        wp_redirect(home_url($slugs[$lang] ?? '/magazine/'), 301);
+        exit;
+    }
+});
+
+
