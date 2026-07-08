@@ -6356,17 +6356,12 @@ html {
 }
 
 .press-story-swiper {
-  position: absolute;
-  top: 5vw;
-  bottom: 5vw;
-  left: 0;
-  right: 0;
-  width: auto;
+  width: 100%;
 }
 
 .our-story-content.grey .press-slider-col {
   padding: 0;
-  position: relative;
+  justify-content: center;
 }
 
 .press-villa-swiper .swiper-wrapper,
@@ -6398,12 +6393,6 @@ html {
     height: 320px;
   }
   .press-story-swiper {
-    position: relative;
-    top: auto;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    width: 100%;
     height: 320px;
   }
 }
