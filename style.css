@@ -132,6 +132,27 @@ article {
   }
 }
 
+/* Single blog posts: solid header so white text doesn't disappear */
+.has-dark-header .top-header {
+    background-color: #fff !important;
+    border-top-color: rgba(0, 0, 0, 0.08);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+.has-dark-header .bottom-header {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+.has-dark-header .website-title,
+.has-dark-header .website-title a,
+.has-dark-header .main-nav a,
+.has-dark-header .header-phone a,
+.has-dark-header .header-phone-number,
+.has-dark-header .lang-current {
+    color: #1a1a1a;
+}
+.has-dark-header .main-nav a::after {
+    background-color: #1a1a1a;
+}
+
 .header {
     display: flex;
     width: 100%;
@@ -4480,7 +4501,7 @@ a.management-link:hover img {
 
 .blog-navigation {
   border-bottom: 0.5px solid #F5f5f5;
-  padding: 35px 5vw;
+  padding: 175px 5vw 35px;
 }
 
 .blog-breadcrumbs a, .blog-breadcrumbs span {

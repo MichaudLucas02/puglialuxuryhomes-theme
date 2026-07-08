@@ -5092,3 +5092,21 @@ add_action('template_redirect', function () {
   }
 });
 
+// Category pages → 301 redirect to /magazine/
+add_action('template_redirect', function() {
+    if (is_category()) {
+        $lang   = function_exists('pll_current_language') ? pll_current_language() : 'en';
+        $slugs  = ['en' => '/magazine/', 'fr' => '/fr/magazine/', 'it' => '/it/magazine/'];
+        wp_redirect(home_url($slugs[$lang] ?? '/magazine/'), 301);
+        exit;
+    }
+});
+
+// Single blog posts: opaque header so white text is visible
+add_filter('body_class', function($classes) {
+    if (is_singular('blog')) {
+        $classes[] = 'has-dark-header';
+    }
+    return $classes;
+});
+
