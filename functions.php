@@ -1771,6 +1771,157 @@ add_action('acf/init', function () {
   ]);
 });
 
+// Seasonal Prices 2028 ACF Group
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  $month_slugs = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  $month_nums  = [1,2,3,4,5,6,7,8,9,10,11,12];
+
+  $f28 = [];
+
+  $f28[] = ['key' => 'field_season28_tab_general', 'label' => 'General', 'type' => 'tab', 'placement' => 'top'];
+  $f28[] = [
+    'key'           => 'field_season28_price_period',
+    'label'         => 'Price period',
+    'name'          => 'season28_price_period',
+    'type'          => 'select',
+    'choices'       => ['week' => 'Per week', 'day' => 'Per day'],
+    'default_value' => 'week',
+    'instructions'  => 'Leave all months empty to hide the 2028 tab on the front end.',
+    'wrapper'       => ['width' => 20],
+  ];
+  $f28[] = [
+    'key'          => 'field_season28_min_stay_1',
+    'label'        => 'Minimum Stay — Tag 1',
+    'name'         => 'season28_min_stay_1',
+    'type'         => 'text',
+    'placeholder'  => 'e.g. 4 nights minimum — Jan, Feb, Mar',
+    'instructions' => 'Leave empty to hide.',
+    'wrapper'      => ['width' => 40],
+  ];
+  $f28[] = [
+    'key'          => 'field_season28_min_stay_2',
+    'label'        => 'Minimum Stay — Tag 2',
+    'name'         => 'season28_min_stay_2',
+    'type'         => 'text',
+    'placeholder'  => 'e.g. 5 nights minimum — Jun, Jul, Aug',
+    'instructions' => 'Leave empty to hide.',
+    'wrapper'      => ['width' => 40],
+  ];
+
+  foreach ($month_slugs as $i => $slug) {
+    $num   = $month_nums[$i];
+    $label = date('F', mktime(0, 0, 0, $num, 1));
+
+    $f28[] = ['key' => "field_season28_{$slug}_tab", 'label' => $label, 'type' => 'tab', 'placement' => 'top'];
+
+    $f28[] = [
+      'key'          => "field_season28_{$slug}_price",
+      'label'        => 'Price',
+      'name'         => "season28_{$slug}_price",
+      'type'         => 'text',
+      'placeholder'  => 'e.g. 7000 or 7000€ - 8000€',
+      'instructions' => 'Number (e.g. 7000) or a text range (e.g. 7000€ - 8000€).',
+      'wrapper'      => ['width' => 25],
+    ];
+    $f28[] = [
+      'key'         => "field_season28_{$slug}_label",
+      'label'       => 'Season Label',
+      'name'        => "season28_{$slug}_label",
+      'type'        => 'text',
+      'placeholder' => 'e.g. Basse saison',
+      'wrapper'     => ['width' => 35],
+    ];
+    $f28[] = [
+      'key'        => "field_season28_{$slug}_color",
+      'label'      => 'Season Color',
+      'name'       => "season28_{$slug}_color",
+      'type'       => 'select',
+      'choices'    => [
+        'low'      => 'Low (green)',
+        'mid'      => 'Mid (yellow)',
+        'high'     => 'High (orange)',
+        'veryhigh' => 'Very High (red)',
+      ],
+      'allow_null' => 1,
+      'wrapper'    => ['width' => 25],
+    ];
+    $f28[] = [
+      'key'         => "field_season28_{$slug}_date_from",
+      'label'       => 'Available From',
+      'name'        => "season28_{$slug}_date_from",
+      'type'        => 'text',
+      'placeholder' => 'e.g. 1 Jan.',
+      'wrapper'     => ['width' => 25],
+    ];
+    $f28[] = [
+      'key'         => "field_season28_{$slug}_date_to",
+      'label'       => 'Available To',
+      'name'        => "season28_{$slug}_date_to",
+      'type'        => 'text',
+      'placeholder' => 'e.g. 31 Jan.',
+      'wrapper'     => ['width' => 25],
+    ];
+    $f28[] = [
+      'key'         => "field_season28_{$slug}_min_stay",
+      'label'       => 'Min. Stay',
+      'name'        => "season28_{$slug}_min_stay",
+      'type'        => 'text',
+      'placeholder' => 'e.g. 4 nights min.',
+      'wrapper'     => ['width' => 50],
+    ];
+  }
+
+  $f28[] = ['key' => 'field_season28_tab_footer', 'label' => 'Footer', 'type' => 'tab', 'placement' => 'top'];
+  $f28[] = [
+    'key'         => 'field_season28_footer_note',
+    'label'       => 'Note (left)',
+    'name'        => 'season28_footer_note',
+    'type'        => 'textarea',
+    'rows'        => 4,
+    'placeholder' => 'Optional note displayed below the 2028 price cards.',
+    'wrapper'     => ['width' => 50],
+  ];
+  $f28[] = [
+    'key'         => 'field_season28_price_from',
+    'label'       => 'Price From Text (right)',
+    'name'        => 'season28_price_from',
+    'type'        => 'text',
+    'placeholder' => 'e.g. A partir de 6 860 EUR / semaine',
+    'wrapper'     => ['width' => 50],
+  ];
+  $f28[] = [
+    'key'         => 'field_season28_book_label',
+    'label'       => 'Book Button — Label',
+    'name'        => 'season28_book_label',
+    'type'        => 'text',
+    'placeholder' => 'e.g. Reserver',
+    'wrapper'     => ['width' => 30],
+  ];
+  $f28[] = [
+    'key'         => 'field_season28_book_url',
+    'label'       => 'Book Button — URL',
+    'name'        => 'season28_book_url',
+    'type'        => 'url',
+    'placeholder' => 'https://...',
+    'wrapper'     => ['width' => 70],
+  ];
+
+  acf_add_local_field_group([
+    'key'             => 'group_seasonal_prices_2028',
+    'title'           => 'Seasonal Prices — 2028',
+    'fields'          => $f28,
+    'location'        => [[[
+      'param'    => 'post_type',
+      'operator' => '==',
+      'value'    => 'villa',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
 
 add_action('wp_enqueue_scripts', function () {
   // Google Maps API - Replace YOUR_API_KEY with your actual Google Maps API key
