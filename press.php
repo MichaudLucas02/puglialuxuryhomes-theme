@@ -373,6 +373,18 @@ add_action('wp_footer', function () { ?>
     if (typeof Swiper === 'undefined') return;
     var villa = document.querySelector('.press-villa-swiper');
     if (villa) new Swiper(villa, opts(villa));
+
+    function syncStoryHeight() {
+        var textCol = document.querySelector('.our-story-content.grey .our-story-col:not(.press-slider-col)');
+        var swiper  = document.querySelector('.press-story-swiper');
+        if (!textCol || !swiper || window.innerWidth <= 768) return;
+        var s = window.getComputedStyle(textCol);
+        var h = textCol.offsetHeight - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom);
+        swiper.style.height = h + 'px';
+    }
+    syncStoryHeight();
+    window.addEventListener('resize', syncStoryHeight);
+
     var story = document.querySelector('.press-story-swiper');
     if (story) new Swiper(story, opts(story));
 })();
