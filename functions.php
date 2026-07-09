@@ -3478,16 +3478,18 @@ function plh_inline_translations() {
  * Polylang DB entries always override inline translations.
  */
 function plh_t( $text, $context = '' ) {
+  // Inline translations take priority — they are the explicit source of truth
+  $lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
+  $map  = plh_inline_translations();
+  if ( isset($map[$lang][$text]) ) return $map[$lang][$text];
+
+  // Fall back to Polylang DB
   if ( function_exists('pll__') ) {
     $translated = pll__($text);
-    // Only trust Polylang if it returned a real translation (different from source)
     if ( is_string($translated) && $translated !== '' && $translated !== $text ) {
       return $translated;
     }
   }
-  $lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
-  $map  = plh_inline_translations();
-  if ( isset($map[$lang][$text]) ) return $map[$lang][$text];
 
   return $context ? _x( $text, $context, 'thinktech' ) : __( $text, 'thinktech' );
 }
