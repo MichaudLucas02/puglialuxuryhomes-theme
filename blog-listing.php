@@ -39,11 +39,13 @@ get_header(); ?>
         $current_cat = isset($_GET['cat']) ? intval($_GET['cat']) : 0;
         
         $args = [
-            'post_type'      => 'blog',
-            'posts_per_page' => 9,
-            'paged'          => $paged,
-            'orderby'        => 'date',
-            'order'          => 'DESC',
+            'post_type'           => 'blog',
+            'post_status'         => 'publish',
+            'posts_per_page'      => 9,
+            'paged'               => $paged,
+            'orderby'             => 'date',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => 1,
         ];
         
         if ($current_cat > 0) {
@@ -202,17 +204,19 @@ get_header(); ?>
                 $current_url = add_query_arg('cat', $current_cat, $current_url);
             }
             
-            echo '<div class="pagination" style="text-align: center; margin: 60px 0;">';
-            echo paginate_links([
-                'base' => add_query_arg('paged', '%#%', $current_url),
-                'format' => '',
-                'total' => $q->max_num_pages,
-                'current' => $paged,
-                'type' => 'list',
-                'prev_text' => '← ' . pll__('Previous'),
-                'next_text' => pll__('Next') . ' →',
-            ]);
-            echo '</div>';
+            if ($q->max_num_pages > 1) {
+                echo '<div class="pagination" style="text-align: center; margin: 60px 0;">';
+                echo paginate_links([
+                    'base'      => add_query_arg('paged', '%#%', $current_url),
+                    'format'    => '',
+                    'total'     => $q->max_num_pages,
+                    'current'   => $paged,
+                    'type'      => 'list',
+                    'prev_text' => '&larr; ' . pll__('Previous'),
+                    'next_text' => pll__('Next') . ' &rarr;',
+                ]);
+                echo '</div>';
+            }
             
         else:
             echo '<p style="text-align: center; margin: 40px;">' . pll__('No blog posts found.') . '</p>';
