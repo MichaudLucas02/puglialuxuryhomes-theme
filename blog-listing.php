@@ -204,7 +204,7 @@ get_header(); ?>
                 $current_url = add_query_arg('cat', $current_cat, $current_url);
             }
             
-            if ($q->max_num_pages > 1) {
+            if ($q->max_num_pages > 1):
                 echo '<div class="pagination" style="text-align: center; margin: 60px 0;">';
                 echo paginate_links([
                     'base'      => add_query_arg('paged', '%#%', $current_url),
@@ -216,7 +216,7 @@ get_header(); ?>
                     'next_text' => pll__('Next') . ' &rarr;',
                 ]);
                 echo '</div>';
-            }
+            endif;
             
         else:
             echo '<p style="text-align: center; margin: 40px;">' . pll__('No blog posts found.') . '</p>';
