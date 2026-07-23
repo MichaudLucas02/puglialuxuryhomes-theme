@@ -248,14 +248,14 @@ function plh_render_season_row($m, $color_class, $per_period_label = '', $suffix
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,1,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,6,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price from')); ?></span>
             </div>
             <?php foreach ($first_half as $m): plh_render_season_row($m, $color_class, $per_period_label, ''); endforeach; ?>
         </div>
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,7,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,12,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price from')); ?></span>
             </div>
             <?php foreach ($second_half as $m): plh_render_season_row($m, $color_class, $per_period_label, ''); endforeach; ?>
         </div>
@@ -267,14 +267,14 @@ function plh_render_season_row($m, $color_class, $per_period_label = '', $suffix
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,1,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,6,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label27); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price from')); ?></span>
             </div>
             <?php foreach ($first_half27 as $m): plh_render_season_row($m, $color_class, $per_period_label27, '-27'); endforeach; ?>
         </div>
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,7,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,12,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label27); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price from')); ?></span>
             </div>
             <?php foreach ($second_half27 as $m): plh_render_season_row($m, $color_class, $per_period_label27, '-27'); endforeach; ?>
         </div>
@@ -287,14 +287,14 @@ function plh_render_season_row($m, $color_class, $per_period_label = '', $suffix
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,1,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,6,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label28); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price from')); ?></span>
             </div>
             <?php foreach ($first_half28 as $m): plh_render_season_row($m, $color_class, $per_period_label28, '-28'); endforeach; ?>
         </div>
         <div class="season-col">
             <div class="season-col-header">
                 <span class="season-col-range"><?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,7,1)))); ?> &ndash; <?php echo esc_html(ucfirst(date_i18n('F', mktime(0,0,0,12,1)))); ?></span>
-                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price')); ?> / <?php echo esc_html($per_period_label28); ?></span>
+                <span class="season-col-price-label"><?php echo esc_html(plh_t('Price from')); ?></span>
             </div>
             <?php foreach ($second_half28 as $m): plh_render_season_row($m, $color_class, $per_period_label28, '-28'); endforeach; ?>
         </div>
