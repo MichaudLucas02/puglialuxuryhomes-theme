@@ -5931,6 +5931,7 @@ a.management-link:hover img {
   font-weight: 300;
   color: #2c2a27;
   min-width: 80px;
+  text-align: left;
 }
 
 /* Season label */
@@ -6083,14 +6084,14 @@ a.management-link:hover img {
 /* Season prices — year toggle */
 .season-prices-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 14px;
 }
 
 .season-rates-title {
   margin: 0;
+  text-align: center;
 }
 
 .season-year-tabs {

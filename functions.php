@@ -3106,7 +3106,7 @@ function plh_register_ui_strings() {
     // Blog page
     'Latest Blog Posts', 'All Categories', 'Read More', 'Read More', 'Read More', 'Previous', 'Next',
     // Seasonal prices
-    'Weekly rates', 'Daily rates', 'Available', 'per week', 'per day', 'Price', 'max',
+    'Weekly rates', 'Daily rates', 'Available', 'per week', 'per day', 'Price', 'Price from', 'max',
     'Low season', 'Mid season', 'High season', 'Very high season',
     // Real Estate page
     'Start your property journey in Puglia',
@@ -3193,6 +3193,7 @@ function plh_inline_translations() {
       'per week'         => 'par semaine',
       'per day'          => 'par jour',
       'Price'            => 'Prix',
+      'Price from'       => 'Prix à partir de',
       'max'              => 'max',
       'Low season'       => 'Basse saison',
       'Mid season'       => 'Moyenne saison',
@@ -3335,6 +3336,7 @@ function plh_inline_translations() {
       'per week'         => 'a settimana',
       'per day'          => 'al giorno',
       'Price'            => 'Prezzo',
+      'Price from'       => 'Prezzo a partire da',
       'max'              => 'max',
       'Low season'       => 'Bassa stagione',
       'Mid season'       => 'Media stagione',
