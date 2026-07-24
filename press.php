@@ -21,7 +21,6 @@ $hero_title      = get_field('press_hero_title')            ?: 'Puglia Luxury Ho
 $broadcast_ch1   = get_field('press_broadcast_channel_1')   ?: 'TMC';
 $broadcast_date  = get_field('press_broadcast_date')        ?: '22 July 2026';
 $broadcast_time  = get_field('press_broadcast_time')        ?: '9:25pm';
-$broadcast_ch2   = get_field('press_broadcast_channel_2')   ?: 'TF1+';
 $hero_cta_url    = get_field('press_hero_cta_url')          ?: '#press-contact';
 
 $press_kits = [
@@ -40,15 +39,13 @@ $press_kits = [
     <div class="press-hero-content">
         <h1><?php echo esc_html($hero_title); ?></h1>
         <p class="press-hero-eyebrow"><?php echo esc_html($hero_eyebrow); ?></p>
-        <p class="press-hero-sub"><?php echo esc_html(plh_t('Soon on TV')); ?></p>
+        <p class="press-hero-sub"><?php echo esc_html(plh_t('Broadcast on July 22, 2026 on TMC')); ?></p>
         <div class="press-hero-broadcast">
             <span><?php echo esc_html($broadcast_ch1); ?></span>
             <span class="press-hero-dot">·</span>
             <span><?php echo esc_html($broadcast_date); ?></span>
             <span class="press-hero-dot">·</span>
             <span><?php echo esc_html($broadcast_time); ?></span>
-            <span class="press-hero-dot">·</span>
-            <span><?php echo esc_html($broadcast_ch2); ?></span>
         </div>
         <div class="press-hero-ctas">
             <a href="<?php echo esc_attr($hero_cta_url); ?>" class="press-hero-cta"><?php echo esc_html(plh_t('Plan your stay in Puglia')); ?></a>
