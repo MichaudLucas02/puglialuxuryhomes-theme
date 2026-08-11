@@ -21,7 +21,7 @@ if (empty($reviews)) return; // Don't show section if no reviews
 <section id="avis" class="google-reviews-section">
     <div class="google-reviews-wrapper">
         <div class="reviews-header">
-            <h2><?php pll_e('Guest Reviews'); ?></h2>
+            <h2><?php echo esc_html(plh_t('What Our Guests Say')); ?></h2>
             <a href="https://www.google.com/search?q=puglia+luxury+homes" target="_blank" rel="noopener" class="google-badge">
                 <i class="fa-brands fa-google"></i>
                 <span><?php pll_e('Google Reviews'); ?></span>
