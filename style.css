@@ -1650,32 +1650,43 @@ h2 {
   
 }
 
-.sea-overlay h1, 
-.city-overlay h1,
-.land-overlay h1 {
+.sea-overlay h1, .sea-overlay h3,
+.city-overlay h1, .city-overlay h3,
+.land-overlay h1, .land-overlay h3 {
+  font-family: 'Didot', serif;
   color: white;
-  font-size: 24px;
-  font-weight: 600;
-  margin-left: 40px;
-  text-transform: uppercase;
-
+  font-size: 26px;
+  font-weight: 400;
+  margin: 0 0 12px 40px;
+  text-transform: none;
+  letter-spacing: 0.04em;
 }
 
 .sea-overlay p,
 .city-overlay p,
 .land-overlay p {
-  color: white;
-  font-size: 8px;
+  color: rgba(255,255,255,0.88);
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
   text-align: left;
-  margin-left: 40px;
+  margin: 0 40px 20px;
 }
 
 @media (max-width: 650px) {
-  .sea-overlay h1, 
-  .city-overlay h1,
-  .land-overlay h1 {
-    
-    font-size: 18px;
+  .sea-overlay h1, .sea-overlay h3,
+  .city-overlay h1, .city-overlay h3,
+  .land-overlay h1, .land-overlay h3 {
+    font-size: 20px;
+  }
+
+  .sea-overlay p,
+  .city-overlay p,
+  .land-overlay p {
+    font-size: 12px;
+    margin: 0 24px 16px;
   }
 }
 
@@ -2095,9 +2106,9 @@ a.collection-link {
 
 /* Discover section Start */
 .central-title-section {display: flex; max-width: 100%; padding:0; justify-content: center;}
-.central-title-section.grey { background-color: #F5F5F5F5;}
+.central-title-section.grey { background-color: #FFFFFF;}
 .central-title {margin-top: 50px; background-color: #FFFFFF; width: 100%; max-width: 1600px;}
-.central-title.grey { background-color: #F5F5F5F5;}
+.central-title.grey { background-color: #FFFFFF;}
 .central-title h2 { color: black; text-align: center;  font-family: 'Raleway'; font-weight: 300;}
 .central-title p {color: black; opacity: 0.8; font-family: 'Raleway'; padding: 0 5vw; text-align: center; margin-bottom: 30px;}
 
@@ -6144,6 +6155,7 @@ a.management-link:hover img {
   min-height: 580px;
   max-width: 100%;
   overflow: hidden;
+  background-color: #f5f5f5;
 }
 
 .re-homepage-text {
@@ -6152,7 +6164,7 @@ a.management-link:hover img {
   flex-direction: column;
   justify-content: center;
   padding: 80px 64px;
-  background-color: #fff;
+  background-color: #f5f5f5;
 }
 
 .re-homepage-eyebrow {
@@ -6725,4 +6737,337 @@ html {
   .press-hero-broadcast span {
     font-size: 11px;
   }
+}
+
+/* =============================================
+   HOMEPAGE SEO SECTIONS
+   ============================================= */
+
+/* Hero — SEO H1 + CTAs */
+/* Double class selector beats .hero-content h1 specificity (0-2-0 > 0-1-1) */
+.hero-content .hero-seo-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin: 0 0 18px;
+}
+
+.hero-tagline {
+  font-family: 'Vogue', serif;
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 12px;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.hero-description {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.85);
+  margin: 0 0 32px;
+  max-width: 480px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-cta {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 13px 28px;
+  display: inline-block;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.hero-cta--primary {
+  background: #fff;
+  color: #1a1a17;
+  border: 1px solid #fff;
+}
+
+.hero-cta--primary:hover {
+  background: transparent;
+  color: #fff;
+}
+
+.hero-cta--secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+.hero-cta--secondary:hover {
+  border-color: #fff;
+}
+
+/* Homepage Intro */
+.homepage-intro {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 72px 40px;
+  text-align: center;
+}
+
+.homepage-intro h2 {
+  font-family: 'Didot', serif;
+  font-size: clamp(16px, 2.2vw, 32px);
+  font-weight: 400;
+  color: #1a1a17;
+  margin: 0 0 24px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.homepage-intro p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.8;
+  color: #4a4844;
+  margin: 0;
+}
+
+/* Art of Hospitality — service tags */
+.hospitality-tags {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: #7a7670;
+  margin-top: 24px;
+  text-transform: uppercase;
+}
+
+
+/* Why PLH */
+.why-plh {
+  background: #f9f7f4;
+  padding: 80px 40px;
+}
+
+.why-plh-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.why-plh-inner > h2 {
+  font-family: 'Didot', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  color: #1a1a17;
+  margin: 0 0 56px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.why-plh-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 48px;
+}
+
+.why-plh-icon {
+  color: #8a7e6e;
+  margin-bottom: 18px;
+  display: flex;
+}
+
+.why-plh-item h3 {
+  font-family: 'Didot', serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  color: #1a1a17;
+  margin: 0 0 14px;
+}
+
+.why-plh-item p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #4a4844;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* As Seen on The Parisian Agency */
+.parisian-agency-section {
+  background: #fff;
+  padding: 80px 40px 80px;
+  text-align: center;
+}
+
+.parisian-agency-eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9a8e7e;
+  margin: 0 0 16px;
+}
+
+.parisian-agency-text {
+  max-width: 620px;
+  margin: 0 auto 56px;
+}
+
+.parisian-agency-text h2 {
+  font-family: 'Didot', serif;
+  font-size: clamp(30px, 4vw, 54px);
+  font-weight: 400;
+  color: #1a1a17;
+  margin: 0 0 20px;
+  letter-spacing: 0.02em;
+}
+
+.parisian-agency-text p:not(.parisian-agency-eyebrow) {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.8;
+  color: #6a6460;
+  margin: 0;
+}
+
+.parisian-agency-image {
+  max-width: 1120px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.parisian-agency-image img {
+  width: 100%;
+  height: 52vh;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 775px) {
+  .hero-content .hero-seo-title { font-size: 13px; }
+  .hero-description { font-size: 13px; }
+  .hero-ctas { flex-direction: column; gap: 12px; }
+  .hero-cta { text-align: center; }
+
+  .homepage-intro { padding: 48px 24px; }
+  .testimonials-section { padding: 48px 24px 0; }
+
+  .why-plh { padding: 56px 24px; }
+  .why-plh-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  .parisian-agency-section { padding: 56px 24px 56px; }
+  .parisian-agency-image img { height: 50vw; }
+}
+
+/* =============================================
+   WHERE IN PUGLIA
+   ============================================= */
+
+.where-in-puglia {
+  padding: 80px 40px;
+  background: #fff;
+  text-align: center;
+}
+
+.where-in-puglia > h2 {
+  font-family: 'Didot', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  color: #1a1a17;
+  margin: 0 0 48px;
+  letter-spacing: 0.02em;
+}
+
+.where-in-puglia-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.where-region-card {
+  display: block;
+  text-decoration: none;
+}
+
+.where-region-image {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.where-region-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.55s ease;
+}
+
+.where-region-card:hover .where-region-image img {
+  transform: scale(1.04);
+}
+
+.where-region-caption {
+  padding: 20px 4px 0;
+  text-align: left;
+}
+
+.where-region-caption h3 {
+  font-family: 'Didot', serif;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 400;
+  color: #1a1a17;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.where-region-cities {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: #7a7670;
+  margin: 0 0 6px;
+}
+
+.where-region-count {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9a8e7e;
+  margin: 0;
+}
+
+@media (max-width: 775px) {
+  .where-in-puglia { padding: 56px 24px; }
+  .where-in-puglia-grid { grid-template-columns: 1fr; gap: 16px; }
+  .where-region-card { aspect-ratio: 3 / 2; }
+  .where-region-overlay { padding: 24px; }
 }

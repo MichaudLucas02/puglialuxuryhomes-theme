@@ -1,7 +1,7 @@
 <?php
 $re_eyebrow  = get_field('home_re_eyebrow')     ?: plh_t('Real Estate · Puglia');
 $re_title    = get_field('home_re_title')        ?: plh_t('Find your place in Puglia');
-$re_desc     = get_field('home_re_description')  ?: plh_t('Whether you are looking to buy, sell or build — we know the territory and guide you every step of the way.');
+$re_desc     = get_field('home_re_description')  ?: plh_t('Whether you are looking to buy, sell or build, we know the territory and guide you every step of the way.');
 $re_cta_text = get_field('home_re_cta_text')     ?: plh_t('Discover more');
 $re_cta_url  = get_field('home_re_cta_url')      ?: '';
 $re_image    = get_field('home_re_image')        ?: '';

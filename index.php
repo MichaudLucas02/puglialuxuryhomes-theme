@@ -33,9 +33,13 @@
 
 
                 <div class='hero-content'>
-            <h1><?php echo esc_html($hero_title); ?></h1>
-            <p><?php echo esc_html($hero_description); ?></p>
-            
+            <h1 class="hero-seo-title"><?php echo esc_html(plh_t('Luxury Villa Rentals in Puglia, Italy')); ?></h1>
+            <p class="hero-tagline"><?php echo esc_html($hero_title); ?></p>
+            <p class="hero-description"><?php echo esc_html($hero_description); ?></p>
+            <div class="hero-ctas">
+                <a href="<?php echo esc_url(home_url('/the-villas/')); ?>" class="hero-cta hero-cta--primary"><?php echo esc_html(plh_t('Browse Our Villas')); ?></a>
+                <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="hero-cta hero-cta--secondary"><?php echo esc_html(plh_t('Plan Your Stay')); ?></a>
+            </div>
         </div>
 
     </section>
@@ -115,6 +119,11 @@
         })();
         </script>
         <?php endif; ?>
+    <section class="homepage-intro">
+        <h2><?php echo esc_html(plh_t('A boutique villa agency in Puglia, Italy.')); ?></h2>
+        <p><?php echo esc_html(plh_t('Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.')); ?></p>
+    </section>
+
     <section class='our-collection'>
         <h2><?php echo esc_html( get_field('home_collections_title') ?: 'Our Collections' ); ?></h2>
         <p class="p-title"><?php echo esc_html( get_field('home_collections_description') ?: 'Discover our collections of exclusive villas' ); ?></p>
@@ -136,7 +145,7 @@
                 class='sea-collection-cover'
             ></img>
             <div class='sea-overlay'>
-                <h1><?php echo $sea_title_display; ?></h1>
+                <h3><?php echo $sea_title_display; ?></h3>
                 <p><?php echo esc_html($sea_desc); ?></p>
                 <?php if (!empty($sea_button_text)) : ?>
                     <span class="collection-btn"><?php echo esc_html($sea_button_text); ?></span>
@@ -162,7 +171,7 @@
                     class='sea-collection-cover'
                 ></img>
                 <div class='city-overlay'>
-                    <h1><?php echo $city_title_display; ?></h1>
+                    <h3><?php echo $city_title_display; ?></h3>
                     <p><?php echo esc_html($city_desc); ?></p>
                     <?php if (!empty($city_button_text)) : ?>
                         <span class="collection-btn"><?php echo esc_html($city_button_text); ?></span>
@@ -187,7 +196,7 @@
                     class='sea-collection-cover'
                 ></img>
                 <div class='land-overlay'>
-                    <h1><?php echo $land_title_display; ?></h1>
+                    <h3><?php echo $land_title_display; ?></h3>
                     <p><?php echo esc_html($land_desc); ?></p>
                     <?php if (!empty($land_button_text)) : ?>
                         <span class="collection-btn"><?php echo esc_html($land_button_text); ?></span>
@@ -198,6 +207,45 @@
 
         </div>
     </section>
+    <section class="where-in-puglia">
+        <h2><?php echo esc_html(plh_t('Where in Puglia')); ?></h2>
+        <div class="where-in-puglia-grid">
+            <?php
+            $regions = [
+                [
+                    'title'  => plh_t('Salento'),
+                    'cities' => plh_t('Lecce · Gagliano del Capo · Santa Maria di Leuca'),
+                    'count'  => get_field('home_region_salento_count') ?: '9',
+                    'image'  => get_field('home_region_salento_image'),
+                    'link'   => get_field('home_region_salento_link') ?: home_url('/the-villas/'),
+                ],
+                [
+                    'title'  => plh_t("Valle d'Itria"),
+                    'cities' => plh_t('Ostuni · Noci'),
+                    'count'  => get_field('home_region_valleditria_count') ?: '4',
+                    'image'  => get_field('home_region_valleditria_image'),
+                    'link'   => get_field('home_region_valleditria_link') ?: home_url('/the-villas/'),
+                ],
+            ];
+            foreach ($regions as $region) :
+                $img_url = is_array($region['image']) ? $region['image']['url'] : $region['image'];
+            ?>
+            <a href="<?php echo esc_url($region['link']); ?>" class="where-region-card">
+                <?php if ($img_url) : ?>
+                <div class="where-region-image">
+                    <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($region['title']); ?>">
+                </div>
+                <?php endif; ?>
+                <div class="where-region-caption">
+                    <h3><?php echo esc_html($region['title']); ?></h3>
+                    <p class="where-region-cities"><?php echo esc_html($region['cities']); ?></p>
+                    <p class="where-region-count"><?php echo esc_html($region['count'] . ' ' . plh_t('villas')); ?></p>
+                </div>
+            </a>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
     <section class='villa-section'>
         <h2><?php echo esc_html( get_field('home_villas_title') ?: 'Villas' ); ?></h2>
         <p class="p-title"><?php echo esc_html( get_field('home_villas_description') ?: 'Elegance and tranquility in exceptional places' ); ?></p>
@@ -241,24 +289,105 @@
         
         <!-- <div class="vs-dots" data-vs-dots></div> -->
     </section>
+    <?php get_template_part('partials/google-reviews', null, ['post_id' => get_the_ID()]); ?>
+
     <section class="central-title-section grey">
         <div class="central-title grey">
             <?php
             // Get current language for Polylang
             $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'en';
             $option_key = 'discover_settings_' . $current_lang;
-            
+
             // Get region section content from settings
             $region_title = get_option($option_key . '_region_title', 'Take a glance <br>at the region');
             $region_description = get_option($option_key . '_region_description', 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.');
             ?>
             <h2><?php echo wp_kses_post($region_title); ?></h2>
             <p class="p-title"><?php echo esc_html($region_description); ?></p>
+            <p class="hospitality-tags"><?php echo esc_html(plh_t('Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking')); ?></p>
         </div>
     </section>
-    <?php get_template_part('partials/discover-section', null, ['bg_color' => '#F5F5F5']); ?>
+    <?php get_template_part('partials/discover-section', null, ['bg_color' => '#FFFFFF']); ?>
 
     <?php get_template_part('partials/discover-slider'); ?>
+
+    <section class="why-plh">
+        <div class="why-plh-inner">
+            <h2><?php echo esc_html(plh_t('Why Puglia Luxury Homes')); ?></h2>
+            <div class="why-plh-grid">
+                <div class="why-plh-item">
+                    <div class="why-plh-icon">
+                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M19 4C14.029 4 10 8.029 10 13c0 8 9 21 9 21s9-13 9-21c0-4.971-4.029-9-9-9z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="19" cy="13" r="3.5" stroke="currentColor" stroke-width="1.4"/>
+                        </svg>
+                    </div>
+                    <h3><?php echo esc_html(plh_t('Locally Based Founders')); ?></h3>
+                    <p><?php echo esc_html(plh_t('Run directly by its two founders, graduates of the École Hôtelière de Lausanne who live in Sud Salento year-round. Every stay is held to the standards of five-star hospitality, looked after in person rather than from a distant office.')); ?></p>
+                </div>
+                <div class="why-plh-item">
+                    <div class="why-plh-icon">
+                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <rect x="7" y="8" width="24" height="22" rx="2" stroke="currentColor" stroke-width="1.4"/>
+                            <path d="M7 14h24" stroke="currentColor" stroke-width="1.4"/>
+                            <path d="M13 6v4M25 6v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            <path d="M12 21l4 4 10-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3><?php echo esc_html(plh_t('Your Stay Arranged Before You Arrive')); ?></h3>
+                    <p><?php echo esc_html(plh_t('Tell us what you need ahead of time and it is taken care of: the fridge stocked to your taste, the right tables booked, transfers arranged, and an itinerary shaped around the days you have in mind.')); ?></p>
+                </div>
+                <div class="why-plh-item">
+                    <div class="why-plh-icon">
+                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="19" cy="19" r="14" stroke="currentColor" stroke-width="1.4"/>
+                            <path d="M19 9v2M19 27v2M9 19h2M27 19h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            <path d="M24 14l-5 5.5-5 5.5 5-5.5L24 14z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3><?php echo esc_html(plh_t('Beyond the Villa')); ?></h3>
+                    <p><?php echo esc_html(plh_t('Once you arrive, the region comes to you: a private chef cooking in your own kitchen, wellness treatments by the pool, and long days out along the coast by boat.')); ?></p>
+                </div>
+                <div class="why-plh-item">
+                    <div class="why-plh-icon">
+                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="14" cy="13" r="5" stroke="currentColor" stroke-width="1.4"/>
+                            <circle cx="24" cy="13" r="5" stroke="currentColor" stroke-width="1.4"/>
+                            <path d="M4 33c0-5.523 4.477-9 10-9h10c5.523 0 10 3.477 10 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3><?php echo esc_html(plh_t('Introductions, Not Just Reservations')); ?></h3>
+                    <p><?php echo esc_html(plh_t('Years of living and working here mean we know the people worth knowing. The restaurateurs, the winemakers, the boat captains. Our guests are welcomed personally and seated at tables that are hard to reach from the outside.')); ?></p>
+                </div>
+                <div class="why-plh-item">
+                    <div class="why-plh-icon">
+                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M4 26l9-9 7 7 6-6 8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 33h30" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            <circle cx="29" cy="11" r="4" stroke="currentColor" stroke-width="1.4"/>
+                            <path d="M29 7V5M29 17v2M25 11h-2M35 11h-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3><?php echo esc_html(plh_t('Seaside, Countryside, or Historic Centre')); ?></h3>
+                    <p><?php echo esc_html(plh_t('A small, personally chosen collection, grouped by the setting you want to wake up in, whether by the sea, out in the countryside, or in the heart of a historic town. What you find is a handful of places we stand behind, not a catalogue of everything on the market.')); ?></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="parisian-agency-section">
+        <?php $pa_image = get_field('home_parisian_agency_image'); ?>
+        <div class="parisian-agency-text">
+            <p class="parisian-agency-eyebrow"><?php echo esc_html(plh_t('As Seen On')); ?></p>
+            <h2><?php echo esc_html(plh_t('The Parisian Agency')); ?></h2>
+            <p><?php echo esc_html(plh_t('The Kretz family\'s luxury real estate series, broadcast on TMC and streaming on Netflix.')); ?></p>
+        </div>
+        <?php if ($pa_image) : ?>
+        <div class="parisian-agency-image">
+            <img src="<?php echo esc_url(is_array($pa_image) ? $pa_image['url'] : $pa_image['url'] ?? $pa_image); ?>" alt="<?php echo esc_attr(plh_t('As Seen on The Parisian Agency')); ?>">
+        </div>
+        <?php endif; ?>
+    </section>
 
     <?php get_template_part('partials/re-homepage-section'); ?>
 

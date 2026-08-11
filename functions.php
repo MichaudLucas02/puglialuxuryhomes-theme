@@ -2442,11 +2442,18 @@ add_action('acf/init', function () {
     'key'      => 'group_google_reviews',
     'title'    => 'Google Reviews',
     'fields'   => $fields,
-    'location' => [[[
-      'param'    => 'post_type',
-      'operator' => '==',
-      'value'    => 'villa',
-    ]]],
+    'location' => [
+      [[
+        'param'    => 'post_type',
+        'operator' => '==',
+        'value'    => 'villa',
+      ]],
+      [[
+        'param'    => 'page_type',
+        'operator' => '==',
+        'value'    => 'front_page',
+      ]],
+    ],
     'position'        => 'normal',
     'label_placement' => 'top',
   ]);
@@ -3328,6 +3335,39 @@ function plh_inline_translations() {
       'Publication / Media outlet'               => 'Publication / Média',
       'Your enquiry'                             => 'Votre demande',
       'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
+          // Where in Puglia
+      'Where in Puglia'                              => 'Où en Pouilles',
+      'Salento'                                      => 'Salento',
+      "Valle d'Itria"                                => "Valle d'Itria",
+      'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',
+      'Ostuni · Noci'                                => 'Ostuni · Noci',
+      'villas'                                       => 'villas',
+      // Homepage SEO – new sections
+      'Luxury Villa Rentals in Puglia, Italy'       => 'Location de Villas de Luxe en Pouilles, Italie',
+      'Browse Our Villas'                            => 'Découvrir nos villas',
+      'Plan Your Stay'                               => 'Planifier votre séjour',
+      'A boutique villa agency in Puglia, Italy.'    => 'Une agence de villas de prestige en Pouilles, Italie.',
+      'Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Des propriétés gérées en exclusivité le long de la côte du Salento et dans la Valle d\'Itria \u2014 villas avec piscine privée, trulli traditionnels à louer et demeures historiques palazzo, chacune gérée directement par les fondateurs et accompagnée d\'un service de conciergerie sur demande.',
+      'What Our Guests Say'                          => 'Ce que disent nos clients',
+      'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking' => 'Chef privé · Massage à la villa · Location de bateau · Dégustation de vins · Cours de cuisine · Transfert aéroport · Approvisionnement avant arrivée · Réservation de restaurant',
+      'Whether you are looking to buy, sell or build, we know the territory and guide you every step of the way.' => 'Que vous cherchiez à acheter, vendre ou construire, nous connaissons le territoire et vous guidons à chaque étape.',
+      // Why PLH
+      'Why Puglia Luxury Homes'                      => 'Pourquoi Puglia Luxury Homes',
+      'Locally Based Founders'                       => 'Fondateurs sur place',
+      'Run directly by its two founders, graduates of the École Hôtelière de Lausanne who live in Sud Salento year-round. Every stay is held to the standards of five-star hospitality, looked after in person rather than from a distant office.' => 'Dirigée directement par ses deux fondateurs, diplômés de l\'École Hôtelière de Lausanne et résidents du Sud-Salento toute l\'année. Chaque séjour est tenu aux standards d\'une hospitalité cinq étoiles, supervisé en personne plutôt que depuis un bureau lointain.',
+      'Your Stay Arranged Before You Arrive'         => 'Votre séjour organisé avant votre arrivée',
+      'Tell us what you need ahead of time and it is taken care of: the fridge stocked to your taste, the right tables booked, transfers arranged, and an itinerary shaped around the days you have in mind.' => 'Dites-nous ce dont vous avez besoin à l\'avance et tout est pris en charge : le réfrigérateur rempli selon vos goûts, les bonnes tables réservées, les transferts organisés et un itinéraire façonné autour des jours que vous avez en tête.',
+      'Beyond the Villa'                             => 'Au-delà de la villa',
+      'Once you arrive, the region comes to you: a private chef cooking in your own kitchen, wellness treatments by the pool, and long days out along the coast by boat.' => 'Une fois arrivé, c\'est la région qui vient à vous : un chef privé qui cuisine dans votre propre cuisine, des soins bien-être au bord de la piscine et de longues journées sur la côte en bateau.',
+      'Introductions, Not Just Reservations'         => 'Des introductions, pas seulement des réservations',
+      'Years of living and working here mean we know the people worth knowing. The restaurateurs, the winemakers, the boat captains. Our guests are welcomed personally and seated at tables that are hard to reach from the outside.' => 'Des années de vie et de travail ici signifient que nous connaissons les personnes qui valent la peine d\'être connues. Les restaurateurs, les vignerons, les capitaines de bateau. Nos clients sont accueillis personnellement et assis à des tables difficiles d\'accès pour les non-initiés.',
+      'Seaside, Countryside, or Historic Centre'     => 'Bord de mer, campagne ou centre historique',
+      'A small, personally chosen collection, grouped by the setting you want to wake up in, whether by the sea, out in the countryside, or in the heart of a historic town. What you find is a handful of places we stand behind, not a catalogue of everything on the market.' => 'Une collection réduite, personnellement sélectionnée, regroupée selon l\'environnement dans lequel vous souhaitez vous réveiller — au bord de la mer, à la campagne ou au cœur d\'une ville historique. Ce que vous trouvez, c\'est une poignée d\'endroits que nous défendons, pas un catalogue de tout ce qui existe sur le marché.',
+      // As Seen on The Parisian Agency
+      'As Seen On'                                   => 'Vu sur',
+      'The Parisian Agency'                          => 'The Parisian Agency',
+      'As Seen on The Parisian Agency'               => 'Vu sur The Parisian Agency',
+      'The Kretz family\'s luxury real estate series, broadcast on TMC and streaming on Netflix.' => 'La série immobilière de luxe de la famille Kretz, diffusée sur TMC et en streaming sur Netflix.',
     ],
     'it' => [
       'Weekly rates'     => 'Tariffe settimanali',
@@ -3471,6 +3511,39 @@ function plh_inline_translations() {
       'Publication / Media outlet'               => 'Testata / Media',
       'Your enquiry'                             => 'La tua richiesta',
       'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
+          // Where in Puglia
+      'Where in Puglia'                              => 'Dove in Puglia',
+      'Salento'                                      => 'Salento',
+      "Valle d'Itria"                                => "Valle d'Itria",
+      'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',
+      'Ostuni · Noci'                                => 'Ostuni · Noci',
+      'villas'                                       => 'ville',
+      // Homepage SEO – new sections
+      'Luxury Villa Rentals in Puglia, Italy'       => 'Affitto Ville di Lusso in Puglia, Italia',
+      'Browse Our Villas'                            => 'Scopri le nostre ville',
+      'Plan Your Stay'                               => 'Pianifica il tuo soggiorno',
+      'A boutique villa agency in Puglia, Italy.'    => 'Un\'agenzia boutique di ville in Puglia, Italia.',
+      'Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Proprietà gestite in esclusiva lungo la costa del Salento e nella Valle d\'Itria — ville con piscina privata, trulli tradizionali in affitto e residenze storiche palazzo, ognuna gestita direttamente dai fondatori e supportata da un servizio di concierge su richiesta.',
+      'What Our Guests Say'                          => 'Cosa dicono i nostri ospiti',
+      'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking' => 'Chef privato · Massaggio in villa · Noleggio barca · Degustazione vini · Lezione di cucina · Trasferimento aeroportuale · Rifornimento pre-arrivo · Prenotazione ristorante',
+      'Whether you are looking to buy, sell or build, we know the territory and guide you every step of the way.' => 'Che voi stiate cercando di comprare, vendere o costruire, conosciamo il territorio e vi guidiamo in ogni fase.',
+      // Why PLH
+      'Why Puglia Luxury Homes'                      => 'Perché Puglia Luxury Homes',
+      'Locally Based Founders'                       => 'Fondatori sul posto',
+      'Run directly by its two founders, graduates of the École Hôtelière de Lausanne who live in Sud Salento year-round. Every stay is held to the standards of five-star hospitality, looked after in person rather than from a distant office.' => 'Gestita direttamente dai suoi due fondatori, diplomati all\'École Hôtelière de Lausanne e residenti nel Sud Salento tutto l\'anno. Ogni soggiorno è tenuto agli standard dell\'ospitalità a cinque stelle, curato di persona piuttosto che da un ufficio lontano.',
+      'Your Stay Arranged Before You Arrive'         => 'Il vostro soggiorno organizzato prima che arriviate',
+      'Tell us what you need ahead of time and it is taken care of: the fridge stocked to your taste, the right tables booked, transfers arranged, and an itinerary shaped around the days you have in mind.' => 'Diteci di cosa avete bisogno in anticipo e sarà tutto pronto: il frigorifero rifornito secondo i vostri gusti, i tavoli giusti prenotati, i trasferimenti organizzati e un itinerario costruito attorno ai giorni che avete in mente.',
+      'Beyond the Villa'                             => 'Oltre la villa',
+      'Once you arrive, the region comes to you: a private chef cooking in your own kitchen, wellness treatments by the pool, and long days out along the coast by boat.' => 'Una volta arrivati, è la regione che viene da voi: uno chef privato che cucina nella vostra cucina, trattamenti benessere a bordo piscina e lunghe giornate lungo la costa in barca.',
+      'Introductions, Not Just Reservations'         => 'Presentazioni, non solo prenotazioni',
+      'Years of living and working here mean we know the people worth knowing. The restaurateurs, the winemakers, the boat captains. Our guests are welcomed personally and seated at tables that are hard to reach from the outside.' => 'Anni di vita e lavoro qui significano che conosciamo le persone che vale la pena conoscere. I ristoratori, i produttori di vino, i capitani di barca. I nostri ospiti vengono accolti personalmente e seduti a tavoli difficili da raggiungere dall\'esterno.',
+      'Seaside, Countryside, or Historic Centre'     => 'Mare, campagna o centro storico',
+      'A small, personally chosen collection, grouped by the setting you want to wake up in, whether by the sea, out in the countryside, or in the heart of a historic town. What you find is a handful of places we stand behind, not a catalogue of everything on the market.' => 'Una piccola collezione scelta personalmente, raggruppata per il contesto in cui volete svegliarvi — in riva al mare, in campagna o nel cuore di una città storica. Quello che trovate è una manciata di luoghi di cui siamo certi, non un catalogo di tutto ciò che esiste sul mercato.',
+      // As Seen on The Parisian Agency
+      'As Seen On'                                   => 'Come visto su',
+      'The Parisian Agency'                          => 'The Parisian Agency',
+      'As Seen on The Parisian Agency'               => 'Come visto su The Parisian Agency',
+      'The Kretz family\'s luxury real estate series, broadcast on TMC and streaming on Netflix.' => 'La serie immobiliare di lusso della famiglia Kretz, trasmessa su TMC e in streaming su Netflix.',
     ],
   ];
 }
@@ -4388,6 +4461,99 @@ add_action('acf/init', function () {
         'name'          => 'home_re_cta_url',
         'type'          => 'url',
         'instructions'  => 'Leave empty to auto-link to the Real Estate page.',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_type',
+      'operator' => '==',
+      'value'    => 'front_page',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// Homepage — As Seen on The Parisian Agency
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'   => 'group_homepage_parisian_agency',
+    'title' => 'Homepage — As Seen on The Parisian Agency',
+    'fields' => [
+      [
+        'key'          => 'field_home_parisian_agency_image',
+        'label'        => 'Villa Image',
+        'name'         => 'home_parisian_agency_image',
+        'type'         => 'image',
+        'return_format' => 'array',
+        'preview_size' => 'medium',
+        'instructions' => 'Image shown alongside the Parisian Agency section (e.g. Villa Acquamarina).',
+      ],
+    ],
+    'location' => [[[
+      'param'    => 'page_type',
+      'operator' => '==',
+      'value'    => 'front_page',
+    ]]],
+    'position'        => 'normal',
+    'label_placement' => 'top',
+  ]);
+});
+
+// Homepage — Where in Puglia
+add_action('acf/init', function () {
+  if (!function_exists('acf_add_local_field_group')) return;
+
+  acf_add_local_field_group([
+    'key'   => 'group_homepage_where_in_puglia',
+    'title' => 'Homepage — Where in Puglia',
+    'fields' => [
+      [
+        'key'           => 'field_home_region_salento_image',
+        'label'         => 'Salento — Image',
+        'name'          => 'home_region_salento_image',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+      ],
+      [
+        'key'           => 'field_home_region_salento_count',
+        'label'         => 'Salento — Villa Count',
+        'name'          => 'home_region_salento_count',
+        'type'          => 'text',
+        'default_value' => '9',
+        'instructions'  => 'Number displayed on the card (e.g. 9).',
+      ],
+      [
+        'key'           => 'field_home_region_salento_link',
+        'label'         => 'Salento — Link URL',
+        'name'          => 'home_region_salento_link',
+        'type'          => 'url',
+        'instructions'  => 'Leave empty to fall back to /the-villas/.',
+      ],
+      [
+        'key'           => 'field_home_region_valleditria_image',
+        'label'         => "Valle d'Itria — Image",
+        'name'          => 'home_region_valleditria_image',
+        'type'          => 'image',
+        'return_format' => 'array',
+        'preview_size'  => 'medium',
+      ],
+      [
+        'key'           => 'field_home_region_valleditria_count',
+        'label'         => "Valle d'Itria — Villa Count",
+        'name'          => 'home_region_valleditria_count',
+        'type'          => 'text',
+        'default_value' => '4',
+        'instructions'  => 'Number displayed on the card (e.g. 4).',
+      ],
+      [
+        'key'           => 'field_home_region_valleditria_link',
+        'label'         => "Valle d'Itria — Link URL",
+        'name'          => 'home_region_valleditria_link',
+        'type'          => 'url',
+        'instructions'  => 'Leave empty to fall back to /the-villas/.',
       ],
     ],
     'location' => [[[
