@@ -6831,7 +6831,7 @@ html {
   color: #1a1a17;
   margin: 0 0 24px;
   letter-spacing: 0.02em;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .homepage-intro p {
