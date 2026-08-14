@@ -58,16 +58,19 @@
             let player;
             let playAttempted = false;
             
+            function onStateChange(event) {
+                if (event.data === YT.PlayerState.PLAYING) {
+                    media.classList.add('is-playing');
+                }
+            }
+
             function tryPlay() {
                 if (!player || playAttempted) return;
                 playAttempted = true;
                 try {
                     player.mute();
                     player.playVideo();
-                    media.classList.add('is-playing');
-                } catch(e) {
-                    console.log('Video play attempt:', e);
-                }
+                } catch(e) {}
             }
 
             function onPlayerReady() {
@@ -103,7 +106,7 @@
                         iv_load_policy: 3,
                         disablekb: 1
                     },
-                    events: { onReady: onPlayerReady }
+                    events: { onReady: onPlayerReady, onStateChange: onStateChange }
                 });
             }
 

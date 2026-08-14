@@ -7066,8 +7066,7 @@ html {
 }
 
 @media (max-width: 775px) {
-  .where-in-puglia { padding: 56px 24px; }
-  .where-in-puglia-grid { grid-template-columns: 1fr; gap: 16px; }
-  .where-region-card { aspect-ratio: 3 / 2; }
-  .where-region-overlay { padding: 24px; }
+  .where-in-puglia { padding: 40px 24px; overflow: hidden; }
+  .where-in-puglia-grid { grid-template-columns: 1fr; gap: 24px; }
+  .where-region-image { aspect-ratio: 16 / 9; }
 }
