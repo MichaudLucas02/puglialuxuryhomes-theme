@@ -1211,6 +1211,8 @@ h2 {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .hero-video iframe {
@@ -1230,8 +1232,12 @@ h2 {
   transition: opacity 0.6s ease;
 }
 
+.hero-media.is-playing .hero-video {
+  opacity: 1;
+}
 .hero-media.is-playing .hero-fallback {
   opacity: 0;
+  transition: opacity 0.8s ease 0.3s;
 }
 
 .hero-content {
@@ -6878,9 +6884,14 @@ html {
 }
 
 .why-plh-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 40px 48px;
+}
+.why-plh-item {
+  flex: 0 0 calc(33.333% - 32px);
+  max-width: calc(33.333% - 32px);
 }
 
 .why-plh-icon {
@@ -6976,7 +6987,8 @@ html {
   .testimonials-section { padding: 48px 24px 0; }
 
   .why-plh { padding: 56px 24px; }
-  .why-plh-grid { grid-template-columns: 1fr; gap: 32px; }
+  .why-plh-grid { gap: 32px; }
+  .why-plh-item { flex: 0 0 100%; max-width: 100%; }
 
   .parisian-agency-section { padding: 56px 24px 56px; }
   .parisian-agency-image img { height: 50vw; }
