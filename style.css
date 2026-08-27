@@ -6979,6 +6979,7 @@ html {
 /* ---- Mobile ---- */
 @media (max-width: 775px) {
   .hero-content .hero-seo-title { font-size: 13px; }
+  .hero-tagline { font-size: clamp(26px, 7.5vw, 38px); white-space: normal; }
   .hero-description { font-size: 13px; }
   .hero-ctas { flex-direction: column; gap: 12px; }
   .hero-cta { text-align: center; }
