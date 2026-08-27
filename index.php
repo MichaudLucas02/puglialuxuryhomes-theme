@@ -20,7 +20,7 @@
         <section class='hero-section'>
                 <div class="hero-media<?php echo $hero_video_id ? '' : ' no-video'; ?>">
                         <?php if ($hero_video_id) : ?>
-                                <div class="hero-video" data-video-id="<?php echo esc_attr($hero_video_id); ?>">
+                                <div class="hero-video" data-video-id="<?php echo esc_attr($hero_video_id); ?>" style="opacity:0;transition:opacity 0.5s ease">
                                         <div id="hero-yt-player"></div>
                                 </div>
                         <?php endif; ?>
@@ -58,9 +58,20 @@
             let player;
             let playAttempted = false;
             
+            function showVideo() {
+                videoWrap.style.opacity = '1';
+                media.classList.add('is-playing');
+            }
+
+            function hideVideo() {
+                videoWrap.style.opacity = '0';
+                media.classList.remove('is-playing');
+                playAttempted = false;
+            }
+
             function onStateChange(event) {
                 if (event.data === YT.PlayerState.PLAYING) {
-                    media.classList.add('is-playing');
+                    showVideo();
                 }
             }
 
@@ -72,6 +83,14 @@
                     player.playVideo();
                 } catch(e) {}
             }
+
+            // Reset on BFCache restore so is-playing class doesn't linger
+            window.addEventListener('pageshow', function(e) {
+                if (e.persisted) {
+                    hideVideo();
+                    if (player && player.playVideo) tryPlay();
+                }
+            });
 
             function onPlayerReady() {
                 tryPlay();
