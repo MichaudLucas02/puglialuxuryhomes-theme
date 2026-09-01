@@ -5586,6 +5586,14 @@ add_filter('body_class', function($classes) {
     return $classes;
 });
 
+// Villas listing page has no hero: solid header so nav stays legible
+add_filter('body_class', function($classes) {
+    if (is_page_template('all-villas.php')) {
+        $classes[] = 'blog-no-hero';
+    }
+    return $classes;
+});
+
 // Category pages → 301 redirect to /magazine/
 add_action('template_redirect', function() {
     if (is_category()) {

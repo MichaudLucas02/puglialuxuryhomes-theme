@@ -3,7 +3,6 @@
  * Template Name: The villas
  */
 get_header();
-get_template_part('partials/small-hero');
 
 $all_villas = new WP_Query([
     'post_type'      => 'villa',
@@ -45,7 +44,7 @@ if ($all_villas->have_posts()) {
 /* ── Full-bleed reset for this page ──────────────────── */
 body { margin: 0; }
 .site-main { padding: 0 !important; margin: 0 !important; }
-.homepage { overflow-x: hidden; }
+.homepage { overflow-x: hidden; padding-top: 175px; }
 
 /* ── Split layout ─────────────────────────────────────── */
 .villas-split {
@@ -76,15 +75,28 @@ body { margin: 0; }
 
 /* ── Filter trigger bar ───────────────────────────────── */
 .filter-trigger-bar {
-    padding: 16px 24px;
+    padding: 16px 20px;
     border-bottom: 1px solid #eee;
     background: #fff;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
-    width: 100vw;
-    margin-left: calc(-1 * (100vw - 100%) / 2);
     box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+.villas-count {
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    color: #777;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+}
+.villas-count strong {
+    font-weight: 600;
+    color: #333;
 }
 .filter-trigger-btn {
     display: inline-flex;
@@ -416,6 +428,9 @@ body { margin: 0; }
         border-right: none;
     }
     .villas-list-panel.is-hidden { display: none; }
+    .filter-trigger-bar {
+        position: static;
+    }
     .villas-map-panel {
         width: 100%;
         height: 380px;
@@ -486,14 +501,6 @@ body { margin: 0; }
         </div>
     </aside>
 
-    <div class="filter-trigger-bar">
-        <button class="filter-trigger-btn" id="filter-trigger">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-            <?php echo esc_html(plh_t('Filters')); ?>
-            <span class="filter-active-count" id="filter-count">0</span>
-        </button>
-    </div>
-
     <!-- Mobile map/list toggle -->
     <div class="map-toggle-bar">
         <button class="map-toggle-btn active" data-panel="list">
@@ -508,6 +515,14 @@ body { margin: 0; }
 
         <!-- Left: scrollable cards -->
         <div class="villas-list-panel" id="villas-list-panel">
+            <div class="filter-trigger-bar">
+                <button class="filter-trigger-btn" id="filter-trigger">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+                    <?php echo esc_html(plh_t('Filters')); ?>
+                    <span class="filter-active-count" id="filter-count">0</span>
+                </button>
+                <span class="villas-count" id="villas-count"><strong><?php echo intval($all_villas->found_posts); ?></strong> <?php echo esc_html(plh_t('villas found')); ?></span>
+            </div>
             <div class="all-villas-grid">
                 <div class="villas-grid" id="villas-container">
                     <?php if ($all_villas->have_posts()): while ($all_villas->have_posts()): $all_villas->the_post(); ?>
@@ -537,7 +552,7 @@ body { margin: 0; }
     const VILLA_DATA = <?php echo wp_json_encode($villa_map_data); ?>;
 
     // ── Map init ─────────────────────────────────────────
-    const map = L.map('villas-map', { zoomControl: true }).setView([40.5, 17.2], 9);
+    const map = L.map('villas-map', { zoomControl: true }).setView([40.9, 17.0], 8);
     map.attributionControl.setPrefix(false);
 
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
@@ -714,6 +729,14 @@ body { margin: 0; }
         closeDrawer();
     });
 
+    // ── Results count ──────────────────────────────────────
+    const villasCountEl = document.getElementById('villas-count');
+    const villasFoundLabel = <?php echo wp_json_encode(plh_t('villas found')); ?>;
+    function updateVillasCount() {
+        const n = container.querySelectorAll('.villa-grid-item[data-post-id]').length;
+        villasCountEl.innerHTML = '<strong>' + n + '</strong> ' + villasFoundLabel;
+    }
+
     // ── Sync map markers with visible cards ───────────────
     function syncMarkers() {
         const visibleIds = new Set(
@@ -746,6 +769,7 @@ body { margin: 0; }
                 container.innerHTML = html;
                 container.classList.remove('loading');
                 syncMarkers();
+                updateVillasCount();
             })
             .catch(function () { container.classList.remove('loading'); });
     }
