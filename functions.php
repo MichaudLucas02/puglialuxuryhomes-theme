@@ -74,6 +74,18 @@ add_action('after_switch_theme', function() {
   flush_rewrite_rules();
 });
 
+// The "Magazine" page lives at /magazine/, the same slug as the 'blog' CPT's
+// rewrite base. Without this, the CPT's own rewrite rule (meant to match single
+// posts like /magazine/{post-slug}/) greedily matches /magazine/page/2/ first,
+// treating "page" as a post slug and 404ing instead of paginating the page.
+add_action('init', function() {
+  add_rewrite_rule(
+    '^magazine/page/([0-9]{1,})/?$',
+    'index.php?pagename=magazine&paged=$matches[1]',
+    'top'
+  );
+});
+
 // 301 redirect old /magazine/{category}/{slug}/ URLs to flat /magazine/{slug}/
 add_action('template_redirect', function() {
   $uri = $_SERVER['REQUEST_URI'];
