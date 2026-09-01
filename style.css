@@ -6288,6 +6288,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.press-hero {
+  height: 35vw;
+}
+
 .press-hero::after {
   background: linear-gradient(
     to top,
@@ -6305,7 +6309,7 @@ html {
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 0 5vw 64px;
+  padding: 0 5vw 28px;
   z-index: 2;
 }
 
@@ -6329,7 +6333,7 @@ html {
   color: rgba(255, 255, 255, 0.85);
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   padding: 0;
   line-height: 1.5;
 }
@@ -6340,7 +6344,7 @@ html {
   font-weight: 300;
   color: rgba(255, 255, 255, 0.82);
   text-transform: uppercase;
-  margin: 6px 0 28px;
+  margin: 4px 0 14px;
   padding: 0;
   opacity: 1;
 }
@@ -6350,7 +6354,7 @@ html {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin: 20px 0 36px;
+  margin: 10px 0 18px;
 }
 
 .press-hero-broadcast span {
@@ -6517,22 +6521,40 @@ html {
 }
 
 @media (max-width: 775px) {
+  .press-hero {
+    height: 50vw;
+    min-height: 300px;
+  }
+
   .press-hero .press-hero-eyebrow {
-    font-size: 40px;
+    font-size: 26px;
   }
 
   .press-hero .press-hero-sub {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin: 2px 0 10px;
+  }
+
+  .press-hero h1 {
+    margin-bottom: 4px;
   }
 
   .press-hero-content {
-    padding-bottom: 44px;
+    padding-bottom: 18px;
   }
 
   .press-hero-broadcast {
-    margin: 10px 0 24px;
+    margin: 6px 0 12px;
     gap: 7px;
+  }
+
+  .press-hero-ctas {
+    gap: 8px;
+  }
+
+  .press-hero-cta {
+    padding: 8px 16px;
+    font-size: 11px;
   }
 
   .press-contact-inner {
@@ -6732,16 +6754,44 @@ html {
 }
 
 @media (max-width: 520px) {
+  .press-hero {
+    height: 60vw;
+    min-height: 250px;
+  }
+
   .press-hero .press-hero-eyebrow {
-    font-size: 32px;
+    font-size: 22px;
   }
 
   .press-hero .press-hero-sub {
-    font-size: 17px;
+    font-size: 14px;
+    margin: 2px 0 6px;
+  }
+
+  .press-hero h1 {
+    margin-bottom: 2px;
+  }
+
+  .press-hero-content {
+    padding-bottom: 8px;
+  }
+
+  .press-hero-broadcast {
+    margin: 3px 0 8px;
+    gap: 6px;
+  }
+
+  .press-hero-ctas {
+    gap: 6px;
   }
 
   .press-hero-broadcast span {
     font-size: 11px;
+  }
+
+  .press-hero-cta {
+    padding: 6px 14px;
+    font-size: 10px;
   }
 }
 
