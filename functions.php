@@ -3348,7 +3348,9 @@ function plh_inline_translations() {
       'Your enquiry'                             => 'Votre demande',
       'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
           // Where in Puglia
-      'Where in Puglia'                              => 'Où en Pouilles',
+      'Where in Puglia'                              => 'Au cœur des Pouilles',
+      'Our locations'                                => 'Nos emplacements',
+      'Our villas are gathered in two corners of Puglia that we know by heart: the Salento, at the southern tip of the heel between the Adriatic and Ionian seas, and the Itria Valley, a countryside of olive groves, trulli and whitewashed towns. Both are easily reached from Brindisi and Bari airports.' => 'Nos villas sont réunies dans deux coins des Pouilles que nous connaissons par cœur : le Salento, à la pointe sud du talon entre l’Adriatique et la mer Ionienne, et la Vallée d’Itria, une campagne d’oliviers, de trulli et de villages blanchis à la chaux. Les deux sont facilement accessibles depuis les aéroports de Brindisi et de Bari.',
       'Salento'                                      => 'Salento',
       "Itria Valley"                                => "Vallée d'Itria",
       'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',
@@ -3526,6 +3528,8 @@ function plh_inline_translations() {
       'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
           // Where in Puglia
       'Where in Puglia'                              => 'Dove in Puglia',
+      'Our locations'                                => 'Le nostre zone',
+      'Our villas are gathered in two corners of Puglia that we know by heart: the Salento, at the southern tip of the heel between the Adriatic and Ionian seas, and the Itria Valley, a countryside of olive groves, trulli and whitewashed towns. Both are easily reached from Brindisi and Bari airports.' => 'Le nostre ville si trovano in due angoli della Puglia che conosciamo a memoria: il Salento, all’estremità sud del tacco tra l’Adriatico e lo Ionio, e la Valle d’Itria, una campagna di ulivi, trulli e paesi imbiancati a calce. Entrambi sono facilmente raggiungibili dagli aeroporti di Brindisi e Bari.',
       'Salento'                                      => 'Salento',
       "Itria Valley"                                => "Valle d'Itria",
       'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',

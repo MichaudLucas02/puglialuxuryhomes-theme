@@ -229,44 +229,7 @@
 
         </div>
     </section>
-    <section class="where-in-puglia">
-        <h2><?php echo esc_html(plh_t('Where in Puglia')); ?></h2>
-        <div class="where-in-puglia-grid">
-            <?php
-            $regions = [
-                [
-                    'title'  => plh_t('Salento'),
-                    'cities' => plh_t('Lecce · Gagliano del Capo · Santa Maria di Leuca'),
-                    'count'  => get_field('home_region_salento_count') ?: '9',
-                    'image'  => get_field('home_region_salento_image'),
-                    'link'   => get_field('home_region_salento_link') ?: plh_page_url('the-villas'),
-                ],
-                [
-                    'title'  => plh_t('Itria Valley'),
-                    'cities' => plh_t('Ostuni · Noci'),
-                    'count'  => get_field('home_region_valleditria_count') ?: '4',
-                    'image'  => get_field('home_region_valleditria_image'),
-                    'link'   => get_field('home_region_valleditria_link') ?: plh_page_url('the-villas'),
-                ],
-            ];
-            foreach ($regions as $region) :
-                $img_url = is_array($region['image']) ? $region['image']['url'] : $region['image'];
-            ?>
-            <a href="<?php echo esc_url($region['link']); ?>" class="where-region-card">
-                <?php if ($img_url) : ?>
-                <div class="where-region-image">
-                    <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($region['title']); ?>">
-                </div>
-                <?php endif; ?>
-                <div class="where-region-caption">
-                    <h3><?php echo esc_html($region['title']); ?></h3>
-                    <p class="where-region-cities"><?php echo esc_html($region['cities']); ?></p>
-                    <p class="where-region-count"><?php echo esc_html($region['count'] . ' ' . plh_t('villas')); ?></p>
-                </div>
-            </a>
-            <?php endforeach; ?>
-        </div>
-    </section>
+    <?php get_template_part('partials/where-in-puglia'); ?>
 
     <section class='villa-section'>
         <h2><?php echo esc_html( get_field('home_villas_title') ?: 'Villas' ); ?></h2>
