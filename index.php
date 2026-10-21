@@ -143,7 +143,7 @@
         <?php endif; ?>
     <section class="homepage-intro">
         <h2><?php echo esc_html(plh_t('A boutique villa agency in Puglia, Italy.')); ?></h2>
-        <p><?php echo esc_html(plh_t('Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.')); ?></p>
+        <p><?php echo esc_html(plh_t('Exclusively managed properties across the Salento coast and the Itria Valley, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.')); ?></p>
     </section>
 
     <section class='our-collection'>
@@ -242,7 +242,7 @@
                     'link'   => get_field('home_region_salento_link') ?: plh_page_url('the-villas'),
                 ],
                 [
-                    'title'  => plh_t("Valle d'Itria"),
+                    'title'  => plh_t('Itria Valley'),
                     'cities' => plh_t('Ostuni · Noci'),
                     'count'  => get_field('home_region_valleditria_count') ?: '4',
                     'image'  => get_field('home_region_valleditria_image'),
