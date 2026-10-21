@@ -6869,7 +6869,9 @@ html {
 }
 
 .hero-cta--secondary:hover {
-  border-color: #fff;
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
 }
 
 /* Homepage Intro */
