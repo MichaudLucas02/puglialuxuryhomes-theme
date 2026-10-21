@@ -1944,8 +1944,7 @@ a.collection-link {
 }
 
 @media (max-width: 767px) {
-  /* Hide collection descriptive text on mobile */
-  .our-collection .p-title,
+  /* Hide collection card descriptions on mobile (the section subtitle stays) */
   .sea-overlay p,
   .city-overlay p,
   .land-overlay p {
