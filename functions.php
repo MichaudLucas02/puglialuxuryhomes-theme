@@ -3358,6 +3358,7 @@ function plh_inline_translations() {
       'Luxury Villa Rentals in Puglia, Italy'       => 'Location de Villas de Luxe en Pouilles, Italie',
       'Browse Our Villas'                            => 'Découvrir nos villas',
       'Plan Your Stay'                               => 'Planifier votre séjour',
+      'Contact Us'                                   => 'Nous contacter',
       'A boutique villa agency in Puglia, Italy.'    => 'Une agence de villas de prestige en Pouilles, Italie.',
       'Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Des propriétés gérées en exclusivité le long de la côte du Salento et dans la Valle d\'Itria villas avec piscine privée, trulli traditionnels à louer et demeures historiques palazzo, chacune gérée directement par les fondateurs et accompagnée d\'un service de conciergerie sur demande.',
       'What Our Guests Say'                          => 'Ce que disent nos clients',
@@ -3534,6 +3535,7 @@ function plh_inline_translations() {
       'Luxury Villa Rentals in Puglia, Italy'       => 'Affitto Ville di Lusso in Puglia, Italia',
       'Browse Our Villas'                            => 'Scopri le nostre ville',
       'Plan Your Stay'                               => 'Pianifica il tuo soggiorno',
+      'Contact Us'                                   => 'Contattaci',
       'A boutique villa agency in Puglia, Italy.'    => 'Un\'agenzia boutique di ville in Puglia, Italia.',
       'Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Proprietà gestite in esclusiva lungo la costa del Salento e nella Valle d\'Itria — ville con piscina privata, trulli tradizionali in affitto e residenze storiche palazzo, ognuna gestita direttamente dai fondatori e supportata da un servizio di concierge su richiesta.',
       'What Our Guests Say'                          => 'Cosa dicono i nostri ospiti',
@@ -3579,6 +3581,23 @@ function plh_t( $text, $context = '' ) {
   }
 
   return $context ? _x( $text, $context, 'thinktech' ) : __( $text, 'thinktech' );
+}
+
+/**
+ * URL of a page in the current language.
+ * Pass the English page slug; Polylang returns its FR/IT translation.
+ * Falls back to the English page if no translation exists.
+ */
+function plh_page_url( $en_slug ) {
+  $page = get_page_by_path( $en_slug );
+  if ( ! $page ) return home_url( '/' . trim( $en_slug, '/' ) . '/' );
+
+  if ( function_exists( 'pll_get_post' ) ) {
+    $translated_id = pll_get_post( $page->ID );
+    if ( $translated_id ) return get_permalink( $translated_id );
+  }
+
+  return get_permalink( $page );
 }
 
 /**

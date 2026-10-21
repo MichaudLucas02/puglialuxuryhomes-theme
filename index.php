@@ -37,8 +37,8 @@
             <p class="hero-tagline"><?php echo esc_html($hero_title); ?></p>
             <p class="hero-description"><?php echo esc_html($hero_description); ?></p>
             <div class="hero-ctas">
-                <a href="<?php echo esc_url(home_url('/the-villas/')); ?>" class="hero-cta hero-cta--primary"><?php echo esc_html(plh_t('Browse Our Villas')); ?></a>
-                <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="hero-cta hero-cta--secondary"><?php echo esc_html(plh_t('Plan Your Stay')); ?></a>
+                <a href="<?php echo esc_url(plh_page_url('the-villas')); ?>" class="hero-cta hero-cta--primary"><?php echo esc_html(plh_t('Browse Our Villas')); ?></a>
+                <a href="<?php echo esc_url(plh_page_url('contact')); ?>" class="hero-cta hero-cta--secondary"><?php echo esc_html(plh_t('Plan Your Stay')); ?></a>
             </div>
         </div>
 
@@ -208,7 +208,7 @@
             $land_title = get_field('home_land_title') ?: 'Land Collection';
             $land_title_display = nl2br(esc_html($land_title));
             $land_desc = get_field('home_land_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
-            $land_link = get_field('home_land_link') ?: get_permalink(get_page_by_path('land-collection'));
+            $land_link = get_field('home_land_link') ?: plh_page_url('collections') . '#collection-land';
             $land_button_text = get_field('home_land_button_text');
             ?>
             <?php if (!empty($land_link)) : ?><a href="<?php echo esc_url($land_link); ?>" class="collection-link"><?php endif; ?>
@@ -239,14 +239,14 @@
                     'cities' => plh_t('Lecce · Gagliano del Capo · Santa Maria di Leuca'),
                     'count'  => get_field('home_region_salento_count') ?: '9',
                     'image'  => get_field('home_region_salento_image'),
-                    'link'   => get_field('home_region_salento_link') ?: home_url('/the-villas/'),
+                    'link'   => get_field('home_region_salento_link') ?: plh_page_url('the-villas'),
                 ],
                 [
                     'title'  => plh_t("Valle d'Itria"),
                     'cities' => plh_t('Ostuni · Noci'),
                     'count'  => get_field('home_region_valleditria_count') ?: '4',
                     'image'  => get_field('home_region_valleditria_image'),
-                    'link'   => get_field('home_region_valleditria_link') ?: home_url('/the-villas/'),
+                    'link'   => get_field('home_region_valleditria_link') ?: plh_page_url('the-villas'),
                 ],
             ];
             foreach ($regions as $region) :

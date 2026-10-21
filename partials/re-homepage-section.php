@@ -7,8 +7,7 @@ $re_cta_url  = get_field('home_re_cta_url')      ?: '';
 $re_image    = get_field('home_re_image')        ?: '';
 
 if ( empty($re_cta_url) ) {
-  $re_page = get_page_by_path('real-estate');
-  $re_cta_url = $re_page ? get_permalink($re_page) : '#';
+  $re_cta_url = plh_page_url('real-estate-puglia');
 }
 ?>
 
