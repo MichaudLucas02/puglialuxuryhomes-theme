@@ -3132,7 +3132,7 @@ function plh_register_ui_strings() {
     'Whether you are looking to find your place in Puglia or considering selling your property, we guide you every step of the way.',
     'Full Name', 'Email address', 'Phone', 'Country of residence',
     'I am looking to:', 'Select an option', 'Buy a property', 'Sell a property', 'Both', 'Other',
-    'Preferred location', 'Basso Salento', 'Lecce & surroundings', "Valle d'Itria", 'Alta Murgia & Gravine', 'Ionian Arc', 'Gargano & Foggia',
+    'Preferred location', 'Basso Salento', 'Lecce & surroundings', 'Itria Valley', 'Alta Murgia & Gravine', 'Ionian Arc', 'Gargano & Foggia',
     'Budget', 'Select a range',
     'Under €500,000', '€500,000 – €1,000,000', '€1,000,000 – €2,000,000', '€2,000,000 – €5,000,000', '€5,000,000+',
     'Property type', 'Select property type', 'Apartment', 'Buildable land',
@@ -3269,7 +3269,7 @@ function plh_inline_translations() {
       'Preferred location'                       => 'Zone de préférence',
       'Basso Salento'                            => 'Basso Salento',
       'Lecce & surroundings'                     => 'Lecce & environs',
-      "Valle d'Itria"                            => "Valle d'Itria",
+      "Itria Valley"                            => "Vallée d'Itria",
       'Alta Murgia & Gravine'                    => 'Alta Murgia & Gravine',
       'Ionian Arc'                               => 'Arc Ionien',
       'Gargano & Foggia'                         => 'Gargano & Foggia',
@@ -3348,9 +3348,11 @@ function plh_inline_translations() {
       'Your enquiry'                             => 'Votre demande',
       'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
           // Where in Puglia
-      'Where in Puglia'                              => 'Où en Pouilles',
+      'Where in Puglia'                              => 'Au cœur des Pouilles',
+      'Our locations'                                => 'Nos emplacements',
+      'Our villas are gathered in two corners of Puglia that we know by heart: the Salento, at the southern tip of the heel between the Adriatic and Ionian seas, and the Itria Valley, a countryside of olive groves, trulli and whitewashed towns. Both are easily reached from Brindisi and Bari airports.' => 'Nos villas sont réunies dans deux coins des Pouilles que nous connaissons par cœur : le Salento, à la pointe sud du talon entre l’Adriatique et la mer Ionienne, et la Vallée d’Itria, une campagne d’oliviers, de trulli et de villages blanchis à la chaux. Les deux sont facilement accessibles depuis les aéroports de Brindisi et de Bari.',
       'Salento'                                      => 'Salento',
-      "Valle d'Itria"                                => "Valle d'Itria",
+      "Itria Valley"                                => "Vallée d'Itria",
       'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',
       'Ostuni · Noci'                                => 'Ostuni · Noci',
       'villas'                                       => 'villas',
@@ -3358,8 +3360,9 @@ function plh_inline_translations() {
       'Luxury Villa Rentals in Puglia, Italy'       => 'Location de Villas de Luxe en Pouilles, Italie',
       'Browse Our Villas'                            => 'Découvrir nos villas',
       'Plan Your Stay'                               => 'Planifier votre séjour',
+      'Contact Us'                                   => 'Nous contacter',
       'A boutique villa agency in Puglia, Italy.'    => 'Une agence de villas de prestige en Pouilles, Italie.',
-      'Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Des propriétés gérées en exclusivité le long de la côte du Salento et dans la Valle d\'Itria villas avec piscine privée, trulli traditionnels à louer et demeures historiques palazzo, chacune gérée directement par les fondateurs et accompagnée d\'un service de conciergerie sur demande.',
+      'Exclusively managed properties across the Salento coast and the Itria Valley, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Des propriétés gérées en exclusivité le long de la côte du Salento et dans la Vallée d\'Itria, villas avec piscine privée, trulli traditionnels à louer et demeures historiques palazzo, chacune gérée directement par les fondateurs et accompagnée d\'un service de conciergerie sur demande.',
       'What Our Guests Say'                          => 'Ce que disent nos clients',
       'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking' => 'Chef privé · Massage à la villa · Location de bateau · Dégustation de vins · Cours de cuisine · Transfert aéroport · Approvisionnement avant arrivée · Réservation de restaurant',
       'Whether you are looking to buy, sell or build, we know the territory and guide you every step of the way.' => 'Que vous cherchiez à acheter, vendre ou construire, nous connaissons le territoire et vous guidons à chaque étape.',
@@ -3445,7 +3448,7 @@ function plh_inline_translations() {
       'Preferred location'                       => 'Zona preferita',
       'Basso Salento'                            => 'Basso Salento',
       'Lecce & surroundings'                     => 'Lecce e dintorni',
-      "Valle d'Itria"                            => "Valle d'Itria",
+      "Itria Valley"                            => "Valle d'Itria",
       'Alta Murgia & Gravine'                    => 'Alta Murgia & Gravine',
       'Ionian Arc'                               => 'Arco Ionico',
       'Gargano & Foggia'                         => 'Gargano & Foggia',
@@ -3525,8 +3528,10 @@ function plh_inline_translations() {
       'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
           // Where in Puglia
       'Where in Puglia'                              => 'Dove in Puglia',
+      'Our locations'                                => 'Le nostre zone',
+      'Our villas are gathered in two corners of Puglia that we know by heart: the Salento, at the southern tip of the heel between the Adriatic and Ionian seas, and the Itria Valley, a countryside of olive groves, trulli and whitewashed towns. Both are easily reached from Brindisi and Bari airports.' => 'Le nostre ville si trovano in due angoli della Puglia che conosciamo a memoria: il Salento, all’estremità sud del tacco tra l’Adriatico e lo Ionio, e la Valle d’Itria, una campagna di ulivi, trulli e paesi imbiancati a calce. Entrambi sono facilmente raggiungibili dagli aeroporti di Brindisi e Bari.',
       'Salento'                                      => 'Salento',
-      "Valle d'Itria"                                => "Valle d'Itria",
+      "Itria Valley"                                => "Valle d'Itria",
       'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',
       'Ostuni · Noci'                                => 'Ostuni · Noci',
       'villas'                                       => 'ville',
@@ -3534,8 +3539,9 @@ function plh_inline_translations() {
       'Luxury Villa Rentals in Puglia, Italy'       => 'Affitto Ville di Lusso in Puglia, Italia',
       'Browse Our Villas'                            => 'Scopri le nostre ville',
       'Plan Your Stay'                               => 'Pianifica il tuo soggiorno',
+      'Contact Us'                                   => 'Contattaci',
       'A boutique villa agency in Puglia, Italy.'    => 'Un\'agenzia boutique di ville in Puglia, Italia.',
-      'Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Proprietà gestite in esclusiva lungo la costa del Salento e nella Valle d\'Itria — ville con piscina privata, trulli tradizionali in affitto e residenze storiche palazzo, ognuna gestita direttamente dai fondatori e supportata da un servizio di concierge su richiesta.',
+      'Exclusively managed properties across the Salento coast and the Itria Valley, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Proprietà gestite in esclusiva lungo la costa del Salento e nella Valle d\'Itria — ville con piscina privata, trulli tradizionali in affitto e residenze storiche palazzo, ognuna gestita direttamente dai fondatori e supportata da un servizio di concierge su richiesta.',
       'What Our Guests Say'                          => 'Cosa dicono i nostri ospiti',
       'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking' => 'Chef privato · Massaggio in villa · Noleggio barca · Degustazione vini · Lezione di cucina · Trasferimento aeroportuale · Rifornimento pre-arrivo · Prenotazione ristorante',
       'Whether you are looking to buy, sell or build, we know the territory and guide you every step of the way.' => 'Che voi stiate cercando di comprare, vendere o costruire, conosciamo il territorio e vi guidiamo in ogni fase.',
@@ -3579,6 +3585,23 @@ function plh_t( $text, $context = '' ) {
   }
 
   return $context ? _x( $text, $context, 'thinktech' ) : __( $text, 'thinktech' );
+}
+
+/**
+ * URL of a page in the current language.
+ * Pass the English page slug; Polylang returns its FR/IT translation.
+ * Falls back to the English page if no translation exists.
+ */
+function plh_page_url( $en_slug ) {
+  $page = get_page_by_path( $en_slug );
+  if ( ! $page ) return home_url( '/' . trim( $en_slug, '/' ) . '/' );
+
+  if ( function_exists( 'pll_get_post' ) ) {
+    $translated_id = pll_get_post( $page->ID );
+    if ( $translated_id ) return get_permalink( $translated_id );
+  }
+
+  return get_permalink( $page );
 }
 
 /**

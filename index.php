@@ -37,8 +37,8 @@
             <p class="hero-tagline"><?php echo esc_html($hero_title); ?></p>
             <p class="hero-description"><?php echo esc_html($hero_description); ?></p>
             <div class="hero-ctas">
-                <a href="<?php echo esc_url(home_url('/the-villas/')); ?>" class="hero-cta hero-cta--primary"><?php echo esc_html(plh_t('Browse Our Villas')); ?></a>
-                <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="hero-cta hero-cta--secondary"><?php echo esc_html(plh_t('Plan Your Stay')); ?></a>
+                <a href="<?php echo esc_url(plh_page_url('the-villas')); ?>" class="hero-cta hero-cta--primary"><?php echo esc_html(plh_t('Browse Our Villas')); ?></a>
+                <a href="<?php echo esc_url(plh_page_url('contact')); ?>" class="hero-cta hero-cta--secondary"><?php echo esc_html(plh_t('Plan Your Stay')); ?></a>
             </div>
         </div>
 
@@ -143,7 +143,7 @@
         <?php endif; ?>
     <section class="homepage-intro">
         <h2><?php echo esc_html(plh_t('A boutique villa agency in Puglia, Italy.')); ?></h2>
-        <p><?php echo esc_html(plh_t('Exclusively managed properties across the Salento coast and the Valle d\'Itria, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.')); ?></p>
+        <p><?php echo esc_html(plh_t('Exclusively managed properties across the Salento coast and the Itria Valley, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.')); ?></p>
     </section>
 
     <section class='our-collection'>
@@ -208,7 +208,7 @@
             $land_title = get_field('home_land_title') ?: 'Land Collection';
             $land_title_display = nl2br(esc_html($land_title));
             $land_desc = get_field('home_land_description') ?: 'Unveiling the Epitome of Luxury Living - Step into a world of unparalledled exclusivity with our carefully curated collection of the best luxury holiday villas in the world, each a masterpiece of award winning design and a heaven of privcy, staffed to cater to your every need.';
-            $land_link = get_field('home_land_link') ?: get_permalink(get_page_by_path('land-collection'));
+            $land_link = get_field('home_land_link') ?: plh_page_url('collections') . '#collection-land';
             $land_button_text = get_field('home_land_button_text');
             ?>
             <?php if (!empty($land_link)) : ?><a href="<?php echo esc_url($land_link); ?>" class="collection-link"><?php endif; ?>
@@ -229,44 +229,7 @@
 
         </div>
     </section>
-    <section class="where-in-puglia">
-        <h2><?php echo esc_html(plh_t('Where in Puglia')); ?></h2>
-        <div class="where-in-puglia-grid">
-            <?php
-            $regions = [
-                [
-                    'title'  => plh_t('Salento'),
-                    'cities' => plh_t('Lecce · Gagliano del Capo · Santa Maria di Leuca'),
-                    'count'  => get_field('home_region_salento_count') ?: '9',
-                    'image'  => get_field('home_region_salento_image'),
-                    'link'   => get_field('home_region_salento_link') ?: home_url('/the-villas/'),
-                ],
-                [
-                    'title'  => plh_t("Valle d'Itria"),
-                    'cities' => plh_t('Ostuni · Noci'),
-                    'count'  => get_field('home_region_valleditria_count') ?: '4',
-                    'image'  => get_field('home_region_valleditria_image'),
-                    'link'   => get_field('home_region_valleditria_link') ?: home_url('/the-villas/'),
-                ],
-            ];
-            foreach ($regions as $region) :
-                $img_url = is_array($region['image']) ? $region['image']['url'] : $region['image'];
-            ?>
-            <a href="<?php echo esc_url($region['link']); ?>" class="where-region-card">
-                <?php if ($img_url) : ?>
-                <div class="where-region-image">
-                    <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($region['title']); ?>">
-                </div>
-                <?php endif; ?>
-                <div class="where-region-caption">
-                    <h3><?php echo esc_html($region['title']); ?></h3>
-                    <p class="where-region-cities"><?php echo esc_html($region['cities']); ?></p>
-                    <p class="where-region-count"><?php echo esc_html($region['count'] . ' ' . plh_t('villas')); ?></p>
-                </div>
-            </a>
-            <?php endforeach; ?>
-        </div>
-    </section>
+    <?php get_template_part('partials/where-in-puglia'); ?>
 
     <section class='villa-section'>
         <h2><?php echo esc_html( get_field('home_villas_title') ?: 'Villas' ); ?></h2>

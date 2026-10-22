@@ -86,7 +86,7 @@ Mobile breakpoint: 775px
 
 @font-face {
   font-family: 'Didot';
-  src: url('assests/fonts/GFS_Didot/GFSDidot-Regular.ttf') format('truetype');
+  src: url('assets/fonts/GFS_Didot/GFSDidot-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -168,7 +168,7 @@ h2 {
 }
 
 .homepage {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-sans);
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -1944,8 +1944,7 @@ a.collection-link {
 }
 
 @media (max-width: 767px) {
-  /* Hide collection descriptive text on mobile */
-  .our-collection .p-title,
+  /* Hide collection card descriptions on mobile (the section subtitle stays) */
   .sea-overlay p,
   .city-overlay p,
   .land-overlay p {
@@ -6869,7 +6868,9 @@ html {
 }
 
 .hero-cta--secondary:hover {
-  border-color: #fff;
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
 }
 
 /* Homepage Intro */
@@ -7047,89 +7048,281 @@ html {
 
 /* =============================================
    WHERE IN PUGLIA
+   Same layout as the real estate block (.re-homepage-*),
+   with an interactive map in place of the image.
    ============================================= */
+.where-puglia { min-height: 0; align-items: stretch; }
+.where-puglia .re-homepage-text { padding: 56px 56px 56px 0; }
+.where-puglia .re-homepage-rule { margin-bottom: 20px; }
+.where-puglia .re-homepage-title { margin-bottom: 16px; }
+.where-puglia .re-homepage-desc { max-width: 440px; margin-bottom: 24px; }
 
-.where-in-puglia {
-  padding: 80px 40px;
-  background: #fff;
-  text-align: center;
+.where-regions {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 28px;
+  border-top: 1px solid rgba(26, 26, 26, 0.12);
 }
+.where-region {
+  padding: 12px 0 12px 16px;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.12);
+  border-left: 1px solid transparent;
+  transition: border-color 0.25s ease;
+}
+.where-region.is-active,
+.where-region:hover { border-left-color: #1a1a1a; }
 
-.where-in-puglia > h2 {
+.where-region h3 {
   font-family: 'Didot', serif;
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: 22px;
   font-weight: 400;
-  color: #1a1a17;
-  margin: 0 0 48px;
-  letter-spacing: 0.02em;
-}
-
-.where-in-puglia-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
-.where-region-card {
-  display: block;
-  text-decoration: none;
-}
-
-.where-region-image {
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-}
-
-.where-region-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  transition: transform 0.55s ease;
-}
-
-.where-region-card:hover .where-region-image img {
-  transform: scale(1.04);
-}
-
-.where-region-caption {
-  padding: 20px 4px 0;
-  text-align: left;
-}
-
-.where-region-caption h3 {
-  font-family: 'Didot', serif;
-  font-size: clamp(20px, 2vw, 28px);
-  font-weight: 400;
-  color: #1a1a17;
-  margin: 0 0 8px;
-  letter-spacing: 0.02em;
-}
-
-.where-region-cities {
-  font-family: 'Raleway', sans-serif;
-  font-size: 11px;
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  color: #7a7670;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  color: #1a1a1a;
   margin: 0 0 6px;
 }
+.where-region-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.where-region-btn:focus-visible { outline: 1px solid #1a1a1a; outline-offset: 4px; }
 
-.where-region-count {
+.where-puglia .where-region-cities,
+.where-puglia .where-region-count {
   font-family: 'Raleway', sans-serif;
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9a8e7e;
+  color: #1a1a1a;
+  opacity: 0.7;
   margin: 0;
+}
+.where-puglia .where-region-cities { font-weight: 300; }
+.where-puglia .where-region-count { font-weight: 500; margin-top: 2px; }
+
+/* Framed like the villa page map (.villa-map) */
+.where-map-col {
+  flex: 1;
+  position: relative;
+  min-height: 460px;
+  margin: 56px 0;
+}
+.where-map {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid #e7ebef;
+  background: #e9eceb;
+  z-index: 0;
+}
+
+/* Markers and popups: copied from the villas listing page map (all-villas.php) */
+.where-map .plh-marker { background: none !important; border: none !important; }
+.where-map .plh-marker__dot {
+  width: 12px;
+  height: 12px;
+  background: #2c2c2c;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,.4);
+  transition: transform .2s ease, background .2s ease;
+  cursor: pointer;
+}
+.where-map .plh-marker--active .plh-marker__dot { background: #b8996a; transform: scale(1.7); }
+.where-map .leaflet-popup-content-wrapper { border-radius: 0; padding: 0; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+.where-map .leaflet-popup-content { margin: 0; width: 280px !important; }
+.where-map .plh-popup__img { width: 100%; height: 140px; object-fit: cover; display: block; }
+.where-map .plh-popup__body { padding: 14px; }
+.where-map .plh-popup__title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 0 6px;
+  color: #111;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.where-map .plh-popup__meta { font-family: 'Raleway', sans-serif; font-size: 12px; color: #888; margin: 0 0 4px; }
+.where-map .plh-popup__price { font-family: 'Raleway', sans-serif; font-size: 12px; color: #555; margin: 0 0 12px; }
+.where-map .plh-popup__meta,
+.where-map .plh-popup__price { font-weight: 400; line-height: 1.3; letter-spacing: normal; text-transform: none; opacity: 1; }
+.where-map .plh-popup__btn {
+  display: block;
+  text-align: center;
+  padding: 11px 14px;
+  background: #2c2c2c;
+  color: #fff !important;
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-decoration: none !important;
+  transition: background 0.2s;
+}
+.where-map .plh-popup__btn:hover { background: #444; }
+
+@media (max-width: 775px) {
+  .where-map-col { order: -1; min-height: 320px; margin: 40px 0 0; }
+  .where-puglia .re-homepage-text { padding: 32px 0 48px; }
+  .where-region h3 { font-size: 18px; }
+}
+
+/* ==========================================================================
+   HOMEPAGE TYPE SYSTEM (validated by the client, Oct 2026)
+   One style per text role. Tags (h1/h2/h3…) are set by SEO and must not
+   change — only their look is controlled here.
+   Vogue = all titles, Raleway = everything else.
+   Didot stays in the stack only as a fallback for accented letters
+   (é, è, ’…) that the Vogue font file does not include.
+   ========================================================================== */
+
+:root {
+  --font-display: 'Vogue', 'Didot', serif;
+  --font-sans:    'Raleway', sans-serif;
+}
+
+/* 01 · Hero title (a <p>; the h1 is the SEO line above it) */
+.homepage .hero-tagline {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* 02 · Section title */
+.homepage h2,
+.homepage .reviews-header h2,
+.homepage .re-homepage-title {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* 04 + 05 · Card titles (collections, regions, villas, services) */
+.homepage .sea-overlay h3,
+.homepage .city-overlay h3,
+.homepage .land-overlay h3,
+.homepage .where-region h3,
+.homepage .management-title h3,
+.homepage .villa-card__title,
+.homepage .why-plh-item h3,
+.homepage .discover-absolute h3,
+.homepage .discover-absolute-mobile h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* 03 + 06 · Subtitle under an h2, and small label above a title (incl. the SEO h1) */
+.homepage .p-title,
+.homepage section p.p-title,
+.homepage .hero-content .hero-seo-title,
+.homepage .parisian-agency-eyebrow,
+.homepage .re-homepage-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* 07 · Paragraph */
+.homepage .hero-description,
+.homepage .homepage-intro p,
+.homepage .sea-overlay p,
+.homepage .city-overlay p,
+.homepage .land-overlay p,
+.homepage .discover-absolute p,
+.homepage .discover-absolute-mobile p,
+.homepage .why-plh-item p,
+.homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
+.homepage .re-homepage-desc,
+.homepage .google-reviews-section .review-card p:not(.review-date) {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+/* 08 · Details (locations, counts, dates, names, tags) */
+.homepage .villa-card__location,
+.homepage .where-region-cities,
+.homepage .where-region-count,
+.homepage .hospitality-tags,
+.homepage .reviewer-name,
+.homepage .review-date {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* 09 · Buttons */
+.homepage .hero-cta,
+.homepage .collection-btn,
+.homepage .re-homepage-cta,
+.homepage .view-all-reviews {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 775px) {
-  .where-in-puglia { padding: 40px 24px; overflow: hidden; }
-  .where-in-puglia-grid { grid-template-columns: 1fr; gap: 24px; }
-  .where-region-image { aspect-ratio: 16 / 9; }
+  .homepage .hero-tagline { font-size: 40px; }
+
+  .homepage h2,
+  .homepage .reviews-header h2,
+  .homepage .re-homepage-title { font-size: 26px; }
+
+  .homepage .sea-overlay h3,
+  .homepage .city-overlay h3,
+  .homepage .land-overlay h3,
+  .homepage .where-region h3,
+  .homepage .management-title h3,
+  .homepage .villa-card__title,
+  .homepage .why-plh-item h3,
+  .homepage .discover-absolute h3,
+  .homepage .discover-absolute-mobile h3 { font-size: 15px; }
+
+  .homepage .p-title,
+  .homepage section p.p-title,
+  .homepage .hero-content .hero-seo-title,
+  .homepage .parisian-agency-eyebrow,
+  .homepage .re-homepage-eyebrow { font-size: 12px; }
+
+  .homepage .hero-description,
+  .homepage .homepage-intro p,
+  .homepage .discover-absolute p,
+  .homepage .discover-absolute-mobile p,
+  .homepage .why-plh-item p,
+  .homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
+  .homepage .re-homepage-desc,
+  .homepage .google-reviews-section .review-card p:not(.review-date) { font-size: 14px; }
 }
