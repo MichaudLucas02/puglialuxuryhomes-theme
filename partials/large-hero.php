@@ -13,7 +13,9 @@ if (empty($large_hero_image)) {
 <section class="large-hero">
     <img src="<?php echo esc_url($large_hero_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
     <div class="large-hero-content">
-        <h2><?php the_title(); ?></h2>
+        <?php // The villa name is the page's main heading; other pages using this hero keep an h2.
+        $large_hero_tag = is_singular('villa') ? 'h1' : 'h2'; ?>
+        <<?php echo $large_hero_tag; ?>><?php the_title(); ?></<?php echo $large_hero_tag; ?>>
         <div class="large-hero-buttons">
             <?php if ( !empty($large_hero_button) && is_array($large_hero_button) && !empty($large_hero_button['url']) && !empty($large_hero_button['title']) ): ?>
             <a href="<?php echo esc_url($large_hero_button['url']); ?>"><?php echo esc_html($large_hero_button['title']); ?></a>

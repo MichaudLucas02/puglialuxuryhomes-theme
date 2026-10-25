@@ -1112,6 +1112,7 @@ h2 {
   z-index: 2;
 }
 
+.large-hero-content h1,
 .large-hero-content h2 {
   font-family: 'Didot';
   font-size: 55px;
@@ -1164,6 +1165,7 @@ h2 {
     height: 90vh;
   }
   
+  .large-hero-content h1,
   .large-hero-content h2 {
     font-size: 40px;
   }
@@ -7180,6 +7182,8 @@ html {
 
 /* ==========================================================================
    HOMEPAGE TYPE SYSTEM (validated by the client, Oct 2026)
+   Scoped with .home (front page in every language): .homepage is also
+   the wrapper class on most other templates.
    One style per text role. Tags (h1/h2/h3…) are set by SEO and must not
    change — only their look is controlled here.
    Vogue = all titles, Raleway = everything else.
@@ -7193,7 +7197,7 @@ html {
 }
 
 /* 01 · Hero title (a <p>; the h1 is the SEO line above it) */
-.homepage .hero-tagline {
+.home .homepage .hero-tagline {
   font-family: var(--font-display);
   font-size: 72px;
   font-weight: 400;
@@ -7203,9 +7207,9 @@ html {
 }
 
 /* 02 · Section title */
-.homepage h2,
-.homepage .reviews-header h2,
-.homepage .re-homepage-title {
+.home .homepage h2,
+.home .homepage .reviews-header h2,
+.home .homepage .re-homepage-title {
   font-family: var(--font-display);
   font-size: 40px;
   font-weight: 400;
@@ -7215,15 +7219,15 @@ html {
 }
 
 /* 04 + 05 · Card titles (collections, regions, villas, services) */
-.homepage .sea-overlay h3,
-.homepage .city-overlay h3,
-.homepage .land-overlay h3,
-.homepage .where-region h3,
-.homepage .management-title h3,
-.homepage .villa-card__title,
-.homepage .why-plh-item h3,
-.homepage .discover-absolute h3,
-.homepage .discover-absolute-mobile h3 {
+.home .homepage .sea-overlay h3,
+.home .homepage .city-overlay h3,
+.home .homepage .land-overlay h3,
+.home .homepage .where-region h3,
+.home .homepage .management-title h3,
+.home .homepage .villa-card__title,
+.home .homepage .why-plh-item h3,
+.home .homepage .discover-absolute h3,
+.home .homepage .discover-absolute-mobile h3 {
   font-family: var(--font-display);
   font-size: 17px;
   font-weight: 400;
@@ -7233,11 +7237,11 @@ html {
 }
 
 /* 03 + 06 · Subtitle under an h2, and small label above a title (incl. the SEO h1) */
-.homepage .p-title,
-.homepage section p.p-title,
-.homepage .hero-content .hero-seo-title,
-.homepage .parisian-agency-eyebrow,
-.homepage .re-homepage-eyebrow {
+.home .homepage .p-title,
+.home .homepage section p.p-title,
+.home .homepage .hero-content .hero-seo-title,
+.home .homepage .parisian-agency-eyebrow,
+.home .homepage .re-homepage-eyebrow {
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
@@ -7247,17 +7251,17 @@ html {
 }
 
 /* 07 · Paragraph */
-.homepage .hero-description,
-.homepage .homepage-intro p,
-.homepage .sea-overlay p,
-.homepage .city-overlay p,
-.homepage .land-overlay p,
-.homepage .discover-absolute p,
-.homepage .discover-absolute-mobile p,
-.homepage .why-plh-item p,
-.homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
-.homepage .re-homepage-desc,
-.homepage .google-reviews-section .review-card p:not(.review-date) {
+.home .homepage .hero-description,
+.home .homepage .homepage-intro p,
+.home .homepage .sea-overlay p,
+.home .homepage .city-overlay p,
+.home .homepage .land-overlay p,
+.home .homepage .discover-absolute p,
+.home .homepage .discover-absolute-mobile p,
+.home .homepage .why-plh-item p,
+.home .homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
+.home .homepage .re-homepage-desc,
+.home .homepage .google-reviews-section .review-card p:not(.review-date) {
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 300;
@@ -7268,12 +7272,12 @@ html {
 }
 
 /* 08 · Details (locations, counts, dates, names, tags) */
-.homepage .villa-card__location,
-.homepage .where-region-cities,
-.homepage .where-region-count,
-.homepage .hospitality-tags,
-.homepage .reviewer-name,
-.homepage .review-date {
+.home .homepage .villa-card__location,
+.home .homepage .where-region-cities,
+.home .homepage .where-region-count,
+.home .homepage .hospitality-tags,
+.home .homepage .reviewer-name,
+.home .homepage .review-date {
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 400;
@@ -7283,10 +7287,10 @@ html {
 }
 
 /* 09 · Buttons */
-.homepage .hero-cta,
-.homepage .collection-btn,
-.homepage .re-homepage-cta,
-.homepage .view-all-reviews {
+.home .homepage .hero-cta,
+.home .homepage .collection-btn,
+.home .homepage .re-homepage-cta,
+.home .homepage .view-all-reviews {
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
@@ -7295,34 +7299,34 @@ html {
 }
 
 @media (max-width: 775px) {
-  .homepage .hero-tagline { font-size: 40px; }
+  .home .homepage .hero-tagline { font-size: 40px; }
 
-  .homepage h2,
-  .homepage .reviews-header h2,
-  .homepage .re-homepage-title { font-size: 26px; }
+  .home .homepage h2,
+  .home .homepage .reviews-header h2,
+  .home .homepage .re-homepage-title { font-size: 26px; }
 
-  .homepage .sea-overlay h3,
-  .homepage .city-overlay h3,
-  .homepage .land-overlay h3,
-  .homepage .where-region h3,
-  .homepage .management-title h3,
-  .homepage .villa-card__title,
-  .homepage .why-plh-item h3,
-  .homepage .discover-absolute h3,
-  .homepage .discover-absolute-mobile h3 { font-size: 15px; }
+  .home .homepage .sea-overlay h3,
+  .home .homepage .city-overlay h3,
+  .home .homepage .land-overlay h3,
+  .home .homepage .where-region h3,
+  .home .homepage .management-title h3,
+  .home .homepage .villa-card__title,
+  .home .homepage .why-plh-item h3,
+  .home .homepage .discover-absolute h3,
+  .home .homepage .discover-absolute-mobile h3 { font-size: 15px; }
 
-  .homepage .p-title,
-  .homepage section p.p-title,
-  .homepage .hero-content .hero-seo-title,
-  .homepage .parisian-agency-eyebrow,
-  .homepage .re-homepage-eyebrow { font-size: 12px; }
+  .home .homepage .p-title,
+  .home .homepage section p.p-title,
+  .home .homepage .hero-content .hero-seo-title,
+  .home .homepage .parisian-agency-eyebrow,
+  .home .homepage .re-homepage-eyebrow { font-size: 12px; }
 
-  .homepage .hero-description,
-  .homepage .homepage-intro p,
-  .homepage .discover-absolute p,
-  .homepage .discover-absolute-mobile p,
-  .homepage .why-plh-item p,
-  .homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
-  .homepage .re-homepage-desc,
-  .homepage .google-reviews-section .review-card p:not(.review-date) { font-size: 14px; }
+  .home .homepage .hero-description,
+  .home .homepage .homepage-intro p,
+  .home .homepage .discover-absolute p,
+  .home .homepage .discover-absolute-mobile p,
+  .home .homepage .why-plh-item p,
+  .home .homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
+  .home .homepage .re-homepage-desc,
+  .home .homepage .google-reviews-section .review-card p:not(.review-date) { font-size: 14px; }
 }
