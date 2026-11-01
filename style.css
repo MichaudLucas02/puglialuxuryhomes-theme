@@ -1115,7 +1115,7 @@ h2 {
 .large-hero-content h1,
 .large-hero-content h2 {
   font-family: 'Didot';
-  font-size: 55px;
+  font-size: 44px;
   font-weight: 300;
   color: white;
   text-transform: uppercase;
@@ -1167,7 +1167,7 @@ h2 {
   
   .large-hero-content h1,
   .large-hero-content h2 {
-    font-size: 40px;
+    font-size: 32px;
   }
 }
 
@@ -7329,4 +7329,56 @@ html {
   .home .homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
   .home .homepage .re-homepage-desc,
   .home .homepage .google-reviews-section .review-card p:not(.review-date) { font-size: 14px; }
+}
+
+/* Homepage copy update (Nov 2026): new text elements, same type roles as above */
+
+/* 03 · Subtitle under the intro title ("Few villas. All exceptional.") */
+.home .homepage .homepage-intro .homepage-intro-subtitle {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: -8px 0 24px;
+}
+
+/* 04/05 · Tagline under "The art of hospitality" ("Just say the word.") */
+.home .homepage .hospitality-tagline {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+/* 07 · Short text under each region in "Where in Puglia" */
+.home .homepage .where-region-text {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #1a1a1a;
+  opacity: 0.8;
+  margin: 8px 0 0;
+  max-width: 440px;
+}
+
+/* Why PLH: four items now, shown as a 2 × 2 grid */
+.why-plh-item {
+  flex: 0 0 calc(50% - 24px);
+  max-width: calc(50% - 24px);
+}
+
+@media (max-width: 775px) {
+  .home .homepage .homepage-intro .homepage-intro-subtitle { font-size: 12px; }
+  .home .homepage .hospitality-tagline { font-size: 15px; }
+  .why-plh-item { flex: 0 0 100%; max-width: 100%; }
 }

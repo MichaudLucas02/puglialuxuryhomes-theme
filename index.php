@@ -142,8 +142,9 @@
         </script>
         <?php endif; ?>
     <section class="homepage-intro">
-        <h2><?php echo esc_html(plh_t('A boutique villa agency in Puglia, Italy.')); ?></h2>
-        <p><?php echo esc_html(plh_t('Exclusively managed properties across the Salento coast and the Itria Valley, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.')); ?></p>
+        <h2><?php echo esc_html(plh_t('A boutique villa rental agency in Puglia.')); ?></h2>
+        <p class="p-title homepage-intro-subtitle"><?php echo esc_html(plh_t('Few villas. All exceptional.')); ?></p>
+        <p><?php echo esc_html(plh_t('Rare properties, from the Itria Valley to the southern coast of Salento. Villas with private pools, trulli, historic palazzi and former masserias. A tight selection, one single standard. Bespoke concierge service, five-star hospitality.')); ?></p>
     </section>
 
     <section class='our-collection'>
@@ -288,8 +289,9 @@
             $region_description = get_option($option_key . '_region_description', 'As a short-term rental management specialists in Salento, we assist our property owners with the management of their assets. From creating listings to revenue management and concierge services, our team takes care of your rental from the outset to completion.');
             ?>
             <h2><?php echo wp_kses_post($region_title); ?></h2>
-            <p class="p-title"><?php echo esc_html($region_description); ?></p>
-            <p class="hospitality-tags"><?php echo esc_html(plh_t('Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking')); ?></p>
+            <p class="hospitality-tagline"><?php echo esc_html(plh_t('Just say the word.')); ?></p>
+            <p class="p-title"><?php echo nl2br(esc_html($region_description)); ?></p>
+            <p class="hospitality-tags"><?php echo esc_html(plh_t('Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival grocery delivery · Restaurant booking')); ?></p>
         </div>
     </section>
     <?php get_template_part('partials/discover-section', null, ['bg_color' => '#FFFFFF']); ?>
@@ -307,8 +309,8 @@
                             <circle cx="19" cy="13" r="3.5" stroke="currentColor" stroke-width="1.4"/>
                         </svg>
                     </div>
-                    <h3><?php echo esc_html(plh_t('Locally Based Founders')); ?></h3>
-                    <p><?php echo esc_html(plh_t('Run directly by its two founders, graduates of the École Hôtelière de Lausanne who live in Sud Salento year-round. Every stay is held to the standards of five-star hospitality, looked after in person rather than from a distant office.')); ?></p>
+                    <h3><?php echo esc_html(plh_t('French hospitality, Swiss precision')); ?></h3>
+                    <p><?php echo esc_html(plh_t('PLH was founded by two French graduates of the École Hôtelière de Lausanne, based in Sud Salento year-round. That is where our standard comes from: five-star hotel hospitality, applied to a private home.')); ?></p>
                 </div>
                 <div class="why-plh-item">
                     <div class="why-plh-icon">
@@ -320,18 +322,7 @@
                         </svg>
                     </div>
                     <h3><?php echo esc_html(plh_t('Your Stay Arranged Before You Arrive')); ?></h3>
-                    <p><?php echo esc_html(plh_t('Tell us what you need ahead of time and it is taken care of: the fridge stocked to your taste, the right tables booked, transfers arranged, and an itinerary shaped around the days you have in mind.')); ?></p>
-                </div>
-                <div class="why-plh-item">
-                    <div class="why-plh-icon">
-                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <circle cx="19" cy="19" r="14" stroke="currentColor" stroke-width="1.4"/>
-                            <path d="M19 9v2M19 27v2M9 19h2M27 19h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                            <path d="M24 14l-5 5.5-5 5.5 5-5.5L24 14z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3><?php echo esc_html(plh_t('Beyond the Villa')); ?></h3>
-                    <p><?php echo esc_html(plh_t('Once you arrive, the region comes to you: a private chef cooking in your own kitchen, wellness treatments by the pool, and long days out along the coast by boat.')); ?></p>
+                    <p><?php echo esc_html(plh_t('Tell us what you need and it is ready when you arrive: the fridge stocked, the tables booked, the transfers set. After that, the region comes to you. A private chef in your kitchen, a massage by the pool, long days out at sea.')); ?></p>
                 </div>
                 <div class="why-plh-item">
                     <div class="why-plh-icon">
@@ -342,7 +333,7 @@
                         </svg>
                     </div>
                     <h3><?php echo esc_html(plh_t('Introductions, Not Just Reservations')); ?></h3>
-                    <p><?php echo esc_html(plh_t('Years of living and working here mean we know the people worth knowing. The restaurateurs, the winemakers, the boat captains. Our guests are welcomed personally and seated at tables that are hard to reach from the outside.')); ?></p>
+                    <p><?php echo esc_html(plh_t('Living and working here for years means knowing the right people. Restaurateurs, winemakers, boat captains. Our guests are expected, and seated at tables that don\'t open to others.')); ?></p>
                 </div>
                 <div class="why-plh-item">
                     <div class="why-plh-icon">
@@ -353,26 +344,13 @@
                             <path d="M29 7V5M29 17v2M25 11h-2M35 11h-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h3><?php echo esc_html(plh_t('Seaside, Countryside, or Historic Centre')); ?></h3>
-                    <p><?php echo esc_html(plh_t('A small, personally chosen collection, grouped by the setting you want to wake up in, whether by the sea, out in the countryside, or in the heart of a historic town. What you find is a handful of places we stand behind, not a catalogue of everything on the market.')); ?></p>
+                    <h3><?php echo esc_html(plh_t('Few villas. All exceptional.')); ?></h3>
+                    <p><?php echo esc_html(plh_t('Few properties, each one chosen after a visit, for the house as much as for the service that comes with it. An extremely careful selection, not a catalogue of the rental market.')); ?></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="parisian-agency-section">
-        <?php $pa_image = get_field('home_parisian_agency_image'); ?>
-        <div class="parisian-agency-text">
-            <p class="parisian-agency-eyebrow"><?php echo esc_html(plh_t('As Seen On')); ?></p>
-            <h2><?php echo esc_html(plh_t('The Parisian Agency')); ?></h2>
-            <p><?php echo esc_html(plh_t('The Kretz family\'s luxury real estate series, broadcast on TMC and streaming on Netflix.')); ?></p>
-        </div>
-        <?php if ($pa_image) : ?>
-        <div class="parisian-agency-image">
-            <img src="<?php echo esc_url(is_array($pa_image) ? $pa_image['url'] : $pa_image['url'] ?? $pa_image); ?>" alt="<?php echo esc_attr(plh_t('As Seen on The Parisian Agency')); ?>">
-        </div>
-        <?php endif; ?>
-    </section>
 
     <?php get_template_part('partials/re-homepage-section'); ?>
 

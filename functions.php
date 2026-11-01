@@ -3205,6 +3205,10 @@ add_action('init', 'plh_register_ui_strings');
  */
 function plh_inline_translations() {
   return [
+    // EN display text for keys that differ from the English wording
+    'en' => [
+      'Itria Valley (region title)' => 'Itria Valley',
+    ],
     'fr' => [
       'Weekly rates'     => 'Tarifs hebdomadaires',
       'Daily rates'      => 'Tarifs journaliers',
@@ -3347,42 +3351,36 @@ function plh_inline_translations() {
       'Publication / Media outlet'               => 'Publication / Média',
       'Your enquiry'                             => 'Votre demande',
       'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
-          // Where in Puglia
-      'Where in Puglia'                              => 'Au cœur des Pouilles',
-      'Our locations'                                => 'Nos emplacements',
-      'Our villas are gathered in two corners of Puglia that we know by heart: the Salento, at the southern tip of the heel between the Adriatic and Ionian seas, and the Itria Valley, a countryside of olive groves, trulli and whitewashed towns. Both are easily reached from Brindisi and Bari airports.' => 'Nos villas sont réunies dans deux coins des Pouilles que nous connaissons par cœur : le Salento, à la pointe sud du talon entre l’Adriatique et la mer Ionienne, et la Vallée d’Itria, une campagne d’oliviers, de trulli et de villages blanchis à la chaux. Les deux sont facilement accessibles depuis les aéroports de Brindisi et de Bari.',
-      'Salento'                                      => 'Salento',
-      "Itria Valley"                                => "Vallée d'Itria",
+      // Homepage copy (client update, Nov 2026)
+      'Our locations' => 'Nos emplacements',
+      'Our villas in Salento and the Itria Valley' => 'Nos villas dans le Salento et la Vallée d\'Itria',
+      'Two territories, two ways of living Puglia. We don\'t cover the whole region, only the part we know by heart.' => 'Deux territoires, deux façons de vivre les Pouilles. Nous ne couvrons pas toute la région, seulement celle que nous connaissons par cœur.',
+      'Salento' => 'Le Salento',
+      'Itria Valley (region title)' => 'La Vallée d\'Itria',
+      'Itria Valley' => 'Vallée d\'Itria',
+      'The tip of the heel, where the Adriatic meets the Ionian. Cliffs and sea caves on one coast, white beaches on the other. Inland, the baroque towns of Lecce, Maglie and Specchia, dry-stone walls and pajare among the olive trees. This is where we live.' => 'Le bout de la botte, là où l\'Adriatique rencontre la mer Ionienne. Des falaises et des grottes marines sur une côte, des plages blanches sur l\'autre. À l\'intérieur des terres, les villes baroques de Lecce, Maglie et Specchia, les murs de pierre sèche et les pajare au milieu des oliviers. C\'est ici que nous vivons.',
+      'Trulli, whitewashed facades, centuries-old olive trees. Ostuni, Cisternino, Locorotondo, and masserias at the end of dirt tracks. The most photographed countryside in Puglia, an hour from Bari and Brindisi airports.' => 'Les trulli, les façades blanchies à la chaux, les oliviers centenaires. Ostuni, Cisternino, Locorotondo, et des masserias au bout de chemins de terre. La campagne la plus photographiée des Pouilles, à une heure des aéroports de Bari et de Brindisi.',
       'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',
-      'Ostuni · Noci'                                => 'Ostuni · Noci',
-      'villas'                                       => 'villas',
-      // Homepage SEO – new sections
-      'Luxury Villa Rentals in Puglia, Italy'       => 'Location de Villas de Luxe en Pouilles, Italie',
-      'Browse Our Villas'                            => 'Découvrir nos villas',
-      'Plan Your Stay'                               => 'Planifier votre séjour',
-      'Contact Us'                                   => 'Nous contacter',
-      'A boutique villa agency in Puglia, Italy.'    => 'Une agence de villas de prestige en Pouilles, Italie.',
-      'Exclusively managed properties across the Salento coast and the Itria Valley, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Des propriétés gérées en exclusivité le long de la côte du Salento et dans la Vallée d\'Itria, villas avec piscine privée, trulli traditionnels à louer et demeures historiques palazzo, chacune gérée directement par les fondateurs et accompagnée d\'un service de conciergerie sur demande.',
-      'What Our Guests Say'                          => 'Ce que disent nos clients',
-      'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking' => 'Chef privé · Massage à la villa · Location de bateau · Dégustation de vins · Cours de cuisine · Transfert aéroport · Approvisionnement avant arrivée · Réservation de restaurant',
+      'Ostuni · Noci' => 'Ostuni · Noci',
+      'Luxury Villa Rentals in Puglia, Italy' => 'Location de villas de luxe dans les Pouilles, Italie',
+      'Browse Our Villas' => 'Découvrir nos villas',
+      'Plan Your Stay' => 'Planifier votre séjour',
+      'Contact Us' => 'Nous contacter',
+      'A boutique villa rental agency in Puglia.' => 'Une agence boutique de location de villas de prestige dans les Pouilles.',
+      'Few villas. All exceptional.' => 'Peu de villas. Toutes exceptionnelles.',
+      'Rare properties, from the Itria Valley to the southern coast of Salento. Villas with private pools, trulli, historic palazzi and former masserias. A tight selection, one single standard. Bespoke concierge service, five-star hospitality.' => 'Des propriétés rares, de la Vallée d\'Itria à la côte sud du Salento. Villas avec piscine privée, trulli, palazzi historiques et anciennes masserias. Une sélection resserrée, un seul niveau d\'exigence. Une conciergerie sur mesure, un service 5 étoiles.',
+      'What Our Guests Say' => 'Ce que disent nos clients',
+      'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival grocery delivery · Restaurant booking' => 'Chef privé · Massage à la villa · Location de bateau · Dégustation de vins · Cours de cuisine · Transfert aéroport · Courses livrées avant arrivée · Réservation de restaurant',
+      'Just say the word.' => 'Demandez l\'impossible.',
       'Whether you are looking to buy, sell or build, we know the territory and guide you every step of the way.' => 'Que vous cherchiez à acheter, vendre ou construire, nous connaissons le territoire et vous guidons à chaque étape.',
-      // Why PLH
-      'Why Puglia Luxury Homes'                      => 'Pourquoi Puglia Luxury Homes',
-      'Locally Based Founders'                       => 'Fondateurs sur place',
-      'Run directly by its two founders, graduates of the École Hôtelière de Lausanne who live in Sud Salento year-round. Every stay is held to the standards of five-star hospitality, looked after in person rather than from a distant office.' => 'Dirigée directement par ses deux fondateurs, diplômés de l\'École Hôtelière de Lausanne et résidents du Sud-Salento toute l\'année. Chaque séjour est tenu aux standards d\'une hospitalité cinq étoiles, supervisé en personne plutôt que depuis un bureau lointain.',
-      'Your Stay Arranged Before You Arrive'         => 'Votre séjour organisé avant votre arrivée',
-      'Tell us what you need ahead of time and it is taken care of: the fridge stocked to your taste, the right tables booked, transfers arranged, and an itinerary shaped around the days you have in mind.' => 'Dites-nous ce dont vous avez besoin à l\'avance et tout est pris en charge : le réfrigérateur rempli selon vos goûts, les bonnes tables réservées, les transferts organisés et un itinéraire façonné autour des jours que vous avez en tête.',
-      'Beyond the Villa'                             => 'Au-delà de la villa',
-      'Once you arrive, the region comes to you: a private chef cooking in your own kitchen, wellness treatments by the pool, and long days out along the coast by boat.' => 'Une fois arrivé, c\'est la région qui vient à vous : un chef privé qui cuisine dans votre propre cuisine, des soins bien-être au bord de la piscine et de longues journées sur la côte en bateau.',
-      'Introductions, Not Just Reservations'         => 'Des introductions, pas seulement des réservations',
-      'Years of living and working here mean we know the people worth knowing. The restaurateurs, the winemakers, the boat captains. Our guests are welcomed personally and seated at tables that are hard to reach from the outside.' => 'Des années de vie et de travail ici signifient que nous connaissons les personnes qui valent la peine d\'être connues. Les restaurateurs, les vignerons, les capitaines de bateau. Nos clients sont accueillis personnellement et assis à des tables difficiles d\'accès pour les non-initiés.',
-      'Seaside, Countryside, or Historic Centre'     => 'Bord de mer, campagne ou centre historique',
-      'A small, personally chosen collection, grouped by the setting you want to wake up in, whether by the sea, out in the countryside, or in the heart of a historic town. What you find is a handful of places we stand behind, not a catalogue of everything on the market.' => 'Une collection réduite, personnellement sélectionnée, regroupée selon l\'environnement dans lequel vous souhaitez vous réveiller — au bord de la mer, à la campagne ou au cœur d\'une ville historique. Ce que vous trouvez, c\'est une poignée d\'endroits que nous défendons, pas un catalogue de tout ce qui existe sur le marché.',
-      // As Seen on The Parisian Agency
-      'As Seen On'                                   => 'Vu sur',
-      'The Parisian Agency'                          => 'The Parisian Agency',
-      'As Seen on The Parisian Agency'               => 'Vu sur The Parisian Agency',
-      'The Kretz family\'s luxury real estate series, broadcast on TMC and streaming on Netflix.' => 'La série immobilière de luxe de la famille Kretz, diffusée sur TMC et en streaming sur Netflix.',
+      'Why Puglia Luxury Homes' => 'Pourquoi Puglia Luxury Homes',
+      'French hospitality, Swiss precision' => 'L’hospitalité française, la précision suisse',
+      'PLH was founded by two French graduates of the École Hôtelière de Lausanne, based in Sud Salento year-round. That is where our standard comes from: five-star hotel hospitality, applied to a private home.' => 'PLH est fondée par deux Français diplômés de l\'École hôtelière de Lausanne, installés dans le Sud Salento à l\'année. De là vient notre niveau d\'exigence : celui de l\'hôtellerie cinq étoiles, appliqué à une maison privée.',
+      'Your Stay Arranged Before You Arrive' => 'Votre séjour organisé avant votre arrivée',
+      'Tell us what you need and it is ready when you arrive: the fridge stocked, the tables booked, the transfers set. After that, the region comes to you. A private chef in your kitchen, a massage by the pool, long days out at sea.' => 'Dites-nous ce dont vous avez besoin, tout est prêt quand vous arrivez : le réfrigérateur rempli, les tables réservées, les transferts calés. Ensuite, c\'est la région qui vient à vous. Chef privé dans votre cuisine, massage au bord de la piscine, longues journées en mer.',
+      'Introductions, Not Just Reservations' => 'Des introductions, pas seulement des réservations',
+      'Living and working here for years means knowing the right people. Restaurateurs, winemakers, boat captains. Our guests are expected, and seated at tables that don\'t open to others.' => 'Vivre et travailler ici depuis des années, c\'est connaître les bonnes personnes. Restaurateurs, vignerons, capitaines de bateau. Nos clients sont attendus, et assis aux tables qui ne s\'ouvrent pas aux autres.',
+      'Few properties, each one chosen after a visit, for the house as much as for the service that comes with it. An extremely careful selection, not a catalogue of the rental market.' => 'Peu de biens, tous retenus après visite et un par un, pour la maison autant que pour le service qui va avec. Une sélection extrêmement minutieuse, pas un catalogue du marché de la location.',
     ],
     'it' => [
       'Weekly rates'     => 'Tariffe settimanali',
@@ -3526,42 +3524,36 @@ function plh_inline_translations() {
       'Publication / Media outlet'               => 'Testata / Media',
       'Your enquiry'                             => 'La tua richiesta',
       'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
-          // Where in Puglia
-      'Where in Puglia'                              => 'Dove in Puglia',
-      'Our locations'                                => 'Le nostre zone',
-      'Our villas are gathered in two corners of Puglia that we know by heart: the Salento, at the southern tip of the heel between the Adriatic and Ionian seas, and the Itria Valley, a countryside of olive groves, trulli and whitewashed towns. Both are easily reached from Brindisi and Bari airports.' => 'Le nostre ville si trovano in due angoli della Puglia che conosciamo a memoria: il Salento, all’estremità sud del tacco tra l’Adriatico e lo Ionio, e la Valle d’Itria, una campagna di ulivi, trulli e paesi imbiancati a calce. Entrambi sono facilmente raggiungibili dagli aeroporti di Brindisi e Bari.',
-      'Salento'                                      => 'Salento',
-      "Itria Valley"                                => "Valle d'Itria",
+      // Homepage copy (client update, Nov 2026)
+      'Our locations' => 'Dove siamo',
+      'Our villas in Salento and the Itria Valley' => 'Le nostre ville nel Salento e nella Valle d\'Itria',
+      'Two territories, two ways of living Puglia. We don\'t cover the whole region, only the part we know by heart.' => 'Due territori, due modi di vivere la Puglia. Non copriamo tutta la regione, solo quella che conosciamo a memoria.',
+      'Salento' => 'Il Salento',
+      'Itria Valley (region title)' => 'La Valle d\'Itria',
+      'Itria Valley' => 'Valle d\'Itria',
+      'The tip of the heel, where the Adriatic meets the Ionian. Cliffs and sea caves on one coast, white beaches on the other. Inland, the baroque towns of Lecce, Maglie and Specchia, dry-stone walls and pajare among the olive trees. This is where we live.' => 'La punta del tacco, dove l\'Adriatico incontra lo Ionio. Falesie e grotte marine su una costa, spiagge bianche sull\'altra. Nell\'entroterra, le città barocche di Lecce, Maglie e Specchia, i muretti a secco e le pajare tra gli ulivi. È qui che viviamo.',
+      'Trulli, whitewashed facades, centuries-old olive trees. Ostuni, Cisternino, Locorotondo, and masserias at the end of dirt tracks. The most photographed countryside in Puglia, an hour from Bari and Brindisi airports.' => 'Trulli, facciate imbiancate a calce, ulivi secolari. Ostuni, Cisternino, Locorotondo, e masserie in fondo a strade sterrate. La campagna più fotografata della Puglia, a un\'ora dagli aeroporti di Bari e Brindisi.',
       'Lecce · Gagliano del Capo · Santa Maria di Leuca' => 'Lecce · Gagliano del Capo · Santa Maria di Leuca',
-      'Ostuni · Noci'                                => 'Ostuni · Noci',
-      'villas'                                       => 'ville',
-      // Homepage SEO – new sections
-      'Luxury Villa Rentals in Puglia, Italy'       => 'Affitto Ville di Lusso in Puglia, Italia',
-      'Browse Our Villas'                            => 'Scopri le nostre ville',
-      'Plan Your Stay'                               => 'Pianifica il tuo soggiorno',
-      'Contact Us'                                   => 'Contattaci',
-      'A boutique villa agency in Puglia, Italy.'    => 'Un\'agenzia boutique di ville in Puglia, Italia.',
-      'Exclusively managed properties across the Salento coast and the Itria Valley, private pool villas, traditional trulli houses for rent, and historic palazzo residences, each managed directly by the founders and supported by a concierge service on request.' => 'Proprietà gestite in esclusiva lungo la costa del Salento e nella Valle d\'Itria — ville con piscina privata, trulli tradizionali in affitto e residenze storiche palazzo, ognuna gestita direttamente dai fondatori e supportata da un servizio di concierge su richiesta.',
-      'What Our Guests Say'                          => 'Cosa dicono i nostri ospiti',
-      'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival stocking · Restaurant booking' => 'Chef privato · Massaggio in villa · Noleggio barca · Degustazione vini · Lezione di cucina · Trasferimento aeroportuale · Rifornimento pre-arrivo · Prenotazione ristorante',
+      'Ostuni · Noci' => 'Ostuni · Noci',
+      'Luxury Villa Rentals in Puglia, Italy' => 'Affitto di ville di lusso in Puglia, Italia',
+      'Browse Our Villas' => 'Scoprite le nostre ville',
+      'Plan Your Stay' => 'Organizzate il vostro soggiorno',
+      'Contact Us' => 'Contattaci',
+      'A boutique villa rental agency in Puglia.' => 'Un\'agenzia boutique di ville di prestigio in Puglia.',
+      'Few villas. All exceptional.' => 'Poche ville. Tutte eccezionali.',
+      'Rare properties, from the Itria Valley to the southern coast of Salento. Villas with private pools, trulli, historic palazzi and former masserias. A tight selection, one single standard. Bespoke concierge service, five-star hospitality.' => 'Proprietà rare, dalla Valle d\'Itria alla costa sud del Salento. Ville con piscina privata, trulli, palazzi storici e antiche masserie. Una selezione ristretta, un solo livello di esigenza. Un servizio di concierge su misura, un\'ospitalità a cinque stelle.',
+      'What Our Guests Say' => 'Cosa dicono i nostri ospiti',
+      'Private chef · In-villa massage · Boat rental · Wine tasting · Cooking class · Airport transfer · Pre-arrival grocery delivery · Restaurant booking' => 'Chef privato · Massaggio in villa · Noleggio barca · Degustazione di vini · Corso di cucina · Transfer aeroporto · Spesa consegnata prima dell\'arrivo · Prenotazione ristoranti',
+      'Just say the word.' => 'Basta chiederlo.',
       'Whether you are looking to buy, sell or build, we know the territory and guide you every step of the way.' => 'Che voi stiate cercando di comprare, vendere o costruire, conosciamo il territorio e vi guidiamo in ogni fase.',
-      // Why PLH
-      'Why Puglia Luxury Homes'                      => 'Perché Puglia Luxury Homes',
-      'Locally Based Founders'                       => 'Fondatori sul posto',
-      'Run directly by its two founders, graduates of the École Hôtelière de Lausanne who live in Sud Salento year-round. Every stay is held to the standards of five-star hospitality, looked after in person rather than from a distant office.' => 'Gestita direttamente dai suoi due fondatori, diplomati all\'École Hôtelière de Lausanne e residenti nel Sud Salento tutto l\'anno. Ogni soggiorno è tenuto agli standard dell\'ospitalità a cinque stelle, curato di persona piuttosto che da un ufficio lontano.',
-      'Your Stay Arranged Before You Arrive'         => 'Il vostro soggiorno organizzato prima che arriviate',
-      'Tell us what you need ahead of time and it is taken care of: the fridge stocked to your taste, the right tables booked, transfers arranged, and an itinerary shaped around the days you have in mind.' => 'Diteci di cosa avete bisogno in anticipo e sarà tutto pronto: il frigorifero rifornito secondo i vostri gusti, i tavoli giusti prenotati, i trasferimenti organizzati e un itinerario costruito attorno ai giorni che avete in mente.',
-      'Beyond the Villa'                             => 'Oltre la villa',
-      'Once you arrive, the region comes to you: a private chef cooking in your own kitchen, wellness treatments by the pool, and long days out along the coast by boat.' => 'Una volta arrivati, è la regione che viene da voi: uno chef privato che cucina nella vostra cucina, trattamenti benessere a bordo piscina e lunghe giornate lungo la costa in barca.',
-      'Introductions, Not Just Reservations'         => 'Presentazioni, non solo prenotazioni',
-      'Years of living and working here mean we know the people worth knowing. The restaurateurs, the winemakers, the boat captains. Our guests are welcomed personally and seated at tables that are hard to reach from the outside.' => 'Anni di vita e lavoro qui significano che conosciamo le persone che vale la pena conoscere. I ristoratori, i produttori di vino, i capitani di barca. I nostri ospiti vengono accolti personalmente e seduti a tavoli difficili da raggiungere dall\'esterno.',
-      'Seaside, Countryside, or Historic Centre'     => 'Mare, campagna o centro storico',
-      'A small, personally chosen collection, grouped by the setting you want to wake up in, whether by the sea, out in the countryside, or in the heart of a historic town. What you find is a handful of places we stand behind, not a catalogue of everything on the market.' => 'Una piccola collezione scelta personalmente, raggruppata per il contesto in cui volete svegliarvi — in riva al mare, in campagna o nel cuore di una città storica. Quello che trovate è una manciata di luoghi di cui siamo certi, non un catalogo di tutto ciò che esiste sul mercato.',
-      // As Seen on The Parisian Agency
-      'As Seen On'                                   => 'Come visto su',
-      'The Parisian Agency'                          => 'The Parisian Agency',
-      'As Seen on The Parisian Agency'               => 'Come visto su The Parisian Agency',
-      'The Kretz family\'s luxury real estate series, broadcast on TMC and streaming on Netflix.' => 'La serie immobiliare di lusso della famiglia Kretz, trasmessa su TMC e in streaming su Netflix.',
+      'Why Puglia Luxury Homes' => 'Perché Puglia Luxury Homes',
+      'French hospitality, Swiss precision' => 'Il garbo francese, il rigore svizzero',
+      'PLH was founded by two French graduates of the École Hôtelière de Lausanne, based in Sud Salento year-round. That is where our standard comes from: five-star hotel hospitality, applied to a private home.' => 'PLH è fondata da due diplomati Francesi dell\'École Hôtelière de Lausanne, residenti nel Sud Salento tutto l\'anno. Da qui nasce il nostro livello di esigenza: quello dell\'hotellerie a cinque stelle, applicato a una casa privata.',
+      'Your Stay Arranged Before You Arrive' => 'Il vostro soggiorno organizzato prima del vostro arrivo',
+      'Tell us what you need and it is ready when you arrive: the fridge stocked, the tables booked, the transfers set. After that, the region comes to you. A private chef in your kitchen, a massage by the pool, long days out at sea.' => 'Diteci di cosa avete bisogno e tutto sarà pronto al vostro arrivo: il frigorifero rifornito, i tavoli prenotati, i transfer organizzati. Poi è la regione che viene da voi. Chef privato nella vostra cucina, massaggio a bordo piscina, lunghe giornate in mare.',
+      'Introductions, Not Just Reservations' => 'Presentazioni, non solo prenotazioni',
+      'Living and working here for years means knowing the right people. Restaurateurs, winemakers, boat captains. Our guests are expected, and seated at tables that don\'t open to others.' => 'Vivere e lavorare qui da anni significa conoscere le persone giuste. Ristoratori, produttori di vino, capitani di barca. I nostri ospiti sono attesi, e seduti ai tavoli che non si aprono agli altri.',
+      'Few properties, each one chosen after a visit, for the house as much as for the service that comes with it. An extremely careful selection, not a catalogue of the rental market.' => 'Poche proprietà, scelte una per una dopo un sopralluogo, per la casa tanto quanto per il servizio che la accompagna. Una selezione estremamente accurata, non un catalogo del mercato degli affitti.',
     ],
   ];
 }
@@ -5628,3 +5620,227 @@ add_action('template_redirect', function() {
 });
 
 
+
+
+/* ==========================================================================
+   ONE-TIME CONTENT UPDATE: homepage copy validated by the client (Nov 2026)
+   The texts below live in the database (homepage ACF fields and the
+   "Discover settings" page), so a theme deploy alone would not change them.
+   This runs once, the first time an admin opens the dashboard after the
+   deploy, then records that it ran. It can be deleted once live is updated.
+   ========================================================================== */
+add_action( 'admin_init', function () {
+  $version = '2026-11-homepage-copy';
+  if ( get_option( 'plh_content_update' ) === $version ) return;
+  if ( ! current_user_can( 'manage_options' ) || ! function_exists( 'update_field' ) ) return;
+
+  // Homepage in each language
+  $front = (int) get_option( 'page_on_front' );
+  if ( ! $front ) return;
+  $pages = [ 'en' => $front ];
+  if ( function_exists( 'pll_get_post' ) ) {
+    foreach ( [ 'en', 'fr', 'it' ] as $lang ) {
+      $id = pll_get_post( $front, $lang );
+      if ( $id ) $pages[ $lang ] = (int) $id;
+    }
+  }
+
+  $fields = [
+    'home_hero_title' => [
+      'en' => 'PUGLIA, REIMAGINED',
+      'fr' => 'LES POUILLES, AUTREMENT',
+      'it' => 'LA PUGLIA, DIVERSA',
+    ],
+    'home_hero_description' => [
+      'en' => 'Rare homes. Refined living. Private hospitality.',
+      'fr' => 'Maisons rares. Art de vivre. Hospitalité privée.',
+      'it' => 'Case rare. Arte di vivere. Ospitalità privata.',
+    ],
+    'home_collections_title' => [
+      'en' => 'Our collections',
+      'fr' => 'Nos Collections',
+      'it' => 'Le nostre collezioni',
+    ],
+    'home_collections_description' => [
+      'en' => 'Discover our collections of exclusive villas',
+      'fr' => 'Découvrez nos collections de villas exclusives',
+      'it' => 'Scoprite le nostre collezioni di ville esclusive',
+    ],
+    'home_sea_title' => [
+      'en' => 'Seaside',
+      'fr' => 'Bord de mer',
+      'it' => 'Fronte mare',
+    ],
+    'home_sea_description' => [
+      'en' => 'Villas facing the sea, between the Adriatic and Ionian coasts. Breathtaking views, open-air lounges, and days that begin and end in the water.',
+      'fr' => "Villas face à la mer, entre côte adriatique et côte ionienne. Des vues à couper le souffle, des salons en plein air, et des journées qui commencent et finissent dans l'eau.",
+      'it' => "Ville affacciate sul mare, tra costa adriatica e costa ionica. Viste mozzafiato, salotti all'aperto e giornate che iniziano e finiscono in acqua.",
+    ],
+    'home_city_title' => [
+      'en' => 'Historic centre',
+      'fr' => 'Centre historique',
+      'it' => 'Centro storico',
+    ],
+    'home_city_description' => [
+      'en' => 'Private residences in the heart of baroque towns. Hidden courtyards, high stone walls, church bells as your only alarm. Shops and the best tables a few steps away.',
+      'fr' => "Des résidences privées au cœur des centres baroques. Cours secrètes, hauts murs de pierre, cloches de l'église pour seul réveil. Les commerces et les meilleures tables à deux pas.",
+      'it' => 'Residenze private nel cuore dei centri barocchi. Corti segrete, alti muri in pietra, le campane della chiesa come unica sveglia. Negozi e le tavole migliori a due passi.',
+    ],
+    'home_land_title' => [
+      'en' => 'Countryside',
+      'fr' => 'Campagne',
+      'it' => 'Campagna',
+    ],
+    'home_land_description' => [
+      'en' => 'Former masserias among the olive groves, trulli in the Itria Valley, dry-stone pajare in Salento. Acres of silence, horses and donkeys for neighbours. The Puglian countryside exactly as you picture it.',
+      'fr' => "D'anciennes masserias au milieu des oliveraies, des trulli de la Vallée d'Itria, des pajare de pierre sèche du Salento. Des hectares de silence, des chevaux et des ânes pour voisins. La campagne des Pouilles, telle qu'on l'imagine.",
+      'it' => "Antiche masserie tra gli uliveti, trulli della Valle d'Itria, pajare in pietra a secco del Salento. Ettari di silenzio, cavalli e asini per vicini. La campagna pugliese, esattamente come la si immagina.",
+    ],
+    'home_villas_title' => [
+      'en' => 'Our villas for rent in Puglia',
+      'fr' => 'Nos villas à louer dans les Pouilles',
+      'it' => 'Le nostre ville in affitto in Puglia',
+    ],
+    'home_villas_description' => [
+      'en' => 'Elegance and tranquility in exceptional places',
+      'fr' => 'Élégance et tranquillité dans des lieux exceptionnels',
+      'it' => 'Eleganza e tranquillità in luoghi eccezionali',
+    ],
+    'home_re_eyebrow' => [
+      'en' => 'Buy properties',
+      'fr' => 'Achat de biens immobiliers',
+      'it' => 'Acquisto di immobili',
+    ],
+    'home_re_title' => [
+      'en' => 'Buying a home in Puglia',
+      'fr' => 'Acheter une maison dans les Pouilles',
+      'it' => 'Comprare casa in Puglia',
+    ],
+    // Paragraph, then the closing line on its own line
+    'home_re_description' => [
+      'en' => "From the search to the handover of the keys, then from renovation to management. We know the territory, the craftsmen and the pitfalls. You move forward with someone on the ground.\nFind your place in Puglia.",
+      'fr' => "De la recherche à la remise des clefs, puis de la rénovation à la gestion. Nous connaissons le territoire, les artisans et les pièges. Vous avancez avec quelqu'un sur place.\nTrouver votre pépite dans les Pouilles.",
+      'it' => "Dalla ricerca alla consegna delle chiavi, poi dalla ristrutturazione alla gestione. Conosciamo il territorio, gli artigiani e le insidie. Avanzate con qualcuno sul posto.\nTrovare la vostra perla in Puglia.",
+    ],
+    'home_re_cta_text' => [
+      'en' => 'Discover more',
+      'fr' => 'En savoir plus',
+      'it' => 'Scoprite di più',
+    ],
+    'home_pm_title' => [
+      'en' => 'Short-term rental management in Salento',
+      'fr' => 'Gestion locative de villas dans le Salento',
+      'it' => 'Gestione locativa di ville nel Salento',
+    ],
+    'home_pm_card1_title' => [
+      'en' => 'Marketing of your property',
+      'fr' => 'Commercialisation de votre bien',
+      'it' => 'Commercializzazione del vostro immobile',
+    ],
+    'home_pm_card2_title' => [
+      'en' => 'Annual management',
+      'fr' => 'Gestion annuelle de votre bien',
+      'it' => 'Gestione annuale del vostro immobile',
+    ],
+    'home_pm_card3_title' => [
+      'en' => 'Rental management',
+      'fr' => 'Gestion des locations',
+      'it' => 'Gestione delle locazioni',
+    ],
+    'home_pm_card4_title' => [
+      'en' => 'Dedicated concierge',
+      'fr' => 'Conciergerie dédiée',
+      'it' => 'Concierge dedicato',
+    ],
+  ];
+
+  foreach ( $fields as $name => $by_lang ) {
+    foreach ( $by_lang as $lang => $value ) {
+      if ( ! empty( $pages[ $lang ] ) ) update_field( $name, $value, $pages[ $lang ] );
+    }
+  }
+
+  // "Art of hospitality" block and the experiences carousel (Discover settings page).
+  // These also show on the villa pages.
+  $discover = [
+    'region_title' => [
+      'en' => 'The art of hospitality',
+      'fr' => 'L’art du service',
+      'it' => "L'arte del servizio",
+    ],
+    'region_description' => [
+      'en' => implode( "\n", [
+        'A fresh pasta lesson with an Italian cook, hands in the semolina, a glass of white within reach.',
+        'A yacht along the Salento coast, a swim in a cave no one else will show you, lunch on board and home at sunset.',
+        'A chef who settles into your kitchen and turns out a ten-course dinner as if it were nothing.',
+        'A tasting of olive oil, burrata and Salento wines, served on your terrace by the person who makes them.',
+        'A massage after the beach, a breakfast basket delivered each morning, a table held where there are none left.',
+        'You name it. We arrange it.',
+      ] ),
+      'fr' => implode( "\n", [
+        'Un cours de pâtes fraîches avec une Italienne, les mains dans la semoule, un verre de blanc posé à côté.',
+        "Un yacht pour longer les côtes salentines, se baigner dans une grotte que personne ne vous montrera, déjeuner à bord et rentrer au coucher du soleil.",
+        "Un chef qui s'installe dans votre cuisine et sort un dîner de dix services comme si de rien n'était.",
+        "Une dégustation d'huile d'olive, de burrata et de vins du Salento, servie sur votre terrasse par celui qui les produit.",
+        "Un massage après la plage, un panier de petit-déjeuner livré chaque matin, une table réservée là où il n'y a plus de place.",
+        'Vous nous le dites. Nous l’organisons.',
+      ] ),
+      'it' => implode( "\n", [
+        'Un corso di pasta fresca con una cuoca del posto, le mani nella semola, un bicchiere di bianco accanto.',
+        'Uno yacht per costeggiare il Salento, un bagno in una grotta che nessuno vi mostrerà, pranzo a bordo e rientro al tramonto.',
+        'Uno chef che si installa nella vostra cucina e serve una cena di dieci portate come se niente fosse.',
+        'Una degustazione di olio d’oliva, burrata e vini del Salento, servita sulla vostra terrazza da chi li produce.',
+        'Un massaggio dopo la spiaggia, un cesto di colazione consegnato ogni mattina, un tavolo riservato dove non ce ne sono più.',
+        'Voi lo dite. Noi lo organizziamo.',
+      ] ),
+    ],
+    'discover_item_1_title' => [
+      'en' => 'Private chef at the villa',
+      'fr' => 'Chef Privé à la Villa',
+      'it' => 'Chef privato in villa',
+    ],
+    'discover_item_1_description' => [
+      'en' => 'Your villa, your table, your private chef: local cooking without limits.',
+      'fr' => 'Votre villa, votre table, votre chef privé : la cuisine locale sans limites.',
+      'it' => 'La vostra villa, la vostra tavola, il vostro chef privato: la cucina locale senza limiti.',
+    ],
+    'discover_item_2_title' => [
+      'en' => 'Boat excursion',
+      'fr' => 'Excursion en mer',
+      'it' => 'Uscita in barca',
+    ],
+    'discover_item_2_description' => [
+      'en' => 'Sail the Adriatic in total freedom, where every horizon becomes yours.',
+      'fr' => 'Naviguez sur l’Adriatique en totale liberté, où chaque horizon vous appartient.',
+      'it' => "Navigate l'Adriatico in totale libertà, dove ogni orizzonte vi appartiene.",
+    ],
+    'discover_item_3_title' => [
+      'en' => 'Sea-view concert',
+      'fr' => 'Concert Vue Mer',
+      'it' => 'Concerto vista mare',
+    ],
+    'discover_item_3_description' => [
+      'en' => 'Live music, sunset, cocktails. One unforgettable evening above the sea.',
+      'fr' => 'Musique live, coucher de soleil, cocktails. Une soirée inoubliable au-dessus de la mer.',
+      'it' => 'Musica dal vivo, tramonto, cocktail. Una serata indimenticabile sopra il mare.',
+    ],
+    'discover_item_4_title' => [
+      'en' => 'Vintage car experience',
+      'fr' => 'Expérience Voiture Vintage',
+      'it' => "Esperienza auto d'epoca",
+    ],
+    'discover_item_4_description' => [
+      'en' => 'Explore Puglia in style, from airport pickup to timeless road trips.',
+      'fr' => 'Explorez les Pouilles avec élégance, du transfert aéroport aux road trips intemporels.',
+      'it' => 'Esplorate la Puglia con eleganza, dal transfer aeroportuale ai road trip senza tempo.',
+    ],
+  ];
+
+  foreach ( $discover as $key => $by_lang ) {
+    foreach ( $by_lang as $lang => $value ) {
+      update_option( 'discover_settings_' . $lang . '_' . $key, $value );
+    }
+  }
+
+  update_option( 'plh_content_update', $version, false );
+} );

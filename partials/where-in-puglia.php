@@ -20,7 +20,6 @@ $villa_query = new WP_Query([
 
 // One entry per villa, same data as the map on the villas listing page.
 $villas = [];
-$counts = ['salento' => 0, 'itria' => 0];
 $beds_label   = mb_strtolower( plh_t('Bedrooms') );
 $guests_label = plh_t('guests');
 
@@ -30,7 +29,6 @@ foreach ( $villa_query->posts as $villa ) {
   if ( ! $lat || ! $lng ) continue;
 
   $region = $lat >= $plh_itria_min_lat ? 'itria' : 'salento';
-  $counts[ $region ]++;
 
   $img_id = get_field( 'card_image_11', $villa->ID ) ?: get_post_thumbnail_id( $villa->ID );
   $beds   = (string) get_field( 'beds_1', $villa->ID );
@@ -56,10 +54,12 @@ $regions = [
   'salento' => [
     'title'  => plh_t('Salento'),
     'cities' => plh_t('Lecce · Gagliano del Capo · Santa Maria di Leuca'),
+    'text'   => plh_t('The tip of the heel, where the Adriatic meets the Ionian. Cliffs and sea caves on one coast, white beaches on the other. Inland, the baroque towns of Lecce, Maglie and Specchia, dry-stone walls and pajare among the olive trees. This is where we live.'),
   ],
   'itria' => [
-    'title'  => plh_t('Itria Valley'),
+    'title'  => plh_t('Itria Valley (region title)'),
     'cities' => plh_t('Ostuni · Noci'),
+    'text'   => plh_t('Trulli, whitewashed facades, centuries-old olive trees. Ostuni, Cisternino, Locorotondo, and masserias at the end of dirt tracks. The most photographed countryside in Puglia, an hour from Bari and Brindisi airports.'),
   ],
 ];
 
@@ -85,15 +85,15 @@ wp_enqueue_script(
   <div class="re-homepage-text">
     <p class="re-homepage-eyebrow"><?php echo esc_html( plh_t('Our locations') ); ?></p>
     <span class="re-homepage-rule"></span>
-    <h2 class="re-homepage-title"><?php echo esc_html( plh_t('Where in Puglia') ); ?></h2>
-    <p class="re-homepage-desc"><?php echo esc_html( plh_t('Our villas are gathered in two corners of Puglia that we know by heart: the Salento, at the southern tip of the heel between the Adriatic and Ionian seas, and the Itria Valley, a countryside of olive groves, trulli and whitewashed towns. Both are easily reached from Brindisi and Bari airports.') ); ?></p>
+    <h2 class="re-homepage-title"><?php echo esc_html( plh_t('Our villas in Salento and the Itria Valley') ); ?></h2>
+    <p class="re-homepage-desc"><?php echo esc_html( plh_t('Two territories, two ways of living Puglia. We don\'t cover the whole region, only the part we know by heart.') ); ?></p>
 
     <div class="where-regions">
       <?php foreach ( $regions as $key => $region ) : ?>
         <div class="where-region" data-region="<?php echo esc_attr( $key ); ?>">
           <h3><button type="button" class="where-region-btn" data-region="<?php echo esc_attr( $key ); ?>" aria-controls="where-map"><?php echo esc_html( $region['title'] ); ?></button></h3>
           <p class="where-region-cities"><?php echo esc_html( $region['cities'] ); ?></p>
-          <p class="where-region-count"><?php echo esc_html( $counts[ $key ] . ' ' . plh_t('villas') ); ?></p>
+          <p class="where-region-text"><?php echo esc_html( $region['text'] ); ?></p>
         </div>
       <?php endforeach; ?>
     </div>

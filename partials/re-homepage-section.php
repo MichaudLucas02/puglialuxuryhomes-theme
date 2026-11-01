@@ -20,7 +20,7 @@ if ( empty($re_cta_url) ) {
     <?php endif; ?>
     <h2 class="re-homepage-title"><?php echo esc_html( $re_title ); ?></h2>
     <?php if ( $re_desc ) : ?>
-      <p class="re-homepage-desc"><?php echo esc_html( $re_desc ); ?></p>
+      <p class="re-homepage-desc"><?php echo nl2br( esc_html( $re_desc ) ); ?></p>
     <?php endif; ?>
     <a href="<?php echo esc_url( $re_cta_url ); ?>" class="re-homepage-cta">
       <?php echo esc_html( $re_cta_text ); ?>
