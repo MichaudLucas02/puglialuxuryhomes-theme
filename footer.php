@@ -30,6 +30,10 @@
           </div>
           
         </div>
+        <a class="footer-tv" href="<?php echo esc_url( plh_page_url('press') ); ?>">
+          <i class="fa-solid fa-tv" aria-hidden="true"></i>
+          <span><?php echo esc_html( plh_t('As seen on TV on Netflix') ); ?></span>
+        </a>
     </div>
     
     <div class="footer-col col-right">
@@ -55,6 +59,10 @@
             <a href="https://www.facebook.com/profile.php?id=61553876982558&locale=fr_FR">Facebook</a>
           </div>
         </div>
+      <a class="footer-tv" href="<?php echo esc_url( plh_page_url('press') ); ?>">
+          <i class="fa-solid fa-tv" aria-hidden="true"></i>
+          <span><?php echo esc_html( plh_t('As seen on TV on Netflix') ); ?></span>
+        </a>
       </div>
       <div class="mobile-footer-menu">
          <div class="footer-col col-left">

@@ -7382,3 +7382,55 @@ html {
   .home .homepage .hospitality-tagline { font-size: 15px; }
   .why-plh-item { flex: 0 0 100%; max-width: 100%; }
 }
+
+/* Footer: "As seen on TV on Netflix" link under the social links */
+.footer-tv {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.footer-tv:hover { border-bottom-color: #000; }
+.footer-tv i { font-size: 14px; }
+
+@media (max-width: 775px) {
+  .footer-tv { margin: 20px auto 0; font-size: 11px; }
+}
+
+/* Mobile footer: contact block under the menu, full width,
+   so the email addresses stay on one line */
+@media (max-width: 775px) {
+  .mobile-footer-menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mobile-footer-menu .col-left,
+  .mobile-footer-menu .col-right {
+    width: 100%;
+  }
+  .mobile-footer-menu .col-right {
+    align-items: center;
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .mobile-footer-menu .col-right p,
+  .mobile-footer-menu .col-right a {
+    text-align: center;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+}
+@media (max-width: 360px) {
+  .mobile-footer-menu .col-right a { font-size: 12px; }
+}

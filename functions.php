@@ -3351,6 +3351,8 @@ function plh_inline_translations() {
       'Publication / Media outlet'               => 'Publication / Média',
       'Your enquiry'                             => 'Votre demande',
       'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
+      // Footer
+      'As seen on TV on Netflix' => 'Vu à la télé sur Netflix',
       // Homepage copy (client update, Nov 2026)
       'Our locations' => 'Nos emplacements',
       'Our villas in Salento and the Itria Valley' => 'Nos villas dans le Salento et la Vallée d\'Itria',
@@ -3524,6 +3526,8 @@ function plh_inline_translations() {
       'Publication / Media outlet'               => 'Testata / Media',
       'Your enquiry'                             => 'La tua richiesta',
       'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
+      // Footer
+      'As seen on TV on Netflix' => 'Visto in TV su Netflix',
       // Homepage copy (client update, Nov 2026)
       'Our locations' => 'Dove siamo',
       'Our villas in Salento and the Itria Valley' => 'Le nostre ville nel Salento e nella Valle d\'Itria',
