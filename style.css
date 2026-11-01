@@ -7434,3 +7434,12 @@ html {
 @media (max-width: 360px) {
   .mobile-footer-menu .col-right a { font-size: 12px; }
 }
+
+/* Mobile footer: menu in two columns so it stays short */
+@media (max-width: 775px) {
+  .mobile-footer-menu .footer-vertical-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+  }
+}

@@ -3352,6 +3352,8 @@ function plh_inline_translations() {
       'Your enquiry'                             => 'Votre demande',
       'Thank you — your enquiry has been sent.'  => 'Merci — votre demande a bien été envoyée.',
       // Footer
+      'Buy in Puglia' => 'Acheter dans les Pouilles',
+      'Contact' => 'Contact',
       'As seen on TV on Netflix' => 'Vu à la télé sur Netflix',
       // Homepage copy (client update, Nov 2026)
       'Our locations' => 'Nos emplacements',
@@ -3527,6 +3529,8 @@ function plh_inline_translations() {
       'Your enquiry'                             => 'La tua richiesta',
       'Thank you — your enquiry has been sent.'  => 'Grazie — la tua richiesta è stata inviata.',
       // Footer
+      'Buy in Puglia' => 'Acquistare in Puglia',
+      'Contact' => 'Contatti',
       'As seen on TV on Netflix' => 'Visto in TV su Netflix',
       // Homepage copy (client update, Nov 2026)
       'Our locations' => 'Dove siamo',
@@ -5848,3 +5852,27 @@ add_action( 'admin_init', function () {
 
   update_option( 'plh_content_update', $version, false );
 } );
+
+/* Footer menu: always end with "Buy in Puglia" and "Contact" (current language's pages).
+   Added in code so they ship with the theme instead of being added to each
+   language's footer menu in the admin. A link already in the menu is not repeated. */
+add_filter( 'wp_nav_menu_items', function ( $items, $args ) {
+  if ( empty( $args->theme_location ) || $args->theme_location !== 'footer' ) return $items;
+
+  $extra = [
+    'buy'     => [ 'slug' => 'real-estate-puglia', 'label' => 'Buy in Puglia' ],
+    'contact' => [ 'slug' => 'contact',            'label' => 'Contact' ],
+  ];
+
+  foreach ( $extra as $key => $item ) {
+    $url = plh_page_url( $item['slug'] );
+    if ( strpos( $items, 'href="' . $url . '"' ) !== false ) continue;
+
+    $page_id = url_to_postid( $url );
+    $current = ( $page_id && is_page( $page_id ) ) ? ' current-menu-item' : '';
+
+    $items .= '<li class="menu-item menu-item-' . $key . $current . '"><a href="' . esc_url( $url ) . '">' . esc_html( plh_t( $item['label'] ) ) . '</a></li>';
+  }
+
+  return $items;
+}, 10, 2 );
