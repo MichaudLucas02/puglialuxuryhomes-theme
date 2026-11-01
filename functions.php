@@ -5437,7 +5437,6 @@ function plh_handle_real_estate_inquiry() {
   $email          = sanitize_email($_POST['re_email'] ?? '');
   $phone          = sanitize_text_field($_POST['re_phone'] ?? '');
   $country        = sanitize_text_field($_POST['re_country'] ?? '');
-  $intent         = sanitize_text_field($_POST['re_intent'] ?? '');
   $locations_raw  = isset($_POST['re_locations']) && is_array($_POST['re_locations']) ? $_POST['re_locations'] : [];
   $locations      = array_map('sanitize_text_field', $locations_raw);
   $budget         = sanitize_text_field($_POST['re_budget'] ?? '');
@@ -5452,7 +5451,6 @@ function plh_handle_real_estate_inquiry() {
     're_email'          => $email,
     're_phone'          => $phone,
     're_country'        => $country,
-    're_intent'         => $intent,
     're_locations'      => $locations,
     're_budget'         => $budget,
     're_property_type'  => $property_type,
@@ -5461,7 +5459,7 @@ function plh_handle_real_estate_inquiry() {
     're_message'        => $message,
   ];
 
-  if ( empty($full_name) || empty($email) || empty($phone) || empty($intent) || empty($budget) ) {
+  if ( empty($full_name) || empty($email) || empty($phone) || empty($budget) ) {
     $_SESSION['re_form_data'] = $re_session_data;
     wp_redirect(add_query_arg(['re_inquiry' => 'error', 're_error' => urlencode('Please fill in all required fields.')], wp_get_referer()));
     exit;
@@ -5555,7 +5553,6 @@ function plh_handle_real_estate_inquiry() {
   $body .= '<p><strong>' . esc_html($l['country']) . ':</strong> ' . esc_html($country ?: $l['not_provided']) . '</p>';
 
   $body .= '<h3 style="color:#6c9ba3;border-bottom:2px solid #f0f0f0;padding-bottom:8px;">' . esc_html($l['project']) . '</h3>';
-  $body .= '<p><strong>' . esc_html($l['intent']) . ':</strong> ' . esc_html($intent) . '</p>';
   $body .= '<p><strong>' . esc_html($l['locations']) . ':</strong> ' . esc_html(implode(', ', $locations)) . '</p>';
   $body .= '<p><strong>' . esc_html($l['budget']) . ':</strong> ' . esc_html($budget) . '</p>';
   $body .= '<p><strong>' . esc_html($l['prop_type']) . ':</strong> ' . esc_html($property_type ?: $l['not_provided']) . '</p>';
@@ -5876,3 +5873,65 @@ add_filter( 'wp_nav_menu_items', function ( $items, $args ) {
 
   return $items;
 }, 10, 2 );
+
+/* ==========================================================================
+   ONE-TIME CONTENT UPDATE: real estate page renamed "Buy in Puglia" (Nov 2026)
+   Page title, hero title and the menu items that link to the page, in each
+   language. Page URLs (slugs) are not changed. Runs once, like the update above.
+   ========================================================================== */
+add_action( 'admin_init', function () {
+  $version = '2026-11-buy-in-puglia';
+  if ( get_option( 'plh_content_update_buy' ) === $version ) return;
+  if ( ! current_user_can( 'manage_options' ) ) return;
+
+  $labels = [
+    'en' => 'Buy in Puglia',
+    'fr' => 'Acheter dans les Pouilles',
+    'it' => 'Acquistare in Puglia',
+  ];
+
+  $en_page = get_page_by_path( 'real-estate-puglia' );
+  if ( ! $en_page ) return;
+
+  // The page in each language that has one (no IT page yet)
+  $pages = [ 'en' => $en_page->ID ];
+  if ( function_exists( 'pll_get_post' ) ) {
+    foreach ( array_keys( $labels ) as $lang ) {
+      $id = pll_get_post( $en_page->ID, $lang );
+      if ( $id ) $pages[ $lang ] = (int) $id;
+    }
+  }
+
+  foreach ( $pages as $lang => $id ) {
+    wp_update_post( [ 'ID' => $id, 'post_title' => $labels[ $lang ] ] );
+    if ( function_exists( 'update_field' ) ) update_field( 'small_hero_title', $labels[ $lang ], $id );
+  }
+
+  // Menu items pointing at these pages: label in the menu's own language
+  $menu_lang = [];
+  $pll = get_option( 'polylang' );
+  if ( ! empty( $pll['nav_menus'] ) ) {
+    foreach ( $pll['nav_menus'] as $locations ) {
+      foreach ( $locations as $by_lang ) {
+        foreach ( (array) $by_lang as $lang => $menu_id ) {
+          if ( $menu_id ) $menu_lang[ (int) $menu_id ] = $lang;
+        }
+      }
+    }
+  }
+  $page_lang = array_flip( $pages );
+  $urls      = array_map( 'get_permalink', $pages );
+
+  foreach ( wp_get_nav_menus() as $menu ) {
+    foreach ( (array) wp_get_nav_menu_items( $menu->term_id ) as $item ) {
+      $links_page = ( $item->type === 'post_type' && isset( $page_lang[ (int) $item->object_id ] ) )
+        || ( $item->type === 'custom' && in_array( untrailingslashit( $item->url ), array_map( 'untrailingslashit', $urls ), true ) );
+      if ( ! $links_page ) continue;
+
+      $lang = $menu_lang[ $menu->term_id ] ?? ( $page_lang[ (int) $item->object_id ] ?? 'en' );
+      wp_update_post( [ 'ID' => $item->ID, 'post_title' => $labels[ $lang ] ?? $labels['en'] ] );
+    }
+  }
+
+  update_option( 'plh_content_update_buy', $version, false );
+} );
