@@ -79,15 +79,6 @@ get_template_part('partials/small-hero');
           </div>
         </div>
 
-        <div class="form-row full-width">
-          <label for="re_intent"><?php echo esc_html( plh_t('I am looking to:') ); ?> *</label>
-          <select id="re_intent" name="re_intent" required>
-            <option value=""><?php echo esc_html( plh_t('Select an option') ); ?></option>
-            <?php foreach ( ['Buy a property', 'Sell a property', 'Both', 'Other'] as $v ) : ?>
-              <option value="<?php echo esc_attr($v); ?>"<?php selected($re_old['re_intent'] ?? '', $v); ?>><?php echo esc_html( plh_t($v) ); ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
 
         <div class="form-row full-width">
           <label><?php echo esc_html( plh_t('Preferred location') ); ?> *</label>

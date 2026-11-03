@@ -630,6 +630,15 @@ body { margin: 0; }
         markers[v.id] = marker;
     });
 
+    // ── Frame the map on the villas (same as the homepage map) ──
+    function fitToVillas() {
+        const shown = Object.values(markers).filter(function (m) { return map.hasLayer(m); });
+        if (!shown.length) return;
+        if (shown.length === 1) { map.setView(shown[0].getLatLng(), 12); return; }
+        map.fitBounds(L.latLngBounds(shown.map(function (m) { return m.getLatLng(); })), { padding: [40, 40] });
+    }
+    fitToVillas();
+
     // ── Card ↔ marker sync (event delegation) ─────────────
     const container = document.getElementById('villas-container');
 
@@ -659,6 +668,7 @@ body { margin: 0; }
                 listPanel.classList.add('is-hidden');
                 mapPanel.classList.add('is-visible');
                 map.invalidateSize(); // recalculate after display change
+                fitToVillas();        // the map was hidden, so frame the villas now it has a size
             } else {
                 mapPanel.classList.remove('is-visible');
                 listPanel.classList.remove('is-hidden');
@@ -776,7 +786,7 @@ body { margin: 0; }
 
     // ── Invalidate map size on initial desktop load ────────
     // Ensures tiles render correctly when the panel first becomes visible
-    window.addEventListener('load', function () { map.invalidateSize(); });
+    window.addEventListener('load', function () { map.invalidateSize(); fitToVillas(); });
 
 })();
 </script>

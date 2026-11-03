@@ -1115,7 +1115,7 @@ h2 {
 .large-hero-content h1,
 .large-hero-content h2 {
   font-family: 'Didot';
-  font-size: 55px;
+  font-size: 44px;
   font-weight: 300;
   color: white;
   text-transform: uppercase;
@@ -1167,7 +1167,7 @@ h2 {
   
   .large-hero-content h1,
   .large-hero-content h2 {
-    font-size: 40px;
+    font-size: 32px;
   }
 }
 
@@ -7330,3 +7330,175 @@ html {
   .home .homepage .re-homepage-desc,
   .home .homepage .google-reviews-section .review-card p:not(.review-date) { font-size: 14px; }
 }
+
+/* Homepage copy update (Nov 2026): new text elements, same type roles as above */
+
+/* 03 · Subtitle under the intro title ("Few villas. All exceptional.") */
+.home .homepage .homepage-intro .homepage-intro-subtitle {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: -8px 0 24px;
+}
+
+/* 04/05 · Tagline under "The art of hospitality" ("Just say the word.") */
+.home .homepage .hospitality-tagline {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+/* 07 · Short text under each region in "Where in Puglia" */
+.home .homepage .where-region-text {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #1a1a1a;
+  opacity: 0.8;
+  margin: 8px 0 0;
+  max-width: 440px;
+}
+
+/* Why PLH: four items now, shown as a 2 × 2 grid */
+.why-plh-item {
+  flex: 0 0 calc(50% - 24px);
+  max-width: calc(50% - 24px);
+}
+
+@media (max-width: 775px) {
+  .home .homepage .homepage-intro .homepage-intro-subtitle { font-size: 12px; }
+  .home .homepage .hospitality-tagline { font-size: 15px; }
+  .why-plh-item { flex: 0 0 100%; max-width: 100%; }
+}
+
+/* Footer: "As seen on TV on Netflix" link under the social links */
+.footer-tv {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.footer-tv:hover { border-bottom-color: #000; }
+.footer-tv i { font-size: 14px; }
+
+@media (max-width: 775px) {
+  .footer-tv { margin: 20px auto 0; font-size: 11px; }
+}
+
+/* Mobile footer: contact block under the menu, full width,
+   so the email addresses stay on one line */
+@media (max-width: 775px) {
+  .mobile-footer-menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mobile-footer-menu .col-left,
+  .mobile-footer-menu .col-right {
+    width: 100%;
+  }
+  .mobile-footer-menu .col-right {
+    align-items: center;
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .mobile-footer-menu .col-right p,
+  .mobile-footer-menu .col-right a {
+    text-align: center;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+}
+@media (max-width: 360px) {
+  .mobile-footer-menu .col-right a { font-size: 12px; }
+}
+
+/* Mobile footer: menu in two columns so it stays short */
+@media (max-width: 775px) {
+  .mobile-footer-menu .footer-vertical-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+  }
+}
+
+/* Mobile process timeline: one row per step, the line grows with the text */
+.mobile-process-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0 5vw 40px;
+}
+.mobile-process-step {
+  display: flex;
+  gap: 16px;
+}
+.mobile-process-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 30px;
+}
+.mobile-process-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+}
+.mobile-process-line {
+  flex: 1;
+  width: 1px;
+  min-height: 16px;
+  background-color: #000;
+  margin: 6px 0;
+}
+.mobile-process-content {
+  flex: 1;
+  min-width: 0;
+  padding: 5px 0 28px;
+}
+.mobile-process-content h4 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+.mobile-process-content p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  text-transform: none;
+  margin: 0;
+}
+.mobile-service-process h3 { font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 15px; padding: 40px 5vw 16px; margin: 0; }
