@@ -26,15 +26,6 @@ get_template_part('partials/small-hero');
             </div>
             
             <div class="contact-card">
-                <h4>Venga a trovarci</h4>
-                <p class="lede">La riceviamo su appuntamento presso i nostri uffici a Gagliano del Capo, nel cuore della Puglia.</p>
-                <div class="contact-detail">
-                    <span class="label">Orari</span>
-                    <p class="detail-text">Dal lunedì al venerdì, dalle 9:00 alle 18:00 (CET)</p>
-                </div>
-            </div>
-            
-            <div class="contact-card">
                 <h4>Per le partnership</h4>
                 <p class="lede">Per richieste stampa e collaborazioni con brand</p>
                 <a class="inline-link" href="mailto:reservation@puglialuxuryhomes.com">Contatti il nostro team via email</a>

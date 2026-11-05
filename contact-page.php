@@ -26,15 +26,6 @@ get_template_part('partials/small-hero');
             </div>
             
             <div class="contact-card">
-                <h4>Visit us</h4>
-                <p class="lede">We welcome you by appointment at our offices in Gagliano del Capo, in the heart of Puglia.</p>
-                <div class="contact-detail">
-                    <span class="label">Hours</span>
-                    <p class="detail-text">Mon-Fri 9am - 6pm CET</p>
-                </div>
-            </div>
-            
-            <div class="contact-card">
                 <h4>For partnerships</h4>
                 <p class="lede">For press enquiries, brand partnerships</p>
                 <a class="inline-link" href="mailto:reservation@puglialuxuryhomes.com">Email our team</a>
