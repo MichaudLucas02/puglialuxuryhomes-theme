@@ -77,12 +77,13 @@ get_header(); ?>
                     echo esc_html($short_desc ?: $data['description']);
                     ?>
                 </p>
-                <p class="collection-long-desc">
+                <?php // A div, not a <p>: the editor text already contains its own paragraphs ?>
+                <div class="collection-long-desc">
                     <?php 
                     $long_desc = get_field("collection_{$slug}_long_desc");
-                    echo wp_kses_post($long_desc ?: 'Placeholder extended description. Replace this with richer narrative copy about ambiance, location highlights, and unique selling points of the collection.');
+                    echo wpautop(wp_kses_post($long_desc ?: 'Placeholder extended description. Replace this with richer narrative copy about ambiance, location highlights, and unique selling points of the collection.'));
                     ?>
-                </p>
+                </div>
                 <?php 
                 $read_more_url = get_field("collection_{$slug}_read_more_url");
                 if ($read_more_url):

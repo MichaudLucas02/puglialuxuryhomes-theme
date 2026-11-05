@@ -3385,6 +3385,11 @@ function plh_inline_translations() {
       'Introductions, Not Just Reservations' => 'Des introductions, pas seulement des réservations',
       'Living and working here for years means knowing the right people. Restaurateurs, winemakers, boat captains. Our guests are expected, and seated at tables that don\'t open to others.' => 'Vivre et travailler ici depuis des années, c\'est connaître les bonnes personnes. Restaurateurs, vignerons, capitaines de bateau. Nos clients sont attendus, et assis aux tables qui ne s\'ouvrent pas aux autres.',
       'Few properties, each one chosen after a visit, for the house as much as for the service that comes with it. An extremely careful selection, not a catalogue of the rental market.' => 'Peu de biens, tous retenus après visite et un par un, pour la maison autant que pour le service qui va avec. Une sélection extrêmement minutieuse, pas un catalogue du marché de la location.',
+      // Why PLH short texts (Nov 2026)
+      'Two École Hôtelière de Lausanne graduates, living in Salento year-round.' => 'Deux diplômés de l\'École hôtelière de Lausanne, installés dans le Salento à l\'année.',
+      'Fridge stocked, tables booked, transfers set before you land.' => 'Réfrigérateur rempli, tables réservées, transferts calés avant votre arrivée.',
+      'Restaurateurs, winemakers, boat captains: our guests are expected.' => 'Restaurateurs, vignerons, capitaines de bateau : nos clients sont attendus.',
+      'Each property chosen after a visit. A selection, not a catalogue.' => 'Chaque bien retenu après visite. Une sélection, pas un catalogue.',
     ],
     'it' => [
       'Weekly rates'     => 'Tariffe settimanali',
@@ -3562,6 +3567,11 @@ function plh_inline_translations() {
       'Introductions, Not Just Reservations' => 'Presentazioni, non solo prenotazioni',
       'Living and working here for years means knowing the right people. Restaurateurs, winemakers, boat captains. Our guests are expected, and seated at tables that don\'t open to others.' => 'Vivere e lavorare qui da anni significa conoscere le persone giuste. Ristoratori, produttori di vino, capitani di barca. I nostri ospiti sono attesi, e seduti ai tavoli che non si aprono agli altri.',
       'Few properties, each one chosen after a visit, for the house as much as for the service that comes with it. An extremely careful selection, not a catalogue of the rental market.' => 'Poche proprietà, scelte una per una dopo un sopralluogo, per la casa tanto quanto per il servizio che la accompagna. Una selezione estremamente accurata, non un catalogo del mercato degli affitti.',
+      // Why PLH short texts (Nov 2026)
+      'Two École Hôtelière de Lausanne graduates, living in Salento year-round.' => 'Due diplomati dell\'École Hôtelière de Lausanne, residenti nel Salento tutto l\'anno.',
+      'Fridge stocked, tables booked, transfers set before you land.' => 'Frigorifero rifornito, tavoli prenotati, transfer organizzati prima del vostro arrivo.',
+      'Restaurateurs, winemakers, boat captains: our guests are expected.' => 'Ristoratori, produttori di vino, capitani di barca: i nostri ospiti sono attesi.',
+      'Each property chosen after a visit. A selection, not a catalogue.' => 'Ogni proprietà scelta dopo un sopralluogo. Una selezione, non un catalogo.',
     ],
   ];
 }
@@ -4496,34 +4506,6 @@ add_action('acf/init', function () {
         'name'          => 'home_re_cta_url',
         'type'          => 'url',
         'instructions'  => 'Leave empty to auto-link to the Real Estate page.',
-      ],
-    ],
-    'location' => [[[
-      'param'    => 'page_type',
-      'operator' => '==',
-      'value'    => 'front_page',
-    ]]],
-    'position'        => 'normal',
-    'label_placement' => 'top',
-  ]);
-});
-
-// Homepage — As Seen on The Parisian Agency
-add_action('acf/init', function () {
-  if (!function_exists('acf_add_local_field_group')) return;
-
-  acf_add_local_field_group([
-    'key'   => 'group_homepage_parisian_agency',
-    'title' => 'Homepage — As Seen on The Parisian Agency',
-    'fields' => [
-      [
-        'key'          => 'field_home_parisian_agency_image',
-        'label'        => 'Villa Image',
-        'name'         => 'home_parisian_agency_image',
-        'type'         => 'image',
-        'return_format' => 'array',
-        'preview_size' => 'medium',
-        'instructions' => 'Image shown alongside the Parisian Agency section (e.g. Villa Acquamarina).',
       ],
     ],
     'location' => [[[

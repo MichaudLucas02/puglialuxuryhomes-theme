@@ -6974,61 +6974,6 @@ html {
   letter-spacing: normal;
 }
 
-/* As Seen on The Parisian Agency */
-.parisian-agency-section {
-  background: #fff;
-  padding: 80px 40px 80px;
-  text-align: center;
-}
-
-.parisian-agency-eyebrow {
-  font-family: 'Raleway', sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #9a8e7e;
-  margin: 0 0 16px;
-}
-
-.parisian-agency-text {
-  max-width: 620px;
-  margin: 0 auto 56px;
-}
-
-.parisian-agency-text h2 {
-  font-family: 'Didot', serif;
-  font-size: clamp(30px, 4vw, 54px);
-  font-weight: 400;
-  color: #1a1a17;
-  margin: 0 0 20px;
-  letter-spacing: 0.02em;
-}
-
-.parisian-agency-text p:not(.parisian-agency-eyebrow) {
-  font-family: 'Raleway', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.8;
-  color: #6a6460;
-  margin: 0;
-}
-
-.parisian-agency-image {
-  max-width: 1120px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.parisian-agency-image img {
-  width: 100%;
-  height: 52vh;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-}
-
 /* ---- Mobile ---- */
 @media (max-width: 775px) {
   .hero-content .hero-seo-title { font-size: 13px; }
@@ -7044,8 +6989,6 @@ html {
   .why-plh-grid { gap: 32px; }
   .why-plh-item { flex: 0 0 100%; max-width: 100%; }
 
-  .parisian-agency-section { padding: 56px 24px 56px; }
-  .parisian-agency-image img { height: 50vw; }
 }
 
 /* =============================================
@@ -7240,7 +7183,6 @@ html {
 .home .homepage .p-title,
 .home .homepage section p.p-title,
 .home .homepage .hero-content .hero-seo-title,
-.home .homepage .parisian-agency-eyebrow,
 .home .homepage .re-homepage-eyebrow {
   font-family: var(--font-sans);
   font-size: 14px;
@@ -7259,7 +7201,6 @@ html {
 .home .homepage .discover-absolute p,
 .home .homepage .discover-absolute-mobile p,
 .home .homepage .why-plh-item p,
-.home .homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
 .home .homepage .re-homepage-desc,
 .home .homepage .google-reviews-section .review-card p:not(.review-date) {
   font-family: var(--font-sans);
@@ -7318,7 +7259,6 @@ html {
   .home .homepage .p-title,
   .home .homepage section p.p-title,
   .home .homepage .hero-content .hero-seo-title,
-  .home .homepage .parisian-agency-eyebrow,
   .home .homepage .re-homepage-eyebrow { font-size: 12px; }
 
   .home .homepage .hero-description,
@@ -7326,7 +7266,6 @@ html {
   .home .homepage .discover-absolute p,
   .home .homepage .discover-absolute-mobile p,
   .home .homepage .why-plh-item p,
-  .home .homepage .parisian-agency-text p:not(.parisian-agency-eyebrow),
   .home .homepage .re-homepage-desc,
   .home .homepage .google-reviews-section .review-card p:not(.review-date) { font-size: 14px; }
 }
@@ -7371,16 +7310,54 @@ html {
   max-width: 440px;
 }
 
-/* Why PLH: four items now, shown as a 2 × 2 grid */
+/* Why PLH (Nov 2026): compact row of 4 centered columns, like the client's model.
+   White background between two thin grey lines, icon on top, uppercase title, short text. */
+.why-plh {
+  background: #fff;
+  padding: 56px 40px;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+.why-plh-inner { max-width: 1280px; }
+.why-plh-inner > h2 { margin-bottom: 40px; }
+.why-plh-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+}
 .why-plh-item {
-  flex: 0 0 calc(50% - 24px);
-  max-width: calc(50% - 24px);
+  max-width: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.why-plh-icon {
+  color: #1a1a17;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.why-plh-icon svg { width: 64px; height: 64px; }
+.home .homepage .why-plh-item h3 { margin: 0 0 12px; }
+.home .homepage .why-plh-item p {
+  font-size: 14px;
+  line-height: 1.65;
+  max-width: 300px;
+}
+
+@media (min-width: 776px) and (max-width: 1100px) {
+  .why-plh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px; }
 }
 
 @media (max-width: 775px) {
   .home .homepage .homepage-intro .homepage-intro-subtitle { font-size: 12px; }
   .home .homepage .hospitality-tagline { font-size: 15px; }
-  .why-plh-item { flex: 0 0 100%; max-width: 100%; }
+  .why-plh { padding: 44px 24px; }
+  .why-plh-inner > h2 { margin-bottom: 28px; }
+  .why-plh-grid { grid-template-columns: 1fr; gap: 32px; }
+  .why-plh-icon { margin-bottom: 14px; }
+  .why-plh-icon svg { width: 54px; height: 54px; }
+  .home .homepage .why-plh-item h3 { margin-bottom: 8px; }
 }
 
 /* Footer: "As seen on TV on Netflix" link under the social links */
@@ -7502,3 +7479,42 @@ html {
   margin: 0;
 }
 .mobile-service-process h3 { font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 15px; padding: 40px 5vw 16px; margin: 0; }
+
+/* Collections pages (Nov 2026): same type and spacing on desktop and mobile,
+   using the homepage type roles (title / subtitle / paragraph). */
+.collection-description-column__right h2.collection-description-title {
+  font-family: 'Didot', serif;
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.collection-description-column__right p.collection-short-desc {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 1;
+  margin: 0 0 16px;
+}
+.collection-description-column__right .collection-long-desc p {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  margin: 0 0 12px;
+}
+.collection-description-column__right .collection-long-desc p:last-child { margin-bottom: 0; }
+@media (max-width: 1100px) {
+  .collection-description-column__right { padding: 28px 24px 32px; }
+}
+@media (max-width: 775px) {
+  .collection-description-column__right h2.collection-description-title { font-size: 22px; }
+  .collection-description-column__right p.collection-short-desc { font-size: 12px; }
+  .collection-description-column__right .collection-long-desc p { font-size: 14px; }
+}

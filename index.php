@@ -304,48 +304,31 @@
             <div class="why-plh-grid">
                 <div class="why-plh-item">
                     <div class="why-plh-icon">
-                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M19 4C14.029 4 10 8.029 10 13c0 8 9 21 9 21s9-13 9-21c0-4.971-4.029-9-9-9z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="19" cy="13" r="3.5" stroke="currentColor" stroke-width="1.4"/>
-                        </svg>
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 34h32M10 34a14 14 0 0 1 28 0" /><path d="M24 20v-3M21 17h6" /><path d="M6 38h36" /><path d="M16 29a9 9 0 0 1 5-6" /></svg>
                     </div>
                     <h3><?php echo esc_html(plh_t('French hospitality, Swiss precision')); ?></h3>
-                    <p><?php echo esc_html(plh_t('PLH was founded by two French graduates of the École Hôtelière de Lausanne, based in Sud Salento year-round. That is where our standard comes from: five-star hotel hospitality, applied to a private home.')); ?></p>
+                    <p><?php echo esc_html(plh_t('Two École Hôtelière de Lausanne graduates, living in Salento year-round.')); ?></p>
                 </div>
                 <div class="why-plh-item">
                     <div class="why-plh-icon">
-                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <rect x="7" y="8" width="24" height="22" rx="2" stroke="currentColor" stroke-width="1.4"/>
-                            <path d="M7 14h24" stroke="currentColor" stroke-width="1.4"/>
-                            <path d="M13 6v4M25 6v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                            <path d="M12 21l4 4 10-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="24" r="7" /><circle cx="15" cy="24" r="2.5" /><path d="M22 24h20M36 24v6M41 24v4" /></svg>
                     </div>
                     <h3><?php echo esc_html(plh_t('Your Stay Arranged Before You Arrive')); ?></h3>
-                    <p><?php echo esc_html(plh_t('Tell us what you need and it is ready when you arrive: the fridge stocked, the tables booked, the transfers set. After that, the region comes to you. A private chef in your kitchen, a massage by the pool, long days out at sea.')); ?></p>
+                    <p><?php echo esc_html(plh_t('Fridge stocked, tables booked, transfers set before you land.')); ?></p>
                 </div>
                 <div class="why-plh-item">
                     <div class="why-plh-icon">
-                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <circle cx="14" cy="13" r="5" stroke="currentColor" stroke-width="1.4"/>
-                            <circle cx="24" cy="13" r="5" stroke="currentColor" stroke-width="1.4"/>
-                            <path d="M4 33c0-5.523 4.477-9 10-9h10c5.523 0 10 3.477 10 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                        </svg>
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 8h10l-1 9a4 4 0 0 1-8 0z" /><path d="M16 21v15M12 36h8" /><path d="M27 8h10l-1 9a4 4 0 0 1-8 0z" /><path d="M32 21v15M28 36h8" /><path d="M21 6l2-3M27 6l-2-3M24 7V3" /></svg>
                     </div>
                     <h3><?php echo esc_html(plh_t('Introductions, Not Just Reservations')); ?></h3>
-                    <p><?php echo esc_html(plh_t('Living and working here for years means knowing the right people. Restaurateurs, winemakers, boat captains. Our guests are expected, and seated at tables that don\'t open to others.')); ?></p>
+                    <p><?php echo esc_html(plh_t('Restaurateurs, winemakers, boat captains: our guests are expected.')); ?></p>
                 </div>
                 <div class="why-plh-item">
                     <div class="why-plh-icon">
-                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M4 26l9-9 7 7 6-6 8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M4 33h30" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                            <circle cx="29" cy="11" r="4" stroke="currentColor" stroke-width="1.4"/>
-                            <path d="M29 7V5M29 17v2M25 11h-2M35 11h-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                        </svg>
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 22L24 9l16 13" /><path d="M12 19v20h24V19" /><path d="M21 39v-9h6v9" /><path d="M24 14.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" /></svg>
                     </div>
                     <h3><?php echo esc_html(plh_t('Few villas. All exceptional.')); ?></h3>
-                    <p><?php echo esc_html(plh_t('Few properties, each one chosen after a visit, for the house as much as for the service that comes with it. An extremely careful selection, not a catalogue of the rental market.')); ?></p>
+                    <p><?php echo esc_html(plh_t('Each property chosen after a visit. A selection, not a catalogue.')); ?></p>
                 </div>
             </div>
         </div>

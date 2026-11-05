@@ -26,15 +26,6 @@ get_template_part('partials/small-hero');
             </div>
             
             <div class="contact-card">
-                <h4>Nous rendre visite</h4>
-                <p class="lede">Nous vous recevons sur rendez-vous dans nos bureaux à Gagliano del Capo, au cœur des Pouilles.</p>
-                <div class="contact-detail">
-                    <span class="label">Horaires</span>
-                    <p class="detail-text">Du lundi au vendredi, de 9h à 18h (CET)</p>
-                </div>
-            </div>
-            
-            <div class="contact-card">
                 <h4>Pour les partenariats</h4>
                 <p class="lede">Pour les demandes presse et partenariats de marque</p>
                 <a class="inline-link" href="mailto:reservation@puglialuxuryhomes.com">Contactez notre équipe par email</a>
