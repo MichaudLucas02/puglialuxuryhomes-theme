@@ -7371,16 +7371,54 @@ html {
   max-width: 440px;
 }
 
-/* Why PLH: four items now, shown as a 2 × 2 grid */
+/* Why PLH (Nov 2026): compact row of 4 centered columns, like the client's model.
+   White background between two thin grey lines, icon on top, uppercase title, short text. */
+.why-plh {
+  background: #fff;
+  padding: 56px 40px;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+.why-plh-inner { max-width: 1280px; }
+.why-plh-inner > h2 { margin-bottom: 40px; }
+.why-plh-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+}
 .why-plh-item {
-  flex: 0 0 calc(50% - 24px);
-  max-width: calc(50% - 24px);
+  max-width: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.why-plh-icon {
+  color: #1a1a17;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.why-plh-icon svg { width: 64px; height: 64px; }
+.home .homepage .why-plh-item h3 { margin: 0 0 12px; }
+.home .homepage .why-plh-item p {
+  font-size: 14px;
+  line-height: 1.65;
+  max-width: 300px;
+}
+
+@media (min-width: 776px) and (max-width: 1100px) {
+  .why-plh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px; }
 }
 
 @media (max-width: 775px) {
   .home .homepage .homepage-intro .homepage-intro-subtitle { font-size: 12px; }
   .home .homepage .hospitality-tagline { font-size: 15px; }
-  .why-plh-item { flex: 0 0 100%; max-width: 100%; }
+  .why-plh { padding: 44px 24px; }
+  .why-plh-inner > h2 { margin-bottom: 28px; }
+  .why-plh-grid { grid-template-columns: 1fr; gap: 32px; }
+  .why-plh-icon { margin-bottom: 14px; }
+  .why-plh-icon svg { width: 54px; height: 54px; }
+  .home .homepage .why-plh-item h3 { margin-bottom: 8px; }
 }
 
 /* Footer: "As seen on TV on Netflix" link under the social links */
