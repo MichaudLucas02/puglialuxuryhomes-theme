@@ -20,10 +20,12 @@ get_header(); ?>
             echo esc_html($subtitle ?: plh_t('Top experiences for your itinerary')); 
             ?></p>
         </div>
-        <a href="<?php 
-            $button_url = get_field('concierge_button_url');
-            echo esc_url($button_url ?: '#all-services'); 
-            ?>" class="discover-services-btn">
+        <?php
+            $button_url = get_field('concierge_button_url') ?: '#all-services';
+            // The services booklet (Canva, PDF...) opens in a new tab; in-page anchors don't
+            $button_new_tab = strpos($button_url, '#') !== 0;
+        ?>
+        <a href="<?php echo esc_url($button_url); ?>" class="discover-services-btn"<?php echo $button_new_tab ? ' target="_blank" rel="noopener"' : ''; ?>>
             <?php 
             $button_text = get_field('concierge_button_text');
             echo esc_html($button_text ?: plh_t('Discover All Services')); 

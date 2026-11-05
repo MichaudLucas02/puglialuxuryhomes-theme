@@ -4518,34 +4518,6 @@ add_action('acf/init', function () {
   ]);
 });
 
-// Homepage — As Seen on The Parisian Agency
-add_action('acf/init', function () {
-  if (!function_exists('acf_add_local_field_group')) return;
-
-  acf_add_local_field_group([
-    'key'   => 'group_homepage_parisian_agency',
-    'title' => 'Homepage — As Seen on The Parisian Agency',
-    'fields' => [
-      [
-        'key'          => 'field_home_parisian_agency_image',
-        'label'        => 'Villa Image',
-        'name'         => 'home_parisian_agency_image',
-        'type'         => 'image',
-        'return_format' => 'array',
-        'preview_size' => 'medium',
-        'instructions' => 'Image shown alongside the Parisian Agency section (e.g. Villa Acquamarina).',
-      ],
-    ],
-    'location' => [[[
-      'param'    => 'page_type',
-      'operator' => '==',
-      'value'    => 'front_page',
-    ]]],
-    'position'        => 'normal',
-    'label_placement' => 'top',
-  ]);
-});
-
 // Homepage — Where in Puglia
 add_action('acf/init', function () {
   if (!function_exists('acf_add_local_field_group')) return;
