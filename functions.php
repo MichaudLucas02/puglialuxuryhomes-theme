@@ -5562,6 +5562,9 @@ function plh_handle_real_estate_inquiry() {
 add_action('admin_post_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry');
 add_action('admin_post_nopriv_plh_real_estate_inquiry', 'plh_handle_real_estate_inquiry');
 
+// Weddings page: copy, admin fields, enquiry form, page creation
+require_once get_template_directory() . '/inc/weddings.php';
+
 
 //-----------------------
 // Redirection Section
