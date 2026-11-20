@@ -550,6 +550,11 @@ body { margin: 0; }
 (function () {
     // ── Villa data from PHP ──────────────────────────────
     const VILLA_DATA = <?php echo wp_json_encode($villa_map_data); ?>;
+    const LABELS = <?php echo wp_json_encode([
+        'beds'   => mb_strtolower(plh_t('Bedrooms')),
+        'guests' => plh_t('guests'),
+        'cta'    => plh_t('Discover the villa'),
+    ]); ?>;
 
     // ── Map init ─────────────────────────────────────────
     const map = L.map('villas-map', { zoomControl: true }).setView([40.9, 17.0], 8);
@@ -574,8 +579,8 @@ body { margin: 0; }
     // ── Build popup HTML ──────────────────────────────────
     function popupHTML(v) {
         const meta = [
-            v.beds   ? v.beds + ' beds'   : '',
-            v.guests ? v.guests + ' guests' : '',
+            v.beds   ? v.beds + ' ' + LABELS.beds     : '',
+            v.guests ? v.guests + ' ' + LABELS.guests : '',
         ].filter(Boolean).join(' · ');
 
         return '<div class="plh-popup">' +
@@ -584,7 +589,7 @@ body { margin: 0; }
                 '<h4 class="plh-popup__title">' + v.title + '</h4>' +
                 (meta        ? '<p class="plh-popup__meta">'  + meta           + '</p>' : '') +
                 (v.price_range ? '<p class="plh-popup__price">' + v.price_range + '</p>' : '') +
-                '<a href="' + v.link + '" class="plh-popup__btn">View Villa</a>' +
+                '<a href="' + v.link + '" class="plh-popup__btn">' + LABELS.cta + '</a>' +
             '</div>' +
         '</div>';
     }
