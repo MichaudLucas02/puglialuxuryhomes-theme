@@ -5564,6 +5564,8 @@ add_action('admin_post_nopriv_plh_real_estate_inquiry', 'plh_handle_real_estate_
 
 // Weddings page: copy, admin fields, enquiry form, page creation
 require_once get_template_directory() . '/inc/weddings.php';
+// Retreats page (reuses the Weddings page helpers and styles)
+require_once get_template_directory() . '/inc/retreats.php';
 
 
 //-----------------------
