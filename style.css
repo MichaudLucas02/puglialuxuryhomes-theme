@@ -7537,6 +7537,9 @@ html {
   overflow-x: clip;
 }
 
+/* Every section spans the full screen; the content inside keeps its own max-width */
+:where(.wedding-page) > section { max-width: none; }
+
 /* Shared pieces */
 .wedding-page section p { opacity: 1; }
 .wedding-page .wed-eyebrow {
@@ -8461,4 +8464,101 @@ html {
   .ret-enquiry::before { display: none; }
   .ret-enquiry__card { padding: 56px 24px 48px; background: var(--wed-sand); }
   .ret-enquiry__card .wed-form__submit { justify-self: stretch; }
+}
+
+/* --------------------------------------------------------------------------
+   Weddings + Retreats: large screens (1800px and up)
+   Full-width bands already fill the screen; here the content columns get
+   wider and the type a little larger so nothing looks lost in the middle.
+   -------------------------------------------------------------------------- */
+@media (min-width: 1800px) {
+  .wedding-page .wed-eyebrow { font-size: 13px; }
+  .wedding-page .wed-title { font-size: 54px; }
+  .wedding-page .wed-body { font-size: 17px; }
+  .wedding-page .wed-btn { font-size: 13px; padding: 20px 40px; }
+  .wedding-page .wed-head { max-width: 1140px; margin-bottom: 80px; }
+  .wedding-page .wed-title { text-wrap: balance; }
+
+  /* Weddings */
+  .wedding-page .wed-hero__title { font-size: 128px; }
+  .wedding-page .wed-hero__text { font-size: 20px; max-width: 680px; }
+  .wed-hero__content { max-width: 1100px; }
+  .wed-intro { max-width: 1640px; }
+  .wed-intro__text .wed-title { font-size: 50px; }
+  .wedding-page .wed-moments p { font-size: 22px; }
+  .wed-settings { padding: 170px 5vw 160px; }
+  .wed-settings__grid { max-width: 1640px; gap: 48px; }
+  .wedding-page .wed-setting .wed-body { max-width: 460px; }
+  .wedding-page .wed-setting__title,
+  .wedding-page .wed-step__title { font-size: 22px; }
+  .wed-quote__inner { max-width: 1120px; }
+  .wedding-page .wed-quote__text { font-size: 48px; }
+  .wed-services { padding: 170px 5vw; }
+  .wed-services__inner { max-width: 1640px; }
+  .wedding-page .wed-service__title { font-size: 20px; }
+  .wedding-page .wed-service .wed-body { font-size: 15px; }
+  .wed-process { padding: 170px 5vw 160px; }
+  .wed-steps { max-width: 1560px; }
+  .wedding-page .wed-step .wed-body { font-size: 15px; max-width: 320px; }
+  .wed-gallery { padding-bottom: 170px; }
+  .wed-gallery__grid { max-width: 1800px; grid-auto-rows: 380px; gap: 18px; }
+  .wed-enquiry { padding: 170px 5vw; }
+  .wed-enquiry__inner { max-width: 1480px; }
+  .wedding-page .wed-enquiry__talk-label { font-size: 19px; }
+  .wed-enquiry__talk a { font-size: 17px; }
+  .wed-enquiry__form { padding: 72px 68px; }
+  .wed-form label, .wed-form legend { font-size: 12px; }
+  .wed-form input[type="text"], .wed-form input[type="email"], .wed-form input[type="tel"],
+  .wed-form select, .wed-form textarea { font-size: 17px; }
+  .wedding-page .wed-choice span, .wedding-page .wed-consent label { font-size: 14px; }
+
+  /* Retreats */
+  .retreat-page { --ret-gap: 180px; }
+  .ret-hero__text { width: 780px; }
+  .wedding-page .ret-hero__title { font-size: 88px; }
+  .wedding-page .ret-hero__lead { font-size: 20px; }
+  .wedding-page .ret-link { font-size: 13px; }
+  .ret-intro__text { max-width: 1000px; margin-bottom: 110px; }
+  .wedding-page .ret-intro__body { font-size: 21px; }
+  .ret-intro__photos { max-width: 1640px; }
+  .ret-type { max-width: 1640px; }
+  .wedding-page .ret-type__num { font-size: 84px; }
+  .wedding-page .ret-type__title, .wedding-page .ret-way__title { font-size: 36px; }
+  .ret-type__text .wed-body { max-width: 540px; }
+  .wedding-page .ret-timeline__time { font-size: 24px; }
+  .wedding-page .ret-timeline__title { font-size: 20px; }
+  .wedding-page .ret-timeline .wed-body { font-size: 16px; }
+  .wedding-page .ret-day__note { font-size: 15px; }
+  .wedding-page .ret-quote__text { max-width: 1160px; font-size: 48px; }
+  .ret-ways__grid { max-width: 1480px; }
+  .wedding-page .ret-way__num { font-size: 38px; }
+  .ret-way .wed-body { max-width: 540px; }
+  .ret-services__grid { max-width: 1640px; }
+  .ret-service__icon { width: 56px; height: 56px; }
+  .wedding-page .ret-service__title { font-size: 19px; }
+  .wedding-page .ret-service .wed-body { font-size: 15px; max-width: 330px; }
+  .ret-gallery__item { height: 680px; }
+  .ret-gallery__item--1, .ret-gallery__item--4 { width: 940px; }
+  .ret-gallery__item--2, .ret-gallery__item--5 { width: 520px; }
+  .ret-gallery__item--3, .ret-gallery__item--6 { width: 730px; }
+  .ret-enquiry__card { max-width: 960px; padding: 84px 84px 60px; }
+  .ret-enquiry__talk { font-size: 16px; }
+}
+
+/* Very large screens (2300px and up, e.g. 27"+ / 4K at 150%) */
+@media (min-width: 2300px) {
+  .wedding-page .wed-title { font-size: 62px; }
+  .wedding-page .wed-body { font-size: 18px; }
+  .wedding-page .wed-hero__title { font-size: 150px; }
+  .wed-intro, .wed-settings__grid, .wed-services__inner,
+  .ret-intro__photos, .ret-type, .ret-services__grid { max-width: 1900px; }
+  .wed-steps { max-width: 1800px; }
+  .wed-gallery__grid { max-width: 2100px; grid-auto-rows: 440px; }
+  .wed-enquiry__inner, .ret-ways__grid { max-width: 1700px; }
+  .ret-hero__text { width: 880px; }
+  .wedding-page .ret-hero__title { font-size: 100px; }
+  .ret-gallery__item { height: 780px; }
+  .ret-gallery__item--1, .ret-gallery__item--4 { width: 1080px; }
+  .ret-gallery__item--2, .ret-gallery__item--5 { width: 600px; }
+  .ret-gallery__item--3, .ret-gallery__item--6 { width: 840px; }
 }
