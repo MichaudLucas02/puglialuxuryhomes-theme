@@ -141,6 +141,18 @@ document.addEventListener('DOMContentLoaded', function() {
   toc.appendChild(title);
   toc.appendChild(list);
 
+  // Keep the glossary just below the fixed header (its height differs per screen)
+  const siteHeader = document.querySelector('header.site-header, header');
+  const headerOffset = () => {
+    if (!siteHeader) return 70;
+    const pos = getComputedStyle(siteHeader).position;
+    return (pos === 'fixed' || pos === 'sticky') ? Math.max(0, siteHeader.getBoundingClientRect().bottom) : 0;
+  };
+  const setTocTop = () => toc.style.setProperty('--toc-top', (headerOffset() + 24) + 'px');
+  setTocTop();
+  window.addEventListener('resize', setTocTop);
+  window.addEventListener('scroll', setTocTop, { passive: true });
+
   // Smooth scroll with header offset
   toc.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#"]');
@@ -149,10 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!target) return;
     e.preventDefault();
 
-    // Compute offset: fixed header height variable if set, else 70px
-    const rootStyles = getComputedStyle(document.documentElement);
-    const headerVar = rootStyles.getPropertyValue('--header-height').trim();
-    const offset = parseInt(headerVar || '70', 10) + 10; // add small gap
+    // Land just below the fixed header
+    const offset = headerOffset() + 20;
 
     const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({ top, behavior: 'smooth' });
