@@ -89,16 +89,11 @@ function plh_wed( $key ) {
    Returns a list of [ 'id' => attachment id ] or [ 'src', 'w', 'h' ].
    -------------------------------------------------------------------------- */
 function plh_wedding_gallery() {
-  if ( function_exists( 'get_field' ) ) {
-    $ids = get_field( 'wed_gallery' );
-    if ( is_array( $ids ) && $ids ) {
-      $out = [];
-      foreach ( $ids as $id ) {
-        $id = is_array( $id ) ? ( $id['ID'] ?? 0 ) : (int) $id;
-        if ( $id ) $out[] = [ 'id' => $id ];
-      }
-      if ( $out ) return $out;
-    }
+  // Photos chosen in the "Wedding photos" box (WordPress media library, no ACF Pro needed)
+  $post_id = get_queried_object_id() ?: get_the_ID();
+  $ids     = $post_id ? plh_wedding_gallery_ids( $post_id ) : [];
+  if ( $ids ) {
+    return array_map( function ( $id ) { return [ 'id' => $id ]; }, $ids );
   }
 
   // Default photos [ file, width, height ] until the real wedding photos are added
@@ -136,7 +131,6 @@ add_action( 'acf/init', function () {
   if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
 
   $fields   = [];
-  $fields[] = [ 'key' => 'field_wed_tab_texts', 'label' => 'Texts', 'type' => 'tab', 'placement' => 'top' ];
   $fields[] = [
     'key'     => 'field_wed_texts_note',
     'label'   => '',
@@ -157,22 +151,9 @@ add_action( 'acf/init', function () {
     ];
   }
 
-  $fields[] = [ 'key' => 'field_wed_tab_gallery', 'label' => 'Gallery', 'type' => 'tab', 'placement' => 'top' ];
-  $fields[] = [
-    'key'           => 'field_wed_gallery',
-    'label'         => 'Photos',
-    'name'          => 'wed_gallery',
-    'type'          => 'gallery',
-    'return_format' => 'id',
-    'preview_size'  => 'medium',
-    'insert'        => 'append',
-    'library'       => 'all',
-    'instructions'  => 'Add the wedding photos in the order you want them (drag to reorder). Portrait and landscape photos can be mixed. While this is empty, villa photos are shown.',
-  ];
-
   acf_add_local_field_group( [
     'key'             => 'group_weddings_page',
-    'title'           => 'Weddings page',
+    'title'           => 'Weddings page: texts',
     'fields'          => $fields,
     'location'        => [ [ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'weddings.php' ] ] ],
     'position'        => 'normal',
@@ -183,7 +164,7 @@ add_action( 'acf/init', function () {
 
 /* Show the page-language default as the placeholder of each text field */
 add_filter( 'acf/prepare_field', function ( $field ) {
-  if ( empty( $field['name'] ) || strpos( $field['name'], 'wed_' ) !== 0 || $field['name'] === 'wed_gallery' ) return $field;
+  if ( empty( $field['name'] ) || strpos( $field['name'], 'wed_' ) !== 0 ) return $field;
   $key  = substr( $field['name'], 4 );
   $copy = plh_wedding_copy();
   if ( ! isset( $copy[ $key ] ) ) return $field;
@@ -193,6 +174,110 @@ add_filter( 'acf/prepare_field', function ( $field ) {
   }
   $field['placeholder'] = $copy[ $key ][ $lang ] ?? $copy[ $key ]['en'];
   return $field;
+} );
+
+/* --------------------------------------------------------------------------
+   "Wedding photos" box: pick photos in the media library, drag to reorder.
+   Built with WordPress itself, so it works without ACF Pro.
+   Stored as a list of attachment IDs in the page meta _plh_wed_gallery.
+   -------------------------------------------------------------------------- */
+function plh_wedding_gallery_ids( $post_id ) {
+  $ids = get_post_meta( $post_id, '_plh_wed_gallery', true );
+  if ( ! is_array( $ids ) ) return [];
+  return array_values( array_filter( array_map( 'absint', $ids ), function ( $id ) {
+    return $id && wp_attachment_is_image( $id );
+  } ) );
+}
+
+function plh_is_wedding_page_screen( $post ) {
+  return $post && $post->post_type === 'page' && get_page_template_slug( $post ) === 'weddings.php';
+}
+
+add_action( 'add_meta_boxes_page', function ( $post ) {
+  if ( ! plh_is_wedding_page_screen( $post ) ) return;
+  add_meta_box( 'plh_wed_gallery_box', 'Wedding photos', 'plh_render_wedding_gallery_box', 'page', 'normal', 'high' );
+} );
+
+function plh_render_wedding_gallery_box( $post ) {
+  $ids = plh_wedding_gallery_ids( $post->ID );
+  wp_nonce_field( 'plh_wed_gallery_save', 'plh_wed_gallery_nonce' );
+  ?>
+  <p style="margin-top:0">Click <strong>Add photos</strong> to upload or choose photos (you can select several at once). Drag the thumbnails to change the order, click × to remove one. Then click <strong>Update</strong>. While this is empty, villa photos are shown on the page.</p>
+  <input type="hidden" name="plh_wed_gallery" id="plh-wed-gallery-input" value="<?php echo esc_attr( implode( ',', $ids ) ); ?>">
+  <ul id="plh-wed-gallery-list" class="plh-wed-gallery">
+    <?php foreach ( $ids as $id ) : ?>
+      <li data-id="<?php echo (int) $id; ?>">
+        <?php echo wp_get_attachment_image( $id, 'thumbnail' ); ?>
+        <button type="button" class="plh-wed-gallery__remove" aria-label="Remove">×</button>
+      </li>
+    <?php endforeach; ?>
+  </ul>
+  <p>
+    <button type="button" class="button button-primary" id="plh-wed-gallery-add">Add photos</button>
+    <button type="button" class="button" id="plh-wed-gallery-clear"<?php echo $ids ? '' : ' style="display:none"'; ?>>Remove all</button>
+  </p>
+  <style>
+    .plh-wed-gallery { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; min-height: 10px; }
+    .plh-wed-gallery li { position: relative; width: 110px; height: 110px; margin: 0; cursor: move; background: #f0f0f1; }
+    .plh-wed-gallery li img { width: 110px; height: 110px; object-fit: cover; display: block; }
+    .plh-wed-gallery__remove { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border: 0; border-radius: 50%; background: rgba(0,0,0,.7); color: #fff; font-size: 16px; line-height: 22px; cursor: pointer; padding: 0; }
+    .plh-wed-gallery .ui-sortable-placeholder { visibility: visible !important; border: 2px dashed #c3c4c7; background: transparent; }
+  </style>
+  <script>
+  jQuery(function ($) {
+    var $list = $('#plh-wed-gallery-list'), $input = $('#plh-wed-gallery-input'), $clear = $('#plh-wed-gallery-clear'), frame;
+    function sync() {
+      var ids = $list.children('li').map(function () { return $(this).data('id'); }).get();
+      $input.val(ids.join(','));
+      $clear.toggle(ids.length > 0);
+    }
+    $list.sortable({ items: 'li', tolerance: 'pointer', placeholder: 'ui-sortable-placeholder', update: sync });
+    $list.on('click', '.plh-wed-gallery__remove', function () { $(this).closest('li').remove(); sync(); });
+    $clear.on('click', function () { $list.empty(); sync(); });
+    $('#plh-wed-gallery-add').on('click', function (e) {
+      e.preventDefault();
+      if (!frame) {
+        frame = wp.media({ title: 'Wedding photos', button: { text: 'Add to the page' }, library: { type: 'image' }, multiple: 'add' });
+        frame.on('select', function () {
+          var have = $input.val() ? $input.val().split(',') : [];
+          frame.state().get('selection').each(function (att) {
+            var a = att.toJSON();
+            if (have.indexOf(String(a.id)) !== -1) return;
+            var src = (a.sizes && (a.sizes.thumbnail || a.sizes.medium) || a).url;
+            $('<li>').attr('data-id', a.id).data('id', a.id)
+              .append($('<img>').attr({ src: src, alt: '' }))
+              .append('<button type="button" class="plh-wed-gallery__remove" aria-label="Remove">×</button>')
+              .appendTo($list);
+            have.push(String(a.id));
+          });
+          sync();
+        });
+      }
+      frame.open();
+    });
+  });
+  </script>
+  <?php
+}
+
+add_action( 'admin_enqueue_scripts', function ( $hook ) {
+  if ( $hook !== 'post.php' && $hook !== 'post-new.php' ) return;
+  if ( ! plh_is_wedding_page_screen( get_post() ) ) return;
+  wp_enqueue_media();
+  wp_enqueue_script( 'jquery-ui-sortable' );
+} );
+
+add_action( 'save_post_page', function ( $post_id ) {
+  if ( ! isset( $_POST['plh_wed_gallery_nonce'] ) || ! wp_verify_nonce( $_POST['plh_wed_gallery_nonce'], 'plh_wed_gallery_save' ) ) return;
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+  if ( wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_page', $post_id ) ) return;
+  $raw = sanitize_text_field( wp_unslash( $_POST['plh_wed_gallery'] ?? '' ) );
+  $ids = array_values( array_unique( array_filter( array_map( 'absint', explode( ',', $raw ) ) ) ) );
+  if ( $ids ) {
+    update_post_meta( $post_id, '_plh_wed_gallery', $ids );
+  } else {
+    delete_post_meta( $post_id, '_plh_wed_gallery' );
+  }
 } );
 
 /* --------------------------------------------------------------------------
