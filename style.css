@@ -7521,6 +7521,7 @@ html {
 
 /* ==========================================================================
    WEDDINGS PAGE (template weddings.php)
+   Simple layout: title and text, then a full-width photo gallery.
    The Retreats page (retreats.php) shares the basics below (fonts, colours,
    buttons, form fields) and has its own layout in the RETREATS PAGE block.
    Same type roles as the homepage: Vogue (with Didot for accents) for
@@ -7610,329 +7611,8 @@ html {
   transition-delay: var(--wed-delay, 0ms);
 }
 .wed-anim .wedding-page .wed-reveal.is-visible { opacity: 1; transform: none; }
-
-/* Hero */
-.wed-hero {
-  position: relative;
-  height: 100vh;
-  height: 100svh;
-  min-height: 600px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
-  color: #fff;
-  text-align: center;
-}
-.wed-hero__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.06);
-  animation: wedHeroZoom 14s ease-out forwards;
-}
 @keyframes wedHeroZoom { to { transform: scale(1); } }
-.wed-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.05) 35%, rgba(0,0,0,.55) 100%);
-}
-.wed-hero__content {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-  padding: 0 24px 15vh;
-}
-.wedding-page .wed-hero__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(44px, 7.5vw, 104px);
-  line-height: 1;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #fff;
-  margin: 0 0 24px;
-}
-.wedding-page .wed-hero__text {
-  font-family: var(--font-sans);
-  font-size: 17px;
-  font-weight: 300;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  text-transform: none;
-  color: rgba(255,255,255,.92);
-  max-width: 560px;
-  margin: 0 auto 40px;
-}
-.wed-hero__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.wed-hero__scroll {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  bottom: 0;
-  width: 1px;
-  height: 9vh;
-  background: rgba(255,255,255,.35);
-  overflow: hidden;
-}
-.wed-hero__scroll::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -40%;
-  width: 1px;
-  height: 40%;
-  background: #fff;
-  animation: wedScroll 2.4s ease-in-out infinite;
-}
 @keyframes wedScroll { to { top: 100%; } }
-
-/* Intro */
-.wed-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: 8vw;
-  align-items: center;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 140px 5vw 110px;
-}
-.wed-intro__text .wed-title { font-size: clamp(28px, 2.8vw, 40px); }
-.wed-intro__media { position: relative; padding: 0 0 70px 70px; }
-.wed-intro__img-main { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-.wed-intro__img-small {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 44%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border: 10px solid #fff;
-}
-
-.wed-moments {
-  border-top: 1px solid var(--wed-line);
-  border-bottom: 1px solid var(--wed-line);
-  padding: 26px 24px;
-  text-align: center;
-}
-.wed-moments p {
-  font-family: var(--font-display);
-  font-size: clamp(14px, 1.4vw, 19px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--wed-muted);
-  margin: 0;
-}
-
-/* Settings */
-.wed-settings { padding: 130px 5vw 120px; }
-.wed-settings__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.wed-setting { text-align: center; }
-.wedding-page .wed-setting__title { display: block; text-align: center; }
-.wedding-page .wed-setting .wed-body { max-width: 380px; margin: 0 auto; }
-.wed-setting__media { overflow: hidden; margin-bottom: 26px; }
-.wed-setting__media img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  transition: transform 1.4s cubic-bezier(.2,.7,.2,1);
-}
-.wed-setting:hover .wed-setting__media img { transform: scale(1.05); }
-.wedding-page .wed-setting__num {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  color: var(--wed-muted);
-  margin-bottom: 10px;
-}
-.wedding-page .wed-setting__title,
-.wedding-page .wed-service__title,
-.wedding-page .wed-step__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 19px;
-  line-height: 1.3;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--wed-ink);
-  margin: 0 0 12px;
-}
-
-/* Quote band */
-.wed-quote {
-  position: relative;
-  padding: 22vh 24px;
-  background: var(--wed-band) center / cover no-repeat;
-  background-attachment: fixed;
-  text-align: center;
-  color: #fff;
-}
-.wed-quote::before { content: ""; position: absolute; inset: 0; background: rgba(20,18,15,.45); }
-.wed-quote__inner { position: relative; max-width: 880px; margin: 0 auto; }
-.wed-quote__mark {
-  display: block;
-  font-family: 'Didot', serif;
-  font-size: 90px;
-  line-height: .6;
-  color: rgba(255,255,255,.7);
-  margin-bottom: 18px;
-}
-.wedding-page .wed-quote__text {
-  font-family: 'Didot', serif;
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(24px, 2.8vw, 38px);
-  line-height: 1.45;
-  color: #fff;
-  margin: 0;
-  text-transform: none;
-}
-
-/* Services */
-.wed-services { background: var(--wed-sand); padding: 130px 5vw; }
-.wed-services__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-  gap: 8vw;
-  max-width: 1280px;
-  margin: 0 auto;
-  align-items: start;
-}
-.wed-services__head { position: sticky; top: 140px; }
-.wed-services__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
-.wed-service {
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 14px;
-  padding: 30px 0 34px;
-  border-top: 1px solid var(--wed-line);
-}
-.wedding-page .wed-service__num {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  color: var(--wed-muted);
-  padding-top: 4px;
-}
-.wedding-page .wed-service__title { font-size: 17px; margin-bottom: 8px; }
-.wedding-page .wed-service .wed-body { font-size: 14px; line-height: 1.7; }
-
-/* Process */
-.wed-process { padding: 130px 5vw 120px; }
-.wed-steps {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  max-width: 1200px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 40px;
-  position: relative;
-}
-.wed-steps::before {
-  content: "";
-  position: absolute;
-  top: 30px;
-  left: 12.5%;
-  right: 12.5%;
-  height: 1px;
-  background: var(--wed-line);
-}
-.wed-step { position: relative; text-align: center; }
-.wedding-page .wed-step__num {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 28px;
-  border: 1px solid var(--wed-muted);
-  border-radius: 50%;
-  background: #fff;
-  font-family: 'Didot', serif;
-  font-size: 18px;
-  color: var(--wed-ink);
-}
-.wedding-page .wed-step .wed-body { font-size: 14px; line-height: 1.7; max-width: 260px; margin: 0 auto; }
-
-/* Gallery */
-.wed-gallery { padding: 0 5vw 130px; }
-.wed-gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: 22vw;
-  gap: 14px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-.wed-gallery__item { margin: 0; overflow: hidden; }
-.wed-gallery__item img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.4s cubic-bezier(.2,.7,.2,1);
-}
-.wed-gallery__item:hover img { transform: scale(1.04); }
-.wed-gallery__grid {
-  grid-template-areas:
-    "g1 g1 g2 g4"
-    "g1 g1 g3 g4"
-    "g5 g6 g6 g6";
-}
-.wed-gallery__item--1 { grid-area: g1; }
-.wed-gallery__item--2 { grid-area: g2; }
-.wed-gallery__item--3 { grid-area: g3; }
-.wed-gallery__item--4 { grid-area: g4; }
-.wed-gallery__item--5 { grid-area: g5; }
-.wed-gallery__item--6 { grid-area: g6; }
-@media (min-width: 1400px) { .wed-gallery__grid { grid-auto-rows: 300px; } }
-
-/* Enquiry */
-.wed-enquiry { background: var(--wed-sand); padding: 130px 5vw; scroll-margin-top: 80px; }
-.wed-enquiry__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
-  gap: 7vw;
-  max-width: 1200px;
-  margin: 0 auto;
-  align-items: start;
-}
-.wed-enquiry__talk { margin-top: 44px; display: flex; flex-direction: column; gap: 12px; }
-.wedding-page .wed-enquiry__talk-label {
-  font-family: var(--font-display);
-  font-size: 17px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin: 0 0 4px;
-}
-.wed-enquiry__talk a {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 300;
-  color: var(--wed-ink);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  overflow-wrap: anywhere;
-}
-.wed-enquiry__talk a:hover { text-decoration: underline; }
-.wed-enquiry__talk i { width: 18px; color: var(--wed-muted); }
-.wed-enquiry__form { background: #fff; padding: 56px 52px; }
-.wed-enquiry__form .form-message { margin-bottom: 28px; }
 
 .wed-form { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 32px; }
 .wed-field { display: flex; flex-direction: column; min-width: 0; margin: 0; padding: 0; border: 0; }
@@ -8015,15 +7695,51 @@ html {
 .wed-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
 .wed-form__submit { grid-column: 1 / -1; justify-self: start; }
 
-/* Tablet */
+/* Weddings layout: no photo at the top, so the header gets its solid colour */
+.page-template-weddings .top-header,
+.page-template-weddings .bottom-header { background-color: #83A7AE; }
+.wed-simple__intro {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 230px 24px 90px;
+  text-align: center;
+}
+.wedding-page .wed-simple__title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.8vw, 42px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--wed-ink);
+  margin: 0 0 44px;
+}
+.wedding-page .wed-simple__text .wed-body { font-size: 16px; line-height: 1.9; margin: 0 0 22px; }
+.wedding-page .wed-simple__text .wed-body:last-child { margin-bottom: 0; }
+.wed-simple__intro .wed-btn { margin-top: 44px; }
+
+/* Gallery: full width, three columns, photos keep their own proportions */
+.wed-simple__gallery {
+  padding: 0;
+  columns: 3;
+  column-gap: 10px;
+}
+.wed-simple__photo {
+  margin: 0 0 10px;
+  break-inside: avoid;
+  overflow: hidden;
+}
+.wed-simple__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 1.4s cubic-bezier(.2,.7,.2,1);
+}
+.wed-simple__photo:hover img { transform: scale(1.03); }
+
 @media (max-width: 1100px) {
-  .wed-intro { grid-template-columns: 1fr; gap: 64px; padding-top: 100px; }
-  .wed-intro__media { max-width: 640px; }
-  .wed-services__inner { grid-template-columns: 1fr; gap: 48px; }
-  .wed-services__head { position: static; }
-  .wed-enquiry__inner { grid-template-columns: 1fr; gap: 56px; }
-  .wed-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 40px; }
-  .wed-steps::before { display: none; }
+  .wed-simple__gallery { columns: 2; }
 }
 
 /* Mobile */
@@ -8032,52 +7748,16 @@ html {
   .wedding-page .wed-title { font-size: 28px; }
   .wedding-page .wed-body { font-size: 14px; }
   .wedding-page .wed-rule { margin: 22px 0; }
-
-  .wed-hero { min-height: 560px; }
-  .wed-hero__content { padding-bottom: 13vh; }
-  .wedding-page .wed-hero__title { font-size: 44px; margin-bottom: 18px; }
-  .wedding-page .wed-hero__text { font-size: 15px; margin-bottom: 30px; }
-  .wed-hero__actions { flex-direction: column; align-items: stretch; gap: 12px; padding: 0 12px; }
   .wedding-page .wed-btn { text-align: center; padding: 16px 24px; }
-
-  .wed-intro { padding: 72px 24px 64px; gap: 48px; }
-  .wed-intro__media { padding: 0 0 48px 40px; }
-  .wed-intro__img-small { border-width: 6px; }
-
-  .wed-settings, .wed-process { padding: 80px 24px; }
-  .wed-settings__grid { grid-template-columns: 1fr; gap: 56px; }
-  .wed-setting__media img { aspect-ratio: 4 / 3; }
-
-  .wed-quote { padding: 110px 24px; background-attachment: scroll; }
-  .wed-quote__mark { font-size: 64px; }
-
-  .wed-services { padding: 80px 24px; }
-  .wed-services__list { grid-template-columns: 1fr; }
-  .wed-service { padding: 24px 0 26px; }
-
-  .wed-steps { grid-template-columns: 1fr; gap: 44px; }
-
-  .wed-gallery { padding: 0 24px 80px; }
-  .wed-gallery__grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 42vw;
-    gap: 8px;
-    grid-template-areas:
-      "g1 g1"
-      "g2 g4"
-      "g3 g4"
-      "g5 g6";
-  }
-
-  .wed-enquiry { padding: 80px 0 0; }
-  .wed-enquiry__intro { padding: 0 24px; }
-  .wed-enquiry__form { padding: 40px 24px 56px; }
   .wed-form { grid-template-columns: 1fr; gap: 26px; }
   .wed-form__submit { justify-self: stretch; }
+  .wed-simple__intro { padding: 150px 24px 56px; }
+  .wedding-page .wed-simple__title { font-size: 26px; margin-bottom: 30px; }
+  .wedding-page .wed-simple__text .wed-body { font-size: 15px; line-height: 1.8; }
+  .wed-simple__intro .wed-btn { margin-top: 32px; }
+  .wed-simple__gallery { column-gap: 6px; }
+  .wed-simple__photo { margin-bottom: 6px; }
 }
-
-/* iOS ignores fixed backgrounds and some devices stutter with them */
-@media (hover: none) { .wed-quote { background-attachment: scroll; } }
 
 /* ==========================================================================
    RETREATS PAGE (template retreats.php)
@@ -8478,39 +8158,13 @@ html {
   .wedding-page .wed-btn { font-size: 13px; padding: 20px 40px; }
   .wedding-page .wed-head { max-width: 1140px; margin-bottom: 80px; }
   .wedding-page .wed-title { text-wrap: balance; }
-
-  /* Weddings */
-  .wedding-page .wed-hero__title { font-size: 128px; }
-  .wedding-page .wed-hero__text { font-size: 20px; max-width: 680px; }
-  .wed-hero__content { max-width: 1100px; }
-  .wed-intro { max-width: 1640px; }
-  .wed-intro__text .wed-title { font-size: 50px; }
-  .wedding-page .wed-moments p { font-size: 22px; }
-  .wed-settings { padding: 170px 5vw 160px; }
-  .wed-settings__grid { max-width: 1640px; gap: 48px; }
-  .wedding-page .wed-setting .wed-body { max-width: 460px; }
-  .wedding-page .wed-setting__title,
-  .wedding-page .wed-step__title { font-size: 22px; }
-  .wed-quote__inner { max-width: 1120px; }
-  .wedding-page .wed-quote__text { font-size: 48px; }
-  .wed-services { padding: 170px 5vw; }
-  .wed-services__inner { max-width: 1640px; }
-  .wedding-page .wed-service__title { font-size: 20px; }
-  .wedding-page .wed-service .wed-body { font-size: 15px; }
-  .wed-process { padding: 170px 5vw 160px; }
-  .wed-steps { max-width: 1560px; }
-  .wedding-page .wed-step .wed-body { font-size: 15px; max-width: 320px; }
-  .wed-gallery { padding-bottom: 170px; }
-  .wed-gallery__grid { max-width: 1800px; grid-auto-rows: 380px; gap: 18px; }
-  .wed-enquiry { padding: 170px 5vw; }
-  .wed-enquiry__inner { max-width: 1480px; }
-  .wedding-page .wed-enquiry__talk-label { font-size: 19px; }
-  .wed-enquiry__talk a { font-size: 17px; }
-  .wed-enquiry__form { padding: 72px 68px; }
   .wed-form label, .wed-form legend { font-size: 12px; }
   .wed-form input[type="text"], .wed-form input[type="email"], .wed-form input[type="tel"],
   .wed-form select, .wed-form textarea { font-size: 17px; }
   .wedding-page .wed-choice span, .wedding-page .wed-consent label { font-size: 14px; }
+  .wed-simple__intro { max-width: 1080px; padding-top: 260px; }
+  .wedding-page .wed-simple__title { font-size: 52px; }
+  .wedding-page .wed-simple__text .wed-body { font-size: 18px; }
 
   /* Retreats */
   .retreat-page { --ret-gap: 180px; }
@@ -8549,12 +8203,8 @@ html {
 @media (min-width: 2300px) {
   .wedding-page .wed-title { font-size: 62px; }
   .wedding-page .wed-body { font-size: 18px; }
-  .wedding-page .wed-hero__title { font-size: 150px; }
-  .wed-intro, .wed-settings__grid, .wed-services__inner,
   .ret-intro__photos, .ret-type, .ret-services__grid { max-width: 1900px; }
-  .wed-steps { max-width: 1800px; }
-  .wed-gallery__grid { max-width: 2100px; grid-auto-rows: 440px; }
-  .wed-enquiry__inner, .ret-ways__grid { max-width: 1700px; }
+  .ret-ways__grid { max-width: 1700px; }
   .ret-hero__text { width: 880px; }
   .wedding-page .ret-hero__title { font-size: 100px; }
   .ret-gallery__item { height: 780px; }
