@@ -54,8 +54,9 @@ $has_carousel = count( $card_images ) > 1;
                 <div class="swiper-button-next villa-card-carousel__next"></div>
             </div>
         <?php endif; ?>
-        <div class="villa-card__collection"><?php echo esc_html($args['collection']); ?></div>
-        <?php $villa_tag = plh_villa_tag( $args['post_id'] ?? null ); if ( $villa_tag !== '' ) : ?>
+        <?php $villa_tag = plh_villa_tag( $args['post_id'] ?? null ); ?>
+        <div class="villa-card__collection<?php echo $villa_tag !== '' ? ' villa-card__collection--below-tag' : ''; ?>"><?php echo esc_html($args['collection']); ?></div>
+        <?php if ( $villa_tag !== '' ) : ?>
             <span class="villa-tag villa-card__tag"><?php echo esc_html( $villa_tag ); ?></span>
         <?php endif; ?>
     </div>
