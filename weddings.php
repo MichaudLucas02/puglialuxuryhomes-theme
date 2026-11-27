@@ -2,14 +2,14 @@
 /**
  * Template Name: Weddings
  *
- * Simple layout: title, a few paragraphs, a button, then a large photo gallery.
- * Texts and photos are set in inc/weddings.php and can be replaced per page
- * in the admin ("Weddings page" box: Texts and Gallery tabs).
+ * Simple layout: title, a few paragraphs, a button, then three weddings.
+ * Each wedding has the same photo layout but its own style (colours, type).
+ * Texts and photos are set in inc/weddings.php and in the page admin
+ * ("Weddings page: texts" and "Weddings (3 galleries)" boxes).
  */
 get_header();
 
-$wed_photos = plh_wedding_gallery();
-$wed_alt    = plh_wed( 'title' );
+$wed_stories = plh_wedding_stories();
 ?>
 
 <div class="wedding-page wed-simple">
@@ -28,23 +28,36 @@ $wed_alt    = plh_wed( 'title' );
     <?php endif; ?>
   </section>
 
-  <?php if ( $wed_photos ) : ?>
-  <section class="wed-simple__gallery" aria-label="<?php echo esc_attr( $wed_alt ); ?>">
-    <?php foreach ( $wed_photos as $i => $photo ) : ?>
-      <figure class="wed-simple__photo">
-        <?php if ( ! empty( $photo['id'] ) ) :
-          echo wp_get_attachment_image( $photo['id'], 'large', false, [
-            'loading' => $i < 3 ? 'eager' : 'lazy',
-            'sizes'   => '(max-width: 775px) 100vw, 34vw',
-            'alt'     => get_post_meta( $photo['id'], '_wp_attachment_image_alt', true ) ?: $wed_alt,
-          ] );
-        else : ?>
-          <img src="<?php echo esc_url( $photo['src'] ); ?>" width="<?php echo (int) $photo['w']; ?>" height="<?php echo (int) $photo['h']; ?>" alt="<?php echo esc_attr( $wed_alt ); ?>" loading="<?php echo $i < 3 ? 'eager' : 'lazy'; ?>" decoding="async">
-        <?php endif; ?>
-      </figure>
-    <?php endforeach; ?>
+  <?php foreach ( $wed_stories as $s => $story ) : ?>
+  <section class="wed-story wed-story--<?php echo esc_attr( $story['theme'] ); ?>" aria-label="<?php echo esc_attr( $story['name'] ); ?>">
+    <header class="wed-story__head wed-reveal">
+      <span class="wed-story__num"><?php echo esc_html( sprintf( '%02d', $s + 1 ) ); ?></span>
+      <h2 class="wed-story__name"><?php echo esc_html( $story['name'] ); ?></h2>
+      <?php if ( $story['place'] !== '' ) : ?>
+        <p class="wed-story__place"><?php echo esc_html( $story['place'] ); ?></p>
+      <?php endif; ?>
+      <?php if ( $story['text'] !== '' ) : ?>
+        <p class="wed-story__text"><?php echo nl2br( esc_html( $story['text'] ) ); ?></p>
+      <?php endif; ?>
+    </header>
+    <div class="wed-simple__gallery">
+      <?php foreach ( $story['photos'] as $i => $photo ) :
+        $eager = $s === 0 && $i < 3; ?>
+        <figure class="wed-simple__photo">
+          <?php if ( ! empty( $photo['id'] ) ) :
+            echo wp_get_attachment_image( $photo['id'], 'large', false, [
+              'loading' => $eager ? 'eager' : 'lazy',
+              'sizes'   => '(max-width: 775px) 100vw, 34vw',
+              'alt'     => get_post_meta( $photo['id'], '_wp_attachment_image_alt', true ) ?: $story['name'],
+            ] );
+          else : ?>
+            <img src="<?php echo esc_url( $photo['src'] ); ?>" width="<?php echo (int) $photo['w']; ?>" height="<?php echo (int) $photo['h']; ?>" alt="<?php echo esc_attr( $story['name'] ); ?>" loading="<?php echo $eager ? 'eager' : 'lazy'; ?>" decoding="async">
+          <?php endif; ?>
+        </figure>
+      <?php endforeach; ?>
+    </div>
   </section>
-  <?php endif; ?>
+  <?php endforeach; ?>
 
 </div>
 
