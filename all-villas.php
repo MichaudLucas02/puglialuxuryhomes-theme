@@ -31,7 +31,6 @@ if ($all_villas->have_posts()) {
                 'beds'        => (string) (get_field('beds_1') ?: ''),
                 'guests'      => (string) (get_field('guests_1') ?: ''),
                 'price_range' => (string) (get_field('price_range_1') ?: ''),
-                'tag'         => esc_html(plh_villa_tag()),
             ];
         }
     }
@@ -587,7 +586,6 @@ body { margin: 0; }
         return '<div class="plh-popup">' +
             (v.image ? '<img src="' + v.image + '" class="plh-popup__img" alt="' + v.title + '">' : '') +
             '<div class="plh-popup__body">' +
-                (v.tag ? '<span class="villa-tag plh-popup__tag">' + v.tag + '</span>' : '') +
                 '<h4 class="plh-popup__title">' + v.title + '</h4>' +
                 (meta        ? '<p class="plh-popup__meta">'  + meta           + '</p>' : '') +
                 (v.price_range ? '<p class="plh-popup__price">' + v.price_range + '</p>' : '') +

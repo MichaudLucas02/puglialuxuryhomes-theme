@@ -155,6 +155,9 @@ function plh_render_season_row($m, $color_class, $per_period_label = '', $suffix
 ?>
 
 <section class="season-prices" id="season-prices">
+    <?php $villa_tag = plh_villa_tag( $pid ); if ( $villa_tag !== '' ) : ?>
+    <span class="villa-tag villa-tag--rates"><?php echo esc_html( $villa_tag ); ?></span>
+    <?php endif; ?>
     <div class="season-prices-header">
         <h2 class="must-have-title season-rates-title"><?php echo esc_html($rates_label); ?> <span class="season-year-display"><?php echo esc_html($active_year); ?></span></h2>
         <?php if ($show_tabs): ?>
