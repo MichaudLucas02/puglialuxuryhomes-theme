@@ -55,6 +55,9 @@ $has_carousel = count( $card_images ) > 1;
             </div>
         <?php endif; ?>
         <div class="villa-card__collection"><?php echo esc_html($args['collection']); ?></div>
+        <?php $villa_tag = plh_villa_tag( $args['post_id'] ?? null ); if ( $villa_tag !== '' ) : ?>
+            <span class="villa-tag villa-card__tag"><?php echo esc_html( $villa_tag ); ?></span>
+        <?php endif; ?>
     </div>
     <div class="villa-card__body">
     <h3 class="villa-card__title"><?php echo esc_html( $args['title'] ); ?></h3>

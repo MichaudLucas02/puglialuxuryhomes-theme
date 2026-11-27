@@ -5,6 +5,9 @@ add_action('init', function () {
   }
 }, 1);
 
+// Optional tag on a villa ("Opening year"…), shown on cards, the map popup and the villa hero
+require_once get_template_directory() . '/inc/villa-tag.php';
+
 // Theme supports
 add_action('after_setup_theme', function () {
   add_theme_support('title-tag');
