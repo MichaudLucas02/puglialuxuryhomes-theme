@@ -7738,6 +7738,89 @@ html {
 }
 .wed-simple__photo:hover img { transform: scale(1.03); }
 
+/* The three weddings: same photo layout, each with its own colours and type.
+   Style picked per wedding in the admin (ivory, olive, night). */
+.wedding-page .wed-story {
+  --story-bg: #f6f2ec;
+  --story-ink: var(--wed-ink);
+  --story-text: var(--wed-text);
+  --story-accent: var(--wed-muted);
+  background: var(--story-bg);
+  color: var(--story-ink);
+  padding: 110px 10px 10px;
+}
+.wed-story__head { max-width: 760px; margin: 0 auto 70px; padding: 0 24px; text-align: center; }
+.wedding-page .wed-story__num {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--story-accent);
+  margin-bottom: 22px;
+}
+.wedding-page .wed-story__num::before,
+.wedding-page .wed-story__num::after { content: ""; width: 40px; height: 1px; background: currentColor; opacity: .6; }
+.wedding-page .wed-story__name {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.3vw, 34px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--story-ink);
+  margin: 0;
+}
+.wedding-page .wed-story__place {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--story-accent);
+  margin: 18px 0 0;
+}
+.wedding-page .wed-story__text {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.85;
+  text-transform: none;
+  color: var(--story-text);
+  max-width: 620px;
+  margin: 26px auto 0;
+}
+
+/* Olive grove: soft green, Didot title in normal case */
+.wedding-page .wed-story--olive {
+  --story-bg: #e6e6d8;
+  --story-ink: #2e3222;
+  --story-text: #4d5040;
+  --story-accent: #757a4e;
+}
+.wedding-page .wed-story--olive .wed-story__name {
+  font-family: 'Didot', serif;
+  font-size: clamp(30px, 3vw, 46px);
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+.wedding-page .wed-story--olive .wed-story__num::before,
+.wedding-page .wed-story--olive .wed-story__num::after { width: 8px; height: 8px; border-radius: 50%; opacity: .5; }
+
+/* Evening: dark background, gold accents, light text */
+.wedding-page .wed-story--night {
+  --story-bg: #1c2526;
+  --story-ink: #f3eee6;
+  --story-text: rgba(243, 238, 230, .78);
+  --story-accent: #c8b48a;
+}
+.wedding-page .wed-story--night .wed-story__name { letter-spacing: 0.22em; }
+.wedding-page .wed-story--night .wed-story__num::before,
+.wedding-page .wed-story--night .wed-story__num::after { width: 80px; }
+
 @media (max-width: 1100px) {
   .wed-simple__gallery { columns: 2; }
 }
@@ -7755,8 +7838,14 @@ html {
   .wedding-page .wed-simple__title { font-size: 26px; margin-bottom: 30px; }
   .wedding-page .wed-simple__text .wed-body { font-size: 15px; line-height: 1.8; }
   .wed-simple__intro .wed-btn { margin-top: 32px; }
-  .wed-simple__gallery { column-gap: 6px; }
+  .wed-simple__gallery { columns: 1; }
   .wed-simple__photo { margin-bottom: 6px; }
+  .wedding-page .wed-story { padding: 72px 6px 6px; }
+  .wed-story__head { margin-bottom: 44px; }
+  .wedding-page .wed-story__name { font-size: 22px; }
+  .wedding-page .wed-story--olive .wed-story__name { font-size: 28px; }
+  .wedding-page .wed-story--night .wed-story__name { letter-spacing: 0.16em; }
+  .wedding-page .wed-story__text { font-size: 15px; line-height: 1.8; }
 }
 
 /* ==========================================================================
@@ -8165,6 +8254,12 @@ html {
   .wed-simple__intro { max-width: 1080px; padding-top: 260px; }
   .wedding-page .wed-simple__title { font-size: 52px; }
   .wedding-page .wed-simple__text .wed-body { font-size: 18px; }
+  .wedding-page .wed-story { padding-top: 140px; }
+  .wed-story__head { max-width: 980px; margin-bottom: 90px; }
+  .wedding-page .wed-story__name { font-size: 44px; }
+  .wedding-page .wed-story--olive .wed-story__name { font-size: 58px; }
+  .wedding-page .wed-story__place, .wedding-page .wed-story__num { font-size: 14px; }
+  .wedding-page .wed-story__text { font-size: 18px; max-width: 760px; }
 
   /* Retreats */
   .retreat-page { --ret-gap: 180px; }
